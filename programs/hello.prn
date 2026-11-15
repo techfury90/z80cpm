@@ -1,0 +1,39 @@
+                        ; M3: console test on the custom 8N1 UART.
+                        ; 1) print "Hello from Z80!\r\n"; 2) echo every received char.
+                        ; Ports: 0x80=status (bit0 tx_busy, bit1 rx_avail), 0x81 = TX(d)/RX(d).
+   0000                         ORG 0000H
+   0000   21 32 00              LXI H,MSG
+   0003   7e            PRT:    MOV A,M
+   0004   b7                    ORA A
+   0005   ca 0f 00              JZ ECHO
+   0008   cd 18 00              CALL PUTC
+   000b   23                    INX H
+   000c   c3 03 00              JMP PRT
+   000f   cd 24 00      ECHO:   CALL CIN
+   0012   cd 18 00              CALL PUTC
+   0015   c3 0f 00              JMP ECHO
+   0018   f5            PUTC:   PUSH PSW
+   0019   db 80         PUTC1:  IN 80H         ; status
+   001b   e6 01                 ANI 01H        ; tx_busy
+   001d   c2 19 00              JNZ PUTC1      ; wait until not busy
+   0020   f1                    POP PSW
+   0021   d3 81                 OUT 81H        ; TX data
+   0023   c9                    RET
+   0024   f5            CIN:    PUSH PSW
+   0025   db 80         CIN1:   IN 80H
+   0027   e6 02                 ANI 02H        ; rx_avail
+   0029   ca 25 00              JZ CIN1        ; wait until available
+   002c   db 81                 IN 81H         ; read data (consumes)
+   002e   47                    MOV B,A
+   002f   f1                    POP PSW
+   0030   78                    MOV A,B
+   0031   c9                    RET
+   0032   48 65 6c 6c   MSG:    DB "Hello from Z80!",0DH,0AH,0
+   0036   6f 20 66 72   
+   003a   6f 6d 20 5a   
+   003e   38 30 21 0d   
+   0042   0a 00         
+   0044                         END
+0024  CIN           0025  CIN1          000f  ECHO          0032  MSG       
+0003  PRT           0018  PUTC          0019  PUTC1         
+

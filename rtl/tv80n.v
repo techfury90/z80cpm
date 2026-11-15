@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 // tv80n -- negative-edge based wrapper for the TV80 core.
 // Adapted from lawrie/ulx3s_z80_template's src/Z80/tv80n.v, re-wired for the
 // Obijuan Z80-FPGA tv80_core (which outputs `dout`, not `do`, and has no `pc`).

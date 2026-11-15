@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 // Pure-LUT NOP ROM for the M1 core-execution proof.
 // All 8'h00 = NOP, except two 2-byte LD A,n at 0x0000 and 0x0002 to prove the
 // PC advances by 2 for multi-byte instructions (vs +1 for NOPs).

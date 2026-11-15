@@ -1,0 +1,12 @@
+                        ; M2: write 0x5A then 0xA5 to I/O port 0x40, then loop forever.
+                        ; Stackless on purpose (no CALL/RET/PUSH) - M2 proves native decode + fetch +
+                        ; I/O write, not the stack (real async SRAM comes in M5).
+   0000                         ORG 0000H
+   0000   3e 5a         START:  MVI A,5AH
+   0002   d3 40                 OUT 40H
+   0004   3e a5                 MVI A,0A5H
+   0006   d3 40                 OUT 40H
+   0008   c3 08 00      LOOP:   JMP LOOP
+   000b                         END
+0008  LOOP          0000  START         
+

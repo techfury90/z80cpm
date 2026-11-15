@@ -1,0 +1,7 @@
+   0100                         ORG 0100H
+   0100   3e 5a         START:  MVI A,5AH
+   0102   d3 40                 OUT 40H
+   0104   c3 00 01              JMP START
+   0107                         END
+0100  START         
+

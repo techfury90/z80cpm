@@ -1,0 +1,40 @@
+                        ; M5: execute FROM the async external SRAM. Write 8 distinct bytes (0x11..0x88)
+                        ; to 0x2000, copy them to 0x4000, then loop. The tb white-box asserts the SRAM
+                        ; contents and that wait_n was genuinely stretched.
+   0000                         ORG 0000H
+   0000   3e 11                 MVI A,11H
+   0002   32 00 20              STA 2000H
+   0005   3e 22                 MVI A,22H
+   0007   32 01 20              STA 2001H
+   000a   3e 33                 MVI A,33H
+   000c   32 02 20              STA 2002H
+   000f   3e 44                 MVI A,44H
+   0011   32 03 20              STA 2003H
+   0014   3e 55                 MVI A,55H
+   0016   32 04 20              STA 2004H
+   0019   3e 66                 MVI A,66H
+   001b   32 05 20              STA 2005H
+   001e   3e 77                 MVI A,77H
+   0020   32 06 20              STA 2006H
+   0023   3e 88                 MVI A,88H
+   0025   32 07 20              STA 2007H
+   0028   3a 00 20              LDA 2000H
+   002b   32 00 40              STA 4000H
+   002e   3a 01 20              LDA 2001H
+   0031   32 01 40              STA 4001H
+   0034   3a 02 20              LDA 2002H
+   0037   32 02 40              STA 4002H
+   003a   3a 03 20              LDA 2003H
+   003d   32 03 40              STA 4003H
+   0040   3a 04 20              LDA 2004H
+   0043   32 04 40              STA 4004H
+   0046   3a 05 20              LDA 2005H
+   0049   32 05 40              STA 4005H
+   004c   3a 06 20              LDA 2006H
+   004f   32 06 40              STA 4006H
+   0052   3a 07 20              LDA 2007H
+   0055   32 07 40              STA 4007H
+   0058   c3 58 00      DONE:   JMP DONE
+   005b                         END
+0058  DONE          
+

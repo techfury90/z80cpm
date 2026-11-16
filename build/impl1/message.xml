@@ -88,7 +88,7 @@
         <Message>
             <ID>51001030</ID>
             <Severity>Warning</Severity>
-            <Dynamic>n40320</Dynamic>
+            <Dynamic>n40903</Dynamic>
         </Message>
     </Task>
     <Task name="Lattice_Synthesis">

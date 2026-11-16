@@ -113,10 +113,12 @@ module z80cpm_brevia2(
                  : (mem_rd    ? sram_rdata
                  :              io_rdata);
 
-  // led[7] = hardware heartbeat (clock tick); led[6:0] = CPU port 0x40 writes
-  // (active-low board LEDs, so invert on the pad).
+  // led[7]=heartbeat (clock) | led[6]=reset held | led[5]=CPU fetch (m1_n, active-low)
+  // led[4:0]=address low bits (change if the core advances) -- diagnostic bus.
   assign led[7]   = hb[24];
-  assign led[6:0] = ~led_reg[6:0];
+  assign led[6]   = rst;
+  assign led[5]   = m1_n;
+  assign led[4:0] = A[4:0];
 
   tv80n u_cpu(
     .reset_n(~rst), .clk(clk), .wait_n(sram_wait), .int_n(vcc), .nmi_n(vcc), .busrq_n(vcc),

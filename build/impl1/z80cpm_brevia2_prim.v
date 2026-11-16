@@ -1,5 +1,5 @@
 // Verilog netlist produced by program LSE :  version Diamond (64-bit) 3.14.0.75.2
-// Netlist written on Sun Nov 15 20:02:19 2026
+// Netlist written on Sun Nov 15 20:02:53 2026
 //
 // Verilog Description of module z80cpm_brevia2
 //
@@ -706,37 +706,37 @@ module tv80n (wr_n, clk_N_323, mreq_n, n40905, rd_n, n40906, clk_op,
     wire n37026, iorq_n, n36950, iorq, iorq_N_343, n34912;
     
     FD1S3JX wr_n_45 (.D(nxt_mreq_n_N_348), .CK(clk_N_323), .PD(n9543), 
-            .Q(wr_n)) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(128[10] 144[8])
+            .Q(wr_n)) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(128[10] 144[8])
     defparam wr_n_45.GSR = "ENABLED";
-    FD1S3JX mreq_n_47 (.D(nxt_mreq_n), .CK(clk_N_323), .PD(n40905), .Q(mreq_n)) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(128[10] 144[8])
+    FD1S3JX mreq_n_47 (.D(nxt_mreq_n), .CK(clk_N_323), .PD(n40905), .Q(mreq_n)) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(128[10] 144[8])
     defparam mreq_n_47.GSR = "ENABLED";
-    FD1S3JX rd_n_44 (.D(nxt_rd_n), .CK(clk_N_323), .PD(n40906), .Q(rd_n)) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(128[10] 144[8])
+    FD1S3JX rd_n_44 (.D(nxt_rd_n), .CK(clk_N_323), .PD(n40906), .Q(rd_n)) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(128[10] 144[8])
     defparam rd_n_44.GSR = "ENABLED";
     FD1P3IX di_reg__i0 (.D(bus_din[0]), .SP(clk_op_enable_203), .CD(rst_s), 
-            .CK(clk_op), .Q(di_reg[0])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
+            .CK(clk_op), .Q(di_reg[0])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
     defparam di_reg__i0.GSR = "ENABLED";
     ORCALUT4 i6927_2_lut (.A(ALU_Op_3__N_1283[3]), .B(n40901), .Z(n9543)) /* synthesis lut_function=(A+(B)) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(138[9] 143[12])
     defparam i6927_2_lut.init = 16'heeee;
     FD1P3IX di_reg__i7 (.D(bus_din[7]), .SP(clk_op_enable_203), .CD(rst_s), 
-            .CK(clk_op), .Q(di_reg[7])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
+            .CK(clk_op), .Q(di_reg[7])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
     defparam di_reg__i7.GSR = "ENABLED";
     FD1P3IX di_reg__i6 (.D(bus_din[6]), .SP(clk_op_enable_203), .CD(n40906), 
-            .CK(clk_op), .Q(di_reg[6])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
+            .CK(clk_op), .Q(di_reg[6])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
     defparam di_reg__i6.GSR = "ENABLED";
     FD1P3IX di_reg__i5 (.D(bus_din[5]), .SP(clk_op_enable_203), .CD(rst_s), 
-            .CK(clk_op), .Q(di_reg[5])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
+            .CK(clk_op), .Q(di_reg[5])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
     defparam di_reg__i5.GSR = "ENABLED";
     FD1P3IX di_reg__i4 (.D(bus_din[4]), .SP(clk_op_enable_203), .CD(rst_s), 
-            .CK(clk_op), .Q(di_reg[4])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
+            .CK(clk_op), .Q(di_reg[4])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
     defparam di_reg__i4.GSR = "ENABLED";
     FD1P3IX di_reg__i3 (.D(bus_din[3]), .SP(clk_op_enable_203), .CD(n40900), 
-            .CK(clk_op), .Q(di_reg[3])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
+            .CK(clk_op), .Q(di_reg[3])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
     defparam di_reg__i3.GSR = "ENABLED";
     FD1P3IX di_reg__i2 (.D(bus_din[2]), .SP(clk_op_enable_203), .CD(rst_s), 
-            .CK(clk_op), .Q(di_reg[2])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
+            .CK(clk_op), .Q(di_reg[2])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
     defparam di_reg__i2.GSR = "ENABLED";
     FD1P3IX di_reg__i1 (.D(bus_din[1]), .SP(clk_op_enable_203), .CD(rst_s), 
-            .CK(clk_op), .Q(di_reg[1])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
+            .CK(clk_op), .Q(di_reg[1])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(146[10] 155[8])
     defparam di_reg__i1.GSR = "ENABLED";
     PFUMX i33394 (.BLUT(n37026), .ALUT(n37025), .C0(uart_tx_busy), .Z(n37027));
     ORCALUT4 i1_2_lut_rep_785 (.A(rd_n), .B(iorq_n), .Z(n38764)) /* synthesis lut_function=(A+(B)) */ ;
@@ -760,7 +760,7 @@ module tv80n (wr_n, clk_N_323, mreq_n, n40905, rd_n, n40906, clk_op,
     defparam i1_2_lut_rep_543_3_lut.init = 16'h1010;
     ORCALUT4 iorq_I_0_1_lut (.A(iorq), .Z(iorq_N_343)) /* synthesis lut_function=(!(A)) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(104[28:34])
     defparam iorq_I_0_1_lut.init = 16'h5555;
-    FD1S3JX iorq_n_46 (.D(iorq_N_343), .CK(clk_N_323), .PD(n34912), .Q(iorq_n)) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(128[10] 144[8])
+    FD1S3JX iorq_n_46 (.D(iorq_N_343), .CK(clk_N_323), .PD(n34912), .Q(iorq_n)) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=9, LSE_RCOL=4, LSE_LLINE=121, LSE_RLINE=126 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(128[10] 144[8])
     defparam iorq_n_46.GSR = "ENABLED";
     ORCALUT4 uart_wr_N_78_bdd_4_lut (.A(uart_wr_N_78), .B(n38711), .C(\sr[7] ), 
             .D(cpu_dout[7]), .Z(n37026)) /* synthesis lut_function=(A (B (C)+!B (D))+!A (C)) */ ;
@@ -1301,23 +1301,23 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
         n38625, n38627, n33821, n38639, n38543, n37469, n37734;
     
     FD1P3DX TmpAddr_i4 (.D(n18240), .SP(clk_op_enable_321), .CK(clk_op), 
-            .CD(n40902), .Q(TmpAddr[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40902), .Q(TmpAddr[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i4.GSR = "ENABLED";
     FD1P3DX TmpAddr_i5 (.D(n18238), .SP(clk_op_enable_321), .CK(clk_op), 
-            .CD(n40905), .Q(TmpAddr[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(TmpAddr[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i5.GSR = "ENABLED";
     PFUMX i33991 (.BLUT(n38055), .ALUT(n12382), .C0(ALU_Op_r[3]), .Z(n38056));
     FD1P3DX TmpAddr_i6 (.D(n18236), .SP(clk_op_enable_321), .CK(clk_op), 
-            .CD(rst_s), .Q(TmpAddr[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(TmpAddr[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i6.GSR = "ENABLED";
-    FD1S3DX Save_ALU_r_761 (.D(n8430), .CK(clk_op), .CD(n40905), .Q(Save_ALU_r)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX Save_ALU_r_761 (.D(n8430), .CK(clk_op), .CD(n40905), .Q(Save_ALU_r)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Save_ALU_r_761.GSR = "ENABLED";
     PFUMX i42 (.BLUT(n19), .ALUT(n34690), .C0(n40897), .Z(n27));
     FD1P3DX A__i1 (.D(n2010[0]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40905), .Q(sram_addr_0_0)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(sram_addr_0_0)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i1.GSR = "ENABLED";
     FD1P3DX IR_i0_i0 (.D(n963), .SP(clk_op_enable_325), .CK(clk_op), .CD(n40906), 
-            .Q(IR[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(IR[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i0.GSR = "ENABLED";
     CCU2B add_868_add_4_9 (.A0(TmpAddr[7]), .B0(GND_net), .C0(GND_net), 
           .D0(VCC_net), .A1(TmpAddr[8]), .B1(GND_net), .C1(GND_net), 
@@ -1326,12 +1326,12 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam add_868_add_4_9.INIT1 = 16'haaaa;
     defparam add_868_add_4_9.INJECT1_0 = "NO";
     defparam add_868_add_4_9.INJECT1_1 = "NO";
-    FD1S3DX Read_To_Reg_r__i0 (.D(n15[0]), .CK(clk_op), .CD(n40902), .Q(Read_To_Reg_r[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX Read_To_Reg_r__i0 (.D(n15[0]), .CK(clk_op), .CD(n40902), .Q(Read_To_Reg_r[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Read_To_Reg_r__i0.GSR = "ENABLED";
     ORCALUT4 i33023_3_lut (.A(n2031[12]), .B(n2048[12]), .C(n2299), .Z(n2103[12])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(514[19] 663[24])
     defparam i33023_3_lut.init = 16'hcaca;
     FD1P3BX Ap_i0_i0 (.D(ACC[0]), .SP(clk_op_enable_116), .CK(clk_op), 
-            .PD(n40902), .Q(Ap[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40902), .Q(Ap[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Ap_i0_i0.GSR = "ENABLED";
     CCU2B add_868_add_4_7 (.A0(TmpAddr[5]), .B0(GND_net), .C0(GND_net), 
           .D0(VCC_net), .A1(TmpAddr[6]), .B1(GND_net), .C1(GND_net), 
@@ -1341,25 +1341,25 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam add_868_add_4_7.INJECT1_0 = "NO";
     defparam add_868_add_4_7.INJECT1_1 = "NO";
     FD1P3DX ISet_i0 (.D(ISet_1__N_655[0]), .SP(clk_op_enable_308), .CK(clk_op), 
-            .CD(n40906), .Q(ISet[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(ISet[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ISet_i0.GSR = "ENABLED";
     FD1P3BX Fp_i0_i0 (.D(F[0]), .SP(clk_op_enable_116), .CK(clk_op), .PD(n40903), 
-            .Q(Fp[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(Fp[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Fp_i0_i0.GSR = "ENABLED";
-    FD1S3DX mcycles_i0 (.D(mcycles_d[0]), .CK(clk_op), .CD(n40903), .Q(mcycles[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX mcycles_i0 (.D(mcycles_d[0]), .CK(clk_op), .CD(n40903), .Q(mcycles[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam mcycles_i0.GSR = "ENABLED";
     FD1P3DX I_i0_i0 (.D(ACC[0]), .SP(clk_op_enable_83), .CK(clk_op), .CD(n40903), 
-            .Q(I[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(I[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam I_i0_i0.GSR = "ENABLED";
     FD1P3BX SP_i0_i0 (.D(n2895[0]), .SP(clk_op_enable_58), .CK(clk_op), 
-            .PD(n40903), .Q(SP[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(SP[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i0.GSR = "ENABLED";
     FD1S3JX RegAddrA_r_i0 (.D(n1660), .CK(clk_op), .PD(Set_BusA_To[1]), 
-            .Q(RegAddrA_r[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+            .Q(RegAddrA_r[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegAddrA_r_i0.GSR = "ENABLED";
-    FD1S3DX PreserveC_r_762 (.D(PreserveC), .CK(clk_op), .CD(rst_s), .Q(PreserveC_r)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX PreserveC_r_762 (.D(PreserveC), .CK(clk_op), .CD(rst_s), .Q(PreserveC_r)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam PreserveC_r_762.GSR = "ENABLED";
-    FD1S3DX ALU_Op_r__i0 (.D(n40205), .CK(clk_op), .CD(n40906), .Q(ALU_Op_r[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX ALU_Op_r__i0 (.D(n40205), .CK(clk_op), .CD(n40906), .Q(ALU_Op_r[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ALU_Op_r__i0.GSR = "ENABLED";
     CCU2B add_868_add_4_5 (.A0(TmpAddr[3]), .B0(GND_net), .C0(GND_net), 
           .D0(VCC_net), .A1(TmpAddr[4]), .B1(GND_net), .C1(GND_net), 
@@ -1369,7 +1369,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam add_868_add_4_5.INJECT1_0 = "NO";
     defparam add_868_add_4_5.INJECT1_1 = "NO";
     FD1S3JX RegAddrB_r_i0 (.D(n1669), .CK(clk_op), .PD(Set_BusB_To[1]), 
-            .Q(RegAddrB_r[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+            .Q(RegAddrB_r[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegAddrB_r_i0.GSR = "ENABLED";
     CCU2B add_868_add_4_3 (.A0(TmpAddr[1]), .B0(GND_net), .C0(GND_net), 
           .D0(VCC_net), .A1(TmpAddr[2]), .B1(GND_net), .C1(GND_net), 
@@ -1378,11 +1378,11 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam add_868_add_4_3.INIT1 = 16'haaaa;
     defparam add_868_add_4_3.INJECT1_0 = "NO";
     defparam add_868_add_4_3.INJECT1_1 = "NO";
-    FD1S3JX RegAddrC_i0 (.D(n34654), .CK(clk_op), .PD(n1684), .Q(RegAddrC[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3JX RegAddrC_i0 (.D(n34654), .CK(clk_op), .PD(n1684), .Q(RegAddrC[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegAddrC_i0.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i0 (.D(RegBusA[0]), .CK(clk_op), .Q(RegBusA_r[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i0 (.D(RegBusA[0]), .CK(clk_op), .Q(RegBusA_r[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i0.GSR = "ENABLED";
-    FD1S3AX BusB_i0 (.D(BusB_7__N_770[0]), .CK(clk_op), .Q(BusB[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusB_i0 (.D(BusB_7__N_770[0]), .CK(clk_op), .Q(BusB[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusB_i0.GSR = "ENABLED";
     CCU2B add_868_add_4_1 (.A0(GND_net), .B0(GND_net), .C0(GND_net), .D0(GND_net), 
           .A1(TmpAddr[0]), .B1(GND_net), .C1(GND_net), .D1(VCC_net), 
@@ -1391,13 +1391,13 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam add_868_add_4_1.INIT1 = 16'h555a;
     defparam add_868_add_4_1.INJECT1_0 = "NO";
     defparam add_868_add_4_1.INJECT1_1 = "NO";
-    FD1S3AX BusA_i1 (.D(BusA_7__N_778[0]), .CK(clk_op), .Q(Q_7__N_1732[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusA_i1 (.D(BusA_7__N_778[0]), .CK(clk_op), .Q(Q_7__N_1732[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusA_i1.GSR = "ENABLED";
     FD1P3DX Pre_XY_F_M_i0_i0 (.D(n33196), .SP(clk_op_enable_207), .CK(clk_op), 
-            .CD(n40905), .Q(Pre_XY_F_M[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40905), .Q(Pre_XY_F_M[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam Pre_XY_F_M_i0_i0.GSR = "ENABLED";
     FD1P3DX TmpAddr_i7 (.D(n18234), .SP(clk_op_enable_321), .CK(clk_op), 
-            .CD(n40905), .Q(TmpAddr[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(TmpAddr[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i7.GSR = "ENABLED";
     CCU2B PC_5706_add_4_17 (.A0(PC[14]), .B0(n957), .C0(n559[14]), .D0(PC16_B[7]), 
           .A1(PC[15]), .B1(n957), .C1(n559[15]), .D1(PC16_B[7]), .CIN(n30993), 
@@ -1408,14 +1408,14 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam PC_5706_add_4_17.INJECT1_1 = "NO";
     PFUMX i33961 (.BLUT(n37986), .ALUT(n2943[4]), .C0(n38631), .Z(n37987));
     FD1P3DX Halt_FF_778 (.D(n35424), .SP(clk_op_enable_22), .CK(clk_op), 
-            .CD(n40905), .Q(Halt_FF)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40905), .Q(Halt_FF)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam Halt_FF_778.GSR = "ENABLED";
     FD1S3DX IntE_FF2_783 (.D(IntE_FF2_N_918), .CK(clk_op), .CD(n40906), 
-            .Q(IntE_FF2)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .Q(IntE_FF2)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam IntE_FF2_783.GSR = "ENABLED";
-    FD1S3DX No_BTR_784 (.D(No_BTR_N_962), .CK(clk_op), .CD(n40906), .Q(No_BTR)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+    FD1S3DX No_BTR_784 (.D(No_BTR_N_962), .CK(clk_op), .CD(n40906), .Q(No_BTR)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam No_BTR_784.GSR = "ENABLED";
-    FD1S3BX ACC_i0 (.D(n18084), .CK(clk_op), .PD(rst_s), .Q(ACC[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3BX ACC_i0 (.D(n18084), .CK(clk_op), .PD(rst_s), .Q(ACC[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ACC_i0.GSR = "ENABLED";
     CCU2B PC_5706_add_4_15 (.A0(PC[12]), .B0(n957), .C0(n559[12]), .D0(PC16_B[7]), 
           .A1(PC[13]), .B1(n957), .C1(n559[13]), .D1(PC16_B[7]), .CIN(n30992), 
@@ -1432,11 +1432,11 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam PC_5706_add_4_13.INJECT1_0 = "NO";
     defparam PC_5706_add_4_13.INJECT1_1 = "NO";
     PFUMX i33959 (.BLUT(n37984), .ALUT(n37983), .C0(ALU_Op_r[2]), .Z(n37985));
-    FD1S3AX RegAddrB_r_i2 (.D(RegAddrB_r_2__N_742[2]), .CK(clk_op), .Q(RegAddrB_r[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegAddrB_r_i2 (.D(RegAddrB_r_2__N_742[2]), .CK(clk_op), .Q(RegAddrB_r[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegAddrB_r_i2.GSR = "ENABLED";
-    FD1S3AX RegAddrB_r_i1 (.D(Set_BusB_To[2]), .CK(clk_op), .Q(RegAddrB_r[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegAddrB_r_i1 (.D(Set_BusB_To[2]), .CK(clk_op), .Q(RegAddrB_r[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegAddrB_r_i1.GSR = "ENABLED";
-    FD1S3DX ALU_Op_r__i3 (.D(n37694), .CK(clk_op), .CD(rst_s), .Q(ALU_Op_r[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX ALU_Op_r__i3 (.D(n37694), .CK(clk_op), .CD(rst_s), .Q(ALU_Op_r[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ALU_Op_r__i3.GSR = "ENABLED";
     CCU2B PC_5706_add_4_11 (.A0(PC[8]), .B0(n957), .C0(n559[8]), .D0(PC16_B[7]), 
           .A1(PC[9]), .B1(n957), .C1(n559[9]), .D1(PC16_B[7]), .CIN(n30990), 
@@ -1445,11 +1445,11 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam PC_5706_add_4_11.INIT1 = 16'h74b8;
     defparam PC_5706_add_4_11.INJECT1_0 = "NO";
     defparam PC_5706_add_4_11.INJECT1_1 = "NO";
-    FD1S3DX ALU_Op_r__i2 (.D(n32138), .CK(clk_op), .CD(n40906), .Q(ALU_Op_r[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX ALU_Op_r__i2 (.D(n32138), .CK(clk_op), .CD(n40906), .Q(ALU_Op_r[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ALU_Op_r__i2.GSR = "ENABLED";
-    FD1S3DX ALU_Op_r__i1 (.D(n90), .CK(clk_op), .CD(n40906), .Q(ALU_Op_r[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX ALU_Op_r__i1 (.D(n90), .CK(clk_op), .CD(n40906), .Q(ALU_Op_r[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ALU_Op_r__i1.GSR = "ENABLED";
-    FD1S3DX Arith16_r_757 (.D(n33792), .CK(clk_op), .CD(n40906), .Q(Arith16_r)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX Arith16_r_757 (.D(n33792), .CK(clk_op), .CD(n40906), .Q(Arith16_r)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Arith16_r_757.GSR = "ENABLED";
     CCU2B PC_5706_add_4_9 (.A0(PC[6]), .B0(n957), .C0(n559[6]), .D0(PC16_B[6]), 
           .A1(PC[7]), .B1(n957), .C1(n559[7]), .D1(PC16_B[7]), .CIN(n30989), 
@@ -1465,10 +1465,10 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam PC_5706_add_4_7.INIT1 = 16'h74b8;
     defparam PC_5706_add_4_7.INJECT1_0 = "NO";
     defparam PC_5706_add_4_7.INJECT1_1 = "NO";
-    FD1S3AX RegAddrA_r_i2 (.D(RegAddrA_r_2__N_739[2]), .CK(clk_op), .Q(RegAddrA_r[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegAddrA_r_i2 (.D(RegAddrA_r_2__N_739[2]), .CK(clk_op), .Q(RegAddrA_r[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegAddrA_r_i2.GSR = "ENABLED";
     FD1P3DX TmpAddr_i8 (.D(n18232), .SP(clk_op_enable_77), .CK(clk_op), 
-            .CD(n40902), .Q(TmpAddr[8])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40902), .Q(TmpAddr[8])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i8.GSR = "ENABLED";
     CCU2B PC_5706_add_4_5 (.A0(PC[2]), .B0(n957), .C0(n941), .D0(PC16_B[2]), 
           .A1(PC[3]), .B1(n957), .C1(n942), .D1(PC16_B[3]), .CIN(n30987), 
@@ -1478,62 +1478,62 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam PC_5706_add_4_5.INJECT1_0 = "NO";
     defparam PC_5706_add_4_5.INJECT1_1 = "NO";
     PFUMX i14640 (.BLUT(n1177[0]), .ALUT(n1187[0]), .C0(n35485), .Z(n18145));
-    FD1S3AX RegAddrA_r_i1 (.D(Set_BusA_To[2]), .CK(clk_op), .Q(RegAddrA_r[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegAddrA_r_i1 (.D(Set_BusA_To[2]), .CK(clk_op), .Q(RegAddrA_r[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegAddrA_r_i1.GSR = "ENABLED";
     PFUMX i18081 (.BLUT(n8), .ALUT(MCycles_2__N_1018[2]), .C0(\ISet[1] ), 
           .Z(mcycles_d[2]));
     FD1P3DX A__i16 (.D(n2010[15]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(rst_s), .Q(sram_addr_0_15)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(sram_addr_0_15)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i16.GSR = "ENABLED";
-    FD1S3DX Auto_Wait_t1_785 (.D(n35209), .CK(clk_op), .CD(n40906), .Q(Auto_Wait_t1)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+    FD1S3DX Auto_Wait_t1_785 (.D(n35209), .CK(clk_op), .CD(n40906), .Q(Auto_Wait_t1)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam Auto_Wait_t1_785.GSR = "ENABLED";
     FD1P3BX SP_i0_i15 (.D(n2895[15]), .SP(clk_op_enable_50), .CK(clk_op), 
-            .PD(rst_s), .Q(SP[15])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(rst_s), .Q(SP[15])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i15.GSR = "ENABLED";
     FD1P3BX SP_i0_i14 (.D(n2895[14]), .SP(clk_op_enable_50), .CK(clk_op), 
-            .PD(n40903), .Q(SP[14])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(SP[14])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i14.GSR = "ENABLED";
     FD1P3BX SP_i0_i13 (.D(n2895[13]), .SP(clk_op_enable_50), .CK(clk_op), 
-            .PD(n40903), .Q(SP[13])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(SP[13])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i13.GSR = "ENABLED";
     FD1P3BX SP_i0_i12 (.D(n2895[12]), .SP(clk_op_enable_50), .CK(clk_op), 
-            .PD(n40903), .Q(SP[12])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(SP[12])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i12.GSR = "ENABLED";
     FD1P3BX SP_i0_i11 (.D(n2895[11]), .SP(clk_op_enable_50), .CK(clk_op), 
-            .PD(n40903), .Q(SP[11])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(SP[11])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i11.GSR = "ENABLED";
     FD1P3BX SP_i0_i10 (.D(n2895[10]), .SP(clk_op_enable_50), .CK(clk_op), 
-            .PD(n40903), .Q(SP[10])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(SP[10])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i10.GSR = "ENABLED";
     FD1P3BX SP_i0_i9 (.D(n2895[9]), .SP(clk_op_enable_50), .CK(clk_op), 
-            .PD(n40903), .Q(SP[9])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(SP[9])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i9.GSR = "ENABLED";
     FD1P3BX SP_i0_i8 (.D(n2895[8]), .SP(clk_op_enable_50), .CK(clk_op), 
-            .PD(n40903), .Q(SP[8])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(SP[8])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i8.GSR = "ENABLED";
     FD1P3DX A__i15 (.D(n2010[14]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40903), .Q(sram_addr_0_14)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40903), .Q(sram_addr_0_14)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i15.GSR = "ENABLED";
     FD1P3BX SP_i0_i7 (.D(n2895[7]), .SP(clk_op_enable_58), .CK(clk_op), 
-            .PD(n40902), .Q(SP[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40902), .Q(SP[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i7.GSR = "ENABLED";
     FD1P3BX SP_i0_i6 (.D(n2895[6]), .SP(clk_op_enable_58), .CK(clk_op), 
-            .PD(n40902), .Q(SP[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40902), .Q(SP[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i6.GSR = "ENABLED";
     FD1P3BX SP_i0_i5 (.D(n2895[5]), .SP(clk_op_enable_58), .CK(clk_op), 
-            .PD(n40905), .Q(SP[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40905), .Q(SP[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i5.GSR = "ENABLED";
     FD1P3BX SP_i0_i4 (.D(n2895[4]), .SP(clk_op_enable_58), .CK(clk_op), 
-            .PD(n40902), .Q(SP[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40902), .Q(SP[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i4.GSR = "ENABLED";
     FD1P3BX SP_i0_i3 (.D(n2895[3]), .SP(clk_op_enable_58), .CK(clk_op), 
-            .PD(n40905), .Q(SP[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40905), .Q(SP[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i3.GSR = "ENABLED";
     FD1P3BX SP_i0_i2 (.D(n2895[2]), .SP(clk_op_enable_58), .CK(clk_op), 
-            .PD(n40902), .Q(SP[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40902), .Q(SP[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i2.GSR = "ENABLED";
     FD1P3BX SP_i0_i1 (.D(n2895[1]), .SP(clk_op_enable_58), .CK(clk_op), 
-            .PD(n40905), .Q(SP[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40905), .Q(SP[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam SP_i0_i1.GSR = "ENABLED";
     PFUMX i38 (.BLUT(n34534), .ALUT(n34537), .C0(\ISet[1] ), .Z(Set_BusA_To[3]));
     CCU2B PC_5706_add_4_3 (.A0(PC[0]), .B0(n957), .C0(n939), .D0(PC16_B[0]), 
@@ -1543,7 +1543,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam PC_5706_add_4_3.INIT1 = 16'h74b8;
     defparam PC_5706_add_4_3.INJECT1_0 = "NO";
     defparam PC_5706_add_4_3.INJECT1_1 = "NO";
-    FD1S3DX Z16_r_759 (.D(n34948), .CK(clk_op), .CD(n40906), .Q(Z16_r)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX Z16_r_759 (.D(n34948), .CK(clk_op), .CD(n40906), .Q(Z16_r)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Z16_r_759.GSR = "ENABLED";
     CCU2B PC_5706_add_4_1 (.A0(GND_net), .B0(GND_net), .C0(GND_net), .D0(VCC_net), 
           .A1(n47), .B1(n28), .C1(n38652), .D1(\tstate[2] ), .COUT(n30986));   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1372[14:25])
@@ -1551,217 +1551,217 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam PC_5706_add_4_1.INIT1 = 16'hffff;
     defparam PC_5706_add_4_1.INJECT1_0 = "NO";
     defparam PC_5706_add_4_1.INJECT1_1 = "NO";
-    FD1S3DX Auto_Wait_t2_786 (.D(n8432), .CK(clk_op), .CD(n40906), .Q(Auto_Wait_t2)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+    FD1S3DX Auto_Wait_t2_786 (.D(n8432), .CK(clk_op), .CD(n40906), .Q(Auto_Wait_t2)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam Auto_Wait_t2_786.GSR = "ENABLED";
     FD1P3DX I_i0_i7 (.D(ACC[7]), .SP(clk_op_enable_83), .CK(clk_op), .CD(rst_s), 
-            .Q(I[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(I[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam I_i0_i7.GSR = "ENABLED";
     FD1P3DX I_i0_i6 (.D(ACC[6]), .SP(clk_op_enable_83), .CK(clk_op), .CD(n40903), 
-            .Q(I[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(I[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam I_i0_i6.GSR = "ENABLED";
-    PFUMX mux_605_Mux_6_i7 (.BLUT(n3), .ALUT(n34519), .C0(n38549), .Z(n2197[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
+    PFUMX mux_605_Mux_6_i7 (.BLUT(n3), .ALUT(n34519), .C0(n38549), .Z(n2197[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
     PFUMX mux_605_Mux_5_i7 (.BLUT(n3_adj_1921), .ALUT(n6), .C0(n38549), 
-          .Z(n2197[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
+          .Z(n2197[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
     FD1P3DX mcycle_i0_i6 (.D(n2210[6]), .SP(last_tstate), .CK(clk_op), 
-            .CD(rst_s), .Q(mc[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(rst_s), .Q(mc[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam mcycle_i0_i6.GSR = "ENABLED";
     FD1P3DX TmpAddr_i9 (.D(n18230), .SP(clk_op_enable_77), .CK(clk_op), 
-            .CD(n40905), .Q(TmpAddr[9])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(TmpAddr[9])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i9.GSR = "ENABLED";
     FD1P3DX TmpAddr_i10 (.D(n18228), .SP(clk_op_enable_77), .CK(clk_op), 
-            .CD(rst_s), .Q(TmpAddr[10])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(TmpAddr[10])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i10.GSR = "ENABLED";
     FD1P3DX TmpAddr_i11 (.D(n18226), .SP(clk_op_enable_77), .CK(clk_op), 
-            .CD(n40905), .Q(TmpAddr[11])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(TmpAddr[11])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i11.GSR = "ENABLED";
     FD1P3DX TmpAddr_i12 (.D(n18224), .SP(clk_op_enable_77), .CK(clk_op), 
-            .CD(n40902), .Q(TmpAddr[12])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40902), .Q(TmpAddr[12])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i12.GSR = "ENABLED";
     FD1P3DX TmpAddr_i13 (.D(n18222), .SP(clk_op_enable_77), .CK(clk_op), 
-            .CD(n40905), .Q(TmpAddr[13])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(TmpAddr[13])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i13.GSR = "ENABLED";
     FD1P3DX TmpAddr_i14 (.D(n18220), .SP(clk_op_enable_77), .CK(clk_op), 
-            .CD(rst_s), .Q(TmpAddr[14])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(TmpAddr[14])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i14.GSR = "ENABLED";
     FD1P3DX TmpAddr_i15 (.D(n18218), .SP(clk_op_enable_77), .CK(clk_op), 
-            .CD(n40906), .Q(TmpAddr[15])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(TmpAddr[15])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i15.GSR = "ENABLED";
     FD1P3DX dout_i1 (.D(n18216), .SP(clk_op_enable_297), .CK(clk_op), 
-            .CD(n40905), .Q(cpu_dout[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(cpu_dout[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam dout_i1.GSR = "ENABLED";
     FD1P3DX mcycle_i0_i5 (.D(n2210[5]), .SP(last_tstate), .CK(clk_op), 
-            .CD(n40903), .Q(mc[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40903), .Q(mc[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam mcycle_i0_i5.GSR = "ENABLED";
     FD1P3DX mcycle_i0_i4 (.D(n2210[4]), .SP(last_tstate), .CK(clk_op), 
-            .CD(n40906), .Q(mc[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40906), .Q(mc[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam mcycle_i0_i4.GSR = "ENABLED";
     FD1P3DX mcycle_i0_i3 (.D(n2210[3]), .SP(last_tstate), .CK(clk_op), 
-            .CD(n40903), .Q(mc[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40903), .Q(mc[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam mcycle_i0_i3.GSR = "ENABLED";
     FD1P3DX mcycle_i0_i2 (.D(n2210[2]), .SP(last_tstate), .CK(clk_op), 
-            .CD(n40906), .Q(mc[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40906), .Q(mc[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam mcycle_i0_i2.GSR = "ENABLED";
     FD1P3DX mcycle_i0_i1 (.D(n2210[1]), .SP(last_tstate), .CK(clk_op), 
-            .CD(n40906), .Q(Set_BusA_To_3__N_1212[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40906), .Q(Set_BusA_To_3__N_1212[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam mcycle_i0_i1.GSR = "ENABLED";
     FD1P3DX I_i0_i5 (.D(ACC[5]), .SP(clk_op_enable_83), .CK(clk_op), .CD(n40902), 
-            .Q(I[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(I[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam I_i0_i5.GSR = "ENABLED";
     FD1P3DX I_i0_i4 (.D(ACC[4]), .SP(clk_op_enable_83), .CK(clk_op), .CD(n40903), 
-            .Q(I[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(I[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam I_i0_i4.GSR = "ENABLED";
     FD1P3DX I_i0_i3 (.D(ACC[3]), .SP(clk_op_enable_83), .CK(clk_op), .CD(n40903), 
-            .Q(I[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(I[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam I_i0_i3.GSR = "ENABLED";
     FD1P3DX I_i0_i2 (.D(ACC[2]), .SP(clk_op_enable_83), .CK(clk_op), .CD(n40903), 
-            .Q(I[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(I[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam I_i0_i2.GSR = "ENABLED";
     FD1P3DX I_i0_i1 (.D(ACC[1]), .SP(clk_op_enable_83), .CK(clk_op), .CD(n40903), 
-            .Q(I[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(I[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam I_i0_i1.GSR = "ENABLED";
     FD1P3BX F_i5 (.D(F_7__N_683[5]), .SP(clk_op_enable_85), .CK(clk_op), 
-            .PD(n40903), .Q(F[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(F[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam F_i5.GSR = "ENABLED";
-    FD1S3BX F_i4 (.D(F_7__N_683[4]), .CK(clk_op), .PD(n40903), .Q(F[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3BX F_i4 (.D(F_7__N_683[4]), .CK(clk_op), .PD(n40903), .Q(F[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam F_i4.GSR = "ENABLED";
     FD1P3BX F_i3 (.D(F_7__N_683[3]), .SP(clk_op_enable_85), .CK(clk_op), 
-            .PD(n40903), .Q(F[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(F[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam F_i3.GSR = "ENABLED";
     FD1P3DX A__i14 (.D(n2010[13]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40903), .Q(sram_addr_0_13)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40903), .Q(sram_addr_0_13)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i14.GSR = "ENABLED";
     FD1P3DX A__i13 (.D(n2010[12]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40906), .Q(sram_addr_0_12)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(sram_addr_0_12)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i13.GSR = "ENABLED";
     FD1P3DX A__i12 (.D(n2010[11]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40903), .Q(sram_addr_0_11)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40903), .Q(sram_addr_0_11)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i12.GSR = "ENABLED";
-    FD1S3DX mcycles_i2 (.D(mcycles_d[2]), .CK(clk_op), .CD(n40903), .Q(mcycles[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX mcycles_i2 (.D(mcycles_d[2]), .CK(clk_op), .CD(n40903), .Q(mcycles[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam mcycles_i2.GSR = "ENABLED";
-    FD1S3DX mcycles_i1 (.D(mcycles_d[1]), .CK(clk_op), .CD(n40903), .Q(mcycles[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX mcycles_i1 (.D(mcycles_d[1]), .CK(clk_op), .CD(n40903), .Q(mcycles[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam mcycles_i1.GSR = "ENABLED";
     FD1P3BX Fp_i0_i7 (.D(F[7]), .SP(clk_op_enable_116), .CK(clk_op), .PD(n40906), 
-            .Q(Fp[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(Fp[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Fp_i0_i7.GSR = "ENABLED";
     FD1P3DX A__i11 (.D(n2010[10]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40903), .Q(sram_addr_0_10)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40903), .Q(sram_addr_0_10)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i11.GSR = "ENABLED";
     FD1P3BX Fp_i0_i6 (.D(F[6]), .SP(clk_op_enable_116), .CK(clk_op), .PD(n40902), 
-            .Q(Fp[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(Fp[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Fp_i0_i6.GSR = "ENABLED";
     FD1P3BX Fp_i0_i5 (.D(F[5]), .SP(clk_op_enable_116), .CK(clk_op), .PD(n40906), 
-            .Q(Fp[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(Fp[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Fp_i0_i5.GSR = "ENABLED";
     FD1P3BX Fp_i0_i4 (.D(F[4]), .SP(clk_op_enable_116), .CK(clk_op), .PD(n40906), 
-            .Q(Fp[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(Fp[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Fp_i0_i4.GSR = "ENABLED";
     FD1P3BX Fp_i0_i3 (.D(F[3]), .SP(clk_op_enable_116), .CK(clk_op), .PD(n40903), 
-            .Q(Fp[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(Fp[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Fp_i0_i3.GSR = "ENABLED";
     FD1P3DX A__i10 (.D(n2010[9]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40903), .Q(sram_addr_0_9)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40903), .Q(sram_addr_0_9)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i10.GSR = "ENABLED";
     FD1P3BX Fp_i0_i2 (.D(F[2]), .SP(clk_op_enable_116), .CK(clk_op), .PD(n40905), 
-            .Q(Fp[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(Fp[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Fp_i0_i2.GSR = "ENABLED";
     FD1P3BX Fp_i0_i1 (.D(F[1]), .SP(clk_op_enable_116), .CK(clk_op), .PD(n40906), 
-            .Q(Fp[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(Fp[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Fp_i0_i1.GSR = "ENABLED";
     FD1P3DX ISet_i1 (.D(ISet_1__N_655[1]), .SP(clk_op_enable_308), .CK(clk_op), 
-            .CD(n40906), .Q(\ISet[1] )) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(\ISet[1] )) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ISet_i1.GSR = "ENABLED";
     FD1P3DX A__i9 (.D(n2010[8]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40902), .Q(sram_addr_0_8)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40902), .Q(sram_addr_0_8)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i9.GSR = "ENABLED";
     FD1P3DX A__i8 (.D(n2010[7]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40905), .Q(sram_addr_0_7)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(sram_addr_0_7)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i8.GSR = "ENABLED";
     FD1P3DX A__i7 (.D(n2010[6]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40902), .Q(sram_addr_0_6)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40902), .Q(sram_addr_0_6)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i7.GSR = "ENABLED";
     ORCALUT4 i33025_3_lut (.A(n2031[11]), .B(n2048[11]), .C(n2299), .Z(n2103[11])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(514[19] 663[24])
     defparam i33025_3_lut.init = 16'hcaca;
     ORCALUT4 i11207_3_lut (.A(TmpAddr[2]), .B(n87[2]), .C(n2295), .Z(n2123[2])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(514[19] 663[24])
     defparam i11207_3_lut.init = 16'hcaca;
     FD1P3DX A__i6 (.D(n2010[5]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40906), .Q(sram_addr_0_5)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(sram_addr_0_5)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i6.GSR = "ENABLED";
     ORCALUT4 i33027_3_lut (.A(n2031[10]), .B(n2048[10]), .C(n2299), .Z(n2103[10])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(514[19] 663[24])
     defparam i33027_3_lut.init = 16'hcaca;
     FD1P3BX Ap_i0_i7 (.D(ACC[7]), .SP(clk_op_enable_116), .CK(clk_op), 
-            .PD(n40902), .Q(Ap[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40902), .Q(Ap[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Ap_i0_i7.GSR = "ENABLED";
     FD1P3BX Ap_i0_i6 (.D(ACC[6]), .SP(clk_op_enable_116), .CK(clk_op), 
-            .PD(n40903), .Q(Ap[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(Ap[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Ap_i0_i6.GSR = "ENABLED";
     FD1P3DX A__i5 (.D(n2010[4]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40903), .Q(sram_addr_0_4)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40903), .Q(sram_addr_0_4)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i5.GSR = "ENABLED";
     FD1P3BX Ap_i0_i5 (.D(ACC[5]), .SP(clk_op_enable_116), .CK(clk_op), 
-            .PD(rst_s), .Q(Ap[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(rst_s), .Q(Ap[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Ap_i0_i5.GSR = "ENABLED";
     FD1P3BX Ap_i0_i4 (.D(ACC[4]), .SP(clk_op_enable_116), .CK(clk_op), 
-            .PD(n40903), .Q(Ap[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(Ap[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Ap_i0_i4.GSR = "ENABLED";
     FD1P3BX Ap_i0_i3 (.D(ACC[3]), .SP(clk_op_enable_116), .CK(clk_op), 
-            .PD(n40903), .Q(Ap[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(Ap[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Ap_i0_i3.GSR = "ENABLED";
     FD1P3BX Ap_i0_i2 (.D(ACC[2]), .SP(clk_op_enable_116), .CK(clk_op), 
-            .PD(n40902), .Q(Ap[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40902), .Q(Ap[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Ap_i0_i2.GSR = "ENABLED";
     FD1P3DX A__i4 (.D(n2010[3]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40906), .Q(sram_addr_0_3)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(sram_addr_0_3)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i4.GSR = "ENABLED";
     FD1P3BX Ap_i0_i1 (.D(ACC[1]), .SP(clk_op_enable_116), .CK(clk_op), 
-            .PD(rst_s), .Q(Ap[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(rst_s), .Q(Ap[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Ap_i0_i1.GSR = "ENABLED";
     FD1P3DX A__i3 (.D(n2010[2]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(n40902), .Q(sram_addr_0_2)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40902), .Q(sram_addr_0_2)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i3.GSR = "ENABLED";
     FD1P3DX BTR_r_758 (.D(BTR_r_N_977), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(rst_s), .Q(PC16_B_15__N_580[15])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(PC16_B_15__N_580[15])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam BTR_r_758.GSR = "ENABLED";
     FD1P3DX A__i2 (.D(n2010[1]), .SP(clk_op_enable_119), .CK(clk_op), 
-            .CD(rst_s), .Q(sram_addr_0_1)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(sram_addr_0_1)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam A__i2.GSR = "ENABLED";
-    FD1S3DX Read_To_Reg_r__i4 (.D(n15[4]), .CK(clk_op), .CD(n40905), .Q(Read_To_Reg_r[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX Read_To_Reg_r__i4 (.D(n15[4]), .CK(clk_op), .CD(n40905), .Q(Read_To_Reg_r[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Read_To_Reg_r__i4.GSR = "ENABLED";
-    FD1S3DX Read_To_Reg_r__i3 (.D(n34840), .CK(clk_op), .CD(n40903), .Q(Read_To_Reg_r[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX Read_To_Reg_r__i3 (.D(n34840), .CK(clk_op), .CD(n40903), .Q(Read_To_Reg_r[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Read_To_Reg_r__i3.GSR = "ENABLED";
-    FD1S3DX Read_To_Reg_r__i2 (.D(n15[2]), .CK(clk_op), .CD(n40903), .Q(Read_To_Reg_r[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX Read_To_Reg_r__i2 (.D(n15[2]), .CK(clk_op), .CD(n40903), .Q(Read_To_Reg_r[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Read_To_Reg_r__i2.GSR = "ENABLED";
-    FD1S3DX Read_To_Reg_r__i1 (.D(n15[1]), .CK(clk_op), .CD(n40902), .Q(Read_To_Reg_r[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3DX Read_To_Reg_r__i1 (.D(n15[1]), .CK(clk_op), .CD(n40902), .Q(Read_To_Reg_r[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Read_To_Reg_r__i1.GSR = "ENABLED";
     FD1P3DX dout_i2 (.D(n18214), .SP(clk_op_enable_297), .CK(clk_op), 
-            .CD(n40906), .Q(cpu_dout[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(cpu_dout[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam dout_i2.GSR = "ENABLED";
     FD1P3DX dout_i3 (.D(n18212), .SP(clk_op_enable_297), .CK(clk_op), 
-            .CD(n40906), .Q(cpu_dout[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(cpu_dout[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam dout_i3.GSR = "ENABLED";
     FD1P3DX dout_i4 (.D(n18210), .SP(clk_op_enable_297), .CK(clk_op), 
-            .CD(n40903), .Q(cpu_dout[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40903), .Q(cpu_dout[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam dout_i4.GSR = "ENABLED";
     FD1P3DX dout_i5 (.D(n18208), .SP(clk_op_enable_297), .CK(clk_op), 
-            .CD(n40905), .Q(cpu_dout[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(cpu_dout[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam dout_i5.GSR = "ENABLED";
     FD1P3DX dout_i6 (.D(n18206), .SP(clk_op_enable_297), .CK(clk_op), 
-            .CD(n40906), .Q(cpu_dout[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(cpu_dout[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam dout_i6.GSR = "ENABLED";
     FD1P3DX dout_i7 (.D(n18204), .SP(clk_op_enable_297), .CK(clk_op), 
-            .CD(n40903), .Q(cpu_dout[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40903), .Q(cpu_dout[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam dout_i7.GSR = "ENABLED";
     PFUMX i33853 (.BLUT(n37791), .ALUT(n2943[7]), .C0(n38631), .Z(n37792));
     FD1P3BX F_i1 (.D(F_7__N_683[1]), .SP(clk_op_enable_143), .CK(clk_op), 
-            .PD(n40903), .Q(F[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(F[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam F_i1.GSR = "ENABLED";
     FD1P3BX F_i2 (.D(F_7__N_683[2]), .SP(clk_op_enable_144), .CK(clk_op), 
-            .PD(n40905), .Q(F[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40905), .Q(F[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam F_i2.GSR = "ENABLED";
     FD1P3BX F_i6 (.D(n18200), .SP(clk_op_enable_145), .CK(clk_op), .PD(n40903), 
-            .Q(F[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(F[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam F_i6.GSR = "ENABLED";
     FD1P3BX F_i7 (.D(F_7__N_683[7]), .SP(clk_op_enable_146), .CK(clk_op), 
-            .PD(n40903), .Q(F[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .PD(n40903), .Q(F[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam F_i7.GSR = "ENABLED";
     FD1P3DX PC_5706__i1 (.D(n20[1]), .SP(clk_op_enable_284), .CK(clk_op), 
             .CD(n40902), .Q(PC[1])) /* synthesis syn_use_carry_chain=1 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1372[14:25])
@@ -1900,7 +1900,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(ACC[7]), .Z(n18121)) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;
     defparam i14616_3_lut_4_lut.init = 16'hfb40;
     FD1P3DX IR_i0_i7 (.D(n970), .SP(clk_op_enable_325), .CK(clk_op), .CD(n40906), 
-            .Q(\IR[7] )) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(\IR[7] )) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i7.GSR = "ENABLED";
     ORCALUT4 i14622_3_lut_4_lut (.A(Special_LD[0]), .B(n38427), .C(I[3]), 
             .D(ACC[3]), .Z(n18127)) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;
@@ -1912,13 +1912,13 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(ACC[5]), .Z(n18123)) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;
     defparam i14618_3_lut_4_lut.init = 16'hfb40;
     FD1P3DX XY_Ind_763 (.D(clk_op_enable_184), .SP(clk_op_enable_162), .CK(clk_op), 
-            .CD(n40905), .Q(XY_Ind)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(XY_Ind)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam XY_Ind_763.GSR = "ENABLED";
     ORCALUT4 i33176_3_lut_4_lut (.A(Special_LD[0]), .B(n38427), .C(n38443), 
             .D(n38396), .Z(n35780)) /* synthesis lut_function=(A (C (D))+!A (B+(C (D)))) */ ;
     defparam i33176_3_lut_4_lut.init = 16'hf444;
     FD1P3DX XY_State__i1 (.D(n18319), .SP(clk_op_enable_314), .CK(clk_op), 
-            .CD(n40905), .Q(XY_State[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(XY_State[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam XY_State__i1.GSR = "ENABLED";
     ORCALUT4 i14595_3_lut_4_lut (.A(Special_LD[0]), .B(n38427), .C(I[1]), 
             .D(ACC[1]), .Z(n18100)) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;
@@ -1933,7 +1933,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(ACC[4]), .Z(n18129)) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;
     defparam i14624_3_lut_4_lut.init = 16'hfb40;
     FD1P3DX IR_i0_i6 (.D(n969), .SP(clk_op_enable_325), .CK(clk_op), .CD(n40905), 
-            .Q(IR[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(IR[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i6.GSR = "ENABLED";
     ORCALUT4 i32498_3_lut_4_lut (.A(RegAddrB_r[0]), .B(n38455), .C(RegsH_7_1), 
             .D(RegsH_6_1), .Z(n36041)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(949[9:31])
@@ -2002,7 +2002,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(RegsH_4_5), .Z(n36005)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(949[9:31])
     defparam i32462_3_lut_4_lut.init = 16'hf1e0;
     FD1P3DX IR_i0_i5 (.D(n968), .SP(clk_op_enable_325), .CK(clk_op), .CD(n40905), 
-            .Q(IR[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(IR[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i5.GSR = "ENABLED";
     FD1P3DX PC_5706__i7 (.D(n20[7]), .SP(clk_op_enable_284), .CK(clk_op), 
             .CD(n40902), .Q(PC[7])) /* synthesis syn_use_carry_chain=1 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1372[14:25])
@@ -2011,19 +2011,19 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(RegsH_2_5), .Z(n36004)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(949[9:31])
     defparam i32461_3_lut_4_lut.init = 16'hf1e0;
     FD1P3DX IR_i0_i4 (.D(n967), .SP(clk_op_enable_325), .CK(clk_op), .CD(n40905), 
-            .Q(IR[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(IR[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i4.GSR = "ENABLED";
     ORCALUT4 i32460_3_lut_4_lut (.A(RegAddrB_r[0]), .B(n38455), .C(RegsH_1_5), 
             .D(RegsH_0_5), .Z(n36003)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(949[9:31])
     defparam i32460_3_lut_4_lut.init = 16'hf1e0;
     FD1P3DX IR_i0_i3 (.D(n966), .SP(clk_op_enable_325), .CK(clk_op), .CD(n40902), 
-            .Q(Set_BusA_To_3__N_1216[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(Set_BusA_To_3__N_1216[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i3.GSR = "ENABLED";
     FD1P3DX IR_i0_i2 (.D(n965), .SP(clk_op_enable_325), .CK(clk_op), .CD(n40905), 
-            .Q(IR[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(IR[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i2.GSR = "ENABLED";
     FD1P3DX IR_i0_i1 (.D(n964), .SP(clk_op_enable_325), .CK(clk_op), .CD(n40905), 
-            .Q(IR[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(IR[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i1.GSR = "ENABLED";
     ORCALUT4 i32456_3_lut_4_lut (.A(RegAddrB_r[0]), .B(n38455), .C(RegsL_7_2), 
             .D(RegsL_6_2), .Z(n35999)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(949[9:31])
@@ -2242,30 +2242,30 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(RegsL_2_6), .Z(n36053)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(949[9:31])
     defparam i32510_3_lut_4_lut.init = 16'hf1e0;
     FD1P3DX Alternate_755 (.D(Alternate_N_913), .SP(clk_op_enable_184), 
-            .CK(clk_op), .CD(n40905), .Q(Alternate)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CK(clk_op), .CD(n40905), .Q(Alternate)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam Alternate_755.GSR = "ENABLED";
-    FD1S3BX ACC_i7 (.D(n17995), .CK(clk_op), .PD(n40903), .Q(ACC[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3BX ACC_i7 (.D(n17995), .CK(clk_op), .PD(n40903), .Q(ACC[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ACC_i7.GSR = "ENABLED";
-    FD1S3BX ACC_i6 (.D(n17993), .CK(clk_op), .PD(n40903), .Q(ACC[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3BX ACC_i6 (.D(n17993), .CK(clk_op), .PD(n40903), .Q(ACC[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ACC_i6.GSR = "ENABLED";
-    FD1S3BX ACC_i5 (.D(n17987), .CK(clk_op), .PD(rst_s), .Q(ACC[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3BX ACC_i5 (.D(n17987), .CK(clk_op), .PD(rst_s), .Q(ACC[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ACC_i5.GSR = "ENABLED";
     ORCALUT4 i32509_3_lut_4_lut (.A(RegAddrB_r[0]), .B(n38455), .C(RegsL_1_6), 
             .D(RegsL_0_6), .Z(n36052)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(949[9:31])
     defparam i32509_3_lut_4_lut.init = 16'hf1e0;
-    FD1S3BX ACC_i4 (.D(n17985), .CK(clk_op), .PD(n40903), .Q(ACC[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3BX ACC_i4 (.D(n17985), .CK(clk_op), .PD(n40903), .Q(ACC[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ACC_i4.GSR = "ENABLED";
     ORCALUT4 i32503_3_lut_4_lut (.A(RegAddrB_r[0]), .B(n38455), .C(RegsH_3_0), 
             .D(RegsH_2_0), .Z(n36046)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(949[9:31])
     defparam i32503_3_lut_4_lut.init = 16'hf1e0;
-    FD1S3BX ACC_i3 (.D(n17983), .CK(clk_op), .PD(n40903), .Q(ACC[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3BX ACC_i3 (.D(n17983), .CK(clk_op), .PD(n40903), .Q(ACC[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ACC_i3.GSR = "ENABLED";
     ORCALUT4 mux_1698_i1_3_lut (.A(Save_Mux[0]), .B(n855[0]), .C(Read_To_Reg_r[0]), 
             .Z(n2875[0])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(853[15] 869[20])
     defparam mux_1698_i1_3_lut.init = 16'hcaca;
-    FD1S3BX ACC_i2 (.D(n17981), .CK(clk_op), .PD(rst_s), .Q(ACC[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3BX ACC_i2 (.D(n17981), .CK(clk_op), .PD(rst_s), .Q(ACC[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ACC_i2.GSR = "ENABLED";
-    FD1S3BX ACC_i1 (.D(n17975), .CK(clk_op), .PD(n40903), .Q(ACC[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+    FD1S3BX ACC_i1 (.D(n17975), .CK(clk_op), .PD(n40903), .Q(ACC[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ACC_i1.GSR = "ENABLED";
     ORCALUT4 i32502_3_lut_4_lut (.A(RegAddrB_r[0]), .B(n38455), .C(RegsH_1_0), 
             .D(RegsH_0_0), .Z(n36045)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(949[9:31])
@@ -2391,13 +2391,13 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .Z(n2711[0])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1046[11] 1078[18])
     defparam mux_1630_i1_3_lut.init = 16'hcaca;
     FD1P3DX Pre_XY_F_M_i0_i2 (.D(n34372), .SP(clk_op_enable_207), .CK(clk_op), 
-            .CD(n40905), .Q(Pre_XY_F_M[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40905), .Q(Pre_XY_F_M[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam Pre_XY_F_M_i0_i2.GSR = "ENABLED";
     ORCALUT4 i33310_3_lut_4_lut (.A(n38455), .B(n38452), .C(RegDIL_7__N_470[2]), 
             .D(RegDIL_7__N_762[2]), .Z(RegDIL[2])) /* synthesis lut_function=(A (C)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1005[12] 1014[12])
     defparam i33310_3_lut_4_lut.init = 16'hf1e0;
     FD1P3DX Pre_XY_F_M_i0_i1 (.D(n34891), .SP(clk_op_enable_207), .CK(clk_op), 
-            .CD(n40906), .Q(Pre_XY_F_M[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40906), .Q(Pre_XY_F_M[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam Pre_XY_F_M_i0_i1.GSR = "ENABLED";
     ORCALUT4 mux_293_i2_3_lut_4_lut (.A(Read_To_Reg_r[0]), .B(n38458), .C(Save_Mux[1]), 
             .D(BusB[5]), .Z(n1187[1])) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
@@ -2441,7 +2441,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam mux_293_i8_3_lut_4_lut.init = 16'hfb40;
     PFUMX i31851 (.BLUT(n1_adj_1930), .ALUT(n2_adj_1931), .C0(mcycles[1]), 
           .Z(n35394));
-    FD1S3AX BusA_i8 (.D(BusA_7__N_778[7]), .CK(clk_op), .Q(BusA[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusA_i8 (.D(BusA_7__N_778[7]), .CK(clk_op), .Q(BusA[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusA_i8.GSR = "ENABLED";
     ORCALUT4 i1_2_lut_3_lut_4_lut (.A(sram_addr_0_0), .B(n38603), .C(n33852), 
             .D(sram_addr_0_1), .Z(n33853)) /* synthesis lut_function=(!((B+!(C (D)))+!A)) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
@@ -2470,23 +2470,23 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     ORCALUT4 mux_4690_i1_4_lut_4_lut (.A(ISet[0]), .B(n40897), .C(Jump_N_1519), 
             .D(Jump_N_1501), .Z(Jump)) /* synthesis lut_function=(A (B (C))+!A (B (C)+!B (D))) */ ;
     defparam mux_4690_i1_4_lut_4_lut.init = 16'hd1c0;
-    FD1S3AX BusA_i7 (.D(BusA_7__N_778[6]), .CK(clk_op), .Q(BusA[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusA_i7 (.D(BusA_7__N_778[6]), .CK(clk_op), .Q(BusA[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusA_i7.GSR = "ENABLED";
     ORCALUT4 i1_4_lut_4_lut_adj_541 (.A(ISet[0]), .B(n38593), .C(n35341), 
             .D(n24), .Z(n8)) /* synthesis lut_function=(!(A+!(B+((D)+!C)))) */ ;
     defparam i1_4_lut_4_lut_adj_541.init = 16'h5545;
-    FD1S3AX BusA_i6 (.D(BusA_7__N_778[5]), .CK(clk_op), .Q(BusA[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusA_i6 (.D(BusA_7__N_778[5]), .CK(clk_op), .Q(BusA[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusA_i6.GSR = "ENABLED";
-    FD1S3AX BusA_i5 (.D(BusA_7__N_778[4]), .CK(clk_op), .Q(BusA[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusA_i5 (.D(BusA_7__N_778[4]), .CK(clk_op), .Q(BusA[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusA_i5.GSR = "ENABLED";
-    FD1S3AX BusA_i4 (.D(BusA_7__N_778[3]), .CK(clk_op), .Q(BusA[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusA_i4 (.D(BusA_7__N_778[3]), .CK(clk_op), .Q(BusA[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusA_i4.GSR = "ENABLED";
-    FD1S3AX BusA_i3 (.D(BusA_7__N_778[2]), .CK(clk_op), .Q(BusA[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusA_i3 (.D(BusA_7__N_778[2]), .CK(clk_op), .Q(BusA[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusA_i3.GSR = "ENABLED";
     ORCALUT4 i1_4_lut_4_lut_adj_542 (.A(ISet[0]), .B(n26), .C(n10_adj_1935), 
             .D(n23), .Z(n32784)) /* synthesis lut_function=(!(A+!(B+(C+(D))))) */ ;
     defparam i1_4_lut_4_lut_adj_542.init = 16'h5554;
-    FD1S3AX BusA_i2 (.D(BusA_7__N_778[1]), .CK(clk_op), .Q(BusA[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusA_i2 (.D(BusA_7__N_778[1]), .CK(clk_op), .Q(BusA[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusA_i2.GSR = "ENABLED";
     ORCALUT4 i2_3_lut_rep_540 (.A(n33888), .B(sram_addr_0_6), .C(sram_addr_0_7), 
             .Z(n38519)) /* synthesis lut_function=(!(A+((C)+!B))) */ ;
@@ -2719,24 +2719,24 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     ORCALUT4 i31872_3_lut (.A(RegBusA[14]), .B(RegBusA[6]), .C(Set_BusA_To[0]), 
             .Z(n35415)) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;
     defparam i31872_3_lut.init = 16'hcaca;
-    FD1S3AX BusB_i7 (.D(BusB_7__N_770[7]), .CK(clk_op), .Q(BusB[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusB_i7 (.D(BusB_7__N_770[7]), .CK(clk_op), .Q(BusB[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusB_i7.GSR = "ENABLED";
-    FD1S3AX BusB_i6 (.D(BusB_7__N_770[6]), .CK(clk_op), .Q(BusB[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusB_i6 (.D(BusB_7__N_770[6]), .CK(clk_op), .Q(BusB[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusB_i6.GSR = "ENABLED";
-    FD1S3AX BusB_i5 (.D(BusB_7__N_770[5]), .CK(clk_op), .Q(BusB[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusB_i5 (.D(BusB_7__N_770[5]), .CK(clk_op), .Q(BusB[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusB_i5.GSR = "ENABLED";
-    FD1S3AX BusB_i4 (.D(BusB_7__N_770[4]), .CK(clk_op), .Q(BusB[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusB_i4 (.D(BusB_7__N_770[4]), .CK(clk_op), .Q(BusB[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusB_i4.GSR = "ENABLED";
-    FD1S3AX BusB_i3 (.D(BusB_7__N_770[3]), .CK(clk_op), .Q(BusB[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusB_i3 (.D(BusB_7__N_770[3]), .CK(clk_op), .Q(BusB[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusB_i3.GSR = "ENABLED";
-    FD1S3AX BusB_i2 (.D(BusB_7__N_770[2]), .CK(clk_op), .Q(BusB[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusB_i2 (.D(BusB_7__N_770[2]), .CK(clk_op), .Q(BusB[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusB_i2.GSR = "ENABLED";
-    FD1S3AX BusB_i1 (.D(BusB_7__N_770[1]), .CK(clk_op), .Q(BusB[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
+    FD1S3AX BusB_i1 (.D(BusB_7__N_770[1]), .CK(clk_op), .Q(BusB[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1042[10] 1106[8])
     defparam BusB_i1.GSR = "ENABLED";
     ORCALUT4 i5_4_lut (.A(sram_addr_0_11), .B(sram_addr_0_8), .C(sram_addr_0_6), 
             .D(sram_addr_0_9), .Z(n12_adj_1952)) /* synthesis lut_function=(A+(B+(C+(D)))) */ ;
     defparam i5_4_lut.init = 16'hfffe;
-    FD1S3AX RegBusA_r_i15 (.D(RegBusA[15]), .CK(clk_op), .Q(RegBusA_r[15])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i15 (.D(RegBusA[15]), .CK(clk_op), .Q(RegBusA_r[15])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i15.GSR = "ENABLED";
     ORCALUT4 i20229_2_lut_3_lut_3_lut (.A(Pre_XY_F_M[1]), .B(Pre_XY_F_M[0]), 
             .C(mc[6]), .Z(n6)) /* synthesis lut_function=(!(A+((C)+!B))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1289[58:72])
@@ -2747,43 +2747,43 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     ORCALUT4 i8617_2_lut_3_lut_4_lut (.A(Pre_XY_F_M[1]), .B(Pre_XY_F_M[0]), 
             .C(NextIs_XY_Fetch), .D(mc[6]), .Z(n11461)) /* synthesis lut_function=(A (B (C)+!B (C+!(D)))+!A (B (C+!(D))+!B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1289[58:72])
     defparam i8617_2_lut_3_lut_4_lut.init = 16'hf0f6;
-    FD1S3AX RegBusA_r_i14 (.D(RegBusA[14]), .CK(clk_op), .Q(RegBusA_r[14])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i14 (.D(RegBusA[14]), .CK(clk_op), .Q(RegBusA_r[14])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i14.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i13 (.D(RegBusA[13]), .CK(clk_op), .Q(RegBusA_r[13])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i13 (.D(RegBusA[13]), .CK(clk_op), .Q(RegBusA_r[13])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i13.GSR = "ENABLED";
     FD1P3DX PC_5706__i13 (.D(n20[13]), .SP(clk_op_enable_284), .CK(clk_op), 
             .CD(n40902), .Q(PC[13])) /* synthesis syn_use_carry_chain=1 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1372[14:25])
     defparam PC_5706__i13.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i12 (.D(RegBusA[12]), .CK(clk_op), .Q(RegBusA_r[12])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i12 (.D(RegBusA[12]), .CK(clk_op), .Q(RegBusA_r[12])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i12.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i11 (.D(RegBusA[11]), .CK(clk_op), .Q(RegBusA_r[11])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i11 (.D(RegBusA[11]), .CK(clk_op), .Q(RegBusA_r[11])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i11.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i10 (.D(RegBusA[10]), .CK(clk_op), .Q(RegBusA_r[10])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i10 (.D(RegBusA[10]), .CK(clk_op), .Q(RegBusA_r[10])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i10.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i9 (.D(RegBusA[9]), .CK(clk_op), .Q(RegBusA_r[9])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i9 (.D(RegBusA[9]), .CK(clk_op), .Q(RegBusA_r[9])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i9.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i8 (.D(RegBusA[8]), .CK(clk_op), .Q(RegBusA_r[8])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i8 (.D(RegBusA[8]), .CK(clk_op), .Q(RegBusA_r[8])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i8.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i7 (.D(RegBusA[7]), .CK(clk_op), .Q(RegBusA_r[7])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i7 (.D(RegBusA[7]), .CK(clk_op), .Q(RegBusA_r[7])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i7.GSR = "ENABLED";
     PFUMX i14695 (.BLUT(n1143), .ALUT(n1170), .C0(n35480), .Z(n18200));
-    FD1S3AX RegBusA_r_i6 (.D(RegBusA[6]), .CK(clk_op), .Q(RegBusA_r[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i6 (.D(RegBusA[6]), .CK(clk_op), .Q(RegBusA_r[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i6.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i5 (.D(RegBusA[5]), .CK(clk_op), .Q(RegBusA_r[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i5 (.D(RegBusA[5]), .CK(clk_op), .Q(RegBusA_r[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i5.GSR = "ENABLED";
-    FD1S3AX RegBusA_r_i4 (.D(RegBusA[4]), .CK(clk_op), .Q(RegBusA_r[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i4 (.D(RegBusA[4]), .CK(clk_op), .Q(RegBusA_r[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i4.GSR = "ENABLED";
     ORCALUT4 i31875_3_lut (.A(RegBusA[13]), .B(RegBusA[5]), .C(Set_BusA_To[0]), 
             .Z(n35418)) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;
     defparam i31875_3_lut.init = 16'hcaca;
     PFUMX i14457 (.BLUT(n17960), .ALUT(IncDecZ_N_986), .C0(IncDecZ_N_988), 
           .Z(n17961));
-    FD1S3AX RegBusA_r_i3 (.D(RegBusA[3]), .CK(clk_op), .Q(RegBusA_r[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i3 (.D(RegBusA[3]), .CK(clk_op), .Q(RegBusA_r[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i3.GSR = "ENABLED";
     ORCALUT4 i7032_4_lut (.A(n38652), .B(\tstate[2] ), .C(n38737), .D(mc[6]), 
             .Z(clk_op_enable_325)) /* synthesis lut_function=(A (B)+!A (B (C (D)))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(502[17] 721[20])
     defparam i7032_4_lut.init = 16'hc888;
-    FD1S3AX RegBusA_r_i2 (.D(RegBusA[2]), .CK(clk_op), .Q(RegBusA_r[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i2 (.D(RegBusA[2]), .CK(clk_op), .Q(RegBusA_r[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i2.GSR = "ENABLED";
     ORCALUT4 i11205_3_lut (.A(TmpAddr[5]), .B(n87[5]), .C(n2295), .Z(n2123[5])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(514[19] 663[24])
     defparam i11205_3_lut.init = 16'hcaca;
@@ -2797,7 +2797,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam i31848_3_lut.init = 16'hcaca;
     ORCALUT4 i12135_3_lut (.A(TmpAddr[7]), .B(n87[7]), .C(n2295), .Z(n2123[7])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(514[19] 663[24])
     defparam i12135_3_lut.init = 16'hcaca;
-    FD1S3AX RegBusA_r_i1 (.D(RegBusA[1]), .CK(clk_op), .Q(RegBusA_r[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegBusA_r_i1 (.D(RegBusA[1]), .CK(clk_op), .Q(RegBusA_r[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegBusA_r_i1.GSR = "ENABLED";
     ORCALUT4 i1_3_lut_4_lut_adj_559 (.A(n40878), .B(n38474), .C(n38438), 
             .D(n38701), .Z(n22)) /* synthesis lut_function=(A (B (C (D))+!B (D))+!A (C (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(119[17:21])
@@ -2811,13 +2811,13 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     ORCALUT4 i31854_3_lut (.A(RegBusA[10]), .B(RegBusA[2]), .C(Set_BusA_To[0]), 
             .Z(n35397)) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;
     defparam i31854_3_lut.init = 16'hcaca;
-    FD1S3AX IncDecZ_767 (.D(n17961), .CK(clk_op), .Q(IncDecZ)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX IncDecZ_767 (.D(n17961), .CK(clk_op), .Q(IncDecZ)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam IncDecZ_767.GSR = "ENABLED";
     ORCALUT4 i1_2_lut_rep_437_3_lut (.A(Pre_XY_F_M[0]), .B(mc[6]), .C(n33475), 
             .Z(n38416)) /* synthesis lut_function=(A (C)+!A ((C)+!B)) */ ;
     defparam i1_2_lut_rep_437_3_lut.init = 16'hf1f1;
     FD1P3BX mcycle_i0_i0 (.D(n35011), .SP(last_tstate), .CK(clk_op), .PD(n40906), 
-            .Q(\ALU_Op_3__N_1283[3] )) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .Q(\ALU_Op_3__N_1283[3] )) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam mcycle_i0_i0.GSR = "ENABLED";
     ORCALUT4 i2_2_lut_3_lut (.A(Pre_XY_F_M[0]), .B(mc[6]), .C(Pre_XY_F_M[1]), 
             .Z(n34519)) /* synthesis lut_function=(!(A+(B+!(C)))) */ ;
@@ -3054,19 +3054,19 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .CD(n40903), .Q(PC[15])) /* synthesis syn_use_carry_chain=1 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1372[14:25])
     defparam PC_5706__i15.GSR = "ENABLED";
     FD1P3DX tstate_i0_i1 (.D(n18167), .SP(clk_op_enable_326), .CK(clk_op), 
-            .CD(n40905), .Q(tstate[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40905), .Q(tstate[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam tstate_i0_i1.GSR = "ENABLED";
     FD1P3DX tstate_i0_i2 (.D(n18165), .SP(clk_op_enable_326), .CK(clk_op), 
-            .CD(n40906), .Q(\tstate[2] )) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40906), .Q(\tstate[2] )) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam tstate_i0_i2.GSR = "ENABLED";
     FD1P3DX tstate_i0_i3 (.D(n18163), .SP(clk_op_enable_326), .CK(clk_op), 
-            .CD(rst_s), .Q(ts[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(rst_s), .Q(ts[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam tstate_i0_i3.GSR = "ENABLED";
     FD1P3DX tstate_i0_i4 (.D(n18161), .SP(clk_op_enable_326), .CK(clk_op), 
-            .CD(rst_s), .Q(ts[4])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(rst_s), .Q(ts[4])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam tstate_i0_i4.GSR = "ENABLED";
     FD1P3DX tstate_i0_i5 (.D(n18159), .SP(clk_op_enable_326), .CK(clk_op), 
-            .CD(n40906), .Q(ts[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40906), .Q(ts[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam tstate_i0_i5.GSR = "ENABLED";
     ORCALUT4 mux_493_i1_3_lut (.A(Save_Mux[0]), .B(ID16[8]), .C(RegWEH_N_901), 
             .Z(RegDIH_7__N_753[0])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1010[12] 1014[12])
@@ -3209,7 +3209,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam mux_1287_i14_3_lut.init = 16'hcaca;
     ORCALUT4 i33037_3_lut (.A(n2031[5]), .B(n2048[5]), .C(n2299), .Z(n2103[5])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(514[19] 663[24])
     defparam i33037_3_lut.init = 16'hcaca;
-    FD1S3AX RegAddrC_i2 (.D(RegAddrC_2__N_745[2]), .CK(clk_op), .Q(RegAddrC[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+    FD1S3AX RegAddrC_i2 (.D(RegAddrC_2__N_745[2]), .CK(clk_op), .Q(RegAddrC[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegAddrC_i2.GSR = "ENABLED";
     ORCALUT4 mux_1268_i13_3_lut (.A(TmpAddr[12]), .B(PC[12]), .C(n2293), 
             .Z(n2031[12])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(514[19] 663[24])
@@ -3359,16 +3359,16 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(Halt_FF), .Z(n968)) /* synthesis lut_function=(!(A (B ((D)+!C)+!B !(C))+!A !(C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(502[17] 721[20])
     defparam i20635_2_lut_3_lut_4_lut.init = 16'h70f0;
     FD1P3BX F_i0 (.D(n18147), .SP(clk_op_enable_296), .CK(clk_op), .PD(n40906), 
-            .Q(F[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .Q(F[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam F_i0.GSR = "ENABLED";
     ORCALUT4 i20634_2_lut_3_lut_4_lut (.A(\tstate[2] ), .B(n38652), .C(bus_din[6]), 
             .D(Halt_FF), .Z(n969)) /* synthesis lut_function=(!(A (B ((D)+!C)+!B !(C))+!A !(C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(502[17] 721[20])
     defparam i20634_2_lut_3_lut_4_lut.init = 16'h70f0;
     FD1P3DX dout_i0 (.D(n18145), .SP(clk_op_enable_297), .CK(clk_op), 
-            .CD(n40903), .Q(cpu_dout[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40903), .Q(cpu_dout[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam dout_i0.GSR = "ENABLED";
     FD1P3DX TmpAddr_i0 (.D(n18143), .SP(clk_op_enable_321), .CK(clk_op), 
-            .CD(n40902), .Q(TmpAddr[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40902), .Q(TmpAddr[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i0.GSR = "ENABLED";
     ORCALUT4 mux_493_i7_3_lut (.A(Save_Mux[6]), .B(ID16[14]), .C(RegWEH_N_901), 
             .Z(RegDIH_7__N_753[6])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1010[12] 1014[12])
@@ -3420,7 +3420,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     ORCALUT4 RegDIL_7__I_34_i2_3_lut_4_lut (.A(n38499), .B(ts[3]), .C(RegBusB[1]), 
             .D(RegBusA_r[1]), .Z(RegDIL_7__N_470[1])) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(939[16:47])
     defparam RegDIL_7__I_34_i2_3_lut_4_lut.init = 16'hfb40;
-    PFUMX mux_276_i2 (.BLUT(n35223), .ALUT(F_Out[1]), .C0(n38445), .Z(n1154[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
+    PFUMX mux_276_i2 (.BLUT(n35223), .ALUT(F_Out[1]), .C0(n38445), .Z(n1154[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
     ORCALUT4 RegDIL_7__I_34_i6_3_lut_4_lut (.A(n38499), .B(ts[3]), .C(RegBusB[5]), 
             .D(RegBusA_r[5]), .Z(RegDIL_7__N_470[5])) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(939[16:47])
     defparam RegDIL_7__I_34_i6_3_lut_4_lut.init = 16'hfb40;
@@ -3472,7 +3472,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam RegDIH_7__I_33_i1_3_lut_4_lut.init = 16'hfb40;
     PFUMX i14623 (.BLUT(n2587[3]), .ALUT(n18127), .C0(n35780), .Z(n18128));
     FD1P3DX IR_i0_i0_rep_823 (.D(n963), .SP(clk_op_enable_325), .CK(clk_op), 
-            .CD(rst_s), .Q(n40898)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(n40898)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i0_rep_823.GSR = "ENABLED";
     ORCALUT4 i11970_3_lut (.A(TmpAddr[0]), .B(n87[0]), .C(n2295), .Z(n2123[0])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(514[19] 663[24])
     defparam i11970_3_lut.init = 16'hcaca;
@@ -3492,7 +3492,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     ORCALUT4 i7017_4_lut (.A(n13), .B(Fp[6]), .C(n38443), .D(n14), .Z(n1143)) /* synthesis lut_function=(A (B (C))+!A (B (C+!(D))+!B !(C+(D)))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(724[15] 773[20])
     defparam i7017_4_lut.init = 16'hc0c5;
     FD1S3JX RegAddrC_i1 (.D(Set_Addr_To_2__N_1427[1]), .CK(clk_op), .PD(n34997), 
-            .Q(RegAddrC[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
+            .Q(RegAddrC[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(880[10] 929[8])
     defparam RegAddrC_i1.GSR = "ENABLED";
     PFUMX mux_1702_i6 (.BLUT(n2858[5]), .ALUT(n2875[5]), .C0(n2894), .Z(n2895[5]));
     ORCALUT4 RegDIH_7__I_33_i3_3_lut_4_lut (.A(n38499), .B(ts[3]), .C(RegBusB[10]), 
@@ -3505,7 +3505,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(RegBusA_r[9]), .Z(RegDIH_7__N_461[1])) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(939[16:47])
     defparam RegDIH_7__I_33_i2_3_lut_4_lut.init = 16'hfb40;
     FD1P3DX tstate_i0_i6 (.D(n18157), .SP(clk_op_enable_326), .CK(clk_op), 
-            .CD(n40906), .Q(ts[6])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40906), .Q(ts[6])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam tstate_i0_i6.GSR = "ENABLED";
     ORCALUT4 RegDIL_7__I_34_i7_3_lut_4_lut (.A(n38499), .B(ts[3]), .C(RegBusB[6]), 
             .D(RegBusA_r[6]), .Z(RegDIL_7__N_470[6])) /* synthesis lut_function=(A (D)+!A (B (C)+!B (D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(939[16:47])
@@ -3599,7 +3599,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     ORCALUT4 i5_4_lut_adj_583 (.A(di_reg[0]), .B(di_reg[1]), .C(di_reg[3]), 
             .D(di_reg[2]), .Z(n13_adj_1976)) /* synthesis lut_function=(!(A (B (C (D)+!C !(D))+!B !(C (D)+!C !(D)))+!A !(B (C (D)+!C !(D))+!B !(C (D)+!C !(D))))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(811[34:48])
     defparam i5_4_lut_adj_583.init = 16'h6996;
-    PFUMX i309 (.BLUT(n1145), .ALUT(n1172), .C0(n35523), .Z(n1228)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
+    PFUMX i309 (.BLUT(n1145), .ALUT(n1172), .C0(n35523), .Z(n1228)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
     ORCALUT4 i1_2_lut_4_lut_adj_584 (.A(n38505), .B(Read_To_Reg_r[2]), .C(n16540), 
             .D(Read_To_Reg_r[0]), .Z(n7169)) /* synthesis lut_function=(A (B (C (D)))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam i1_2_lut_4_lut_adj_584.init = 16'h8000;
@@ -3623,12 +3623,12 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .Z(RegAddrB_r_2__N_742[2])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(893[11] 896[16])
     defparam mux_391_i3_3_lut.init = 16'hcaca;
     PFUMX Save_Mux_7__I_0_i6 (.BLUT(ALU_Q[5]), .ALUT(Save_Mux_7__N_537[5]), 
-          .C0(n35605), .Z(Save_Mux[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
+          .C0(n35605), .Z(Save_Mux[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
     ORCALUT4 mux_201_i13_4_lut (.A(SP16[12]), .B(RegBusC[12]), .C(n38512), 
             .D(n933), .Z(n855[12])) /* synthesis lut_function=(A (B (C+(D))+!B !(C+!(D)))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(706[19] 709[24])
     defparam mux_201_i13_4_lut.init = 16'hcac0;
     FD1P3DX ISet_i1_rep_822 (.D(ISet_1__N_655[1]), .SP(clk_op_enable_308), 
-            .CK(clk_op), .CD(rst_s), .Q(n40897)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CK(clk_op), .CD(rst_s), .Q(n40897)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam ISet_i1_rep_822.GSR = "ENABLED";
     PFUMX i35127 (.BLUT(n40413), .ALUT(n40410), .C0(n35605), .Z(Save_Mux[4]));
     CCU2B RegBusA_15__I_0_add_4_3 (.A0(RegBusA[1]), .B0(n38740), .C0(IncDec_16_3__N_1026[3]), 
@@ -3841,7 +3841,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(n933), .Z(n855[0])) /* synthesis lut_function=(A (B (C+(D))+!B !(C+!(D)))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(706[19] 709[24])
     defparam mux_201_i1_4_lut.init = 16'hcac0;
     FD1P3DX TmpAddr_i1 (.D(n18246), .SP(clk_op_enable_321), .CK(clk_op), 
-            .CD(n40906), .Q(TmpAddr[1])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(TmpAddr[1])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i1.GSR = "ENABLED";
     ORCALUT4 mux_141_i6_3_lut (.A(n525[5]), .B(TmpAddr[5]), .C(Jump), 
             .Z(n559[5])) /* synthesis lut_function=(A (B+!(C))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(524[28] 630[30])
@@ -3885,7 +3885,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam SP16_A_15__I_0_add_4_17.INJECT1_0 = "NO";
     defparam SP16_A_15__I_0_add_4_17.INJECT1_1 = "NO";
     FD1P3DX XY_State__i0 (.D(n24303), .SP(clk_op_enable_314), .CK(clk_op), 
-            .CD(n40906), .Q(XY_State[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40906), .Q(XY_State[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam XY_State__i0.GSR = "ENABLED";
     L6MUX21 i31865 (.D0(n35406), .D1(n35407), .SD(tstates[2]), .Z(last_tstate));
     ORCALUT4 i1_4_lut_adj_598 (.A(n14883), .B(n38499), .C(n40881), .D(ts[4]), 
@@ -3957,7 +3957,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(n33456), .Z(Save_ALU_N_1482)) /* synthesis lut_function=(A ((C+(D))+!B)+!A (C+(D))) */ ;
     defparam i2_3_lut_4_lut_adj_604.init = 16'hfff2;
     FD1P3DX IR_i0_i7_rep_820 (.D(n970), .SP(clk_op_enable_325), .CK(clk_op), 
-            .CD(rst_s), .Q(n40895)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(n40895)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i7_rep_820.GSR = "ENABLED";
     ORCALUT4 i1_4_lut_adj_605 (.A(clk_op_enable_119), .B(n38398), .C(Jump), 
             .D(n4_adj_1983), .Z(n2303)) /* synthesis lut_function=(A (B (C+(D))+!B (C))) */ ;
@@ -3978,7 +3978,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(Q_v[7]), .Z(n2358[7])) /* synthesis lut_function=(A (B (D)+!B (C))+!A (D)) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam i32967_3_lut_4_lut.init = 16'hfd20;
     FD1P3BX tstate_i0_i0 (.D(n18150), .SP(clk_op_enable_326), .CK(clk_op), 
-            .PD(n40905), .Q(ts[0])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .PD(n40905), .Q(ts[0])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam tstate_i0_i0.GSR = "ENABLED";
     ORCALUT4 mux_1458_i7_3_lut_4_lut (.A(ALU_Op_r[2]), .B(n38717), .C(n6_adj_1942), 
             .D(n2358[6]), .Z(Q_7__N_1621[6])) /* synthesis lut_function=(!(A (B (C)+!B !(D))+!A !(D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
@@ -4097,7 +4097,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam SP16_A_15__I_0_add_4_15.INJECT1_0 = "NO";
     defparam SP16_A_15__I_0_add_4_15.INJECT1_1 = "NO";
     FD1P3DX IR_i0_i6_rep_818 (.D(n969), .SP(clk_op_enable_325), .CK(clk_op), 
-            .CD(n40900), .Q(n40893)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40900), .Q(n40893)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i6_rep_818.GSR = "ENABLED";
     CCU2B SP16_A_15__I_0_add_4_13 (.A0(SP16_B[7]), .B0(n40881), .C0(RegBusC[11]), 
           .D0(SP[11]), .A1(SP16_B[7]), .B1(n40881), .C1(RegBusC[12]), 
@@ -4113,7 +4113,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .C(n38444), .Z(n38054)) /* synthesis lut_function=(A (B+(C))+!A !((C)+!B)) */ ;
     defparam Q_7__N_1621_5__bdd_3_lut_33990.init = 16'hacac;
     FD1P3DX IR_i0_i5_rep_816 (.D(n968), .SP(clk_op_enable_325), .CK(clk_op), 
-            .CD(n40900), .Q(n40891)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40900), .Q(n40891)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i5_rep_816.GSR = "ENABLED";
     ORCALUT4 i1_2_lut_adj_613 (.A(sram_addr_0_5), .B(sram_addr_0_7), .Z(n6_adj_1986)) /* synthesis lut_function=(!(A+!(B))) */ ;
     defparam i1_2_lut_adj_613.init = 16'h4444;
@@ -4223,10 +4223,10 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     defparam SP16_A_15__I_0_add_4_5.INJECT1_1 = "NO";
     PFUMX i14709 (.BLUT(n1177[2]), .ALUT(n1187[2]), .C0(n35485), .Z(n18214));
     FD1P3DX TmpAddr_i2 (.D(n18244), .SP(clk_op_enable_321), .CK(clk_op), 
-            .CD(rst_s), .Q(TmpAddr[2])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(TmpAddr[2])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i2.GSR = "ENABLED";
     FD1P3DX TmpAddr_i3 (.D(n18242), .SP(clk_op_enable_321), .CK(clk_op), 
-            .CD(n40905), .Q(TmpAddr[3])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(TmpAddr[3])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam TmpAddr_i3.GSR = "ENABLED";
     PFUMX mux_1635_i1 (.BLUT(n2684[0]), .ALUT(n2693[0]), .C0(n2812), .Z(n2732[0]));
     ORCALUT4 i20135_2_lut (.A(tstate[1]), .B(last_tstate), .Z(n18165)) /* synthesis lut_function=(!((B)+!A)) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
@@ -4430,7 +4430,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
     ORCALUT4 i3_4_lut_adj_634 (.A(\tstate[2] ), .B(n6_adj_2000), .C(IncDec_16[0]), 
             .D(n38728), .Z(IncDecZ_N_988)) /* synthesis lut_function=(!(A ((C)+!B)+!A ((C+!(D))+!B))) */ ;
     defparam i3_4_lut_adj_634.init = 16'h0c08;
-    PFUMX mux_276_i6 (.BLUT(n609), .ALUT(n900[5]), .C0(n35638), .Z(n1154[5])) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
+    PFUMX mux_276_i6 (.BLUT(n609), .ALUT(n900[5]), .C0(n35638), .Z(n1154[5])) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;
     ORCALUT4 i1_2_lut_rep_441_3_lut_4_lut_4_lut (.A(n38740), .B(n4_adj_1964), 
             .C(n38517), .D(n38581), .Z(n38420)) /* synthesis lut_function=(!(A+!(B+!(C+!(D))))) */ ;
     defparam i1_2_lut_rep_441_3_lut_4_lut_4_lut.init = 16'h4544;
@@ -4459,7 +4459,7 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .C(di_reg[7]), .D(JumpE_N_1521), .Z(PC16_B[7])) /* synthesis lut_function=(A (B)+!A (B (C+!(D))+!B (C (D)))) */ ;
     defparam PC16_B_15__I_0_i8_3_lut_4_lut_4_lut.init = 16'hd8cc;
     FD1P3DX IR_i0_i4_rep_814 (.D(n967), .SP(clk_op_enable_325), .CK(clk_op), 
-            .CD(n40905), .Q(n40889)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40905), .Q(n40889)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i4_rep_814.GSR = "ENABLED";
     ORCALUT4 i2_3_lut_rep_506_4_lut_4_lut (.A(n38740), .B(n38772), .C(n38614), 
             .D(n38615), .Z(n38485)) /* synthesis lut_function=(!(A+((C+(D))+!B))) */ ;
@@ -4480,16 +4480,16 @@ module \tv80_core(Mode=0)  (clk_op, n40902, n40905, rst_s, sram_addr_0_0,
             .D(n8245[1]), .Z(n14337)) /* synthesis lut_function=(A (D)+!A (B+(C))) */ ;
     defparam i11194_4_lut_4_lut.init = 16'hfe54;
     FD1P3DX IR_i0_i3_rep_812 (.D(n966), .SP(clk_op_enable_325), .CK(clk_op), 
-            .CD(n40900), .Q(n40887)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40900), .Q(n40887)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i3_rep_812.GSR = "ENABLED";
     FD1P3DX IR_i0_i2_rep_810 (.D(n965), .SP(clk_op_enable_325), .CK(clk_op), 
-            .CD(rst_s), .Q(n40885)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(rst_s), .Q(n40885)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i2_rep_810.GSR = "ENABLED";
     FD1P3DX IR_i0_i1_rep_808 (.D(n964), .SP(clk_op_enable_325), .CK(clk_op), 
-            .CD(n40900), .Q(n40883)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
+            .CD(n40900), .Q(n40883)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(409[9] 871[12])
     defparam IR_i0_i1_rep_808.GSR = "ENABLED";
     FD1P3DX tstate_i0_i3_rep_806 (.D(n18163), .SP(clk_op_enable_326), .CK(clk_op), 
-            .CD(n40905), .Q(n40881)) /* synthesis LSE_LINE_FILE_ID=9, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
+            .CD(n40905), .Q(n40881)) /* synthesis LSE_LINE_FILE_ID=3, LSE_LCOL=29, LSE_RCOL=7, LSE_LLINE=56, LSE_RLINE=81 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1212[9] 1331[12])
     defparam tstate_i0_i3_rep_806.GSR = "ENABLED";
     ORCALUT4 i2_4_lut_adj_637 (.A(mc[6]), .B(NextIs_XY_Fetch), .C(n17330), 
             .D(n38416), .Z(n35011)) /* synthesis lut_function=(!(A (B)+!A (B+(C+!(D))))) */ ;
@@ -9710,13 +9710,13 @@ module uart_rx (uart_rx_data, clk_op, uart_rx_avail, rst_s, n32224,
         n38618, n10_adj_1754, n38619;
     
     FD1P3AX rx_data_i0_i0 (.D(sr[0]), .SP(clk_op_enable_140), .CK(clk_op), 
-            .Q(uart_rx_data[0])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(uart_rx_data[0])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_data_i0_i0.GSR = "ENABLED";
-    FD1S3DX rx_avail_73 (.D(n32224), .CK(clk_op), .CD(rst_s), .Q(uart_rx_avail)) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+    FD1S3DX rx_avail_73 (.D(n32224), .CK(clk_op), .CD(rst_s), .Q(uart_rx_avail)) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_avail_73.GSR = "ENABLED";
-    FD1S3DX rx_state_72 (.D(n36193), .CK(clk_op), .CD(n40905), .Q(rx_state)) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+    FD1S3DX rx_state_72 (.D(n36193), .CK(clk_op), .CD(n40905), .Q(rx_state)) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_state_72.GSR = "ENABLED";
-    FD1S3BX rxd_d_78 (.D(uart_rx_c), .CK(clk_op), .PD(n40905), .Q(rxd_d)) /* synthesis lse_init_val=1, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+    FD1S3BX rxd_d_78 (.D(uart_rx_c), .CK(clk_op), .PD(n40905), .Q(rxd_d)) /* synthesis lse_init_val=1, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rxd_d_78.GSR = "ENABLED";
     CCU2B equal_4713_12 (.A0(rx_state_N_233[7]), .B0(k[7]), .C0(rx_state_N_233[6]), 
           .D0(k[6]), .A1(rx_state_N_233[5]), .B1(k[5]), .C1(rx_state_N_233[4]), 
@@ -9735,7 +9735,7 @@ module uart_rx (uart_rx_data, clk_op, uart_rx_avail, rst_s, n32224,
     defparam equal_4713_10.INIT1 = 16'h9009;
     defparam equal_4713_10.INJECT1_0 = "YES";
     defparam equal_4713_10.INJECT1_1 = "YES";
-    FD1S3DX bitidx__i0 (.D(n37909), .CK(clk_op), .CD(rst_s), .Q(bitidx[0])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+    FD1S3DX bitidx__i0 (.D(n37909), .CK(clk_op), .CD(rst_s), .Q(bitidx[0])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam bitidx__i0.GSR = "ENABLED";
     ORCALUT4 i14447_4_lut (.A(k[7]), .B(n53[7]), .C(rx_state), .D(n40874), 
             .Z(n17951)) /* synthesis lut_function=(A (B (C+!(D))+!B !(C+(D)))+!A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(36[14:19])
@@ -9871,25 +9871,25 @@ module uart_rx (uart_rx_data, clk_op, uart_rx_avail, rst_s, n32224,
     defparam add_1091_add_4_3.INJECT1_0 = "NO";
     defparam add_1091_add_4_3.INJECT1_1 = "NO";
     FD1P3AX rx_data_i0_i7 (.D(sr[7]), .SP(clk_op_enable_140), .CK(clk_op), 
-            .Q(uart_rx_data[7])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(uart_rx_data[7])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_data_i0_i7.GSR = "ENABLED";
     FD1P3AX rx_data_i0_i6 (.D(sr[6]), .SP(clk_op_enable_140), .CK(clk_op), 
-            .Q(uart_rx_data[6])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(uart_rx_data[6])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_data_i0_i6.GSR = "ENABLED";
     FD1P3AX rx_data_i0_i5 (.D(sr[5]), .SP(clk_op_enable_140), .CK(clk_op), 
-            .Q(uart_rx_data[5])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(uart_rx_data[5])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_data_i0_i5.GSR = "ENABLED";
     FD1P3AX rx_data_i0_i4 (.D(sr[4]), .SP(clk_op_enable_140), .CK(clk_op), 
-            .Q(uart_rx_data[4])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(uart_rx_data[4])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_data_i0_i4.GSR = "ENABLED";
     FD1P3AX rx_data_i0_i3 (.D(sr[3]), .SP(clk_op_enable_140), .CK(clk_op), 
-            .Q(uart_rx_data[3])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(uart_rx_data[3])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_data_i0_i3.GSR = "ENABLED";
     FD1P3AX rx_data_i0_i2 (.D(sr[2]), .SP(clk_op_enable_140), .CK(clk_op), 
-            .Q(uart_rx_data[2])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(uart_rx_data[2])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_data_i0_i2.GSR = "ENABLED";
     FD1P3AX rx_data_i0_i1 (.D(sr[1]), .SP(clk_op_enable_140), .CK(clk_op), 
-            .Q(uart_rx_data[1])) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(uart_rx_data[1])) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam rx_data_i0_i1.GSR = "ENABLED";
     ORCALUT4 i20083_2_lut_rep_422_3_lut (.A(n38408), .B(rx_state), .C(bitidx[1]), 
             .Z(n38401)) /* synthesis lut_function=(A (B (C))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(35[12] 53[10])
@@ -9917,16 +9917,16 @@ module uart_rx (uart_rx_data, clk_op, uart_rx_avail, rst_s, n32224,
     defparam add_1091_add_4_1.INJECT1_1 = "NO";
     PFUMX i42 (.BLUT(n33880), .ALUT(n33797), .C0(k[0]), .Z(n29));
     FD1P3DX bitidx__i1 (.D(n7), .SP(clk_op_enable_194), .CK(clk_op), .CD(n40905), 
-            .Q(bitidx[1])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(bitidx[1])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam bitidx__i1.GSR = "ENABLED";
     ORCALUT4 i33075_4_lut (.A(rx_state), .B(n40874), .C(n29), .D(n34491), 
             .Z(n36193)) /* synthesis lut_function=(A ((D)+!C)+!A (B)) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam i33075_4_lut.init = 16'hee4e;
     FD1P3DX bitidx__i2 (.D(n18307), .SP(clk_op_enable_194), .CK(clk_op), 
-            .CD(n40905), .Q(bitidx[2])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .CD(n40905), .Q(bitidx[2])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam bitidx__i2.GSR = "ENABLED";
     FD1P3DX bitidx__i3 (.D(n18305), .SP(clk_op_enable_194), .CK(clk_op), 
-            .CD(n40900), .Q(bitidx[3])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .CD(n40900), .Q(bitidx[3])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam bitidx__i3.GSR = "ENABLED";
     MULT9X9B mult_67 (.P12(n287[12]), .P11(n287[11]), .P10(n287[10]), 
             .P9(n287[9]), .P8(n287[8]), .P7(n287[7]), .P6(n287[6]), 
@@ -10031,28 +10031,28 @@ module uart_rx (uart_rx_data, clk_op, uart_rx_avail, rst_s, n32224,
             .D(sr[7]), .Z(n35425)) /* synthesis lut_function=(A (B (C)+!B (D))+!A (D)) */ ;
     defparam i31882_3_lut_4_lut.init = 16'hf780;
     FD1P3DX sr_i0_i1 (.D(uart_rx_c), .SP(clk_op_enable_300), .CK(clk_op), 
-            .CD(n40902), .Q(sr[1])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .CD(n40902), .Q(sr[1])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam sr_i0_i1.GSR = "ENABLED";
     ORCALUT4 i33195_2_lut_3_lut_4_lut (.A(n38408), .B(rx_state), .C(n38702), 
             .D(bitidx[1]), .Z(clk_op_enable_303)) /* synthesis lut_function=(!(((C+!(D))+!B)+!A)) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(35[12] 53[10])
     defparam i33195_2_lut_3_lut_4_lut.init = 16'h0800;
     FD1P3DX sr_i0_i2 (.D(uart_rx_c), .SP(clk_op_enable_303), .CK(clk_op), 
-            .CD(n40902), .Q(sr[2])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .CD(n40902), .Q(sr[2])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam sr_i0_i2.GSR = "ENABLED";
     FD1P3DX sr_i0_i3 (.D(uart_rx_c), .SP(clk_op_enable_304), .CK(clk_op), 
-            .CD(n40902), .Q(sr[3])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .CD(n40902), .Q(sr[3])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam sr_i0_i3.GSR = "ENABLED";
     FD1P3DX sr_i0_i4 (.D(uart_rx_c), .SP(clk_op_enable_306), .CK(clk_op), 
-            .CD(n40902), .Q(sr[4])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .CD(n40902), .Q(sr[4])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam sr_i0_i4.GSR = "ENABLED";
     ORCALUT4 i33155_2_lut_3_lut_4_lut (.A(clk_op_enable_312), .B(bitidx[1]), 
             .C(bitidx[0]), .D(bitidx[2]), .Z(clk_op_enable_309)) /* synthesis lut_function=(!(((C+!(D))+!B)+!A)) */ ;
     defparam i33155_2_lut_3_lut_4_lut.init = 16'h0800;
     FD1P3DX sr_i0_i5 (.D(uart_rx_c), .SP(clk_op_enable_307), .CK(clk_op), 
-            .CD(n40902), .Q(sr[5])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .CD(n40902), .Q(sr[5])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam sr_i0_i5.GSR = "ENABLED";
     FD1P3DX sr_i0_i6 (.D(uart_rx_c), .SP(clk_op_enable_309), .CK(clk_op), 
-            .CD(n40902), .Q(sr[6])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .CD(n40902), .Q(sr[6])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam sr_i0_i6.GSR = "ENABLED";
     ORCALUT4 i5_3_lut_rep_499_4_lut (.A(bitidx[1]), .B(n38702), .C(uart_rx_c), 
             .D(n10), .Z(n38478)) /* synthesis lut_function=(!(A+(B+!(C (D))))) */ ;
@@ -10071,7 +10071,7 @@ module uart_rx (uart_rx_data, clk_op, uart_rx_avail, rst_s, n32224,
             .Z(n33797)) /* synthesis lut_function=(!(((C+(D))+!B)+!A)) */ ;
     defparam i1_2_lut_4_lut.init = 16'h0008;
     FD1P3DX sr_i0_i7 (.D(n35425), .SP(bitidx[0]), .CK(clk_op), .CD(n40905), 
-            .Q(sr[7])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .Q(sr[7])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam sr_i0_i7.GSR = "ENABLED";
     ORCALUT4 i20472_2_lut_3_lut_4_lut_3_lut_4_lut (.A(rxd_d), .B(uart_rx_c), 
             .C(n70[2]), .D(rx_state), .Z(n18307)) /* synthesis lut_function=(A (B (C)+!B (C (D)))+!A (C)) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(31[13:43])
@@ -10083,7 +10083,7 @@ module uart_rx (uart_rx_data, clk_op, uart_rx_avail, rst_s, n32224,
             .C(bitidx[0]), .D(bitidx[2]), .Z(clk_op_enable_306)) /* synthesis lut_function=(!(A+((C+!(D))+!B))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam i33166_2_lut_3_lut_4_lut.init = 16'h0400;
     FD1P3DX sr_i0_i0 (.D(n35426), .SP(clk_op_enable_312), .CK(clk_op), 
-            .CD(n40905), .Q(sr[0])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
+            .CD(n40905), .Q(sr[0])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=63, LSE_LLINE=100, LSE_RLINE=101 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(26[10] 54[8])
     defparam sr_i0_i0.GSR = "ENABLED";
     ORCALUT4 i1_2_lut_4_lut_adj_173 (.A(n38617), .B(n10), .C(uart_rx_c), 
             .D(n40901), .Z(clk_op_enable_140)) /* synthesis lut_function=(!(A+(((D)+!C)+!B))) */ ;
@@ -10191,7 +10191,7 @@ module uart_tx (uart_tx_busy, clk_op, n40905, VCC_net, n605, n38476,
         clk_op_enable_305, clk_op_enable_311, n18287, n12, n18141, 
         n18154, n18137;
     
-    FD1S3DX tx_busy_34 (.D(tx_busy_N_141), .CK(clk_op), .CD(n40905), .Q(uart_tx_busy)) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+    FD1S3DX tx_busy_34 (.D(tx_busy_N_141), .CK(clk_op), .CD(n40905), .Q(uart_tx_busy)) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam tx_busy_34.GSR = "ENABLED";
     ORCALUT4 i6_4_lut (.A(k[2]), .B(k[1]), .C(k[4]), .D(k[0]), .Z(n15)) /* synthesis lut_function=(A+(B+((D)+!C))) */ ;
     defparam i6_4_lut.init = 16'hffef;
@@ -10232,42 +10232,42 @@ module uart_tx (uart_tx_busy, clk_op, n40905, VCC_net, n605, n38476,
             .D(uart_wr_N_78), .Z(n38808)) /* synthesis lut_function=(A (B+!(C+!(D)))+!A !(B+(C+!(D)))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam i17949_3_lut_4_lut_else_3_lut.init = 16'h8b88;
     FD1P3DX sr_i1 (.D(n18317), .SP(clk_op_enable_313), .CK(clk_op), .CD(n40905), 
-            .Q(sr[1])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(sr[1])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam sr_i1.GSR = "ENABLED";
     FD1P3DX sr_i2 (.D(n18315), .SP(clk_op_enable_313), .CK(clk_op), .CD(rst_s), 
-            .Q(sr[2])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(sr[2])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam sr_i2.GSR = "ENABLED";
-    FD1S3DX sr_i7 (.D(n37027), .CK(clk_op), .CD(n40902), .Q(\sr[7] )) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+    FD1S3DX sr_i7 (.D(n37027), .CK(clk_op), .CD(n40902), .Q(\sr[7] )) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam sr_i7.GSR = "ENABLED";
     FD1P3DX k__i1 (.D(n34578), .SP(clk_op_enable_299), .CK(clk_op), .CD(n40902), 
-            .Q(k[1])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(k[1])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam k__i1.GSR = "ENABLED";
     FD1P3DX sr_i3 (.D(n18311), .SP(clk_op_enable_313), .CK(clk_op), .CD(rst_s), 
-            .Q(sr[3])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(sr[3])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam sr_i3.GSR = "ENABLED";
     FD1P3DX k__i2 (.D(n18303), .SP(clk_op_enable_299), .CK(clk_op), .CD(n40905), 
-            .Q(k[2])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(k[2])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam k__i2.GSR = "ENABLED";
     FD1P3DX k__i3 (.D(n18301), .SP(clk_op_enable_299), .CK(clk_op), .CD(n40902), 
-            .Q(k[3])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(k[3])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam k__i3.GSR = "ENABLED";
     FD1P3DX sr_i4 (.D(n18299), .SP(clk_op_enable_313), .CK(clk_op), .CD(rst_s), 
-            .Q(sr[4])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(sr[4])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam sr_i4.GSR = "ENABLED";
     FD1P3DX k__i4 (.D(n18297), .SP(clk_op_enable_299), .CK(clk_op), .CD(rst_s), 
-            .Q(k[4])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(k[4])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam k__i4.GSR = "ENABLED";
     FD1P3DX k__i5 (.D(n18295), .SP(clk_op_enable_299), .CK(clk_op), .CD(rst_s), 
-            .Q(k[5])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(k[5])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam k__i5.GSR = "ENABLED";
     FD1P3DX k__i6 (.D(n18293), .SP(clk_op_enable_299), .CK(clk_op), .CD(n40903), 
-            .Q(k[6])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(k[6])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam k__i6.GSR = "ENABLED";
     FD1P3DX k__i7 (.D(n18291), .SP(clk_op_enable_299), .CK(clk_op), .CD(n40903), 
-            .Q(k[7])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(k[7])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam k__i7.GSR = "ENABLED";
     FD1P3DX k__i8 (.D(n18289), .SP(clk_op_enable_299), .CK(clk_op), .CD(n40902), 
-            .Q(k[8])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(k[8])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam k__i8.GSR = "ENABLED";
     ORCALUT4 i1_3_lut_4_lut_4_lut (.A(uart_tx_busy), .B(n17), .C(n77), 
             .D(n38476), .Z(clk_op_enable_305)) /* synthesis lut_function=(!(A (B+(C))+!A !(D))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(26[11:26])
@@ -10276,7 +10276,7 @@ module uart_tx (uart_tx_busy, clk_op, n40905, VCC_net, n605, n38476,
             .C(n38711), .D(uart_wr_N_78), .Z(clk_op_enable_311)) /* synthesis lut_function=(!(A (B)+!A (C+!(D)))) */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(26[11:26])
     defparam i14751_2_lut_3_lut_4_lut_4_lut.init = 16'h2722;
     FD1P3DX sr_i5 (.D(n18287), .SP(clk_op_enable_313), .CK(clk_op), .CD(n40905), 
-            .Q(sr[5])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(sr[5])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam sr_i5.GSR = "ENABLED";
     ORCALUT4 i6_4_lut_adj_165 (.A(n605[10]), .B(n12), .C(n605[11]), .D(n605[12]), 
             .Z(n77)) /* synthesis lut_function=(A+(B+(C+(D)))) */ ;
@@ -10285,7 +10285,7 @@ module uart_tx (uart_tx_busy, clk_op, n40905, VCC_net, n605, n38476,
             .D(n17), .Z(n37025)) /* synthesis lut_function=(A (C)+!A (B (C)+!B (C (D)))) */ ;
     defparam uart_wr_N_78_bdd_3_lut_4_lut.init = 16'hf0e0;
     FD1P3DX sr_i6 (.D(n36951), .SP(clk_op_enable_313), .CK(clk_op), .CD(n40903), 
-            .Q(sr[6])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(sr[6])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam sr_i6.GSR = "ENABLED";
     FD1P3DX bitcnt_FSM_i1 (.D(n18283), .SP(clk_op_enable_311), .CK(clk_op), 
             .CD(n40906), .Q(n605[1]));   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(27[27:37])
@@ -10387,7 +10387,7 @@ module uart_tx (uart_tx_busy, clk_op, n40905, VCC_net, n605, n38476,
             .CD(n40905), .Q(n605[15]));   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(27[27:37])
     defparam bitcnt_FSM_i15.GSR = "ENABLED";
     FD1P3DX k__i0 (.D(n18141), .SP(clk_op_enable_299), .CK(clk_op), .CD(n40902), 
-            .Q(k[0])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(k[0])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam k__i0.GSR = "ENABLED";
     CCU2B add_48_add_4_1 (.A0(GND_net), .B0(GND_net), .C0(GND_net), .D0(GND_net), 
           .A1(k[0]), .B1(GND_net), .C1(GND_net), .D1(VCC_net), .COUT(n30921), 
@@ -10397,13 +10397,13 @@ module uart_tx (uart_tx_busy, clk_op, n40905, VCC_net, n605, n38476,
     defparam add_48_add_4_1.INJECT1_0 = "NO";
     defparam add_48_add_4_1.INJECT1_1 = "NO";
     FD1P3BX txd_36 (.D(n18154), .SP(clk_op_enable_305), .CK(clk_op), .PD(rst_s), 
-            .Q(uart_tx_c)) /* synthesis LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(uart_tx_c)) /* synthesis LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam txd_36.GSR = "ENABLED";
     FD1P3BX bitcnt_FSM_i0 (.D(n18152), .SP(clk_op_enable_311), .CK(clk_op), 
             .PD(n40906), .Q(n605[0]));   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(27[27:37])
     defparam bitcnt_FSM_i0.GSR = "ENABLED";
     FD1P3DX sr_i0 (.D(n18137), .SP(clk_op_enable_313), .CK(clk_op), .CD(n40905), 
-            .Q(sr[0])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=12, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
+            .Q(sr[0])) /* synthesis lse_init_val=0, LSE_LINE_FILE_ID=1, LSE_LCOL=11, LSE_RCOL=54, LSE_LLINE=98, LSE_RLINE=99 */ ;   // c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(22[10] 35[8])
     defparam sr_i0.GSR = "ENABLED";
     ORCALUT4 i8_4_lut (.A(n15), .B(k[3]), .C(n14), .D(k[7]), .Z(n17)) /* synthesis lut_function=(A+((C+!(D))+!B)) */ ;
     defparam i8_4_lut.init = 16'hfbff;
@@ -10414,7 +10414,7 @@ endmodule
 /* Verilog netlist generated by SCUBA Diamond (64-bit) 3.14.0.75.2 */
 /* Module Version: 5.7 */
 /* C:/lscc/diamond/3.14/ispfpga/bin/nt64/scuba -w -arch mg5a00 -n pmi_pll0o500X125252550d29c740 -bb -bus_exp 7 -type pll -fin 50 -fclkop 25 -fclkok 12.500000 -fb_mode CLKOP -phaseadj 0 -duty 8.00000 -pmi -lang verilog  */
-/* Sun Nov 15 20:02:19 2026 */
+/* Sun Nov 15 20:02:53 2026 */
 
 
 `timescale 1 ns / 1 ps

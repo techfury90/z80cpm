@@ -9,12 +9,12 @@ Command line:   map -a LatticeXP2 -p LFXP2-5E -t TQFP144 -s 6 -oc Commercial
      z80cpm_impl1.ngd -o z80cpm_impl1_map.ncd -pr z80cpm_impl1.prf -mp
      z80cpm_impl1.mrp -lpf
      C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/z80cpm_impl1.lpf -lpf
-     C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf -gui 
+     C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf 
 Target Vendor:  LATTICE
 Target Device:  LFXP2-5ETQFP144
 Target Performance:   6
 Mapper:  mg5a00,  version:  Diamond (64-bit) 3.14.0.75.2
-Mapped on:  11/15/26  20:02:21
+Mapped on:  11/15/26  20:02:54
 
 Design Summary
 --------------
@@ -66,7 +66,7 @@ Design Summary
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
 
 Design Summary (cont)
 ---------------------
@@ -132,7 +132,7 @@ Design Summary (cont)
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
 
 Design Summary (cont)
 ---------------------
@@ -177,18 +177,18 @@ Design Summary (cont)
 Design Errors/Warnings
 ----------------------
 
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(54):
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(54):
      Semantic error in "FREQUENCY NET "cpu_clk" 25.000000 MHz ;": cpu_clk
      matches no clock nets in the design.  This preference has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(59):
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(59):
      Semantic error in "CLOCK_TO_OUT PORT "sram_addr*" 15.000000 ns CLKNET
      "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
      has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(60):
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(60):
      Semantic error in "INPUT_SETUP PORT "uart_rx" 20.000000 ns CLKNET "cpu_clk"
      ;": "cpu_clk" matches no clknets in the design.  This preference has been
      disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(61):
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(61):
      Semantic error in "INPUT_SETUP PORT "sram_data*" 5.000000 ns CLKNET
      "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
      has been disabled.
@@ -198,27 +198,27 @@ WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(61):
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
 
 Design Errors/Warnings (cont)
 -----------------------------
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(62):
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(62):
      Semantic error in "CLOCK_TO_OUT PORT "sram_cen" 15.000000 ns CLKNET
      "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
      has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(63):
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(63):
      Semantic error in "CLOCK_TO_OUT PORT "sram_oen" 15.000000 ns CLKNET
      "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
      has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(64):
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(64):
      Semantic error in "CLOCK_TO_OUT PORT "sram_wen" 15.000000 ns CLKNET
      "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
      has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(65):
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(65):
      Semantic error in "CLOCK_TO_OUT PORT "sram_data*" 15.000000 ns CLKNET
      "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
      has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(66):
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(66):
      Semantic error in "CLOCK_TO_OUT PORT "uart_tx" 20.000000 ns CLKNET
      "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
      has been disabled.
@@ -264,7 +264,7 @@ IO (PIO) Attributes
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
 
 IO (PIO) Attributes (cont)
 --------------------------
@@ -330,7 +330,7 @@ IO (PIO) Attributes (cont)
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
 
 IO (PIO) Attributes (cont)
 --------------------------
@@ -396,7 +396,7 @@ Signal u_cpu/i_tv80_core/i_alu/add_5191_add_4_1/CI undriven or does not drive
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
 
 Removed logic (cont)
 --------------------
@@ -462,7 +462,7 @@ Signal pmi_pll0offCLKOP500XP212.50000025252550/CLKOS undriven or does not drive
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
 
 Removed logic (cont)
 --------------------
@@ -528,7 +528,7 @@ PLL 1:                                     Pin/Node Value
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
 
 PLL/DLL Summary (cont)
 ----------------------
@@ -594,7 +594,7 @@ Run Time and Memory Usage
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
 
 Run Time and Memory Usage (cont)
 --------------------------------

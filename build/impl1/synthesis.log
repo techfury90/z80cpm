@@ -5,10 +5,10 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
-Sun Nov 15 20:02:09 2026
+Sun Nov 15 20:02:44 2026
 
 
-Command Line:  synthesis -f z80cpm_impl1_lattice.synproj -gui 
+Command Line:  synthesis -f z80cpm_impl1_lattice.synproj 
 
 Synthesis options:
 The -a option is LatticeXP2.
@@ -35,7 +35,7 @@ Using performance grade 6.
 
 INFO - synthesis: User-Selected Strategy Settings
 Optimization goal = Timing
-Top-level module name = z80cpm_brevia2.
+The -top option is not used.
 Target frequency = 200.000000 MHz.
 Maximum fanout = 1000.
 Timing path count = 3
@@ -65,34 +65,35 @@ The -syn option is FALSE.
 -p C:/lscc/diamond/3.14/ispfpga/mg5a00/data (searchpath added)
 -p C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1 (searchpath added)
 -p C:/Users/techf/Desktop/brevia2/z80cpm/build (searchpath added)
-Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom.v
-Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v
-Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_alu.v
-Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_core.v
-Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_mcode.v
-Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_reg.v
-Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80n.v
-Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v
-Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_tx.v
 Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v
+Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom.v
+Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80n.v
+Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_core.v
+Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_alu.v
+Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_reg.v
+Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_mcode.v
+Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_tx.v
+Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v
+Verilog design file = C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v
 NGD file = z80cpm_impl1.ngd
 -sdc option: SDC file input not used.
 -lpf option: Output file option is ON.
 Hardtimer checking is enabled (default). The -dt option is not used.
 The -r option is OFF. [ Remove LOC Properties is OFF. ]
+WARNING - synthesis: Setting z80cpm_brevia2 as the top-level module. To specify the top-level module explicitly, use the -top option.
 Analyzing Verilog file C:/lscc/diamond/3.14/ispfpga/userware/NT/SYNTHESIS_HEADERS/xp2.v. VERI-1482
 Compile design.
 Compile Design Begin
-Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/boot_rom.v. VERI-1482
-Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/sram_async.v. VERI-1482
-Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v. VERI-1482
-Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v. VERI-1482
-Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_mcode.v. VERI-1482
-Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_reg.v. VERI-1482
-Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v. VERI-1482
-Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v. VERI-1482
-Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v. VERI-1482
 Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v. VERI-1482
+Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/boot_rom.v. VERI-1482
+Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v. VERI-1482
+Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v. VERI-1482
+Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v. VERI-1482
+Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_reg.v. VERI-1482
+Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_mcode.v. VERI-1482
+Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v. VERI-1482
+Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v. VERI-1482
+Analyzing Verilog file c:/users/techf/desktop/brevia2/z80cpm/rtl/sram_async.v. VERI-1482
 Analyzing Verilog file C:/lscc/diamond/3.14/ispfpga/userware/NT/SYNTHESIS_HEADERS/xp2.v. VERI-1482
 Top module name (Verilog): z80cpm_brevia2
 INFO - synthesis: c:/users/techf/desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v(13): compiling module z80cpm_brevia2. VERI-1018
@@ -250,8 +251,8 @@ clk0 [get_nets clk_op]                  |            -|            -|     0
 All constraints were met.
 
 
-Peak Memory Usage: 116.730  MB
+Peak Memory Usage: 117.637  MB
 
 --------------------------------------------------------------
-Elapsed CPU time for LSE flow : 10.609  secs
+Elapsed CPU time for LSE flow : 9.766  secs
 --------------------------------------------------------------

@@ -29,20 +29,18 @@
 @N: MF794 |RAM i_reg.RegsH[7:0] required 128 registers during mapping 
 @N: FX214 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\boot_rom.v":7:6:7:9|Generating ROM u_rom.byte_read[7:0] (in view: work.z80cpm_brevia2(verilog)).
 @N: MO106 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_mcode.v":1956:12:1956:16|Found ROM u_cpu.i_tv80_core.i_mcode.MCycles_19_0[6:0] (in view: work.z80cpm_brevia2(verilog)) with 78 words by 7 bits.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[4] (in view: work.z80cpm_brevia2(verilog)) with 71 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[1] (in view: work.z80cpm_brevia2(verilog)) with 88 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[7] (in view: work.z80cpm_brevia2(verilog)) with 68 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.ISet[1] (in view: work.z80cpm_brevia2(verilog)) with 78 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[7] (in view: work.z80cpm_brevia2(verilog)) with 72 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[4] (in view: work.z80cpm_brevia2(verilog)) with 76 loads 3 times to improve timing.
 @N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[6] (in view: work.z80cpm_brevia2(verilog)) with 61 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[2] (in view: work.z80cpm_brevia2(verilog)) with 79 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[3] (in view: work.z80cpm_brevia2(verilog)) with 111 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[2] (in view: work.z80cpm_brevia2(verilog)) with 10 loads 1 time to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[7] (in view: work.z80cpm_brevia2(verilog)) with 8 loads 1 time to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[0] (in view: work.z80cpm_brevia2(verilog)) with 15 loads 1 time to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[6] (in view: work.z80cpm_brevia2(verilog)) with 12 loads 1 time to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.ISet[0] (in view: work.z80cpm_brevia2(verilog)) with 26 loads 2 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[6] (in view: work.z80cpm_brevia2(verilog)) with 13 loads 1 time to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[0] (in view: work.z80cpm_brevia2(verilog)) with 16 loads 1 time to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[2] (in view: work.z80cpm_brevia2(verilog)) with 87 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[1] (in view: work.z80cpm_brevia2(verilog)) with 84 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[3] (in view: work.z80cpm_brevia2(verilog)) with 110 loads 3 times to improve timing.
 @N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[0] (in view: work.z80cpm_brevia2(verilog)) with 100 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[5] (in view: work.z80cpm_brevia2(verilog)) with 96 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.ISet[1] (in view: work.z80cpm_brevia2(verilog)) with 67 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.ISet[0] (in view: work.z80cpm_brevia2(verilog)) with 18 loads 2 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[5] (in view: work.z80cpm_brevia2(verilog)) with 103 loads 3 times to improve timing.
 @N: FX164 |The option to pack registers in the IOB has not been specified. Please set syn_useioff attribute.  
 @N: FX1056 |Writing EDF file: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.edi
 @N: BW106 |Synplicity Constraint File capacitance units using default value of 1pF 

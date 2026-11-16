@@ -630,12 +630,12 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>CL265 :&quot;C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:153:2:153:7|Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.</Dynamic>
+            <Dynamic>CL265 :&quot;C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:163:2:163:7|Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.</Dynamic>
             <Navigation>CL265</Navigation>
             <Navigation>C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>153</Navigation>
+            <Navigation>163</Navigation>
             <Navigation>2</Navigation>
-            <Navigation>153</Navigation>
+            <Navigation>163</Navigation>
             <Navigation>7</Navigation>
             <Navigation>Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.</Navigation>
         </Message>
@@ -673,14 +673,14 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>MT529 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v&quot;:42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 390 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance.</Dynamic>
+            <Dynamic>MT529 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v&quot;:42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 391 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance.</Dynamic>
             <Navigation>MT529</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v</Navigation>
             <Navigation>42</Navigation>
             <Navigation>2</Navigation>
             <Navigation>42</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 390 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. </Navigation>
+            <Navigation>Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 391 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. </Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -808,54 +808,6 @@
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_cpu.rd_n_3 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_79 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net N_79 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_80 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net N_80 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_81 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net N_81 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_82 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net N_82 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -988,6 +940,66 @@
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net N_93 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_94 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_94 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_95 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_95 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_96 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_96 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_97 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_97 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_98 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_98 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -3076,18 +3088,6 @@
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_cpu.i_tv80_core.N_819 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.N_821 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.N_821 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>

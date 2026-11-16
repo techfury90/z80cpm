@@ -3,77 +3,77 @@ Report for cell z80cpm_brevia2
    Instance path: z80cpm_brevia2
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	    1489.00        100.0
+                                  SLIC	    1496.00        100.0
                                  IOLGC	       2.00        100.0
-                                  LUT4	    2346.00        100.0
+                                  LUT4	    2352.00        100.0
                                  IOREG	          2        100.0
                                  IOBUF	         48        100.0
-                                PFUREG	        499        100.0
+                                PFUREG	        498        100.0
                                 RIPPLE	         82        100.0
 SUB MODULES
                                   cell	      count    SLC Usage(%)
-                               uart_tx	          1         1.9
-                               uart_rx	          1         6.5
-                                 tv80n	          1        78.3
+                               uart_tx	          1         1.8
+                               uart_rx	          1         4.3
+                                 tv80n	          1        80.9
                               ram_disk	          1         2.3
          pmi_pll0o500X25252550pce6ee25	          1         0.0
-                              boot_rom	          1         9.2
+                              boot_rom	          1         8.9
 ---------------------------------------------------
 Report for cell tv80n
    Instance path: z80cpm_brevia2/u_cpu
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	    1165.67        78.3
-                                  LUT4	    1872.00        79.8
-                                PFUREG	        380        76.2
+                                  SLIC	    1210.00        80.9
+                                  LUT4	    1935.00        82.3
+                                PFUREG	        378        75.9
                                 RIPPLE	         39        47.6
 SUB MODULES
                                   cell	      count    SLC Usage(%)
-                          tv80_core_Z2	          1        77.7
+                          tv80_core_Z2	          1        77.4
 ---------------------------------------------------
 Report for cell tv80_core_Z2
    Instance path: z80cpm_brevia2/u_cpu/i_tv80_core
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	    1157.00        77.7
-                                  LUT4	    1861.00        79.3
-                                PFUREG	        368        73.7
+                                  SLIC	    1157.17        77.4
+                                  LUT4	    1850.00        78.7
+                                PFUREG	        366        73.5
                                 RIPPLE	         39        47.6
 SUB MODULES
                                   cell	      count    SLC Usage(%)
                               tv80_reg	          1        12.8
-                         tv80_mcode_Z1	          1        27.5
-   tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s	          1         7.6
+                         tv80_mcode_Z1	          1        27.2
+   tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s	          1         8.2
 ---------------------------------------------------
 Report for cell tv80_reg
    Instance path: z80cpm_brevia2/u_cpu/i_tv80_core/i_reg
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	     190.00        12.8
-                                  LUT4	     212.00         9.0
+                                  SLIC	     192.00        12.8
+                                  LUT4	     214.00         9.1
                                 PFUREG	        128        25.7
 ---------------------------------------------------
 Report for cell tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s
    Instance path: z80cpm_brevia2/u_cpu/i_tv80_core/i_alu
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	     113.83         7.6
-                                  LUT4	     207.83         8.9
+                                  SLIC	     122.50         8.2
+                                  LUT4	     214.17         9.1
                                 RIPPLE	          3         3.7
 ---------------------------------------------------
 Report for cell tv80_mcode_Z1
    Instance path: z80cpm_brevia2/u_cpu/i_tv80_core/i_mcode
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	     409.35        27.5
-                                  LUT4	     769.50        32.8
+                                  SLIC	     406.52        27.2
+                                  LUT4	     758.00        32.2
 ---------------------------------------------------
 Report for cell uart_rx
    Instance path: z80cpm_brevia2/u_rx
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	      96.33         6.5
-                                  LUT4	     125.00         5.3
+                                  SLIC	      65.00         4.3
+                                  LUT4	      70.00         3.0
                                 PFUREG	         39         7.8
                                 RIPPLE	         14        17.1
 ---------------------------------------------------
@@ -81,8 +81,8 @@ Report for cell uart_tx
    Instance path: z80cpm_brevia2/u_tx
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	      28.00         1.9
-                                  LUT4	      39.00         1.7
+                                  SLIC	      27.50         1.8
+                                  LUT4	      38.00         1.6
                                 PFUREG	         25         5.0
                                 RIPPLE	          7         8.5
 ---------------------------------------------------
@@ -90,7 +90,7 @@ Report for cell ram_disk
    Instance path: z80cpm_brevia2/u_rd
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	      34.67         2.3
+                                  SLIC	      34.17         2.3
                                   LUT4	      34.00         1.4
                                 PFUREG	         17         3.4
                                 RIPPLE	          9        11.0
@@ -99,8 +99,8 @@ Report for cell boot_rom
    Instance path: z80cpm_brevia2/u_rom
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	     137.00         9.2
-                                  LUT4	     265.00        11.3
+                                  SLIC	     133.00         8.9
+                                  LUT4	     266.00        11.3
 ---------------------------------------------------
 Report for cell pmi_pll0o500X25252550pce6ee25
    Instance path: z80cpm_brevia2/pll_inst

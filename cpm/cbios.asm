@@ -68,14 +68,16 @@ DMA0    EQU     0080H           ; CP/M default DMA buffer
         JMP     SETDMA          ; 12 BIOS+36  set DMA address
         JMP     READ            ; 13 BIOS+39  read one 128-byte sector
         JMP     WRITE           ; 14 BIOS+42  write one 128-byte sector
-        JMP     SECTRAN         ; 15 BIOS+45  sector translate (identity)
-        JMP     LISTST          ; 16 BIOS+48  list device status
+        JMP     LISTST          ; 15 BIOS+45  list device status
+        JMP     SECTRAN         ; 16 BIOS+48  sector translate (identity)
 
 ; ============================================================================
 ;   COLD BOOT  (entry at 0xFA00 via 'G FA00')
 ; ============================================================================
 BOOT:
-        LXI     SP,0F000H       ; establish a stack (transient, during boot)
+        LXI     SP,0DC00H       ; establish a stack in the TPA (below CCP@E400);
+                                ; 0xF000 would sit INSIDE the BDOS (EC00-F9FF) and
+                                ;  the boot's stack use would clobber the BDOS code.
         MVI     A,01H
         OUT     30H             ; bank OUT the GWMON monitor ROM
 ;
@@ -115,7 +117,7 @@ BOOT:
 ;   WARM BOOT  (0x0000 jumps here)
 ; ============================================================================
 WBOOT:
-        LXI     SP,0F000H
+        LXI     SP,0DC00H
 ;
 ; ---- reload CCP and BDOS from the RAM disk SYSTEM tracks --------------------
         LXI     H,SYSCPP

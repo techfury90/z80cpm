@@ -48,7 +48,9 @@ Synopsys Verilog Compiler, Version comp202309synp1, Build 349R, Built Sep 17 202
 @I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v" (library work)
 @I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v" (library work)
 Verilog syntax check successful!
-Options changed - recompiling
+
+Compiler output is up to date.  No re-compile necessary
+
 Selecting top level module z80cpm_brevia2
 @W: CG168 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":43:2:43:9|Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type 
 @N: CG364 :"C:\lscc\diamond\3.14\synpbase\lib\lucent\pmi_def.v":1077:7:1077:13|Synthesizing module pmi_pll in library work.
@@ -90,7 +92,7 @@ Finished optimization stage 1 on uart_rx (CPU Time 0h:00m:00s, Memory Used curre
 	aZI=3'b110
    Generated name = tv80_mcode_Z1
 Running optimization stage 1 on tv80_mcode_Z1 .......
-Finished optimization stage 1 on tv80_mcode_Z1 (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 109MB)
+Finished optimization stage 1 on tv80_mcode_Z1 (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 108MB)
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v":26:7:26:14|Synthesizing module tv80_alu in library work.
 
 	Mode=32'b00000000000000000000000000000000
@@ -141,7 +143,7 @@ Running optimization stage 1 on tv80n .......
 Finished optimization stage 1 on tv80n (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Synthesizing module z80cpm_brevia2 in library work.
 Running optimization stage 1 on z80cpm_brevia2 .......
-@W: CL265 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":153:2:153:7|Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.
+@W: CL265 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":163:2:163:7|Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.
 Finished optimization stage 1 on z80cpm_brevia2 (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
 Running optimization stage 2 on z80cpm_brevia2 .......
 Finished optimization stage 2 on z80cpm_brevia2 (CPU Time 0h:00m:00s, Memory Used current: 110MB peak: 115MB)
@@ -179,12 +181,12 @@ For a summary of runtime per design unit, please see file:
 
 
 
-At c_ver Exit (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 122MB peak: 135MB)
+At c_ver Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 93MB peak: 94MB)
 
-Process took 0h:00m:06s realtime, 0h:00m:06s cputime
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Mon Nov 16 02:53:27 2026
+# Mon Nov 16 11:42:01 2026
 
 ###########################################################]
 ###########################################################[
@@ -205,12 +207,12 @@ Synopsys Synopsys Netlist Linker, Version comp202309synp1, Build 349R, Built Sep
 
 @N|Running in 64-bit mode
 
-At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 95MB peak: 96MB)
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 94MB peak: 95MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Mon Nov 16 02:53:28 2026
+# Mon Nov 16 11:42:01 2026
 
 ###########################################################]
 
@@ -220,11 +222,11 @@ For a summary of runtime and memory usage for all design units, please see file:
 
 @END
 
-At c_hdl Exit (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 31MB peak: 32MB)
+At c_hdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 24MB peak: 25MB)
 
-Process took 0h:00m:07s realtime, 0h:00m:06s cputime
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Mon Nov 16 02:53:28 2026
+# Mon Nov 16 11:42:01 2026
 
 ###########################################################]

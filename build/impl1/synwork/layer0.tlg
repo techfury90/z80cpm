@@ -39,7 +39,7 @@ Finished optimization stage 1 on uart_rx (CPU Time 0h:00m:00s, Memory Used curre
 	aZI=3'b110
    Generated name = tv80_mcode_Z1
 Running optimization stage 1 on tv80_mcode_Z1 .......
-Finished optimization stage 1 on tv80_mcode_Z1 (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 109MB)
+Finished optimization stage 1 on tv80_mcode_Z1 (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 108MB)
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v":26:7:26:14|Synthesizing module tv80_alu in library work.
 
 	Mode=32'b00000000000000000000000000000000
@@ -90,7 +90,7 @@ Running optimization stage 1 on tv80n .......
 Finished optimization stage 1 on tv80n (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Synthesizing module z80cpm_brevia2 in library work.
 Running optimization stage 1 on z80cpm_brevia2 .......
-@W: CL265 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":153:2:153:7|Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.
+@W: CL265 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":163:2:163:7|Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.
 Finished optimization stage 1 on z80cpm_brevia2 (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
 Running optimization stage 2 on z80cpm_brevia2 .......
 Finished optimization stage 2 on z80cpm_brevia2 (CPU Time 0h:00m:00s, Memory Used current: 110MB peak: 115MB)

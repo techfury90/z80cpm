@@ -51,12 +51,12 @@ u_cpu/i_tv80_core/ID16_s_15_0_S1
 u_cpu/i_tv80_core/ID16_s_15_0_COUT
 u_cpu/i_tv80_core/SP16_cry_0_0_S1
 u_cpu/i_tv80_core/SP16_cry_0_0_S0
-u_cpu/i_tv80_core/N_4
+u_cpu/i_tv80_core/N_12
 u_cpu/i_tv80_core/SP16_s_15_0_S1
 u_cpu/i_tv80_core/SP16_s_15_0_COUT
 u_cpu/i_tv80_core/i_alu/DAA_Q_13_cry_5_0_S1
 u_cpu/i_tv80_core/i_alu/DAA_Q_13_cry_5_0_S0
-u_cpu/i_tv80_core/i_alu/N_1
+u_cpu/i_tv80_core/i_alu/N_2
 u_cpu/i_tv80_core/i_alu/DAA_Q_13_s_8_0_S1
 u_cpu/i_tv80_core/i_alu/DAA_Q_13_s_8_0_COUT
 hb_cry_0_S0[0]
@@ -64,7 +64,7 @@ N_1
 [ END CLIPPED ]
 [ START DESIGN PREFS ]
 SCHEMATIC START ;
-# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Mon Nov 16 02:54:02 2026
+# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Mon Nov 16 11:42:30 2026
 
 SYSCONFIG DONE_OD=ON DONE_EX=OFF CONFIG_SECURE=OFF WAKE_UP=21 WAKE_ON_LOCK=OFF INBUF=ON MASTER_SPI_PORT=DISABLE SLAVE_SPI_PORT=DISABLE MY_ASSP=OFF ONE_TIME_PROGRAM=OFF ;
 LOCATE COMP "sram_data[0]" SITE "1" ;

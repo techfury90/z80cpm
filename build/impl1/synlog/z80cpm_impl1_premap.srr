@@ -1,4 +1,4 @@
-# Mon Nov 16 02:53:30 2026
+# Mon Nov 16 11:42:02 2026
 
 
 Copyright (C) 1994-2023 Synopsys, Inc.
@@ -19,7 +19,7 @@ Synopsys Lattice Technology Pre-mapping, Version map202309lat, Build 191R, Built
 Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 184MB peak: 184MB)
 
 
-Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 188MB peak: 199MB)
+Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 189MB peak: 199MB)
 
 @A: MF827 |No constraint file specified.
 @L: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1_scck.rpt 
@@ -47,14 +47,15 @@ NConnInternalConnection caching is on
 @N: FX493 |Applying initial value "00000000" on instance sr[7:0].
 @N: FX493 |Applying initial value "0" on instance rst_n_sync2.
 @N: FX493 |Applying initial value "0" on instance rst_n_sync1.
+@N: FX493 |Applying initial value "0" on instance boot_done.
 
-Starting HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 259MB)
-
-
-Finished HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
+Starting HSTDM IP insertion (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 259MB peak: 259MB)
 
 
-Started DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
+Finished HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 259MB)
+
+
+Started DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 259MB)
 
 
 Finished DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
@@ -89,7 +90,7 @@ Clock Summary
           Start                                    Requested     Requested     Clock        Clock          Clock
 Level     Clock                                    Frequency     Period        Type         Group          Load 
 ----------------------------------------------------------------------------------------------------------------
-0 -       z80cpm_brevia2|clk_op_inferred_clock     200.0 MHz     5.000         inferred     (multiple)     390  
+0 -       z80cpm_brevia2|clk_op_inferred_clock     200.0 MHz     5.000         inferred     (multiple)     391  
 ================================================================================================================
 
 
@@ -100,10 +101,10 @@ Clock Load Summary
                                          Clock     Source                      Clock Pin          Non-clock Pin     Non-clock Pin          
 Clock                                    Load      Pin                         Seq Example        Seq Example       Comb Example           
 -------------------------------------------------------------------------------------------------------------------------------------------
-z80cpm_brevia2|clk_op_inferred_clock     390       pll_inst.CLKOP(pmi_pll)     rst_cnt[3:0].C     -                 u_cpu.un1_clk.I[0](inv)
+z80cpm_brevia2|clk_op_inferred_clock     391       pll_inst.CLKOP(pmi_pll)     rst_cnt[3:0].C     -                 u_cpu.un1_clk.I[0](inv)
 ===========================================================================================================================================
 
-@W: MT529 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v":42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 390 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+@W: MT529 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v":42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 391 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
 
 ICG Latch Removal Summary:
 Number of ICG latches removed: 0
@@ -116,14 +117,14 @@ Number of ICG latches not removed:	0
 
 #### START OF PREMAP CLOCK OPTIMIZATION REPORT #####[
 
-1 non-gated/non-generated clock tree(s) driving 348 clock pin(s) of sequential element(s)
+1 non-gated/non-generated clock tree(s) driving 349 clock pin(s) of sequential element(s)
 0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
 0 instances converted, 0 sequential instances remain driven by gated/generated clocks
 
 =========================== Non-Gated/Non-Generated Clocks ============================
 Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample Instance
 ---------------------------------------------------------------------------------------
-@KP:ckid0_0       pll_inst.CLKOP      pmi_pll                348        rst_n_sync1    
+@KP:ckid0_0       pll_inst.CLKOP      pmi_pll                349        boot_done      
 =======================================================================================
 
 
@@ -142,13 +143,13 @@ Starting constraint checker (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:0
 Finished constraint checker preprocessing (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 263MB peak: 264MB)
 
 
-Finished constraint checker (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 264MB peak: 264MB)
+Finished constraint checker (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 265MB peak: 265MB)
 
 Pre-mapping successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 179MB peak: 265MB)
+At Mapper Exit (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 174MB peak: 265MB)
 
-Process took 0h:00m:03s realtime, 0h:00m:02s cputime
-# Mon Nov 16 02:53:33 2026
+Process took 0h:00m:02s realtime, 0h:00m:02s cputime
+# Mon Nov 16 11:42:05 2026
 
 ###########################################################]

@@ -12,6 +12,13 @@
             <Dynamic> SW_XO3D_SECURITY_ENCRYPTION license_securityIP OK</Dynamic>
         </Message>
     </Task>
+    <Task name="MapVerilogSimFile">
+        <Message>
+            <ID>35400250</ID>
+            <Severity>Info</Severity>
+            <Dynamic>0</Dynamic>
+        </Message>
+    </Task>
     <Task name="Map">
         <Message>
             <ID>1100523</ID>
@@ -88,7 +95,7 @@
         <Message>
             <ID>51001030</ID>
             <Severity>Warning</Severity>
-            <Dynamic>n40903</Dynamic>
+            <Dynamic>n39884</Dynamic>
         </Message>
     </Task>
     <Task name="Lattice_Synthesis">

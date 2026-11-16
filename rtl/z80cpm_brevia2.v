@@ -46,12 +46,13 @@ module z80cpm_brevia2(
   wire clk = clk_op;   // 25 MHz system clock
 
   wire vcc = 1'b1;
-  reg rst_m = 1'b1, rst_s = 1'b1;                 // sync reset into clk domain
-  always @(posedge clk) begin
-    rst_m <= ~rst_n;
-    rst_s <= rst_m;
-  end
-  wire rst = rst_s;   // synchronous active-high reset for the whole design
+  // Combinational active-high reset, matching the WORKING Lattice demo
+  // (demo: `wire rst = !rst_n`). The board's power-on reset circuit holds rst_n
+  // low at power-up, asserting rst until released. This avoids the SET-type
+  // synchronizer FF that LSE inferred as the local GSR net — that FF's floating
+  // LSR held it at logic 1, keeping the GSR asserted and freezing the whole
+  // design in reset.
+  wire rst = ~rst_n;
 
   // Hardware heartbeat: free-running counter on clk -> led[7] blinks if the PLL
   // clock is actually ticking and the FPGA is configured. Independent of the CPU.

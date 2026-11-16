@@ -32,16 +32,17 @@
 
 -lpf 1
 -p "C:/Users/techf/Desktop/brevia2/z80cpm/build"
--ver "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v"
-"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom.v"
-"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80n.v"
-"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_core.v"
-"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_alu.v"
-"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_reg.v"
-"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_mcode.v"
-"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_tx.v"
-"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v"
+-ver "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom.v"
 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_alu.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_core.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_mcode.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_reg.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80n.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_tx.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v"
+-top z80cpm_brevia2
 
 
 -p "C:/lscc/diamond/3.14/ispfpga/mg5a00/data" "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1" "C:/Users/techf/Desktop/brevia2/z80cpm/build"

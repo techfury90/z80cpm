@@ -1,1 +1,1 @@
-z80cpm_impl1_rtl.vdb
+z80cpm_brevia2_rtl.vdb

@@ -42,8 +42,8 @@ module tv80_reg (/*AUTOARG*/
     output [7:0] DOAH;
     input  clk, CEN, WEH, WEL;
 
-  reg [7:0] RegsH [0:7];
-  reg [7:0] RegsL [0:7];
+  (* syn_ramstyle = "registers" *) reg [7:0] RegsH [0:7];
+  (* syn_ramstyle = "registers" *) reg [7:0] RegsL [0:7];
 
   always @(posedge clk)
     begin

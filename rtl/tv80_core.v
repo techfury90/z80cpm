@@ -122,9 +122,9 @@ module tv80_core (/*AUTOARG*/
   reg [15:0]    ID16;
   reg [7:0]     Save_Mux;
 
-  reg [6:0]     tstate;
-  reg [6:0]     mcycle;
-  reg           last_mcycle, last_tstate;
+(* syn_keep = 1, syn_preserve = 1 *)   reg [6:0]     tstate;
+(* syn_keep = 1, syn_preserve = 1 *)   reg [6:0]     mcycle;
+(* syn_keep = 1, syn_preserve = 1 *)   reg           last_mcycle, last_tstate;
   reg           IntE_FF1;
   reg           IntE_FF2;
   reg           Halt_FF;
@@ -142,7 +142,7 @@ module tv80_core (/*AUTOARG*/
   reg           NextIs_XY_Fetch;
   reg           XY_Ind;
   reg           No_BTR;
-  reg           BTR_r;
+(* syn_keep = 1, syn_preserve = 1 *)   reg           BTR_r;
   reg           Auto_Wait;
   reg           Auto_Wait_t1;
   reg           Auto_Wait_t2;
@@ -155,11 +155,11 @@ module tv80_core (/*AUTOARG*/
   wire [7:0]    F_Out;
 
   // Registered micro code outputs
-  reg [4:0]     Read_To_Reg_r;
-  reg           Arith16_r;
+(* syn_keep = 1, syn_preserve = 1 *)   reg [4:0]     Read_To_Reg_r;
+(* syn_keep = 1, syn_preserve = 1 *)   reg           Arith16_r;
   reg           Z16_r;
-  reg [3:0]     ALU_Op_r;
-  reg           Save_ALU_r;
+(* syn_keep = 1, syn_preserve = 1 *)   reg [3:0]     ALU_Op_r;
+(* syn_keep = 1, syn_preserve = 1 *)   reg           Save_ALU_r;
   reg           PreserveC_r;
   reg [2:0]     mcycles;
 

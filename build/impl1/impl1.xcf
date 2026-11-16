@@ -20,8 +20,8 @@
 				<BScanVal>0</BScanVal>
 			</Bypass>
 			<File>C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/z80cpm_impl1.jed</File>
-			<FileTime>11/15/26 19:38:39</FileTime>
-			<JedecChecksum>0x39A4</JedecChecksum>
+			<FileTime>11/15/26 20:11:12</FileTime>
+			<JedecChecksum>0x4D34</JedecChecksum>
 			<Operation>FLASH Erase,Program,Verify</Operation>
 			<Option>
 				<SVFVendor>JTAG STANDARD</SVFVendor>
@@ -29,6 +29,7 @@
 				<PreloadLength>394</PreloadLength>
 				<IOVectorData>0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</IOVectorData>
 				<TCKFrequency>1.000000 MHz</TCKFrequency>
+				<SVFProcessor>SVF Processor</SVFProcessor>
 				<Usercode>0xFFFFFFFF</Usercode>
 				<AccessMode>FLASH</AccessMode>
 			</Option>

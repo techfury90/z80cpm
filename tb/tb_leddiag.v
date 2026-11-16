@@ -32,12 +32,12 @@ module tb_leddiag;
 
   initial begin
     #200 rst_n = 1;
-    #3000000;                      // run ~3 ms of sim
-    $display("hb_toggles=%0d  led_changes=%0d  led=%b", hb_toggles, led_changes, led);
-    if (hb_toggles > 2 && led_changes > 2)
-      $display("PASS: heartbeat toggles (clock ticking) AND CPU drives LED port (reset released + decode ok)");
+    #500000;                       // run ~0.5 ms of sim
+    $display("led_reg=%02x  led=%b  (expect led_reg=AA if core executed OUT 40)", u_dut.led_reg, led);
+    if (u_dut.led_reg == 8'hAA)
+      $display("PASS: core executed OUT 40 and latched 0xAA -> LED write path works");
     else
-      $display("FAIL: hb_toggles=%0d led_changes=%0d", hb_toggles, led_changes);
+      $display("FAIL: led_reg=%02x (core did not write 0xAA)", u_dut.led_reg);
     $finish;
   end
 endmodule

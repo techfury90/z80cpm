@@ -1,41 +1,22 @@
 [ START MERGED ]
-clk_N_323 clk_op
-u_cpu/i_tv80_core/n2550 u_cpu/i_tv80_core/Set_BusA_To_3
-u_cpu/i_tv80_core/n38731 ISet_1
-u_cpu/i_tv80_core/i_mcode/n38789 u_cpu/i_tv80_core/i_mcode/n38788
-u_cpu/i_tv80_core/i_alu/n38803 u_cpu/i_tv80_core/BusA_1
+clk_N_314 clk_op
+u_cpu/i_tv80_core/i_mcode/n35918 ISet_1
+u_cpu/i_tv80_core/i_alu/n39040 u_cpu/i_tv80_core/BusA_1
 [ END MERGED ]
 [ START CLIPPED ]
 pmi_pll0offCLKOP500XP212.50000025252550/scuba_vlo
 u_tx/add_48_add_4_1/S0
 u_tx/add_48_add_4_1/CI
 u_tx/add_48_add_4_9/CO
-u_rx/add_1091_add_4_1/S0
-u_rx/add_1091_add_4_1/CI
-u_rx/equal_4713_14_27499/S1
-u_rx/equal_4713_14_27499/S0
-u_rx/k_5704_add_4_1/S0
-u_rx/k_5704_add_4_1/CI
-u_rx/equal_4713_14/S1
-u_rx/equal_4713_14/CO
-u_rx/add_1091_add_4_cout/S1
-u_rx/add_1091_add_4_cout/CO
-u_rx/k_5704_add_4_13/S1
-u_rx/k_5704_add_4_13/CO
-u_rx/equal_4713_0/S1
-u_rx/equal_4713_0/S0
-u_rx/equal_4713_0/CI
-u_rx/equal_4713_10/S1
-u_rx/equal_4713_10/S0
-u_rx/equal_4713_12/S1
-u_rx/equal_4713_12/S0
-u_cpu/i_tv80_core/i_alu/add_5191_add_4_1/S0
-u_cpu/i_tv80_core/i_alu/add_5191_add_4_1/CI
-u_cpu/i_tv80_core/i_alu/add_5191_add_4_7/CO
-u_cpu/i_tv80_core/i_alu/add_5911_add_4_1/S0
-u_cpu/i_tv80_core/i_alu/add_5911_add_4_1/CI
-u_cpu/i_tv80_core/i_alu/add_5911_add_4_cout/S1
-u_cpu/i_tv80_core/i_alu/add_5911_add_4_cout/CO
+u_cpu/i_tv80_core/i_alu/add_5172_add_4_1/S0
+u_cpu/i_tv80_core/i_alu/add_5172_add_4_1/CI
+u_cpu/i_tv80_core/i_alu/add_5172_add_4_7/CO
+u_cpu/i_tv80_core/i_alu/add_5892_add_4_1/S0
+u_cpu/i_tv80_core/i_alu/add_5892_add_4_1/CI
+u_cpu/i_tv80_core/i_alu/add_5892_add_4_cout/S1
+u_cpu/i_tv80_core/i_alu/add_5892_add_4_cout/CO
+u_cpu/i_tv80_core/add_868_add_4_1/S0
+u_cpu/i_tv80_core/add_868_add_4_1/CI
 u_cpu/i_tv80_core/add_868_add_4_17/S1
 u_cpu/i_tv80_core/add_868_add_4_17/CO
 u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_1/S0
@@ -46,15 +27,32 @@ u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_1/S0
 u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_1/CI
 u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_17/S1
 u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_17/CO
-u_cpu/i_tv80_core/PC_5706_add_4_1/S1
-u_cpu/i_tv80_core/PC_5706_add_4_1/S0
-u_cpu/i_tv80_core/PC_5706_add_4_1/CI
-u_cpu/i_tv80_core/PC_5706_add_4_17/CO
-u_cpu/i_tv80_core/add_868_add_4_1/S0
-u_cpu/i_tv80_core/add_868_add_4_1/CI
-hb_5703_add_4_25/CO
-hb_5703_add_4_1/S0
-hb_5703_add_4_1/CI
+u_cpu/i_tv80_core/PC_5687_add_4_1/S1
+u_cpu/i_tv80_core/PC_5687_add_4_1/S0
+u_cpu/i_tv80_core/PC_5687_add_4_1/CI
+u_cpu/i_tv80_core/PC_5687_add_4_17/CO
+u_rx/equal_4710_12/S1
+u_rx/equal_4710_12/S0
+u_rx/equal_4710_0/S1
+u_rx/equal_4710_0/S0
+u_rx/equal_4710_0/CI
+u_rx/equal_4710_14_27896/S1
+u_rx/equal_4710_14_27896/S0
+u_rx/equal_4710_14/S1
+u_rx/equal_4710_14/CO
+u_rx/k_5685_add_4_1/S0
+u_rx/k_5685_add_4_1/CI
+u_rx/equal_4710_10/S1
+u_rx/equal_4710_10/S0
+u_rx/k_5685_add_4_13/S1
+u_rx/k_5685_add_4_13/CO
+u_rx/add_1088_add_4_1/S0
+u_rx/add_1088_add_4_1/CI
+u_rx/add_1088_add_4_cout/S1
+u_rx/add_1088_add_4_cout/CO
+hb_5684_add_4_25/CO
+hb_5684_add_4_1/S0
+hb_5684_add_4_1/CI
 pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0/CLKINTFB
 pmi_pll0offCLKOP500XP212.50000025252550/LOCK
 pmi_pll0offCLKOP500XP212.50000025252550/CLKOK2
@@ -63,7 +61,7 @@ pmi_pll0offCLKOP500XP212.50000025252550/CLKOS
 [ END CLIPPED ]
 [ START DESIGN PREFS ]
 SCHEMATIC START ;
-# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Sun Nov 15 20:02:55 2026
+# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Sun Nov 15 20:10:40 2026
 
 SYSCONFIG DONE_OD=ON DONE_EX=OFF CONFIG_SECURE=OFF WAKE_UP=21 WAKE_ON_LOCK=OFF INBUF=ON MASTER_SPI_PORT=DISABLE SLAVE_SPI_PORT=DISABLE MY_ASSP=OFF ONE_TIME_PROGRAM=OFF ;
 LOCATE COMP "sram_data[6]" SITE "9" ;

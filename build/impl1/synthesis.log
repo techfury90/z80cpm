@@ -5,7 +5,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
-Sun Nov 15 20:02:44 2026
+Sun Nov 15 20:10:29 2026
 
 
 Command Line:  synthesis -f z80cpm_impl1_lattice.synproj 
@@ -164,9 +164,9 @@ original encoding -> new encoding (one-hot encoding)
 
 
 
-######## Missing driver on net n9420. Patching with GND.
-######## Missing driver on net n9419. Patching with GND.
-######## Missing driver on net n9418. Patching with GND.
+######## Missing driver on net n9397. Patching with GND.
+######## Missing driver on net n9396. Patching with GND.
+######## Missing driver on net n9395. Patching with GND.
 WARNING - synthesis: PMI modules used in the design, GSR inference is disabled, please infer GSR in 'Map Design' stage if required.
 Applying 200.000000 MHz constraint to all clocks
 
@@ -182,58 +182,58 @@ All blocks are expanded and NGD expansion is successful.
 Writing NGD file z80cpm_impl1.ngd.
 
 ################### Begin Area Report (z80cpm_brevia2)######################
-Number of register bits => 467 of 3864 (12 % )
+Number of register bits => 461 of 3864 (11 % )
 BB => 8
 CCU2B => 82
 FD1P3AX => 136
 FD1P3BX => 43
-FD1P3DX => 154
+FD1P3DX => 146
 FD1P3IX => 8
 FD1S3AX => 63
-FD1S3AY => 8
-FD1S3BX => 10
+FD1S3AY => 9
+FD1S3BX => 11
 FD1S3DX => 37
 FD1S3JX => 8
 GSR => 1
 IB => 11
 INV => 1
-L6MUX21 => 65
+L6MUX21 => 63
 MULT9X9B => 1
 OB => 29
-ORCALUT4 => 2018
-PFUMX => 312
+ORCALUT4 => 1983
+PFUMX => 309
 pmi_pll0o500X125252550d29c740 => 1
 ################### End Area Report ##################
 
 ################### Begin Clock Report ######################
 Clock Nets
 Number of Clocks: 1
-  Net : clk_op, loads : 465
+  Net : clk_op, loads : 459
 Clock Enable Nets
-Number of Clock Enables: 56
+Number of Clock Enables: 55
 Top 10 highest fanout Clock Enables:
-  Net : u_cpu/i_tv80_core/last_tstate, loads : 28
-  Net : u_cpu/i_tv80_core/clk_op_enable_119, loads : 26
-  Net : u_cpu/i_tv80_core/clk_op_enable_325, loads : 16
-  Net : u_cpu/i_tv80_core/clk_op_enable_284, loads : 16
-  Net : u_tx/clk_op_enable_311, loads : 16
-  Net : u_rx/bitidx_0, loads : 15
-  Net : u_cpu/i_tv80_core/i_reg/clk_op_enable_153, loads : 8
-  Net : u_cpu/i_tv80_core/i_reg/clk_op_enable_159, loads : 8
-  Net : u_cpu/i_tv80_core/clk_op_enable_58, loads : 8
-  Net : u_cpu/i_tv80_core/i_reg/clk_op_enable_191, loads : 8
+  Net : u_cpu/i_tv80_core/last_tstate, loads : 29
+  Net : u_cpu/i_tv80_core/clk_op_enable_227, loads : 26
+  Net : u_cpu/i_tv80_core/clk_op_enable_314, loads : 16
+  Net : u_cpu/i_tv80_core/clk_op_enable_211, loads : 16
+  Net : u_rx/bitidx_2, loads : 11
+  Net : u_cpu/i_tv80_core/clk_op_enable_305, loads : 8
+  Net : u_cpu/i_tv80_core/i_reg/clk_op_enable_196, loads : 8
+  Net : u_cpu/i_tv80_core/clk_op_enable_51, loads : 8
+  Net : u_cpu/i_tv80_core/i_reg/clk_op_enable_142, loads : 8
+  Net : u_cpu/i_tv80_core/clk_op_enable_38, loads : 8
 Highest fanout non-clock nets
 Top 10 highest fanout non-clock nets:
-  Net : u_cpu/i_tv80_core/Set_BusA_To_3_N_1212_2, loads : 130
-  Net : u_cpu/i_tv80_core/ALU_Op_3_N_1283_3, loads : 113
-  Net : u_cpu/i_tv80_core/IR_2, loads : 113
-  Net : u_cpu/i_tv80_core/n38740, loads : 100
-  Net : u_cpu/i_tv80_core/Set_BusA_To_3_N_1216_0, loads : 97
-  Net : u_cpu/i_tv80_core/IR_5, loads : 85
-  Net : u_cpu/i_tv80_core/IR_1, loads : 82
-  Net : u_cpu/i_tv80_core/i_mcode/n38455, loads : 80
+  Net : u_cpu/i_tv80_core/Set_BusA_To_3_N_1203_2, loads : 120
+  Net : u_cpu/i_tv80_core/ALU_Op_3_N_1274_3, loads : 114
+  Net : u_cpu/i_tv80_core/n38931, loads : 98
+  Net : u_cpu/i_tv80_core/IR_5, loads : 93
+  Net : u_cpu/i_tv80_core/IR_2, loads : 92
+  Net : u_cpu/i_tv80_core/Set_BusA_To_3_N_1207_0, loads : 88
+  Net : u_cpu/i_tv80_core/i_mcode/n38696, loads : 80
   Net : u_cpu/i_tv80_core/RegAddrA_0, loads : 80
-  Net : u_cpu/i_tv80_core/mc_2, loads : 70
+  Net : u_cpu/i_tv80_core/IR_1, loads : 73
+  Net : u_cpu/i_tv80_core/IR_4, loads : 70
 ################### End Clock Report ##################
 
 Timing Report Summary
@@ -251,8 +251,8 @@ clk0 [get_nets clk_op]                  |            -|            -|     0
 All constraints were met.
 
 
-Peak Memory Usage: 117.637  MB
+Peak Memory Usage: 120.445  MB
 
 --------------------------------------------------------------
-Elapsed CPU time for LSE flow : 9.766  secs
+Elapsed CPU time for LSE flow : 8.984  secs
 --------------------------------------------------------------

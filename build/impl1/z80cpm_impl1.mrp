@@ -14,20 +14,20 @@ Target Vendor:  LATTICE
 Target Device:  LFXP2-5ETQFP144
 Target Performance:   6
 Mapper:  mg5a00,  version:  Diamond (64-bit) 3.14.0.75.2
-Mapped on:  11/15/26  20:02:54
+Mapped on:  11/15/26  20:10:39
 
 Design Summary
 --------------
 
-   Number of registers:    467 out of  3864 (12%)
-      PFU registers:          467 out of  3564 (13%)
+   Number of registers:    461 out of  3864 (12%)
+      PFU registers:          461 out of  3564 (13%)
       PIO registers:            0 out of   300 (0%)
-   Number of SLICEs:      1325 out of  2376 (56%)
-      SLICEs as Logic/ROM:   1325 out of  2376 (56%)
+   Number of SLICEs:      1313 out of  2376 (55%)
+      SLICEs as Logic/ROM:   1313 out of  2376 (55%)
       SLICEs as RAM:            0 out of   405 (0%)
       SLICEs as Carry:         82 out of  2376 (3%)
-   Number of LUT4s:        2191 out of  4752 (46%)
-      Number used as logic LUTs:        2027
+   Number of LUT4s:        2153 out of  4752 (45%)
+      Number used as logic LUTs:        1989
       Number used as distributed RAM:     0
       Number used as ripple logic:      164
       Number used as shift registers:     0
@@ -66,106 +66,106 @@ Design Summary
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:10:39
 
 Design Summary (cont)
 ---------------------
    Number of clocks:  2
-     Net clk_op: 344 loads, 340 rising, 4 falling (Driver:
+     Net clk_op: 333 loads, 329 rising, 4 falling (Driver:
      pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0 )
      Net clk_in_c: 1 loads, 1 rising, 0 falling (Driver: PIO clk_in )
-   Number of Clock Enables:  56
-     Net led_reg_7__N_56: 4 loads, 4 LSLICEs
-     Net clk_op_enable_203: 8 loads, 8 LSLICEs
-     Net clk_op_enable_299: 6 loads, 6 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_321: 7 loads, 7 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_119: 17 loads, 17 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_325: 13 loads, 13 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_116: 14 loads, 14 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_308: 3 loads, 3 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_83: 6 loads, 6 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_58: 8 loads, 8 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_207: 3 loads, 3 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_22: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_77: 8 loads, 8 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_50: 8 loads, 8 LSLICEs
-     Net u_cpu/i_tv80_core/last_tstate: 7 loads, 7 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_297: 8 loads, 8 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_85: 2 loads, 2 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_143: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_144: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_145: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_146: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_284: 10 loads, 10 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_184: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_162: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_314: 2 loads, 2 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_326: 7 loads, 7 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_296: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_181: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_153: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_208: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_315: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_165: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_159: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_191: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_141: 4 loads, 4 LSLICEs
+   Number of Clock Enables:  55
+     Net clk_op_enable_307: 6 loads, 6 LSLICEs
+     Net clk_op_enable_322: 10 loads, 10 LSLICEs
+     Net clk_op_enable_113: 4 loads, 4 LSLICEs
+     Net clk_op_enable_324: 6 loads, 6 LSLICEs
+     Net u_rx/clk_op_enable_8: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_18: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_29: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_48: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_49: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_57: 1 loads, 1 LSLICEs
+     Net u_rx/bitidx_2: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_319: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_229: 3 loads, 3 LSLICEs
+     Net clk_op_enable_170: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_227: 17 loads, 17 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_314: 11 loads, 11 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_107: 12 loads, 12 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_95: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_60: 6 loads, 6 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_51: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_208: 3 loads, 3 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_19: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_38: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_64: 2 loads, 2 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_211: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/last_tstate: 6 loads, 6 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_306: 6 loads, 6 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_132: 6 loads, 6 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_199: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_310: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_131: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_325: 7 loads, 7 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_171: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_305: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_321: 2 loads, 2 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_316: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_312: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_313: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_198: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_196: 4 loads, 4 LSLICEs
      Net u_cpu/i_tv80_core/i_reg/clk_op_enable_142: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_180: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_256: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_272: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_240: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_232: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_248: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_264: 4 loads, 4 LSLICEs
-     Net u_rx/clk_op_enable_140: 4 loads, 4 LSLICEs
-     Net u_rx/bitidx_0: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_304: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_300: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_312: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_194: 2 loads, 2 LSLICEs
-     Net u_rx/clk_op_enable_303: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_306: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_158: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_287: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_184: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_197: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_147: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_129: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_273: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_241: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_185: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_257: 4 loads, 4 LSLICEs
 
                                     Page 2
 
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:10:39
 
 Design Summary (cont)
 ---------------------
-     Net u_rx/clk_op_enable_309: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_307: 1 loads, 1 LSLICEs
-     Net u_tx/clk_op_enable_313: 5 loads, 5 LSLICEs
-     Net u_tx/clk_op_enable_305: 1 loads, 1 LSLICEs
-     Net u_tx/clk_op_enable_311: 11 loads, 11 LSLICEs
-   Number of local set/reset loads for net n40903 merged into GSR:  50
-   Number of LSRs:  11
-     Net rst_s: 39 loads, 39 LSLICEs
-     Net n40905: 45 loads, 45 LSLICEs
-     Net n40906: 41 loads, 41 LSLICEs
-     Net n40902: 38 loads, 38 LSLICEs
-     Net n40900: 9 loads, 9 LSLICEs
-     Net u_cpu/n9543: 1 loads, 1 LSLICEs
-     Net u_cpu/n34912: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/Set_BusA_To_1: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_249: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_265: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_281: 4 loads, 4 LSLICEs
+     Net u_tx/clk_op_enable_222: 1 loads, 1 LSLICEs
+   Number of local set/reset loads for net n41036 merged into GSR:  50
+   Number of LSRs:  12
+     Net n41038: 42 loads, 42 LSLICEs
+     Net n41034: 45 loads, 45 LSLICEs
+     Net n41033: 43 loads, 43 LSLICEs
+     Net Set_BusA_To_1: 1 loads, 1 LSLICEs
+     Net led_c_6: 20 loads, 20 LSLICEs
+     Net n41012: 4 loads, 4 LSLICEs
+     Net u_cpu/n9516: 1 loads, 1 LSLICEs
+     Net u_cpu/n35438: 1 loads, 1 LSLICEs
+     Net n41013: 11 loads, 11 LSLICEs
      Net u_cpu/i_tv80_core/Set_BusB_To_1: 1 loads, 1 LSLICEs
      Net u_cpu/i_tv80_core/n1684: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/n34997: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/n34792: 1 loads, 1 LSLICEs
    Number of nets driven by tri-state buffers:  0
    Top 10 highest fanout non-clock nets:
-     Net u_cpu/i_tv80_core/Set_BusA_To_3_N_1212_2: 130 loads
-     Net u_cpu/ALU_Op_3_N_1283_3: 114 loads
-     Net u_cpu/i_tv80_core/IR_2: 113 loads
-     Net u_cpu/i_tv80_core/n38740: 100 loads
-     Net u_cpu/i_tv80_core/Set_BusA_To_3_N_1216_0: 97 loads
-     Net u_cpu/i_tv80_core/IR_5: 85 loads
-     Net u_cpu/i_tv80_core/IR_1: 82 loads
-     Net u_cpu/i_tv80_core/n38455: 81 loads
+     Net u_cpu/i_tv80_core/Set_BusA_To_3_N_1203_2: 120 loads
+     Net u_cpu/ALU_Op_3_N_1274_3: 115 loads
+     Net u_cpu/i_tv80_core/n38931: 98 loads
+     Net u_cpu/i_tv80_core/IR_5: 93 loads
+     Net u_cpu/i_tv80_core/IR_2: 92 loads
+     Net u_cpu/i_tv80_core/Set_BusA_To_3_N_1207_0: 88 loads
+     Net u_cpu/i_tv80_core/n38696: 81 loads
      Net u_cpu/i_tv80_core/RegAddrA_0: 80 loads
-     Net u_cpu/i_tv80_core/mc_2: 70 loads
+     Net u_cpu/i_tv80_core/IR_1: 73 loads
+     Net ISet_1: 71 loads
 
 
 
@@ -198,7 +198,7 @@ WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(61):
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:10:39
 
 Design Errors/Warnings (cont)
 -----------------------------
@@ -222,7 +222,7 @@ WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf(66):
      Semantic error in "CLOCK_TO_OUT PORT "uart_tx" 20.000000 ns CLKNET
      "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
      has been disabled.
-WARNING - map: Using local reset signal 'n40903' to infer global GSR net.
+WARNING - map: Using local reset signal 'n41036' to infer global GSR net.
 
 IO (PIO) Attributes
 -------------------
@@ -264,7 +264,7 @@ IO (PIO) Attributes
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:10:39
 
 IO (PIO) Attributes (cont)
 --------------------------
@@ -330,7 +330,7 @@ IO (PIO) Attributes (cont)
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:10:39
 
 IO (PIO) Attributes (cont)
 --------------------------
@@ -351,66 +351,33 @@ IO (PIO) Attributes (cont)
 Removed logic
 -------------
 
-Signal clk_N_323 was merged into signal clk_op
-Signal u_cpu/i_tv80_core/i_alu/n38803 was merged into signal
+Signal clk_N_314 was merged into signal clk_op
+Signal u_cpu/i_tv80_core/i_alu/n39040 was merged into signal
      u_cpu/i_tv80_core/BusA_1
-Signal u_cpu/i_tv80_core/i_mcode/n38789 was merged into signal
-     u_cpu/i_tv80_core/i_mcode/n38788
-Signal u_cpu/i_tv80_core/n38731 was merged into signal ISet_1
-Signal u_cpu/i_tv80_core/n2550 was merged into signal
-     u_cpu/i_tv80_core/Set_BusA_To_3
+Signal u_cpu/i_tv80_core/i_mcode/n35918 was merged into signal ISet_1
 Signal pmi_pll0offCLKOP500XP212.50000025252550/scuba_vlo undriven or does not
      drive anything - clipped.
 Signal u_tx/add_48_add_4_1/S0 undriven or does not drive anything - clipped.
 Signal u_tx/add_48_add_4_1/CI undriven or does not drive anything - clipped.
 Signal u_tx/add_48_add_4_9/CO undriven or does not drive anything - clipped.
-Signal u_rx/add_1091_add_4_1/S0 undriven or does not drive anything - clipped.
-Signal u_rx/add_1091_add_4_1/CI undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_14_27499/S1 undriven or does not drive anything -
-     clipped.
-Signal u_rx/equal_4713_14_27499/S0 undriven or does not drive anything -
-     clipped.
-Signal u_rx/k_5704_add_4_1/S0 undriven or does not drive anything - clipped.
-Signal u_rx/k_5704_add_4_1/CI undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_14/S1 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_14/CO undriven or does not drive anything - clipped.
-Signal u_rx/add_1091_add_4_cout/S1 undriven or does not drive anything -
-     clipped.
-Signal u_rx/add_1091_add_4_cout/CO undriven or does not drive anything -
-     clipped.
-Signal u_rx/k_5704_add_4_13/S1 undriven or does not drive anything - clipped.
-Signal u_rx/k_5704_add_4_13/CO undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_0/S1 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_0/S0 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_0/CI undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_10/S1 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_10/S0 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_12/S1 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4713_12/S0 undriven or does not drive anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5191_add_4_1/S0 undriven or does not drive
+Signal u_cpu/i_tv80_core/i_alu/add_5172_add_4_1/S0 undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5191_add_4_1/CI undriven or does not drive
-
-                                    Page 6
-
-
-
-
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
-
-Removed logic (cont)
---------------------
+Signal u_cpu/i_tv80_core/i_alu/add_5172_add_4_1/CI undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5191_add_4_7/CO undriven or does not drive
+Signal u_cpu/i_tv80_core/i_alu/add_5172_add_4_7/CO undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5911_add_4_1/S0 undriven or does not drive
+Signal u_cpu/i_tv80_core/i_alu/add_5892_add_4_1/S0 undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5911_add_4_1/CI undriven or does not drive
+Signal u_cpu/i_tv80_core/i_alu/add_5892_add_4_1/CI undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5911_add_4_cout/S1 undriven or does not drive
+Signal u_cpu/i_tv80_core/i_alu/add_5892_add_4_cout/S1 undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5911_add_4_cout/CO undriven or does not drive
+Signal u_cpu/i_tv80_core/i_alu/add_5892_add_4_cout/CO undriven or does not drive
      anything - clipped.
+Signal u_cpu/i_tv80_core/add_868_add_4_1/S0 undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/add_868_add_4_1/CI undriven or does not drive anything
+     - clipped.
 Signal u_cpu/i_tv80_core/add_868_add_4_17/S1 undriven or does not drive anything
      - clipped.
 Signal u_cpu/i_tv80_core/add_868_add_4_17/CO undriven or does not drive anything
@@ -423,6 +390,16 @@ Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_17/S1 undriven or does not drive
      anything - clipped.
 Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_17/CO undriven or does not drive
      anything - clipped.
+
+                                    Page 6
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:10:39
+
+Removed logic (cont)
+--------------------
 Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_1/S0 undriven or does not drive
      anything - clipped.
 Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_1/CI undriven or does not drive
@@ -431,21 +408,40 @@ Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_17/S1 undriven or does not drive
      anything - clipped.
 Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_17/CO undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/PC_5706_add_4_1/S1 undriven or does not drive anything
+Signal u_cpu/i_tv80_core/PC_5687_add_4_1/S1 undriven or does not drive anything
      - clipped.
-Signal u_cpu/i_tv80_core/PC_5706_add_4_1/S0 undriven or does not drive anything
+Signal u_cpu/i_tv80_core/PC_5687_add_4_1/S0 undriven or does not drive anything
      - clipped.
-Signal u_cpu/i_tv80_core/PC_5706_add_4_1/CI undriven or does not drive anything
+Signal u_cpu/i_tv80_core/PC_5687_add_4_1/CI undriven or does not drive anything
      - clipped.
-Signal u_cpu/i_tv80_core/PC_5706_add_4_17/CO undriven or does not drive anything
+Signal u_cpu/i_tv80_core/PC_5687_add_4_17/CO undriven or does not drive anything
      - clipped.
-Signal u_cpu/i_tv80_core/add_868_add_4_1/S0 undriven or does not drive anything
-     - clipped.
-Signal u_cpu/i_tv80_core/add_868_add_4_1/CI undriven or does not drive anything
-     - clipped.
-Signal hb_5703_add_4_25/CO undriven or does not drive anything - clipped.
-Signal hb_5703_add_4_1/S0 undriven or does not drive anything - clipped.
-Signal hb_5703_add_4_1/CI undriven or does not drive anything - clipped.
+Signal u_rx/equal_4710_12/S1 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4710_12/S0 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4710_0/S1 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4710_0/S0 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4710_0/CI undriven or does not drive anything - clipped.
+Signal u_rx/equal_4710_14_27896/S1 undriven or does not drive anything -
+     clipped.
+Signal u_rx/equal_4710_14_27896/S0 undriven or does not drive anything -
+     clipped.
+Signal u_rx/equal_4710_14/S1 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4710_14/CO undriven or does not drive anything - clipped.
+Signal u_rx/k_5685_add_4_1/S0 undriven or does not drive anything - clipped.
+Signal u_rx/k_5685_add_4_1/CI undriven or does not drive anything - clipped.
+Signal u_rx/equal_4710_10/S1 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4710_10/S0 undriven or does not drive anything - clipped.
+Signal u_rx/k_5685_add_4_13/S1 undriven or does not drive anything - clipped.
+Signal u_rx/k_5685_add_4_13/CO undriven or does not drive anything - clipped.
+Signal u_rx/add_1088_add_4_1/S0 undriven or does not drive anything - clipped.
+Signal u_rx/add_1088_add_4_1/CI undriven or does not drive anything - clipped.
+Signal u_rx/add_1088_add_4_cout/S1 undriven or does not drive anything -
+     clipped.
+Signal u_rx/add_1088_add_4_cout/CO undriven or does not drive anything -
+     clipped.
+Signal hb_5684_add_4_25/CO undriven or does not drive anything - clipped.
+Signal hb_5684_add_4_1/S0 undriven or does not drive anything - clipped.
+Signal hb_5684_add_4_1/CI undriven or does not drive anything - clipped.
 Signal pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0/CLKINTFB undriven or
      does not drive anything - clipped.
 Signal pmi_pll0offCLKOP500XP212.50000025252550/LOCK undriven or does not drive
@@ -456,29 +452,27 @@ Signal pmi_pll0offCLKOP500XP212.50000025252550/CLKOK undriven or does not drive
      anything - clipped.
 Signal pmi_pll0offCLKOP500XP212.50000025252550/CLKOS undriven or does not drive
      anything - clipped.
+Block i35612 was optimized away.
+Block u_cpu/i_tv80_core/i_alu/i11185_then_1_lut was optimized away.
+Block u_cpu/i_tv80_core/i_mcode/i33447_2_lut_3_lut_1_lut was optimized away.
+Block pmi_pll0offCLKOP500XP212.50000025252550/scuba_vlo_inst was optimized away.
 
                                     Page 7
 
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:10:39
 
 Removed logic (cont)
 --------------------
-Block i35368 was optimized away.
-Block u_cpu/i_tv80_core/i_alu/i11211_then_1_lut was optimized away.
-Block u_cpu/i_tv80_core/i_mcode/i34156/GATE was optimized away.
-Block u_cpu/i_tv80_core/i_mcode/i20181_1_lut_rep_752 was optimized away.
-Block u_cpu/i_tv80_core/i33221_2_lut was optimized away.
-Block pmi_pll0offCLKOP500XP212.50000025252550/scuba_vlo_inst was optimized away.
      
 
 DSP Component Details
 ---------------------
 
 
-     . MULT9X9B  u_rx/mult_67:
+     . MULT9X9B  u_rx/mult_65:
 
      Multiplier
         Operation               Unsigned
@@ -522,22 +516,22 @@ PLL 1:                                     Pin/Node Value
   PLL LOCK Signal:                                  NONE
   Dynamic CLKOS Fine Delay Adjust Signal:           NONE
   Dynamic Phase Adjust Input 0:                     NONE
-
-                                    Page 8
-
-
-
-
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
-
-PLL/DLL Summary (cont)
-----------------------
   Dynamic Phase Adjust Input 1:                     NONE
   Dynamic Phase Adjust Input 2:                     NONE
   Dynamic Phase Adjust Input 3:                     NONE
   Dynamic Duty Adjust Input 0:                      NONE
   Dynamic Duty Adjust Input 1:                      NONE
   Dynamic Duty Adjust Input 2:                      NONE
+
+                                    Page 8
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:10:39
+
+PLL/DLL Summary (cont)
+----------------------
   Dynamic Duty Adjust Input 3:                      NONE
   Dynamic Power Down Signal:                        NONE
   Input Clock Frequency (MHz):                      50.0000
@@ -567,15 +561,15 @@ ASIC Components
 
 Instance Name: pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0
          Type: EHXPLLE
-Instance Name: u_rx/mult_67
+Instance Name: u_rx/mult_65
          Type: MULT9X9B
 
 GSR Usage
 ---------
 
 GSR Component:
-   The local reset signal 'n40903' of the design has been inferred as Global Set
-        Reset (GSR). The reset signal used for GSR control is 'n40903'.
+   The local reset signal 'n41036' of the design has been inferred as Global Set
+        Reset (GSR). The reset signal used for GSR control is 'n41036'.
         
 
      GSR Property:
@@ -588,16 +582,6 @@ Run Time and Memory Usage
 -------------------------
 
    Total CPU Time: 1 secs  
-
-                                    Page 9
-
-
-
-
-Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:54
-
-Run Time and Memory Usage (cont)
---------------------------------
    Total REAL Time: 0 secs  
    Peak Memory Usage: 77 MB
         
@@ -605,57 +589,7 @@ Run Time and Memory Usage (cont)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                   Page 10
+                                    Page 9
 
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.

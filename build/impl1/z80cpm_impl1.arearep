@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------
 Report for cell z80cpm_brevia2.TECH
-Register bits:  467 of 3864 (12.086%)
+Register bits:  461 of 3864 (11.931%)
 I/O cells:      48
                                   Cell usage:
                                cell     count   Res Usage(%)
@@ -8,21 +8,21 @@ I/O cells:      48
                               CCU2B        82          100.0
                             FD1P3AX       136          100.0
                             FD1P3BX        43          100.0
-                            FD1P3DX       154          100.0
+                            FD1P3DX       146          100.0
                             FD1P3IX         8          100.0
                             FD1S3AX        63          100.0
-                            FD1S3AY         8          100.0
-                            FD1S3BX        10          100.0
+                            FD1S3AY         9          100.0
+                            FD1S3BX        11          100.0
                             FD1S3DX        37          100.0
                             FD1S3JX         8          100.0
                                 GSR         1          100.0
                                  IB        11          100.0
                                 INV         1          100.0
-                            L6MUX21        65          100.0
-                               LUT4      2018          100.0
+                            L6MUX21        63          100.0
+                               LUT4      1983          100.0
                            MULT9X9B         1          100.0
                                  OB        29          100.0
-                              PFUMX       312          100.0
+                              PFUMX       309          100.0
                         VERIFIC_GND         5          100.0
       pmi_pll0o500X125252550d29c740         1          100.0
 SUB MODULES
@@ -34,15 +34,22 @@ SUB MODULES
                               tv80n         1
                             uart_rx         1
                             uart_tx         1
-                              TOTAL      3009
+                              TOTAL      2963
 ----------------------------------------------------------------------
-Report for cell boot_rom.v1
-Instance Path : u_rom
+Report for cell uart_rx.v1
+Instance Path : u_rx
                                   Cell usage:
                                cell     count   Res Usage(%)
-                               LUT4        25            1.2
-                              PFUMX         2            0.6
-                              TOTAL        27
+                              CCU2B        19           23.2
+                            FD1P3AX         8            5.9
+                            FD1P3DX        11            7.5
+                            FD1S3BX         1            9.1
+                            FD1S3DX        15           40.5
+                               LUT4        52            2.6
+                           MULT9X9B         1          100.0
+                              PFUMX         1            0.3
+                        VERIFIC_GND         1           20.0
+                              TOTAL       109
 ----------------------------------------------------------------------
 Report for cell tv80n.v1
 Instance Path : u_cpu
@@ -51,22 +58,22 @@ Instance Path : u_cpu
                               CCU2B        45           54.9
                             FD1P3AX       128           94.1
                             FD1P3BX        41           95.3
-                            FD1P3DX       105           68.2
+                            FD1P3DX       104           71.2
                             FD1P3IX         8          100.0
                             FD1S3AX        38           60.3
-                            FD1S3BX         9           90.0
+                            FD1S3BX        10           90.9
                             FD1S3DX        20           54.1
                             FD1S3JX         8          100.0
-                            L6MUX21        65          100.0
-                               LUT4      1884           93.4
-                              PFUMX       300           96.2
+                            L6MUX21        63          100.0
+                               LUT4      1818           91.7
+                              PFUMX       298           96.4
                         VERIFIC_GND         2           40.0
 SUB MODULES
                            tv80_alu         1
                   tv80_core(Mode=0)         1
                          tv80_mcode         1
                            tv80_reg         1
-                              TOTAL      2657
+                              TOTAL      2587
 ----------------------------------------------------------------------
 Report for cell tv80_core(Mode=0).v1
 Instance Path : u_cpu.i_tv80_core
@@ -75,65 +82,57 @@ Instance Path : u_cpu.i_tv80_core
                               CCU2B        45           54.9
                             FD1P3AX       128           94.1
                             FD1P3BX        41           95.3
-                            FD1P3DX       105           68.2
+                            FD1P3DX       104           71.2
                             FD1S3AX        38           60.3
-                            FD1S3BX         9           90.0
+                            FD1S3BX        10           90.9
                             FD1S3DX        20           54.1
                             FD1S3JX         4           50.0
-                            L6MUX21        65          100.0
-                               LUT4      1858           92.1
-                              PFUMX       299           95.8
+                            L6MUX21        63          100.0
+                               LUT4      1812           91.4
+                              PFUMX       298           96.4
                         VERIFIC_GND         2           40.0
 SUB MODULES
                            tv80_alu         1
                          tv80_mcode         1
                            tv80_reg         1
-                              TOTAL      2617
+                              TOTAL      2568
 ----------------------------------------------------------------------
 Report for cell tv80_reg.v1
 Instance Path : u_cpu.i_tv80_core.i_reg
                                   Cell usage:
                                cell     count   Res Usage(%)
                             FD1P3AX       128           94.1
-                            L6MUX21        48           73.8
-                               LUT4       144            7.1
-                              PFUMX        96           30.8
+                            L6MUX21        48           76.2
+                               LUT4       144            7.3
+                              PFUMX        96           31.1
                               TOTAL       416
 ----------------------------------------------------------------------
 Report for cell tv80_mcode.v1
 Instance Path : u_cpu.i_tv80_core.i_mcode
                                   Cell usage:
                                cell     count   Res Usage(%)
-                            L6MUX21         6            9.2
-                               LUT4       793           39.3
-                              PFUMX        55           17.6
-                              TOTAL       854
+                            L6MUX21         4            6.3
+                               LUT4       761           38.4
+                              PFUMX        58           18.8
+                              TOTAL       823
 ----------------------------------------------------------------------
 Report for cell tv80_alu.v1
 Instance Path : u_cpu.i_tv80_core.i_alu
                                   Cell usage:
                                cell     count   Res Usage(%)
                               CCU2B         9           11.0
-                            L6MUX21         1            1.5
-                               LUT4       161            8.0
-                              PFUMX        31            9.9
+                            L6MUX21         1            1.6
+                               LUT4       171            8.6
+                              PFUMX        31           10.0
                         VERIFIC_GND         1           20.0
-                              TOTAL       203
+                              TOTAL       213
 ----------------------------------------------------------------------
-Report for cell uart_rx.v1
-Instance Path : u_rx
+Report for cell boot_rom.v1
+Instance Path : u_rom
                                   Cell usage:
                                cell     count   Res Usage(%)
-                              CCU2B        19           23.2
-                            FD1P3AX         8            5.9
-                            FD1P3DX        11            7.1
-                            FD1S3BX         1           10.0
-                            FD1S3DX        15           40.5
-                               LUT4        52            2.6
-                           MULT9X9B         1          100.0
-                              PFUMX         1            0.3
-                        VERIFIC_GND         1           20.0
-                              TOTAL       109
+                               LUT4         8            0.4
+                              TOTAL         8
 ----------------------------------------------------------------------
 Report for cell uart_tx.v1
 Instance Path : u_tx
@@ -141,9 +140,9 @@ Instance Path : u_tx
                                cell     count   Res Usage(%)
                               CCU2B         5            6.1
                             FD1P3BX         2            4.7
-                            FD1P3DX        31           20.1
+                            FD1P3DX        31           21.2
                             FD1S3DX         2            5.4
-                               LUT4        27            1.3
+                               LUT4        27            1.4
                               PFUMX         1            0.3
                         VERIFIC_GND         1           20.0
                               TOTAL        69

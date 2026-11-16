@@ -23,11 +23,31 @@ module z80cpm_brevia2(
   output        sram_wen,   // 144
   inout  [7:0]  sram_data   // pins 1..10
 );
-  reg cpu_clk = 1'b0;
-  always @(posedge clk_in) cpu_clk <= ~cpu_clk;   // 50/2 = 25 MHz (free-run)
+  // 25 MHz system clock via the on-chip PLL (same approach as the working
+  // Lattice demo). A register-derived divide-by-2 was routed on generic logic
+  // and did not clock the design reliably on silicon.
+  wire clk_op;
+  pmi_pll #(
+    .pmi_freq_clki    (50),
+    .pmi_freq_clkfb   (25),
+    .pmi_freq_clkop   (25),
+    .pmi_freq_clkos   (25),
+    .pmi_freq_clkok   (12.5),
+    .pmi_family       ("XP2"),
+    .pmi_phase_adj    (0),
+    .pmi_duty_cycle   (50),
+    .pmi_clkfb_source ("CLKOP"),
+    .pmi_fdel         ("off"),
+    .pmi_fdel_val     (0),
+    .module_type      ("pmi_pll"))
+  pll_inst(
+    .CLKI(clk_in), .CLKFB(clk_op), .RESET(1'b0),
+    .CLKOP(clk_op), .CLKOS(), .CLKOK(), .CLKOK2(), .LOCK());
+  wire clk = clk_op;   // 25 MHz system clock
 
-  reg rst_m = 1'b1, rst_s = 1'b1;                 // sync reset into cpu_clk domain
-  always @(posedge cpu_clk) begin
+  wire vcc = 1'b1;
+  reg rst_m = 1'b1, rst_s = 1'b1;                 // sync reset into clk domain
+  always @(posedge clk) begin
     rst_m <= ~rst_n;
     rst_s <= rst_m;
   end
@@ -52,7 +72,7 @@ module z80cpm_brevia2(
 
   wire        sram_wait;
   wire [7:0]  sram_rdata;
-  sram_async u_sram(.clk(cpu_clk), .rst_n(rst_n), .addr(A), .wdata(cpu_dout),
+  sram_async u_sram(.clk(clk), .rst_n(rst_n), .addr(A), .wdata(cpu_dout),
                     .mem_rd(sram_go & mem_rd), .mem_we(sram_go & mem_we),
                     .wait_n(sram_wait), .rdata(sram_rdata),
                     .sram_addr(sram_addr), .sram_cen(sram_cen),
@@ -60,7 +80,7 @@ module z80cpm_brevia2(
 
   // LED port 0x40 (active-low board LEDs, so invert on the pad).
   reg [7:0] led_reg;
-  always @(posedge cpu_clk or posedge rst) begin
+  always @(posedge clk or posedge rst) begin
     if (rst) led_reg <= 8'h00;
     else if (io_wr && (A[7:0] == 8'h40)) led_reg <= cpu_dout;
   end
@@ -70,9 +90,9 @@ module z80cpm_brevia2(
   wire        uart_rd = io_rd && (A[7:0] == 8'h81);
   wire [7:0]  uart_rx_data;
   wire        uart_rx_avail, uart_tx_busy;
-  uart_tx u_tx(.clk(cpu_clk), .rst_n(~rst), .tx_data(cpu_dout), .tx_start(uart_wr),
+  uart_tx u_tx(.clk(clk), .rst_n(~rst), .tx_data(cpu_dout), .tx_start(uart_wr),
                .tx_busy(uart_tx_busy), .txd(uart_tx));
-  uart_rx u_rx(.clk(cpu_clk), .rst_n(~rst), .rxd(uart_rx), .rx_data(uart_rx_data),
+  uart_rx u_rx(.clk(clk), .rst_n(~rst), .rxd(uart_rx), .rx_data(uart_rx_data),
                .rx_avail(uart_rx_avail), .rx_consume(uart_rd));
 
   reg [7:0] io_rdata;
@@ -91,7 +111,7 @@ module z80cpm_brevia2(
   assign led = ~led_reg;   // ACTIVE-LOW board LEDs
 
   tv80n u_cpu(
-    .reset_n(~rst), .clk(cpu_clk), .wait_n(sram_wait), .int_n(1'b1), .nmi_n(1'b1), .busrq_n(1'b1),
+    .reset_n(~rst), .clk(clk), .wait_n(sram_wait), .int_n(vcc), .nmi_n(vcc), .busrq_n(vcc),
     .m1_n(m1_n), .mreq_n(mreq_n), .iorq_n(iorq_n), .rd_n(rd_n), .wr_n(wr_n),
     .rfsh_n(rfsh_n), .halt_n(), .busak_n(busak_n),
     .A(A), .di(bus_din), .dout(cpu_dout)

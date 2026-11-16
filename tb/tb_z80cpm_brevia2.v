@@ -37,7 +37,7 @@ module tb_z80cpm_brevia2;
   always #10 clk_in = ~clk_in;    // 50 MHz input -> cpu_clk 25 MHz
 
   // Decode uart_tx on the CPU clock (25 MHz).
-  always @(posedge u_dut.cpu_clk) begin
+  always @(posedge u_dut.clk) begin
     tx_prev <= uart_tx;
     if (!tx_active) begin
       if (tx_prev === 1'b1 && uart_tx === 1'b0) begin

@@ -98,9 +98,19 @@ module z80cpm_brevia2(
   wire        io_rd  = ~iorq_n & ~rd_n;
   wire        io_wr  = ~iorq_n & ~wr_n;
 
-  // Memory region decode: 0x0000-0x0FFF = ROM, 0x1000-0xFFFF = external SRAM.
-  wire        rom_active = mem_rd & (A[15:12] == 4'h0);
-  wire        sram_go    = (mem_rd | mem_we) & (A[15:12] != 4'h0);
+  // Memory region decode. When `boot_done` is set (write 1 to I/O port 0x30)
+  // the GWMON boot ROM is banked out and the FULL 64K SRAM (bank A) becomes the
+  // machine memory map 0x0000-0xFFFF (needed for CP/M page zero + TPA). While
+  // boot_done is clear, the ROM sits at 0x0000-0x0FFF and SRAM at 0x1000-0xFFFF
+  // (GWMON monitor mode).
+  reg  boot_done = 1'b0;
+  always @(posedge clk or posedge rst)
+    if (rst) boot_done <= 1'b0;
+    else if (io_wr && (A[7:0] == 8'h30)) boot_done <= cpu_dout[0];   // OUT 0x30
+
+  wire        rom_active = mem_rd & ~boot_done & (A[15:12] == 4'h0);
+  wire        sram_access = mem_rd | mem_we;
+  wire        sram_go    = sram_access & (boot_done ? 1'b1 : (A[15:12] != 4'h0));
 
   wire [7:0]  rom_dout;
   boot_rom u_rom(.addr_in(A), .dout(rom_dout));

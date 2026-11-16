@@ -1,0 +1,6 @@
+8085 Cross-Assembler (Portable) Ver 0.3
+Copyright (c) 1985,1987 William C. Colley, III
+fixes for LCC/Windows (c) 2013 Herb Johnson
+Glitch Works modifications (c) 2020,2024 Glitch Works, LLC
+
+No Errors

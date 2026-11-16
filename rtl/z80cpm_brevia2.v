@@ -46,13 +46,42 @@ module z80cpm_brevia2(
   wire clk = clk_op;   // 25 MHz system clock
 
   wire vcc = 1'b1;
-  // Combinational active-high reset, matching the WORKING Lattice demo
-  // (demo: `wire rst = !rst_n`). The board's power-on reset circuit holds rst_n
-  // low at power-up, asserting rst until released. This avoids the SET-type
-  // synchronizer FF that LSE inferred as the local GSR net — that FF's floating
-  // LSR held it at logic 1, keeping the GSR asserted and freezing the whole
-  // design in reset.
-  wire rst = ~rst_n;
+  // ------------------------------------------------------------------
+  // Reset: async-assert / sync-deassert + >=8-cycle hold.
+  // A purely combinational `rst = ~rst_n` left the mapped design dead
+  // (TV80 clk_op_enable stuck at 0). An earlier 2-FF synchronizer with
+  // `reg x = 1'b1` initializers was mapped as SET-type FFs and LSE used
+  // it as the local GSR net -> floating LSR held GSR asserted -> whole
+  // design frozen in reset. So EVERY reset-path FF here is async-CLEARED
+  // to 0 (RESET-type) and the "reset active" sense is inverted: the
+  // synchronizer holds a 0 while reset is asserted, and a hold counter
+  // (also reset to 0) keeps internal reset asserted for >= 8 clk cycles
+  // after rst_n releases.
+  // ------------------------------------------------------------------
+  wire rst_raw = ~rst_n;   // raw active-high reset request (pin 19)
+
+  reg       rst_n_sync1 = 1'b0;   // async-cleared while rst_raw=1
+  reg       rst_n_sync2 = 1'b0;
+  reg [3:0] rst_cnt     = 4'h0;   // counts clk after rst_raw releases
+
+  always @(posedge clk or posedge rst_raw) begin
+    if (rst_raw) rst_n_sync1 <= 1'b0;   // async assert (clear)
+    else         rst_n_sync1 <= 1'b1;   // sync deassert, stage 1
+  end
+
+  always @(posedge clk or posedge rst_raw) begin
+    if (rst_raw) rst_n_sync2 <= 1'b0;
+    else         rst_n_sync2 <= rst_n_sync1;  // stage 2
+  end
+
+  always @(posedge clk or posedge rst_raw) begin
+    if (rst_raw)          rst_cnt <= 4'h0;
+    else if (!rst_cnt[3]) rst_cnt <= rst_cnt + 1'b1;  // saturate at 15
+  end
+
+  // Active-high internal reset: asserted while the synchronized reset is
+  // low OR the hold counter has not reached 8 yet.
+  wire rst = ~rst_n_sync2 | ~rst_cnt[3];
 
   // Hardware heartbeat: free-running counter on clk -> led[7] blinks if the PLL
   // clock is actually ticking and the FPGA is configured. Independent of the CPU.
@@ -78,7 +107,7 @@ module z80cpm_brevia2(
 
   wire        sram_wait;
   wire [7:0]  sram_rdata;
-  sram_async u_sram(.clk(clk), .rst_n(rst_n), .addr(A), .wdata(cpu_dout),
+  sram_async u_sram(.clk(clk), .rst_n(~rst), .addr(A), .wdata(cpu_dout),
                     .mem_rd(sram_go & mem_rd), .mem_we(sram_go & mem_we),
                     .wait_n(sram_wait), .rdata(sram_rdata),
                     .sram_addr(sram_addr), .sram_cen(sram_cen),

@@ -1,12 +1,12 @@
-t=2ms PC=fb90 A=fb90 boot_done=1
-t=14ms PC=fbb0 A=fbaf boot_done=1
-t=48ms PC=fac3 A=0080 boot_done=1
+t=2ms PC=fb85 A=fb85 boot_done=1
+t=14ms PC=face A=0180 boot_done=1
+t=48ms PC=fabc A=fabc boot_done=1
 === CP/M console (25 bytes):
 CP/M 2.2 on Brevia2
 
 A>
-reached CCP=1  'A>'=1  finalPC=fac3  READ-DMA(0x80): 
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+reached CCP=1  'A>'=1  finalPC=fab6  READ-DMA(0x80): 
+
 CCP/BDOS flow (last 60):
 ef59 ef50 ef51 ef52 ef53 ef54 ef55 ef56 ef57 ef58 ef59 ef50 ef51 ef52 ef53 ef54 ef55 ef56 ef57 ef58 ef59 ef50 ef51 ef52 ef53 ef54 ef55 ef56 ef57 ef58 ef59 ef50 ef51 ef52 ef53 ef54 ef55 ef56 ef57 ef58 ef59 ef50 ef51 ef52 ef53 ef54 ef55 ef56 ef57 ef58 ef59 ef50 ef51 ef52 ef53 ef54 ef55 ef56 ef57 ef58 
 tb/tb_cpm.v:61: $finish called at 68000200000 (1ps)

@@ -94,14 +94,12 @@ BOOT:
         LXI     B,3584          ; 3584 bytes
         CALL    RAMWR
 ;
-; ---- format the user data area (tracks 2..15 = 56K) to 0xE5 (empty) ---------
-; Only the directory area needs to be 0xE5 (empty CP/M directory slots); the
-; file DATA area is not read until a file is written there, so formatting just
-; the directory region (2K) is sufficient and keeps the cold boot quick.
-        LXI     H,2000H         ; start of track 2 = disk byte 8192
-        LXI     B,00800H        ; 2048 bytes = 2 directory blocks (64 entries)
-        MVI     A,0E5H          ; empty-directory marker
-        CALL    RAMFILL
+; ---- the user DATA area is NOT formatted here anymore ------------------------
+; The standalone RAM-disk maintenance utility (diskutil) formats the disk
+; explicitly. The cold boot therefore leaves the directory/data area untouched,
+; so any files written to the RAM disk PERSIST across CP/M cold boots (until
+; power-off clears the volatile SRAM). On a truly fresh disk (all 0x00/0xFF
+; from power-on) the utility must be run to format before CP/M can use drive A:.
 ;
 ; ---- output the sign-on banner ---------------------------------------------
         LXI     H,BANNER

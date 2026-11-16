@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <BaliProject version="3.2" title="z80cpm" device="LFXP2-5E-6TN144C" default_implementation="impl1">
     <Options/>
-    <Implementation title="impl1" dir="impl1" description="impl1" synthesis="lse" default_strategy="Strategy1">
+    <Implementation title="impl1" dir="impl1" description="impl1" synthesis="synplify" default_strategy="Strategy1">
         <Options/>
         <Source name="../rtl/z80cpm_brevia2.v" type="Verilog" type_short="Verilog">
             <Options/>

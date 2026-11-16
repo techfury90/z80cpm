@@ -114,7 +114,10 @@ module z80cpm_brevia2(
                     .sram_oen(sram_oen), .sram_wen(sram_wen), .sram_data(sram_data));
 
   // LED port 0x40 (active-low board LEDs, so invert on the pad).
-  reg [7:0] led_reg;
+  // syn_useioff=0: keep led_reg out of the IO block packing — the IO-register
+  // wrapper's timing-check-only *_dly nets never get driven under iverilog,
+  // which blinds the pad in the post-map sim (silicon is unaffected either way).
+  (* syn_useioff = 0 *) reg [7:0] led_reg;
   always @(posedge clk or posedge rst) begin
     if (rst) led_reg <= 8'h00;
     else if (io_wr && (A[7:0] == 8'h40)) led_reg <= cpu_dout;

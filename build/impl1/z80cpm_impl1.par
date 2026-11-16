@@ -1,0 +1,14 @@
+PAR: Place And Route Diamond (64-bit) 3.14.0.75.2.
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
+Sun Nov 15 20:02:23 2026
+
+C:/lscc/diamond/3.14/ispfpga\bin\nt64\par -f z80cpm_impl1.p2t
+z80cpm_impl1_map.ncd z80cpm_impl1.dir z80cpm_impl1.prf -gui
+
+
+Preference file: z80cpm_impl1.prf.
+

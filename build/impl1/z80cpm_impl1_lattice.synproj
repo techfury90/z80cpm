@@ -1,0 +1,51 @@
+-a "LatticeXP2"
+-d LFXP2-5E
+-t TQFP144
+-s 6
+-frequency 200
+-optimization_goal Timing
+-bram_utilization 100
+-ramstyle Auto
+-romstyle auto
+-dsp_utilization 100
+-use_dsp 1
+-use_carry_chain 1
+-carry_chain_length 0
+-force_gsr Auto
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-mux_style Auto
+-max_fanout 1000
+-fsm_encoding_style Auto
+-twr_paths 3
+-fix_gated_clocks 1
+-loop_limit 1950
+
+
+
+
+-use_io_insertion 1
+-resolve_mixed_drivers 0
+-use_io_reg auto
+
+
+-lpf 1
+-p "C:/Users/techf/Desktop/brevia2/z80cpm/build"
+-ver "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_alu.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_core.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_mcode.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_reg.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80n.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_tx.v"
+"C:/Users/techf/Desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v"
+-top z80cpm_brevia2
+
+
+-p "C:/lscc/diamond/3.14/ispfpga/mg5a00/data" "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1" "C:/Users/techf/Desktop/brevia2/z80cpm/build"
+
+-ngd "z80cpm_impl1.ngd"
+

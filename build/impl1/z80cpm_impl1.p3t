@@ -1,0 +1,5 @@
+-rem
+-distrce
+-log "z80cpm_impl1.log"
+-o "z80cpm_impl1.csv"
+-pr "z80cpm_impl1.prf"

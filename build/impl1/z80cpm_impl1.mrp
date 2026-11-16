@@ -1,0 +1,666 @@
+
+        Lattice Mapping Report File for Design Module 'z80cpm_brevia2'
+
+
+Design Information
+------------------
+
+Command line:   map -a LatticeXP2 -p LFXP2-5E -t TQFP144 -s 6 -oc Commercial
+     z80cpm_impl1.ngd -o z80cpm_impl1_map.ncd -pr z80cpm_impl1.prf -mp
+     z80cpm_impl1.mrp -lpf
+     C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/z80cpm_impl1.lpf -lpf
+     C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf -gui 
+Target Vendor:  LATTICE
+Target Device:  LFXP2-5ETQFP144
+Target Performance:   6
+Mapper:  mg5a00,  version:  Diamond (64-bit) 3.14.0.75.2
+Mapped on:  11/15/26  20:02:21
+
+Design Summary
+--------------
+
+   Number of registers:    467 out of  3864 (12%)
+      PFU registers:          467 out of  3564 (13%)
+      PIO registers:            0 out of   300 (0%)
+   Number of SLICEs:      1325 out of  2376 (56%)
+      SLICEs as Logic/ROM:   1325 out of  2376 (56%)
+      SLICEs as RAM:            0 out of   405 (0%)
+      SLICEs as Carry:         82 out of  2376 (3%)
+   Number of LUT4s:        2191 out of  4752 (46%)
+      Number used as logic LUTs:        2027
+      Number used as distributed RAM:     0
+      Number used as ripple logic:      164
+      Number used as shift registers:     0
+   Number of PIO sites used: 48 out of 100 (48%)
+   Number of PIO FIXEDDELAY:    0
+   Number of DQSDLLs:  0 out of 2 (0%)
+   Number of PLLs:  1 out of 2 (50%)
+   Number of block RAMs:  0 out of 9 (0%)
+   Number of CLKDIVs:  0 out of 2 (0%)
+   Number of GSRs:  1 out of 1 (100%)
+   JTAG used :      No
+   Readback used :  No
+   Oscillator used :  No
+   Startup used :   No
+   Notes:-
+      1. Total number of LUT4s = (Number of logic LUT4s) + 2*(Number of
+     distributed RAMs) + 2*(Number of ripple logic)
+      2. Number of logic LUT4s does not include count of distributed RAM and
+     ripple logic.
+
+        Number Of Mapped DSP Components:
+   --------------------------------
+   MULT36X36B          0
+   MULT18X18B          0
+   MULT18X18MACB       0
+   MULT18X18ADDSUBB    0
+   MULT18X18ADDSUBSUMB 0
+   MULT9X9B            1
+   MULT9X9ADDSUBB      0
+   MULT9X9ADDSUBSUMB   0
+   --------------------------------
+   Number of Used DSP Sites:  1 out of 24 (4 %)
+
+                                    Page 1
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+
+Design Summary (cont)
+---------------------
+   Number of clocks:  2
+     Net clk_op: 344 loads, 340 rising, 4 falling (Driver:
+     pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0 )
+     Net clk_in_c: 1 loads, 1 rising, 0 falling (Driver: PIO clk_in )
+   Number of Clock Enables:  56
+     Net led_reg_7__N_56: 4 loads, 4 LSLICEs
+     Net clk_op_enable_203: 8 loads, 8 LSLICEs
+     Net clk_op_enable_299: 6 loads, 6 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_321: 7 loads, 7 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_119: 17 loads, 17 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_325: 13 loads, 13 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_116: 14 loads, 14 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_308: 3 loads, 3 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_83: 6 loads, 6 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_58: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_207: 3 loads, 3 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_22: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_77: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_50: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/last_tstate: 7 loads, 7 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_297: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_85: 2 loads, 2 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_143: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_144: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_145: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_146: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_284: 10 loads, 10 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_184: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_162: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_314: 2 loads, 2 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_326: 7 loads, 7 LSLICEs
+     Net u_cpu/i_tv80_core/clk_op_enable_296: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_181: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_153: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_208: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_315: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_165: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_159: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_191: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_141: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_142: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_180: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_256: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_272: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_240: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_232: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_248: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_264: 4 loads, 4 LSLICEs
+     Net u_rx/clk_op_enable_140: 4 loads, 4 LSLICEs
+     Net u_rx/bitidx_0: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_304: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_300: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_312: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_194: 2 loads, 2 LSLICEs
+     Net u_rx/clk_op_enable_303: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_306: 1 loads, 1 LSLICEs
+
+                                    Page 2
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+
+Design Summary (cont)
+---------------------
+     Net u_rx/clk_op_enable_309: 1 loads, 1 LSLICEs
+     Net u_rx/clk_op_enable_307: 1 loads, 1 LSLICEs
+     Net u_tx/clk_op_enable_313: 5 loads, 5 LSLICEs
+     Net u_tx/clk_op_enable_305: 1 loads, 1 LSLICEs
+     Net u_tx/clk_op_enable_311: 11 loads, 11 LSLICEs
+   Number of local set/reset loads for net n40903 merged into GSR:  50
+   Number of LSRs:  11
+     Net rst_s: 39 loads, 39 LSLICEs
+     Net n40905: 45 loads, 45 LSLICEs
+     Net n40906: 41 loads, 41 LSLICEs
+     Net n40902: 38 loads, 38 LSLICEs
+     Net n40900: 9 loads, 9 LSLICEs
+     Net u_cpu/n9543: 1 loads, 1 LSLICEs
+     Net u_cpu/n34912: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/Set_BusA_To_1: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/Set_BusB_To_1: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/n1684: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/n34997: 1 loads, 1 LSLICEs
+   Number of nets driven by tri-state buffers:  0
+   Top 10 highest fanout non-clock nets:
+     Net u_cpu/i_tv80_core/Set_BusA_To_3_N_1212_2: 130 loads
+     Net u_cpu/ALU_Op_3_N_1283_3: 114 loads
+     Net u_cpu/i_tv80_core/IR_2: 113 loads
+     Net u_cpu/i_tv80_core/n38740: 100 loads
+     Net u_cpu/i_tv80_core/Set_BusA_To_3_N_1216_0: 97 loads
+     Net u_cpu/i_tv80_core/IR_5: 85 loads
+     Net u_cpu/i_tv80_core/IR_1: 82 loads
+     Net u_cpu/i_tv80_core/n38455: 81 loads
+     Net u_cpu/i_tv80_core/RegAddrA_0: 80 loads
+     Net u_cpu/i_tv80_core/mc_2: 70 loads
+
+
+
+
+   Number of warnings:  10
+   Number of errors:    0
+     
+
+Design Errors/Warnings
+----------------------
+
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(54):
+     Semantic error in "FREQUENCY NET "cpu_clk" 25.000000 MHz ;": cpu_clk
+     matches no clock nets in the design.  This preference has been disabled.
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(59):
+     Semantic error in "CLOCK_TO_OUT PORT "sram_addr*" 15.000000 ns CLKNET
+     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
+     has been disabled.
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(60):
+     Semantic error in "INPUT_SETUP PORT "uart_rx" 20.000000 ns CLKNET "cpu_clk"
+     ;": "cpu_clk" matches no clknets in the design.  This preference has been
+     disabled.
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(61):
+     Semantic error in "INPUT_SETUP PORT "sram_data*" 5.000000 ns CLKNET
+     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
+     has been disabled.
+
+                                    Page 3
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+
+Design Errors/Warnings (cont)
+-----------------------------
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(62):
+     Semantic error in "CLOCK_TO_OUT PORT "sram_cen" 15.000000 ns CLKNET
+     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
+     has been disabled.
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(63):
+     Semantic error in "CLOCK_TO_OUT PORT "sram_oen" 15.000000 ns CLKNET
+     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
+     has been disabled.
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(64):
+     Semantic error in "CLOCK_TO_OUT PORT "sram_wen" 15.000000 ns CLKNET
+     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
+     has been disabled.
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(65):
+     Semantic error in "CLOCK_TO_OUT PORT "sram_data*" 15.000000 ns CLKNET
+     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
+     has been disabled.
+WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(66):
+     Semantic error in "CLOCK_TO_OUT PORT "uart_tx" 20.000000 ns CLKNET
+     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
+     has been disabled.
+WARNING - map: Using local reset signal 'n40903' to infer global GSR net.
+
+IO (PIO) Attributes
+-------------------
+
++---------------------+-----------+-----------+------------+------------+
+| IO Name             | Direction | Levelmode | IO         | FIXEDDELAY |
+|                     |           |  IO_TYPE  | Register   |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_data[6]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_data[7]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_data[5]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_data[4]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_data[3]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_data[2]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_data[1]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_data[0]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[7]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[6]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[5]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[4]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[3]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[2]              | OUTPUT    | LVCMOS33  |            |            |
+
+                                    Page 4
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+
+IO (PIO) Attributes (cont)
+--------------------------
++---------------------+-----------+-----------+------------+------------+
+| led[1]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[0]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| uart_tx             | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[16]       | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[15]       | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[14]       | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[13]       | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[12]       | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[11]       | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[10]       | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[9]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[8]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[7]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[6]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[5]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[4]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[3]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[2]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[1]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_addr[0]        | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_cen            | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_oen            | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_wen            | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| clk_in              | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| rst_n               | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sw[7]               | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sw[6]               | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sw[5]               | INPUT     | LVCMOS33  |            |            |
+
+                                    Page 5
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+
+IO (PIO) Attributes (cont)
+--------------------------
++---------------------+-----------+-----------+------------+------------+
+| sw[4]               | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sw[3]               | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sw[2]               | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sw[1]               | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sw[0]               | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| uart_rx             | INPUT     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+
+Removed logic
+-------------
+
+Signal clk_N_323 was merged into signal clk_op
+Signal u_cpu/i_tv80_core/i_alu/n38803 was merged into signal
+     u_cpu/i_tv80_core/BusA_1
+Signal u_cpu/i_tv80_core/i_mcode/n38789 was merged into signal
+     u_cpu/i_tv80_core/i_mcode/n38788
+Signal u_cpu/i_tv80_core/n38731 was merged into signal ISet_1
+Signal u_cpu/i_tv80_core/n2550 was merged into signal
+     u_cpu/i_tv80_core/Set_BusA_To_3
+Signal pmi_pll0offCLKOP500XP212.50000025252550/scuba_vlo undriven or does not
+     drive anything - clipped.
+Signal u_tx/add_48_add_4_1/S0 undriven or does not drive anything - clipped.
+Signal u_tx/add_48_add_4_1/CI undriven or does not drive anything - clipped.
+Signal u_tx/add_48_add_4_9/CO undriven or does not drive anything - clipped.
+Signal u_rx/add_1091_add_4_1/S0 undriven or does not drive anything - clipped.
+Signal u_rx/add_1091_add_4_1/CI undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_14_27499/S1 undriven or does not drive anything -
+     clipped.
+Signal u_rx/equal_4713_14_27499/S0 undriven or does not drive anything -
+     clipped.
+Signal u_rx/k_5704_add_4_1/S0 undriven or does not drive anything - clipped.
+Signal u_rx/k_5704_add_4_1/CI undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_14/S1 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_14/CO undriven or does not drive anything - clipped.
+Signal u_rx/add_1091_add_4_cout/S1 undriven or does not drive anything -
+     clipped.
+Signal u_rx/add_1091_add_4_cout/CO undriven or does not drive anything -
+     clipped.
+Signal u_rx/k_5704_add_4_13/S1 undriven or does not drive anything - clipped.
+Signal u_rx/k_5704_add_4_13/CO undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_0/S1 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_0/S0 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_0/CI undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_10/S1 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_10/S0 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_12/S1 undriven or does not drive anything - clipped.
+Signal u_rx/equal_4713_12/S0 undriven or does not drive anything - clipped.
+Signal u_cpu/i_tv80_core/i_alu/add_5191_add_4_1/S0 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/i_alu/add_5191_add_4_1/CI undriven or does not drive
+
+                                    Page 6
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+
+Removed logic (cont)
+--------------------
+     anything - clipped.
+Signal u_cpu/i_tv80_core/i_alu/add_5191_add_4_7/CO undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/i_alu/add_5911_add_4_1/S0 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/i_alu/add_5911_add_4_1/CI undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/i_alu/add_5911_add_4_cout/S1 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/i_alu/add_5911_add_4_cout/CO undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/add_868_add_4_17/S1 undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/add_868_add_4_17/CO undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_1/S0 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_1/CI undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_17/S1 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_17/CO undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_1/S0 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_1/CI undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_17/S1 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_17/CO undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/PC_5706_add_4_1/S1 undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/PC_5706_add_4_1/S0 undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/PC_5706_add_4_1/CI undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/PC_5706_add_4_17/CO undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/add_868_add_4_1/S0 undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/add_868_add_4_1/CI undriven or does not drive anything
+     - clipped.
+Signal hb_5703_add_4_25/CO undriven or does not drive anything - clipped.
+Signal hb_5703_add_4_1/S0 undriven or does not drive anything - clipped.
+Signal hb_5703_add_4_1/CI undriven or does not drive anything - clipped.
+Signal pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0/CLKINTFB undriven or
+     does not drive anything - clipped.
+Signal pmi_pll0offCLKOP500XP212.50000025252550/LOCK undriven or does not drive
+     anything - clipped.
+Signal pmi_pll0offCLKOP500XP212.50000025252550/CLKOK2 undriven or does not drive
+     anything - clipped.
+Signal pmi_pll0offCLKOP500XP212.50000025252550/CLKOK undriven or does not drive
+     anything - clipped.
+Signal pmi_pll0offCLKOP500XP212.50000025252550/CLKOS undriven or does not drive
+     anything - clipped.
+
+                                    Page 7
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+
+Removed logic (cont)
+--------------------
+Block i35368 was optimized away.
+Block u_cpu/i_tv80_core/i_alu/i11211_then_1_lut was optimized away.
+Block u_cpu/i_tv80_core/i_mcode/i34156/GATE was optimized away.
+Block u_cpu/i_tv80_core/i_mcode/i20181_1_lut_rep_752 was optimized away.
+Block u_cpu/i_tv80_core/i33221_2_lut was optimized away.
+Block pmi_pll0offCLKOP500XP212.50000025252550/scuba_vlo_inst was optimized away.
+     
+
+DSP Component Details
+---------------------
+
+
+     . MULT9X9B  u_rx/mult_67:
+
+     Multiplier
+        Operation               Unsigned
+        Operation Registers     CLK     CE      RST
+        --------------------------------------------
+                Input                               
+        Operation Registers     CLK     CE      RST
+        --------------------------------------------
+                Input                               
+Data
+        Input Registers         CLK     CE      RST  
+        ---------------------------------------------
+                A                                       
+                B                                       
+
+             Pipeline Registers      CLK     CE      RST
+        --------------------------------------------
+                Pipe                                
+
+             Output Register         CLK     CE      RST
+        --------------------------------------------
+                Output                              
+Other
+        GSR     DISABLED
+
+PLL/DLL Summary
+---------------
+
+PLL 1:                                     Pin/Node Value
+  PLL Instance Name:                                pmi_pll0offCLKOP500XP212.500
+       00025252550/PLLInst_0
+  PLL Type:                                         EHXPLLE
+  Input Clock:                             PIN      clk_in_c
+  Output Clock(P):                         NODE     clk_op
+  Output Clock(K2):                                 NONE
+  Output Clock(S):                                  NONE
+  Output Clock(K):                                  NONE
+  PLL Feedback Signal:                     NODE     clk_op
+  PLL Reset Signal:                                 NONE
+  PLL K Divider Reset Signal:                       NONE
+  PLL LOCK Signal:                                  NONE
+  Dynamic CLKOS Fine Delay Adjust Signal:           NONE
+  Dynamic Phase Adjust Input 0:                     NONE
+
+                                    Page 8
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+
+PLL/DLL Summary (cont)
+----------------------
+  Dynamic Phase Adjust Input 1:                     NONE
+  Dynamic Phase Adjust Input 2:                     NONE
+  Dynamic Phase Adjust Input 3:                     NONE
+  Dynamic Duty Adjust Input 0:                      NONE
+  Dynamic Duty Adjust Input 1:                      NONE
+  Dynamic Duty Adjust Input 2:                      NONE
+  Dynamic Duty Adjust Input 3:                      NONE
+  Dynamic Power Down Signal:                        NONE
+  Input Clock Frequency (MHz):                      50.0000
+  Output Clock(P) Frequency (MHz):                  25.0000
+  Output Clock(K) Frequency (MHz):                  NA
+  Output Clock(K2) Frequency (MHz):                 NA
+  Output Clock(P) Actual Frequency:                 25.0000
+  Output Clock(P) Frequency Tolerance:              NONE
+  CLKOP BYPASS:                                     DISABLED
+  CLKOS BYPASS:                                     DISABLED
+  CLKOK BYPASS:                                     DISABLED
+  CLKI Divider:                                     2
+  CLKFB Divider:                                    1
+  CLKOP Divider:                                    32
+  CLKOK Divider:                                    2
+  CLKOS Phase Shift (degree):                       0.0
+  CLKOS Duty Cycle (*1/16):                         8
+  Phase_Duty Control:                               STATIC
+  FB_MODE:                                          NONE
+  CLKOPDutyTrimPolarity:                            FALLING
+  CLKOPDutyTrimPolarityDelay:                       0
+  CLKOSDutyTrimPolarity:                            RISING
+  CLKOSDutyTrimPolarityDelay:                       0
+
+ASIC Components
+---------------
+
+Instance Name: pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0
+         Type: EHXPLLE
+Instance Name: u_rx/mult_67
+         Type: MULT9X9B
+
+GSR Usage
+---------
+
+GSR Component:
+   The local reset signal 'n40903' of the design has been inferred as Global Set
+        Reset (GSR). The reset signal used for GSR control is 'n40903'.
+        
+
+     GSR Property:
+   The design components with GSR property set to ENABLED will respond to global
+        set reset while the components with GSR property set to DISABLED will
+        not.
+        
+
+Run Time and Memory Usage
+-------------------------
+
+   Total CPU Time: 1 secs  
+
+                                    Page 9
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/15/26  20:02:21
+
+Run Time and Memory Usage (cont)
+--------------------------------
+   Total REAL Time: 0 secs  
+   Peak Memory Usage: 77 MB
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                   Page 10
+
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+     Copyright (c) 1995 AT&T Corp.   All rights reserved.
+     Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+     Copyright (c) 2001 Agere Systems   All rights reserved.
+     Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights
+     reserved.

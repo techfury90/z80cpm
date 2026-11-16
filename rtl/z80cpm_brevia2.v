@@ -53,6 +53,11 @@ module z80cpm_brevia2(
   end
   wire rst = rst_s;   // synchronous active-high reset for the whole design
 
+  // Hardware heartbeat: free-running counter on clk -> led[7] blinks if the PLL
+  // clock is actually ticking and the FPGA is configured. Independent of the CPU.
+  reg [24:0] hb = 0;
+  always @(posedge clk) hb <= hb + 1'b1;
+
   wire        m1_n, mreq_n, iorq_n, rd_n, wr_n, rfsh_n, busak_n;
   wire [15:0] A;
   wire [7:0]  cpu_dout;
@@ -108,7 +113,10 @@ module z80cpm_brevia2(
                  : (mem_rd    ? sram_rdata
                  :              io_rdata);
 
-  assign led = ~led_reg;   // ACTIVE-LOW board LEDs
+  // led[7] = hardware heartbeat (clock tick); led[6:0] = CPU port 0x40 writes
+  // (active-low board LEDs, so invert on the pad).
+  assign led[7]   = hb[24];
+  assign led[6:0] = ~led_reg[6:0];
 
   tv80n u_cpu(
     .reset_n(~rst), .clk(clk), .wait_n(sram_wait), .int_n(vcc), .nmi_n(vcc), .busrq_n(vcc),

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BaliMessageLog>
+    <Task name="Bitgen">
+        <Message>
+            <ID>1009992</ID>
+            <Severity>Info</Severity>
+            <Dynamic> SW_XO3D_SECURITY_ENCRYPTION *NOT* controlled by mg5a00.acd ###</Dynamic>
+        </Message>
+        <Message>
+            <ID>1009992</ID>
+            <Severity>Info</Severity>
+            <Dynamic> SW_XO3D_SECURITY_ENCRYPTION license_securityIP OK</Dynamic>
+        </Message>
+    </Task>
+    <Task name="Map">
+        <Message>
+            <ID>1100523</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(54): Semantic error in &quot;FREQUENCY NET &quot;cpu_clk&quot; 25.000000 MHz ;&quot;: </Dynamic>
+            <Dynamic>cpu_clk matches no clock nets in the design. </Dynamic>
+            <Navigation>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf</Navigation>
+            <Navigation>54</Navigation>
+        </Message>
+        <Message>
+            <ID>1101121</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(59): Semantic error in &quot;CLOCK_TO_OUT PORT &quot;sram_addr*&quot; 15.000000 ns CLKNET &quot;cpu_clk&quot; ;&quot;: </Dynamic>
+            <Dynamic>&quot;cpu_clk&quot; matches no clknets in the design. </Dynamic>
+            <Navigation>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf</Navigation>
+            <Navigation>59</Navigation>
+        </Message>
+        <Message>
+            <ID>1101121</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(60): Semantic error in &quot;INPUT_SETUP PORT &quot;uart_rx&quot; 20.000000 ns CLKNET &quot;cpu_clk&quot; ;&quot;: </Dynamic>
+            <Dynamic>&quot;cpu_clk&quot; matches no clknets in the design. </Dynamic>
+            <Navigation>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf</Navigation>
+            <Navigation>60</Navigation>
+        </Message>
+        <Message>
+            <ID>1101121</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(61): Semantic error in &quot;INPUT_SETUP PORT &quot;sram_data*&quot; 5.000000 ns CLKNET &quot;cpu_clk&quot; ;&quot;: </Dynamic>
+            <Dynamic>&quot;cpu_clk&quot; matches no clknets in the design. </Dynamic>
+            <Navigation>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf</Navigation>
+            <Navigation>61</Navigation>
+        </Message>
+        <Message>
+            <ID>1101121</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(62): Semantic error in &quot;CLOCK_TO_OUT PORT &quot;sram_cen&quot; 15.000000 ns CLKNET &quot;cpu_clk&quot; ;&quot;: </Dynamic>
+            <Dynamic>&quot;cpu_clk&quot; matches no clknets in the design. </Dynamic>
+            <Navigation>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf</Navigation>
+            <Navigation>62</Navigation>
+        </Message>
+        <Message>
+            <ID>1101121</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(63): Semantic error in &quot;CLOCK_TO_OUT PORT &quot;sram_oen&quot; 15.000000 ns CLKNET &quot;cpu_clk&quot; ;&quot;: </Dynamic>
+            <Dynamic>&quot;cpu_clk&quot; matches no clknets in the design. </Dynamic>
+            <Navigation>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf</Navigation>
+            <Navigation>63</Navigation>
+        </Message>
+        <Message>
+            <ID>1101121</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(64): Semantic error in &quot;CLOCK_TO_OUT PORT &quot;sram_wen&quot; 15.000000 ns CLKNET &quot;cpu_clk&quot; ;&quot;: </Dynamic>
+            <Dynamic>&quot;cpu_clk&quot; matches no clknets in the design. </Dynamic>
+            <Navigation>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf</Navigation>
+            <Navigation>64</Navigation>
+        </Message>
+        <Message>
+            <ID>1101121</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(65): Semantic error in &quot;CLOCK_TO_OUT PORT &quot;sram_data*&quot; 15.000000 ns CLKNET &quot;cpu_clk&quot; ;&quot;: </Dynamic>
+            <Dynamic>&quot;cpu_clk&quot; matches no clknets in the design. </Dynamic>
+            <Navigation>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf</Navigation>
+            <Navigation>65</Navigation>
+        </Message>
+        <Message>
+            <ID>1101121</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(66): Semantic error in &quot;CLOCK_TO_OUT PORT &quot;uart_tx&quot; 20.000000 ns CLKNET &quot;cpu_clk&quot; ;&quot;: </Dynamic>
+            <Dynamic>&quot;cpu_clk&quot; matches no clknets in the design. </Dynamic>
+            <Navigation>C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf</Navigation>
+            <Navigation>66</Navigation>
+        </Message>
+        <Message>
+            <ID>51001030</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>n40320</Dynamic>
+        </Message>
+    </Task>
+    <Task name="Lattice_Synthesis">
+        <Message>
+            <ID>35002000</ID>
+            <Severity>Info</Severity>
+        </Message>
+        <Message>
+            <ID>35001781</ID>
+            <Severity>Info</Severity>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v(13): </Dynamic>
+            <Dynamic>z80cpm_brevia2</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>C:/lscc/diamond/3.14/ispfpga/userware/NT/SYNTHESIS_HEADERS/pmi_def.v(1077): </Dynamic>
+            <Dynamic>pmi_pll(pmi_freq_clki=50,pmi_freq_clkfb=25,pmi_freq_clkop=25,pmi_freq_clkos=25,pmi_freq_clkok=12.5,pmi_family=&quot;XP2&quot;)</Dynamic>
+            <Navigation>C:/lscc/diamond/3.14/ispfpga/userware/NT/SYNTHESIS_HEADERS/pmi_def.v</Navigation>
+            <Navigation>1077</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/boot_rom.v(3): </Dynamic>
+            <Dynamic>boot_rom</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/boot_rom.v</Navigation>
+            <Navigation>3</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/sram_async.v(6): </Dynamic>
+            <Dynamic>sram_async</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/sram_async.v</Navigation>
+            <Navigation>6</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(4): </Dynamic>
+            <Dynamic>uart_tx</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v</Navigation>
+            <Navigation>4</Navigation>
+        </Message>
+        <Message>
+            <ID>35901209</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(27): </Dynamic>
+            <Dynamic>32</Dynamic>
+            <Dynamic>4</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v</Navigation>
+            <Navigation>27</Navigation>
+        </Message>
+        <Message>
+            <ID>35901209</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v(34): </Dynamic>
+            <Dynamic>32</Dynamic>
+            <Dynamic>9</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_tx.v</Navigation>
+            <Navigation>34</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(4): </Dynamic>
+            <Dynamic>uart_rx</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v</Navigation>
+            <Navigation>4</Navigation>
+        </Message>
+        <Message>
+            <ID>35901209</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(36): </Dynamic>
+            <Dynamic>32</Dynamic>
+            <Dynamic>12</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v</Navigation>
+            <Navigation>36</Navigation>
+        </Message>
+        <Message>
+            <ID>35901209</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v(44): </Dynamic>
+            <Dynamic>32</Dynamic>
+            <Dynamic>4</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/uart_rx.v</Navigation>
+            <Navigation>44</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v(9): </Dynamic>
+            <Dynamic>tv80n</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80n.v</Navigation>
+            <Navigation>9</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(26): </Dynamic>
+            <Dynamic>tv80_core(Mode=0)</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v</Navigation>
+            <Navigation>26</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_mcode.v(26): </Dynamic>
+            <Dynamic>tv80_mcode</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_mcode.v</Navigation>
+            <Navigation>26</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v(26): </Dynamic>
+            <Dynamic>tv80_alu</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v</Navigation>
+            <Navigation>26</Navigation>
+        </Message>
+        <Message>
+            <ID>35901209</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v(235): </Dynamic>
+            <Dynamic>32</Dynamic>
+            <Dynamic>9</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v</Navigation>
+            <Navigation>235</Navigation>
+        </Message>
+        <Message>
+            <ID>35901209</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v(241): </Dynamic>
+            <Dynamic>32</Dynamic>
+            <Dynamic>9</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v</Navigation>
+            <Navigation>241</Navigation>
+        </Message>
+        <Message>
+            <ID>35901209</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v(253): </Dynamic>
+            <Dynamic>32</Dynamic>
+            <Dynamic>8</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v</Navigation>
+            <Navigation>253</Navigation>
+        </Message>
+        <Message>
+            <ID>35901209</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v(257): </Dynamic>
+            <Dynamic>32</Dynamic>
+            <Dynamic>9</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_alu.v</Navigation>
+            <Navigation>257</Navigation>
+        </Message>
+        <Message>
+            <ID>35901209</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(615): </Dynamic>
+            <Dynamic>32</Dynamic>
+            <Dynamic>16</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v</Navigation>
+            <Navigation>615</Navigation>
+        </Message>
+        <Message>
+            <ID>35901018</ID>
+            <Severity>Info</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_reg.v(26): </Dynamic>
+            <Dynamic>tv80_reg</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_reg.v</Navigation>
+            <Navigation>26</Navigation>
+        </Message>
+        <Message>
+            <ID>35935034</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v(45): </Dynamic>
+            <Dynamic></Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v</Navigation>
+            <Navigation>45</Navigation>
+        </Message>
+        <Message>
+            <ID>35935013</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1184): </Dynamic>
+            <Dynamic>\u_cpu/i_tv80_core/INT_s_772</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v</Navigation>
+            <Navigation>1184</Navigation>
+        </Message>
+        <Message>
+            <ID>35935013</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v(1331): </Dynamic>
+            <Dynamic>\u_cpu/i_tv80_core/BusAck_779</Dynamic>
+            <Navigation>c:/users/techf/desktop/brevia2/z80cpm/rtl/tv80_core.v</Navigation>
+            <Navigation>1331</Navigation>
+        </Message>
+        <Message>
+            <ID>35001774</ID>
+            <Severity>Info</Severity>
+            <Dynamic>\u_tx/bitcnt</Dynamic>
+            <Dynamic>one-hot</Dynamic>
+        </Message>
+        <Message>
+            <ID>35002007</ID>
+            <Severity>Warning</Severity>
+        </Message>
+        <Message>
+            <ID>35001710</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>12.500000</Dynamic>
+        </Message>
+        <Message>
+            <ID>35001611</ID>
+            <Severity>Warning</Severity>
+        </Message>
+    </Task>
+    <Task name="PAR">
+        <Message>
+            <ID>61031122</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>clk_in_c</Dynamic>
+            <Dynamic>pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0</Dynamic>
+            <Dynamic>CLKI</Dynamic>
+        </Message>
+    </Task>
+</BaliMessageLog>

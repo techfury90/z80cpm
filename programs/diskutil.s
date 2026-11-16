@@ -427,8 +427,9 @@ WFC_TWO:
         STA     FCB2+15                 ; RC extent 1
         MVI     A,01H
         STA     FCB2+12                 ; EX=1
-        STA     FCB2+13
-        STA     FCB2+14
+        MVI     A,00H
+        STA     FCB2+13                 ; S1=0
+        STA     FCB2+14                 ; S2=0
         CALL    SETALLO2
         CALL    WDIRFCB
         LXI     H,DIRBASE+32

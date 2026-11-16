@@ -17,11 +17,11 @@ module tb_gwmon;
   sram_model u_sram(.addr(sram_addr), .cen(sram_cen), .oen(sram_oen),
                     .wen(sram_wen), .data(sram_data));
 
-  localparam [8:0] BP = 217;   // clk cycles per bit @25MHz/115200
+  localparam [11:0] BP = 2604;   // clk cycles per bit @25MHz/9600
   reg  [7:0] tx_mem [0:1023];
   reg  [10:0] tx_count = 0;
   reg        tx_active = 0;
-  reg [11:0] tx_ctr = 0;
+  reg [15:0] tx_ctr = 0;
   reg [3:0]  tx_bit = 0;
   reg [7:0]  tx_shift = 0;
   reg        tx_prev = 1'b1;
@@ -51,7 +51,7 @@ module tb_gwmon;
     rst_n = 0;
     #200 rst_n = 1;
     // let GWMON cold-start and print its banner, then it waits for a command
-    #4000000;                       // ~4 ms
+    #40000000;                      // ~40 ms (9600 baud ~1ms/char)
     $display("=== GWMON TX captured (%0d bytes):", tx_count);
     for (i = 0; i < tx_count; i = i + 1) begin
       $write("%c", tx_mem[i]);

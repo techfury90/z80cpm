@@ -9,7 +9,7 @@ module uart_rx(
   output reg    rx_avail,
   input         rx_consume
 );
-  localparam [8:0] BAUD_DIV = 217;
+  localparam [11:0] BAUD_DIV = 2604;  // 25 MHz / 9600
 
   reg          rx_state;
   reg [11:0]    k     = 0;

@@ -13,14 +13,14 @@ module tb_z80cpm_brevia2;
   reg  [7:0] tx_mem [0:255];
   reg  [8:0] tx_count = 0;
   reg        tx_active = 0;
-  reg [11:0] tx_ctr = 0;
+  reg [15:0] tx_ctr = 0;
   reg [3:0]  tx_bit = 0;
   reg [7:0]  tx_shift = 0;
   reg        tx_prev = 1'b1;
   integer    k;
   integer    found_msg = 0;
   integer    i;
-  localparam [8:0] BP = 217;   // cpu_clk cycles per bit
+  localparam [11:0] BP = 2604;   // clk cycles per bit @ 9600
 
   z80cpm_brevia2 u_dut(.clk_in(clk_in), .rst_n(rst_n), .led(led), .sw(sw),
                        .uart_rx(uart_rx), .uart_tx(uart_tx),

@@ -9,9 +9,9 @@ module uart_tx(
   output reg    tx_busy,
   output reg    txd
 );
-  localparam [8:0] BAUD_DIV = 217;  // 25 MHz / 115200
+  localparam [11:0] BAUD_DIV = 2604;  // 25 MHz / 9600
 
-  reg [8:0]  k     = 0;
+  reg [11:0]  k     = 0;
   reg [3:0]  bitcnt= 0;   // 0=start, 1..8=data, 9=stop
   reg [7:0]  sr    = 0;
 

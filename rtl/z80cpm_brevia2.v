@@ -107,11 +107,43 @@ module z80cpm_brevia2(
 
   wire        sram_wait;
   wire [7:0]  sram_rdata;
-  sram_async u_sram(.clk(clk), .rst_n(~rst), .addr(A), .wdata(cpu_dout),
+  wire [16:0] sram_addr_m;
+  wire        sram_cen_m, sram_oen_m, sram_wen_m;
+  sram_async u_sram(.clk(clk), .rst_n(~rst), .addr(A),
                     .mem_rd(sram_go & mem_rd), .mem_we(sram_go & mem_we),
                     .wait_n(sram_wait), .rdata(sram_rdata),
-                    .sram_addr(sram_addr), .sram_cen(sram_cen),
-                    .sram_oen(sram_oen), .sram_wen(sram_wen), .sram_data(sram_data));
+                    .sram_addr(sram_addr_m), .sram_cen(sram_cen_m),
+                    .sram_oen(sram_oen_m), .sram_wen(sram_wen_m),
+                    .sram_data_in(sram_data));
+
+  // ---- RAM disk (bank B of the 128K SRAM, I/O-mapped 0x20/0x21/0x22) ----
+  wire        rd_stb, ram_wr, ram_wrlo, ram_wrhi;
+  wire [7:0]  rd_dout;
+  wire [16:0] rd_addr; wire rd_cen, rd_oen, rd_wen; wire [7:0] rd_wdata;
+  wire        rd_active;
+  ram_disk u_rd(.clk(clk), .rst(rst), .cpu_dout(cpu_dout),
+                .rd_data(rd_stb), .wr_data(ram_wr),
+                .wr_a_lo(ram_wrlo), .wr_a_hi(ram_wrhi),
+                .dout(rd_dout), .sram_addr(rd_addr), .sram_cen(rd_cen),
+                .sram_oen(rd_oen), .sram_wen(rd_wen), .sram_data_out(rd_wdata),
+                .sram_data_in(sram_data), .active(rd_active));
+
+  wire        rd_data_port = (A[7:0] == 8'h20);
+  wire        rd_al_port   = (A[7:0] == 8'h21);
+  wire        rd_ah_port   = (A[7:0] == 8'h22);
+  assign rd_stb   = io_rd && rd_data_port;   // IN  0x20  (disk data)
+  assign ram_wr   = io_wr && rd_data_port;   // OUT 0x20  (disk data)
+  assign ram_wrlo = io_wr && rd_al_port;     // OUT 0x21  (address low)
+  assign ram_wrhi = io_wr && rd_ah_port;     // OUT 0x22  (address high)
+
+  // ---- SRAM bus mux: RAM disk owns bank-B access; machine owns bank A. ----
+  wire        mem_write = sram_go & mem_we;
+  assign sram_addr = rd_active ? rd_addr   : sram_addr_m;
+  assign sram_cen  = rd_active ? rd_cen    : sram_cen_m;
+  assign sram_oen  = rd_active ? rd_oen    : sram_oen_m;
+  assign sram_wen  = rd_active ? rd_wen    : sram_wen_m;
+  assign sram_data = rd_active ? (ram_wr ? rd_wdata : 8'bz)
+                   :             (mem_write ? cpu_dout : 8'bz);
 
   // LED port 0x40 (active-low board LEDs, so invert on the pad).
   // syn_useioff=0: keep led_reg out of the IO block packing — the IO-register
@@ -139,6 +171,7 @@ module z80cpm_brevia2(
     if (io_rd && (A[7:0] == 8'h40)) io_rdata = sw;
     else if (io_rd && (A[7:0] == 8'h81)) io_rdata = uart_rx_data;
     else if (io_rd && (A[7:0] == 8'h80)) io_rdata = {6'h00, uart_rx_avail, uart_tx_busy};
+    else if (io_rd && (A[7:0] == 8'h20)) io_rdata = rd_dout;   // RAM disk data
   end
 
   // Data mux: ROM for 0x0000-0x0FFF (read), SRAM for 0x1000+, else I/O.

@@ -1,0 +1,8 @@
+i clk_op_i
+m 0 0
+u 85 348
+p {t:pll_inst.CLKOP}{t:clk_op_inferred_clock.I[0]}{t:clk_op_inferred_clock.OUT[0]}{t:rst_n_sync1.C}
+e ckid0_0 {t:rst_n_sync1.C} dffr
+c ckid0_0 {t:pll_inst.CLKOP} pmi_pll Clock source is constant
+l 0 0 0 0 0 0
+r 0 0 0 0 0 0 0 0

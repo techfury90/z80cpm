@@ -7,27 +7,28 @@ Design Information
 
 Command line:   map -a LatticeXP2 -p LFXP2-5E -t TQFP144 -s 6 -oc Commercial
      z80cpm_impl1.ngd -o z80cpm_impl1_map.ncd -pr z80cpm_impl1.prf -mp
-     z80cpm_impl1.mrp -lpf
-     C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/z80cpm_impl1.lpf -lpf
-     C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf -gui 
+     z80cpm_impl1.mrp -lpf C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/z80
+     cpm_impl1_synplify.lpf -lpf
+     C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf -gui -msgset
+     C:/Users/techf/Desktop/brevia2/z80cpm/build/promote.xml 
 Target Vendor:  LATTICE
 Target Device:  LFXP2-5ETQFP144
 Target Performance:   6
 Mapper:  mg5a00,  version:  Diamond (64-bit) 3.14.0.75.2
-Mapped on:  11/15/26  21:03:41
+Mapped on:  11/16/26  02:54:00
 
 Design Summary
 --------------
 
-   Number of registers:    468 out of  3864 (12%)
-      PFU registers:          468 out of  3564 (13%)
-      PIO registers:            0 out of   300 (0%)
-   Number of SLICEs:      1315 out of  2376 (55%)
-      SLICEs as Logic/ROM:   1315 out of  2376 (55%)
+   Number of registers:    501 out of  3864 (13%)
+      PFU registers:          499 out of  3564 (14%)
+      PIO registers:            2 out of   300 (1%)
+   Number of SLICEs:      1489 out of  2376 (63%)
+      SLICEs as Logic/ROM:   1489 out of  2376 (63%)
       SLICEs as RAM:            0 out of   405 (0%)
       SLICEs as Carry:         82 out of  2376 (3%)
-   Number of LUT4s:        2175 out of  4752 (46%)
-      Number used as logic LUTs:        2011
+   Number of LUT4s:        2510 out of  4752 (53%)
+      Number used as logic LUTs:        2346
       Number used as distributed RAM:     0
       Number used as ripple logic:      164
       Number used as shift registers:     0
@@ -55,178 +56,112 @@ Design Summary
    MULT18X18MACB       0
    MULT18X18ADDSUBB    0
    MULT18X18ADDSUBSUMB 0
-   MULT9X9B            1
+   MULT9X9B            0
    MULT9X9ADDSUBB      0
    MULT9X9ADDSUBSUMB   0
    --------------------------------
-   Number of Used DSP Sites:  1 out of 24 (4 %)
 
                                     Page 1
 
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  21:03:41
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
 
 Design Summary (cont)
 ---------------------
+   Number of Used DSP Sites:  0 out of 24 (0 %)
    Number of clocks:  2
-     Net clk_op: 342 loads, 338 rising, 4 falling (Driver:
-     pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0 )
      Net clk_in_c: 1 loads, 1 rising, 0 falling (Driver: PIO clk_in )
-   Number of Clock Enables:  57
-     Net led_reg_7__N_56: 5 loads, 5 LSLICEs
-     Net clk_op_enable_284: 6 loads, 6 LSLICEs
-     Net clk_op_enable_128: 4 loads, 4 LSLICEs
-     Net clk_op_enable_311: 11 loads, 11 LSLICEs
-     Net clk_op_enable_307: 4 loads, 4 LSLICEs
-     Net clk_op_enable_299: 8 loads, 8 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_320: 7 loads, 7 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_204: 17 loads, 17 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_324: 13 loads, 13 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_127: 12 loads, 12 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_111: 2 loads, 2 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_89: 5 loads, 5 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_78: 6 loads, 6 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_194: 3 loads, 3 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_20: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_46: 6 loads, 6 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_308: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/last_tstate: 6 loads, 6 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_282: 8 loads, 8 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_73: 8 loads, 8 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_81: 2 loads, 2 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_92: 2 loads, 2 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_119: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_129: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_136: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_147: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_148: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_325: 7 loads, 7 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_170: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_304: 10 loads, 10 LSLICEs
-     Net u_cpu/i_tv80_core/clk_op_enable_182: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_144: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_146: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_176: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_187: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_309: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_159: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_177: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_139: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_140: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_166: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_238: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_222: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_230: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_246: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_254: 4 loads, 4 LSLICEs
-     Net u_cpu/i_tv80_core/i_reg/clk_op_enable_262: 4 loads, 4 LSLICEs
-     Net u_rx/bitidx_0: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_185: 3 loads, 3 LSLICEs
-     Net u_rx/clk_op_enable_305: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_302: 1 loads, 1 LSLICEs
+     Net clk_op: 349 loads, 345 rising, 4 falling (Driver: pll_inst/PLLInst_0 )
+   Number of Clock Enables:  47
+     Net led_reg4: 4 loads, 4 LSLICEs
+     Net u_tx.un1_tx_busy13_4_i: 1 loads, 0 LSLICEs
+     Net u_cpu/N_16_i: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/ACC_2_sqmuxa_i: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe7: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe6: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe5: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe4: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe3: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe2: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe1: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe7_0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe6_0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe5_0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe4_0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe3_0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe2_0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe1_0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/i_reg/awe0_0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/PC_0_sqmuxa_1_0_a4_7_RNI3HO28: 17 loads, 17 LSLICEs
+     Net u_cpu/i_tv80_core/IntE_FF2_2_sqmuxa_i: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/N_1505_i: 16 loads, 16 LSLICEs
+     Net u_cpu/i_tv80_core/dout_3_sqmuxa_i: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/un1_ALU_Op_r10_i: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/un1_XY_Ind19_i[0]: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/un1_BusReq_s5_i: 2 loads, 2 LSLICEs
+     Net u_cpu/i_tv80_core/un1_ALU_Op_r10_10_i: 9 loads, 9 LSLICEs
+     Net u_cpu/i_tv80_core/IncDecZ_1_sqmuxa_i: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/I_1_sqmuxa: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/un1_ISet_0_sqmuxa_1_i[0]: 5 loads, 5 LSLICEs
+     Net u_cpu/i_tv80_core/ACC_0_sqmuxa: 8 loads, 8 LSLICEs
+     Net u_rx/rx_data_0_sqmuxa: 4 loads, 4 LSLICEs
+     Net u_rx/sr_RNO[3]: 1 loads, 1 LSLICEs
+     Net u_rx/sr_RNO[7]: 1 loads, 1 LSLICEs
+     Net u_rx/srce[0]: 1 loads, 1 LSLICEs
+     Net u_rx/srce[1]: 1 loads, 1 LSLICEs
+     Net u_rx/srce[2]: 1 loads, 1 LSLICEs
+     Net u_rx/srce[4]: 1 loads, 1 LSLICEs
+     Net u_rx/srce[5]: 1 loads, 1 LSLICEs
+     Net u_rx/srce[6]: 1 loads, 1 LSLICEs
+     Net u_rx/rx_avail_1_sqmuxa_1_i: 1 loads, 1 LSLICEs
+     Net u_rx/ke: 9 loads, 9 LSLICEs
+     Net u_rx/un1_rx_state6_2_i[0]: 3 loads, 3 LSLICEs
+     Net u_tx/bitcnte: 2 loads, 2 LSLICEs
+     Net u_tx/ke: 6 loads, 6 LSLICEs
+     Net u_tx/un1_tx_busy13_i: 4 loads, 4 LSLICEs
+   Number of LSRs:  5
+     Net rst: 190 loads, 188 LSLICEs
+     Net u_cpu/i_tv80_core/mcycle_16[5]: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/Auto_Wait_t2: 1 loads, 1 LSLICEs
 
                                     Page 2
 
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  21:03:41
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
 
 Design Summary (cont)
 ---------------------
-     Net u_rx/clk_op_enable_301: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_303: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_310: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_306: 1 loads, 1 LSLICEs
-     Net u_rx/clk_op_enable_312: 1 loads, 1 LSLICEs
-     Net u_tx/clk_op_enable_181: 1 loads, 1 LSLICEs
-   Number of local set/reset loads for net n39884 merged into GSR:  49
-   Number of LSRs:  14
-     Net rst_s: 8 loads, 8 LSLICEs
-     Net n39876: 16 loads, 16 LSLICEs
-     Net n39884: 1 loads, 1 LSLICEs
-     Net n39882: 41 loads, 41 LSLICEs
-     Net n39880: 41 loads, 41 LSLICEs
-     Net n39875: 9 loads, 9 LSLICEs
-     Net n39879: 43 loads, 43 LSLICEs
-     Net n33771: 1 loads, 1 LSLICEs
-     Net n39877: 14 loads, 14 LSLICEs
-     Net u_cpu/n9492: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/Set_BusA_To_1: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/Set_BusB_To_1: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/n1684: 1 loads, 1 LSLICEs
-     Net u_cpu/i_tv80_core/n33678: 1 loads, 1 LSLICEs
+     Net u_cpu/i_tv80_core/Auto_Wait_t1: 1 loads, 1 LSLICEs
+     Net rst_n_c: 3 loads, 3 LSLICEs
    Number of nets driven by tri-state buffers:  0
    Top 10 highest fanout non-clock nets:
-     Net u_cpu/i_tv80_core/Set_BusA_To_3_N_1198_2: 131 loads
-     Net ALU_Op_3_N_1269_3: 124 loads
-     Net u_cpu/i_tv80_core/IR_2: 102 loads
-     Net u_cpu/i_tv80_core/IR_5: 93 loads
-     Net u_cpu/i_tv80_core/Set_BusA_To_3_N_1202_0: 89 loads
-     Net u_cpu/i_tv80_core/IR_1: 82 loads
-     Net u_cpu/i_tv80_core/n37584: 81 loads
-     Net u_cpu/i_tv80_core/RegAddrA_0: 80 loads
-     Net u_cpu/i_tv80_core/n37859: 77 loads
-     Net u_cpu/i_tv80_core/mc_2: 73 loads
+     Net A[6]: 260 loads
+     Net A[2]: 257 loads
+     Net A[3]: 257 loads
+     Net A[1]: 255 loads
+     Net rst: 192 loads
+     Net A[7]: 135 loads
+     Net u_cpu/mcycle[0]: 84 loads
+     Net u_cpu/i_tv80_core/RegAddrA[0]: 80 loads
+     Net u_cpu/i_tv80_core/mcycle_16[1]: 79 loads
+     Net u_cpu/i_tv80_core/N_527: 75 loads
 
 
 
 
-   Number of warnings:  10
+   Number of warnings:  0
    Number of errors:    0
      
 
 Design Errors/Warnings
 ----------------------
 
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(54):
-     Semantic error in "FREQUENCY NET "cpu_clk" 25.000000 MHz ;": cpu_clk
-     matches no clock nets in the design.  This preference has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(59):
-     Semantic error in "CLOCK_TO_OUT PORT "sram_addr*" 15.000000 ns CLKNET
-     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
-     has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(60):
-     Semantic error in "INPUT_SETUP PORT "uart_rx" 20.000000 ns CLKNET "cpu_clk"
-     ;": "cpu_clk" matches no clknets in the design.  This preference has been
-     disabled.
-
-                                    Page 3
-
-
-
-
-Design:  z80cpm_brevia2                                Date:  11/15/26  21:03:41
-
-Design Errors/Warnings (cont)
------------------------------
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(61):
-     Semantic error in "INPUT_SETUP PORT "sram_data*" 5.000000 ns CLKNET
-     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
-     has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(62):
-     Semantic error in "CLOCK_TO_OUT PORT "sram_cen" 15.000000 ns CLKNET
-     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
-     has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(63):
-     Semantic error in "CLOCK_TO_OUT PORT "sram_oen" 15.000000 ns CLKNET
-     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
-     has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(64):
-     Semantic error in "CLOCK_TO_OUT PORT "sram_wen" 15.000000 ns CLKNET
-     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
-     has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(65):
-     Semantic error in "CLOCK_TO_OUT PORT "sram_data*" 15.000000 ns CLKNET
-     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
-     has been disabled.
-WARNING - map: C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf(66):
-     Semantic error in "CLOCK_TO_OUT PORT "uart_tx" 20.000000 ns CLKNET
-     "cpu_clk" ;": "cpu_clk" matches no clknets in the design.  This preference
-     has been disabled.
-WARNING - map: Using local reset signal 'n39884' to infer global GSR net.
+   No errors or warnings present.
 
 IO (PIO) Attributes
 -------------------
@@ -235,9 +170,15 @@ IO (PIO) Attributes
 | IO Name             | Direction | Levelmode | IO         | FIXEDDELAY |
 |                     |           |  IO_TYPE  | Register   |            |
 +---------------------+-----------+-----------+------------+------------+
-| sram_data[6]        | BIDIR     | LVCMOS33  |            |            |
+| sram_data[0]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[0]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| clk_in              | INPUT     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
 | sram_data[7]        | BIDIR     | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sram_data[6]        | BIDIR     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
 | sram_data[5]        | BIDIR     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
@@ -249,35 +190,21 @@ IO (PIO) Attributes
 +---------------------+-----------+-----------+------------+------------+
 | sram_data[1]        | BIDIR     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
-| sram_data[0]        | BIDIR     | LVCMOS33  |            |            |
+| sram_wen            | OUTPUT    | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
-| led[7]              | OUTPUT    | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| led[6]              | OUTPUT    | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| led[5]              | OUTPUT    | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| led[4]              | OUTPUT    | LVCMOS33  |            |            |
 
-                                    Page 4
+                                    Page 3
 
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  21:03:41
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
 
 IO (PIO) Attributes (cont)
 --------------------------
+| sram_oen            | OUTPUT    | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
-| led[3]              | OUTPUT    | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| led[2]              | OUTPUT    | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| led[1]              | OUTPUT    | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| led[0]              | OUTPUT    | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| uart_tx             | OUTPUT    | LVCMOS33  |            |            |
+| sram_cen            | OUTPUT    | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
 | sram_addr[16]       | OUTPUT    | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
@@ -313,27 +240,11 @@ IO (PIO) Attributes (cont)
 +---------------------+-----------+-----------+------------+------------+
 | sram_addr[0]        | OUTPUT    | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
-| sram_cen            | OUTPUT    | LVCMOS33  |            |            |
+| uart_tx             | OUTPUT    | LVCMOS33  | OUT        |            |
 +---------------------+-----------+-----------+------------+------------+
-| sram_oen            | OUTPUT    | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| sram_wen            | OUTPUT    | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| clk_in              | INPUT     | LVCMOS33  |            |            |
-+---------------------+-----------+-----------+------------+------------+
-| rst_n               | INPUT     | LVCMOS33  |            |            |
+| uart_rx             | INPUT     | LVCMOS33  | IN         |            |
 +---------------------+-----------+-----------+------------+------------+
 | sw[7]               | INPUT     | LVCMOS33  |            |            |
-
-                                    Page 5
-
-
-
-
-Design:  z80cpm_brevia2                                Date:  11/15/26  21:03:41
-
-IO (PIO) Attributes (cont)
---------------------------
 +---------------------+-----------+-----------+------------+------------+
 | sw[6]               | INPUT     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
@@ -347,48 +258,137 @@ IO (PIO) Attributes (cont)
 +---------------------+-----------+-----------+------------+------------+
 | sw[1]               | INPUT     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
+
+                                    Page 4
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+IO (PIO) Attributes (cont)
+--------------------------
 | sw[0]               | INPUT     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
-| uart_rx             | INPUT     | LVCMOS33  |            |            |
+| led[7]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[6]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[5]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[4]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[3]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[2]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| led[1]              | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| rst_n               | INPUT     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
 
 Removed logic
 -------------
 
-Signal clk_N_309 was merged into signal clk_op
-Signal u_cpu/i_tv80_core/i_mcode/n34660 was merged into signal
-     u_cpu/i_tv80_core/ISet_1
-Signal u_cpu/i_tv80_core/i_mcode/n37814 was merged into signal
-     u_cpu/i_tv80_core/ISet_0
-Signal u_cpu/i_tv80_core/i_mcode/n37932 was merged into signal
-     u_cpu/i_tv80_core/F_4
-Signal u_cpu/i_tv80_core/i_mcode/n37926 was merged into signal
-     u_cpu/i_tv80_core/i_mcode/n23437
-Signal pmi_pll0offCLKOP500XP212.50000025252550/scuba_vlo undriven or does not
-     drive anything - clipped.
-Signal u_tx/add_48_add_4_1/S0 undriven or does not drive anything - clipped.
-Signal u_tx/add_48_add_4_1/CI undriven or does not drive anything - clipped.
-Signal u_tx/add_48_add_4_9/CO undriven or does not drive anything - clipped.
-Signal u_rx/equal_4711_14_26365/S1 undriven or does not drive anything -
+Block u_rom/VCC undriven or does not drive anything - clipped.
+Block u_rom/GND undriven or does not drive anything - clipped.
+Block u_cpu/GND undriven or does not drive anything - clipped.
+Block u_cpu/VCC undriven or does not drive anything - clipped.
+Block u_cpu/i_tv80_core/i_mcode/VCC undriven or does not drive anything -
      clipped.
-Signal u_rx/equal_4711_14_26365/S0 undriven or does not drive anything -
+Block u_cpu/i_tv80_core/i_mcode/GND undriven or does not drive anything -
      clipped.
-Signal u_rx/equal_4711_14/S1 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4711_14/CO undriven or does not drive anything - clipped.
-Signal u_rx/k_5689_add_4_1/S0 undriven or does not drive anything - clipped.
-Signal u_rx/k_5689_add_4_1/CI undriven or does not drive anything - clipped.
-Signal u_rx/equal_4711_0/S1 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4711_0/S0 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4711_0/CI undriven or does not drive anything - clipped.
-Signal u_rx/equal_4711_10/S1 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4711_10/S0 undriven or does not drive anything - clipped.
-Signal u_rx/add_1089_add_4_1/S0 undriven or does not drive anything - clipped.
-Signal u_rx/add_1089_add_4_1/CI undriven or does not drive anything - clipped.
-Signal u_rx/k_5689_add_4_13/S1 undriven or does not drive anything - clipped.
-Signal u_rx/k_5689_add_4_13/CO undriven or does not drive anything - clipped.
-Signal u_rx/equal_4711_12/S1 undriven or does not drive anything - clipped.
-Signal u_rx/equal_4711_12/S0 undriven or does not drive anything - clipped.
-Signal u_rx/add_1089_add_4_cout/S1 undriven or does not drive anything -
+Block u_cpu/i_tv80_core/i_reg/VCC undriven or does not drive anything - clipped.
+     
+Block u_cpu/i_tv80_core/i_reg/GND undriven or does not drive anything - clipped.
+     
+Signal rst_n_c_i was merged into signal rst_n_c
+Signal u_cpu/CN was merged into signal clk_op
+Signal u_cpu/i_tv80_core/Auto_Wait_t1_i was merged into signal
+     u_cpu/i_tv80_core/Auto_Wait_t1
+Signal pll_inst/scuba_vlo undriven or does not drive anything - clipped.
+Signal hb_cry_0_COUT[23] undriven or does not drive anything - clipped.
+Signal pll_inst/PLLInst_0/CLKINTFB undriven or does not drive anything -
+     clipped.
+Signal LOCK undriven or does not drive anything - clipped.
+Signal CLKOK2 undriven or does not drive anything - clipped.
+Signal pll_inst/PLLInst_0/CLKOK undriven or does not drive anything - clipped.
+Signal CLKOS undriven or does not drive anything - clipped.
+Signal u_rd/addr_cry_0_S0[0] undriven or does not drive anything - clipped.
+Signal u_rd/N_1 undriven or does not drive anything - clipped.
+Signal u_rd/addr_s_0_S1[15] undriven or does not drive anything - clipped.
+Signal u_rd/addr_s_0_COUT[15] undriven or does not drive anything - clipped.
+Signal u_tx/k_cry_0_S0[0] undriven or does not drive anything - clipped.
+Signal u_tx/N_1 undriven or does not drive anything - clipped.
+Signal u_tx/k_s_0_S1[11] undriven or does not drive anything - clipped.
+Signal u_tx/k_s_0_COUT[11] undriven or does not drive anything - clipped.
+Signal u_rx/k_cry_0_S0_0[0] undriven or does not drive anything - clipped.
+Signal u_rx/N_1 undriven or does not drive anything - clipped.
+
+                                    Page 5
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+Removed logic (cont)
+--------------------
+Signal u_rx/k_s_0_S1[15] undriven or does not drive anything - clipped.
+Signal u_rx/k_s_0_COUT[15] undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_1_0_S1 undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_1_0_S0 undriven or does not drive anything - clipped.
+Signal u_rx/N_2 undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_39_0_S1 undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_39_0_S0 undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_21_0_S1 undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_21_0_S0 undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_15_0_S1 undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_15_0_S0 undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_45_0_S0 undriven or does not drive anything - clipped.
+Signal u_rx/un1_k_16_0_I_45_0_COUT undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/PC_20_0_cry_0_0_S1 undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/PC_20_0_cry_0_0_S0 undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/N_1 undriven or does not drive anything - clipped.
+Signal u_cpu/i_tv80_core/PC_20_0_s_15_0_S1 undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/PC_20_0_s_15_0_COUT undriven or does not drive anything
+     - clipped.
+Signal u_cpu/i_tv80_core/un1_TmpAddr_0_cry_0_0_S1 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/un1_TmpAddr_0_cry_0_0_S0 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/N_2 undriven or does not drive anything - clipped.
+Signal u_cpu/i_tv80_core/un1_TmpAddr_0_s_15_0_S1 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/un1_TmpAddr_0_s_15_0_COUT undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/ID16_cry_0_0_S1 undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/ID16_cry_0_0_S0 undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/N_3 undriven or does not drive anything - clipped.
+Signal u_cpu/i_tv80_core/ID16_s_15_0_S1 undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/ID16_s_15_0_COUT undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/SP16_cry_0_0_S1 undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/SP16_cry_0_0_S0 undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/N_4 undriven or does not drive anything - clipped.
+Signal u_cpu/i_tv80_core/SP16_s_15_0_S1 undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/SP16_s_15_0_COUT undriven or does not drive anything -
+     clipped.
+Signal u_cpu/i_tv80_core/i_alu/DAA_Q_13_cry_5_0_S1 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/i_alu/DAA_Q_13_cry_5_0_S0 undriven or does not drive
+     anything - clipped.
+Signal u_cpu/i_tv80_core/i_alu/N_1 undriven or does not drive anything -
      clipped.
 
                                     Page 6
@@ -396,125 +396,26 @@ Signal u_rx/add_1089_add_4_cout/S1 undriven or does not drive anything -
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  21:03:41
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
 
 Removed logic (cont)
 --------------------
-Signal u_rx/add_1089_add_4_cout/CO undriven or does not drive anything -
-     clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5175_add_4_1/S0 undriven or does not drive
+Signal u_cpu/i_tv80_core/i_alu/DAA_Q_13_s_8_0_S1 undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5175_add_4_1/CI undriven or does not drive
+Signal u_cpu/i_tv80_core/i_alu/DAA_Q_13_s_8_0_COUT undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5175_add_4_7/CO undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5896_add_4_1/S0 undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5896_add_4_1/CI undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5896_add_4_cout/S1 undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/add_5896_add_4_cout/CO undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/add_868_add_4_17/S1 undriven or does not drive anything
-     - clipped.
-Signal u_cpu/i_tv80_core/add_868_add_4_17/CO undriven or does not drive anything
-     - clipped.
-Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_1/S0 undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_1/CI undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_17/S1 undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/RegBusA_15__I_0_add_4_17/CO undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/PC_5691_add_4_1/S1 undriven or does not drive anything
-     - clipped.
-Signal u_cpu/i_tv80_core/PC_5691_add_4_1/S0 undriven or does not drive anything
-     - clipped.
-Signal u_cpu/i_tv80_core/PC_5691_add_4_1/CI undriven or does not drive anything
-     - clipped.
-Signal u_cpu/i_tv80_core/PC_5691_add_4_17/CO undriven or does not drive anything
-     - clipped.
-Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_1/S0 undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_1/CI undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_17/S1 undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/SP16_A_15__I_0_add_4_17/CO undriven or does not drive
-     anything - clipped.
-Signal u_cpu/i_tv80_core/add_868_add_4_1/S0 undriven or does not drive anything
-     - clipped.
-Signal u_cpu/i_tv80_core/add_868_add_4_1/CI undriven or does not drive anything
-     - clipped.
-Signal hb_5688_add_4_25/CO undriven or does not drive anything - clipped.
-Signal hb_5688_add_4_1/S0 undriven or does not drive anything - clipped.
-Signal hb_5688_add_4_1/CI undriven or does not drive anything - clipped.
-Signal pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0/CLKINTFB undriven or
-     does not drive anything - clipped.
-Signal pmi_pll0offCLKOP500XP212.50000025252550/LOCK undriven or does not drive
-     anything - clipped.
-Signal pmi_pll0offCLKOP500XP212.50000025252550/CLKOK2 undriven or does not drive
-
-                                    Page 7
-
-
-
-
-Design:  z80cpm_brevia2                                Date:  11/15/26  21:03:41
-
-Removed logic (cont)
---------------------
-     anything - clipped.
-Signal pmi_pll0offCLKOP500XP212.50000025252550/CLKOK undriven or does not drive
-     anything - clipped.
-Signal pmi_pll0offCLKOP500XP212.50000025252550/CLKOS undriven or does not drive
-     anything - clipped.
-Block i34436 was optimized away.
-Block u_cpu/i_tv80_core/i_mcode/i32271_2_lut_3_lut_1_lut was optimized away.
-Block u_cpu/i_tv80_core/i_mcode/i6777_1_lut_rep_711 was optimized away.
-Block u_cpu/i_tv80_core/i_mcode/i31934_3_lut_then_1_lut was optimized away.
-Block u_cpu/i_tv80_core/i_mcode/i1_4_lut_then_1_lut was optimized away.
-Block pmi_pll0offCLKOP500XP212.50000025252550/scuba_vlo_inst was optimized away.
-     
-
-DSP Component Details
----------------------
-
-
-     . MULT9X9B  u_rx/mult_67:
-
-     Multiplier
-        Operation               Unsigned
-        Operation Registers     CLK     CE      RST
-        --------------------------------------------
-                Input                               
-        Operation Registers     CLK     CE      RST
-        --------------------------------------------
-                Input                               
-Data
-        Input Registers         CLK     CE      RST  
-        ---------------------------------------------
-                A                                       
-                B                                       
-
-             Pipeline Registers      CLK     CE      RST
-        --------------------------------------------
-                Pipe                                
-
-             Output Register         CLK     CE      RST
-        --------------------------------------------
-                Output                              
-Other
-        GSR     DISABLED
+Signal hb_cry_0_S0[0] undriven or does not drive anything - clipped.
+Signal N_1 undriven or does not drive anything - clipped.
+Block rst_n_pad_RNIQR5E7 was optimized away.
+Block u_cpu/mreq_n.CN was optimized away.
+Block u_cpu/i_tv80_core/Auto_Wait_t2_RNO_0 was optimized away.
+Block pll_inst/scuba_vlo_inst was optimized away.
 
 PLL/DLL Summary
 ---------------
 
 PLL 1:                                     Pin/Node Value
-  PLL Instance Name:                                pmi_pll0offCLKOP500XP212.500
-       00025252550/PLLInst_0
+  PLL Instance Name:                                pll_inst/PLLInst_0
   PLL Type:                                         EHXPLLE
   Input Clock:                             PIN      clk_in_c
   Output Clock(P):                         NODE     clk_op
@@ -522,16 +423,6 @@ PLL 1:                                     Pin/Node Value
   Output Clock(S):                                  NONE
   Output Clock(K):                                  NONE
   PLL Feedback Signal:                     NODE     clk_op
-
-                                    Page 8
-
-
-
-
-Design:  z80cpm_brevia2                                Date:  11/15/26  21:03:41
-
-PLL/DLL Summary (cont)
-----------------------
   PLL Reset Signal:                                 NONE
   PLL K Divider Reset Signal:                       NONE
   PLL LOCK Signal:                                  NONE
@@ -565,22 +456,30 @@ PLL/DLL Summary (cont)
   CLKOPDutyTrimPolarity:                            FALLING
   CLKOPDutyTrimPolarityDelay:                       0
   CLKOSDutyTrimPolarity:                            RISING
+
+                                    Page 7
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+PLL/DLL Summary (cont)
+----------------------
   CLKOSDutyTrimPolarityDelay:                       0
 
 ASIC Components
 ---------------
 
-Instance Name: pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0
+Instance Name: pll_inst/PLLInst_0
          Type: EHXPLLE
-Instance Name: u_rx/mult_67
-         Type: MULT9X9B
 
 GSR Usage
 ---------
 
 GSR Component:
-   The local reset signal 'n39884' of the design has been inferred as Global Set
-        Reset (GSR). The reset signal used for GSR control is 'n39884'.
+   The Global Set Reset (GSR) resource has been used to implement a global reset
+        of the design. The reset signal used for GSR control is 'rst_i'.
         
 
      GSR Property:
@@ -589,35 +488,620 @@ GSR Component:
         not.
         
 
+     Components with disabled GSR Property
+-------------------------------------
+
+     These components have the GSR property set to DISABLED. The components will
+     not respond to the reset signal 'rst_i' via the GSR component.
+
+     Type and number of components of the type: 
+   Register = 492 
+
+     Type and instance name of component: 
+   Register : rst_cnt[3]
+   Register : hb[24]
+   Register : u_tx_txdio
+   Register : u_rx_rxd_s0io
+   Register : u_cpu/di_reg[7]
+   Register : u_cpu/i_tv80_core/RegAddrC[1]
+   Register : u_cpu/i_tv80_core/ACC[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram7_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram7_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram7_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram7_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram7_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram7_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram7_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram7_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram6_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram6_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram6_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram6_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram6_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram6_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram6_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram6_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram5_[0]
+
+                                    Page 8
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+GSR Usage (cont)
+----------------
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram5_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram5_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram5_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram5_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram5_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram5_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram5_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram3_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram3_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram3_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram3_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram3_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram3_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram3_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram3_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram0_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram0_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram0_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram0_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram0_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram0_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram0_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram0_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram7_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram7_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram7_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram7_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram7_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram7_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram7_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram7_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram6_[0]
+
                                     Page 9
 
 
 
 
-Design:  z80cpm_brevia2                                Date:  11/15/26  21:03:41
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
 
 GSR Usage (cont)
 ----------------
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram6_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram6_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram6_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram6_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram6_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram6_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram6_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram4_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram4_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram4_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram4_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram4_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram4_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram4_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram4_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram1_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram1_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram1_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram1_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram1_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram1_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram1_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram1_[7]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram0_[0]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram0_[1]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram0_[2]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram0_[3]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram0_[4]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram0_[5]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram0_[6]
+   Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram0_[7]
+   Register : u_cpu/i_tv80_core/tstate[0]
 
-     Components on inferred reset domain with GSR Property disabled
---------------------------------------------------------------
+                                   Page 10
 
-     These components have the GSR property set to DISABLED and are on the
-     inferred reset domain. The components will respond to the reset signal
-     'n39884' via the local reset on the component and not the GSR component.
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+GSR Usage (cont)
+----------------
+   Register : u_cpu/i_tv80_core/tstate[1]
+   Register : u_cpu/i_tv80_core/tstate[2]
+   Register : u_cpu/i_tv80_core/tstate[3]
+   Register : u_cpu/i_tv80_core/tstate[4]
+   Register : u_cpu/i_tv80_core/tstate[5]
+   Register : u_cpu/i_tv80_core/tstate[6]
+   Register : u_cpu/i_tv80_core/mcycle[0]
+   Register : u_cpu/i_tv80_core/mcycles[0]
+   Register : u_cpu/i_tv80_core/mcycles[1]
+   Register : u_cpu/i_tv80_core/mcycle[1]
+   Register : u_cpu/i_tv80_core/mcycle[2]
+   Register : u_cpu/i_tv80_core/mcycles[2]
+   Register : u_cpu/i_tv80_core/mcycle[3]
+   Register : u_cpu/i_tv80_core/mcycle[4]
+   Register : u_cpu/i_tv80_core/mcycle[5]
+   Register : u_cpu/i_tv80_core/mcycle[6]
+   Register : u_cpu/i_tv80_core/dout[0]
+   Register : u_cpu/i_tv80_core/dout[1]
+   Register : u_cpu/i_tv80_core/dout[2]
+   Register : u_cpu/i_tv80_core/dout[3]
+   Register : u_cpu/i_tv80_core/dout[4]
+   Register : u_cpu/i_tv80_core/dout[5]
+   Register : u_cpu/i_tv80_core/dout[6]
+   Register : u_cpu/i_tv80_core/dout[7]
+   Register : u_cpu/i_tv80_core/Z16_r
+   Register : u_cpu/i_tv80_core/XY_State[0]
+   Register : u_cpu/i_tv80_core/XY_State[1]
+   Register : u_cpu/i_tv80_core/XY_Ind
+   Register : u_cpu/i_tv80_core/TmpAddr[0]
+   Register : u_cpu/i_tv80_core/TmpAddr[1]
+   Register : u_cpu/i_tv80_core/TmpAddr[2]
+   Register : u_cpu/i_tv80_core/TmpAddr[3]
+   Register : u_cpu/i_tv80_core/TmpAddr[4]
+   Register : u_cpu/i_tv80_core/TmpAddr[5]
+   Register : u_cpu/i_tv80_core/TmpAddr[6]
+   Register : u_cpu/i_tv80_core/TmpAddr[7]
+   Register : u_cpu/i_tv80_core/TmpAddr[8]
+   Register : u_cpu/i_tv80_core/TmpAddr[9]
+   Register : u_cpu/i_tv80_core/TmpAddr[10]
+   Register : u_cpu/i_tv80_core/TmpAddr[11]
+   Register : u_cpu/i_tv80_core/TmpAddr[12]
+   Register : u_cpu/i_tv80_core/TmpAddr[13]
+   Register : u_cpu/i_tv80_core/TmpAddr[14]
+   Register : u_cpu/i_tv80_core/TmpAddr[15]
+   Register : u_cpu/i_tv80_core/Save_ALU_r
+   Register : u_cpu/i_tv80_core/SP[0]
+   Register : u_cpu/i_tv80_core/SP[1]
+   Register : u_cpu/i_tv80_core/SP[2]
+   Register : u_cpu/i_tv80_core/SP[3]
+   Register : u_cpu/i_tv80_core/SP[4]
+   Register : u_cpu/i_tv80_core/SP[5]
+   Register : u_cpu/i_tv80_core/SP[6]
+   Register : u_cpu/i_tv80_core/SP[7]
+   Register : u_cpu/i_tv80_core/SP[8]
+   Register : u_cpu/i_tv80_core/SP[9]
+   Register : u_cpu/i_tv80_core/SP[10]
+
+                                   Page 11
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+GSR Usage (cont)
+----------------
+   Register : u_cpu/i_tv80_core/SP[11]
+   Register : u_cpu/i_tv80_core/SP[12]
+   Register : u_cpu/i_tv80_core/SP[13]
+   Register : u_cpu/i_tv80_core/SP[14]
+   Register : u_cpu/i_tv80_core/SP[15]
+   Register : u_cpu/i_tv80_core/RegBusA_r[0]
+   Register : u_cpu/i_tv80_core/RegBusA_r[1]
+   Register : u_cpu/i_tv80_core/RegBusA_r[2]
+   Register : u_cpu/i_tv80_core/RegBusA_r[3]
+   Register : u_cpu/i_tv80_core/RegBusA_r[4]
+   Register : u_cpu/i_tv80_core/RegBusA_r[5]
+   Register : u_cpu/i_tv80_core/RegBusA_r[6]
+   Register : u_cpu/i_tv80_core/RegBusA_r[7]
+   Register : u_cpu/i_tv80_core/RegBusA_r[8]
+   Register : u_cpu/i_tv80_core/RegBusA_r[9]
+   Register : u_cpu/i_tv80_core/RegBusA_r[10]
+   Register : u_cpu/i_tv80_core/RegBusA_r[11]
+   Register : u_cpu/i_tv80_core/RegBusA_r[12]
+   Register : u_cpu/i_tv80_core/RegBusA_r[13]
+   Register : u_cpu/i_tv80_core/RegBusA_r[14]
+   Register : u_cpu/i_tv80_core/RegBusA_r[15]
+   Register : u_cpu/i_tv80_core/RegAddrC[0]
+   Register : u_cpu/i_tv80_core/RegAddrC[2]
+   Register : u_cpu/i_tv80_core/RegAddrB_r[0]
+   Register : u_cpu/i_tv80_core/RegAddrB_r[1]
+   Register : u_cpu/i_tv80_core/RegAddrB_r[2]
+   Register : u_cpu/i_tv80_core/RegAddrA_r[0]
+   Register : u_cpu/i_tv80_core/RegAddrA_r[1]
+   Register : u_cpu/i_tv80_core/RegAddrA_r[2]
+   Register : u_cpu/i_tv80_core/Read_To_Reg_r[0]
+   Register : u_cpu/i_tv80_core/Read_To_Reg_r[1]
+   Register : u_cpu/i_tv80_core/Read_To_Reg_r[2]
+   Register : u_cpu/i_tv80_core/Read_To_Reg_r[3]
+   Register : u_cpu/i_tv80_core/Read_To_Reg_r[4]
+   Register : u_cpu/i_tv80_core/PreserveC_r
+   Register : u_cpu/i_tv80_core/Pre_XY_F_M[0]
+   Register : u_cpu/i_tv80_core/Pre_XY_F_M[1]
+   Register : u_cpu/i_tv80_core/Pre_XY_F_M[2]
+   Register : u_cpu/i_tv80_core/PC[0]
+   Register : u_cpu/i_tv80_core/PC[1]
+   Register : u_cpu/i_tv80_core/PC[2]
+   Register : u_cpu/i_tv80_core/PC[3]
+   Register : u_cpu/i_tv80_core/PC[4]
+   Register : u_cpu/i_tv80_core/PC[5]
+   Register : u_cpu/i_tv80_core/PC[6]
+   Register : u_cpu/i_tv80_core/PC[7]
+   Register : u_cpu/i_tv80_core/PC[8]
+   Register : u_cpu/i_tv80_core/PC[9]
+   Register : u_cpu/i_tv80_core/PC[10]
+   Register : u_cpu/i_tv80_core/PC[11]
+   Register : u_cpu/i_tv80_core/PC[12]
+   Register : u_cpu/i_tv80_core/PC[13]
+   Register : u_cpu/i_tv80_core/PC[14]
+   Register : u_cpu/i_tv80_core/PC[15]
+   Register : u_cpu/i_tv80_core/No_BTR
+   Register : u_cpu/i_tv80_core/IntE_FF2
+
+                                   Page 12
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+GSR Usage (cont)
+----------------
+   Register : u_cpu/i_tv80_core/IncDecZ
+   Register : u_cpu/i_tv80_core/I[0]
+   Register : u_cpu/i_tv80_core/ISet_fast[0]
+   Register : u_cpu/i_tv80_core/ISet_fast[1]
+   Register : u_cpu/i_tv80_core/IR_fast[2]
+   Register : u_cpu/i_tv80_core/I[2]
+   Register : u_cpu/i_tv80_core/I[4]
+   Register : u_cpu/i_tv80_core/I[5]
+   Register : u_cpu/i_tv80_core/I[6]
+   Register : u_cpu/i_tv80_core/ISet_1_rep2
+   Register : u_cpu/i_tv80_core/ISet_0_rep1
+   Register : u_cpu/i_tv80_core/ISet[0]
+   Register : u_cpu/i_tv80_core/ISet[1]
+   Register : u_cpu/i_tv80_core/I[3]
+   Register : u_cpu/i_tv80_core/I[7]
+   Register : u_cpu/i_tv80_core/ISet_1_rep1
+   Register : u_cpu/i_tv80_core/IR_7_rep2
+   Register : u_cpu/i_tv80_core/IR_5_rep1
+   Register : u_cpu/i_tv80_core/IR[0]
+   Register : u_cpu/i_tv80_core/IR_fast[0]
+   Register : u_cpu/i_tv80_core/I[1]
+   Register : u_cpu/i_tv80_core/IR_fast[3]
+   Register : u_cpu/i_tv80_core/IR_fast[4]
+   Register : u_cpu/i_tv80_core/IR_fast[5]
+   Register : u_cpu/i_tv80_core/IR_fast[6]
+   Register : u_cpu/i_tv80_core/IR_7_rep1
+   Register : u_cpu/i_tv80_core/IR_6_rep2
+   Register : u_cpu/i_tv80_core/IR_6_rep1
+   Register : u_cpu/i_tv80_core/IR_5_rep2
+   Register : u_cpu/i_tv80_core/IR_4_rep2
+   Register : u_cpu/i_tv80_core/IR[1]
+   Register : u_cpu/i_tv80_core/IR_fast[1]
+   Register : u_cpu/i_tv80_core/IR_fast[7]
+   Register : u_cpu/i_tv80_core/IR_4_rep1
+   Register : u_cpu/i_tv80_core/IR_3_rep2
+   Register : u_cpu/i_tv80_core/IR_3_rep1
+   Register : u_cpu/i_tv80_core/IR_2_rep2
+   Register : u_cpu/i_tv80_core/IR_2_rep1
+   Register : u_cpu/i_tv80_core/IR_1_rep2
+   Register : u_cpu/i_tv80_core/IR_1_rep1
+   Register : u_cpu/i_tv80_core/IR_0_rep2
+   Register : u_cpu/i_tv80_core/IR_0_rep1
+   Register : u_cpu/i_tv80_core/IR[2]
+   Register : u_cpu/i_tv80_core/IR[3]
+   Register : u_cpu/i_tv80_core/IR[4]
+   Register : u_cpu/i_tv80_core/IR[5]
+   Register : u_cpu/i_tv80_core/IR[6]
+   Register : u_cpu/i_tv80_core/IR[7]
+   Register : u_cpu/i_tv80_core/Halt_FF
+   Register : u_cpu/i_tv80_core/F[0]
+   Register : u_cpu/i_tv80_core/Fp[0]
+   Register : u_cpu/i_tv80_core/F[1]
+   Register : u_cpu/i_tv80_core/Fp[1]
+   Register : u_cpu/i_tv80_core/Fp[2]
+   Register : u_cpu/i_tv80_core/F[2]
+   Register : u_cpu/i_tv80_core/F[3]
+
+                                   Page 13
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+GSR Usage (cont)
+----------------
+   Register : u_cpu/i_tv80_core/Fp[3]
+   Register : u_cpu/i_tv80_core/F[4]
+   Register : u_cpu/i_tv80_core/Fp[4]
+   Register : u_cpu/i_tv80_core/F[5]
+   Register : u_cpu/i_tv80_core/Fp[5]
+   Register : u_cpu/i_tv80_core/Fp[6]
+   Register : u_cpu/i_tv80_core/F[6]
+   Register : u_cpu/i_tv80_core/Fp[7]
+   Register : u_cpu/i_tv80_core/F_fast[0]
+   Register : u_cpu/i_tv80_core/F_fast[2]
+   Register : u_cpu/i_tv80_core/F_fast[6]
+   Register : u_cpu/i_tv80_core/F_fast[7]
+   Register : u_cpu/i_tv80_core/F[7]
+   Register : u_cpu/i_tv80_core/BusB[0]
+   Register : u_cpu/i_tv80_core/BusB[1]
+   Register : u_cpu/i_tv80_core/BusB[2]
+   Register : u_cpu/i_tv80_core/BusB[3]
+   Register : u_cpu/i_tv80_core/BusB[4]
+   Register : u_cpu/i_tv80_core/BusB[5]
+   Register : u_cpu/i_tv80_core/BusB[6]
+   Register : u_cpu/i_tv80_core/BusB[7]
+   Register : u_cpu/i_tv80_core/BusA[0]
+   Register : u_cpu/i_tv80_core/BusA[1]
+   Register : u_cpu/i_tv80_core/BusA[2]
+   Register : u_cpu/i_tv80_core/BusA[3]
+   Register : u_cpu/i_tv80_core/BusA[4]
+   Register : u_cpu/i_tv80_core/BusA[5]
+   Register : u_cpu/i_tv80_core/BusA[6]
+   Register : u_cpu/i_tv80_core/BusA[7]
+   Register : u_cpu/i_tv80_core/BTR_r
+   Register : u_cpu/i_tv80_core/Arith16_r
+   Register : u_cpu/i_tv80_core/Ap[0]
+   Register : u_cpu/i_tv80_core/A[1]
+   Register : u_cpu/i_tv80_core/Ap[1]
+   Register : u_cpu/i_tv80_core/Ap[2]
+   Register : u_cpu/i_tv80_core/A[2]
+   Register : u_cpu/i_tv80_core/Ap[3]
+   Register : u_cpu/i_tv80_core/Ap[4]
+   Register : u_cpu/i_tv80_core/Ap[5]
+   Register : u_cpu/i_tv80_core/Alternate
+   Register : u_cpu/i_tv80_core/ALU_Op_r[0]
+   Register : u_cpu/i_tv80_core/A[0]
+   Register : u_cpu/i_tv80_core/A[3]
+   Register : u_cpu/i_tv80_core/Ap[6]
+   Register : u_cpu/i_tv80_core/Ap[7]
+   Register : u_cpu/i_tv80_core/ALU_Op_r[1]
+   Register : u_cpu/i_tv80_core/ALU_Op_r[2]
+   Register : u_cpu/i_tv80_core/ALU_Op_r[3]
+   Register : u_cpu/i_tv80_core/ACC[0]
+   Register : u_cpu/i_tv80_core/ACC[1]
+   Register : u_cpu/i_tv80_core/ACC[2]
+   Register : u_cpu/i_tv80_core/ACC[3]
+   Register : u_cpu/i_tv80_core/ACC[4]
+   Register : u_cpu/i_tv80_core/A[4]
+   Register : u_cpu/i_tv80_core/A[5]
+   Register : u_cpu/i_tv80_core/ACC[5]
+
+                                   Page 14
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+GSR Usage (cont)
+----------------
+   Register : u_cpu/i_tv80_core/ACC[6]
+   Register : u_cpu/i_tv80_core/A[6]
+   Register : u_cpu/i_tv80_core/A[7]
+   Register : u_cpu/i_tv80_core/A[8]
+   Register : u_cpu/i_tv80_core/A[9]
+   Register : u_cpu/i_tv80_core/A[10]
+   Register : u_cpu/i_tv80_core/A[11]
+   Register : u_cpu/i_tv80_core/A[12]
+   Register : u_cpu/i_tv80_core/A[13]
+   Register : u_cpu/i_tv80_core/A[14]
+   Register : u_cpu/i_tv80_core/A[15]
+   Register : u_cpu/wr_n
+   Register : u_cpu/rd_n
+   Register : u_cpu/mreq_n
+   Register : u_cpu/iorq_n
+   Register : u_cpu/di_reg[0]
+   Register : u_cpu/di_reg[1]
+   Register : u_cpu/di_reg[2]
+   Register : u_cpu/di_reg[3]
+   Register : u_cpu/di_reg[4]
+   Register : u_cpu/di_reg[5]
+   Register : u_cpu/di_reg[6]
+   Register : u_rx/rxd_s1
+   Register : u_rx/rx_data[7]
+   Register : u_rx/sr[0]
+   Register : u_rx/sr[1]
+   Register : u_rx/sr[2]
+   Register : u_rx/sr[3]
+   Register : u_rx/sr[4]
+   Register : u_rx/sr[5]
+   Register : u_rx/sr[6]
+   Register : u_rx/sr[7]
+   Register : u_rx/rx_state
+   Register : u_rx/rx_data[0]
+   Register : u_rx/rx_data[1]
+   Register : u_rx/rx_data[2]
+   Register : u_rx/rx_data[3]
+   Register : u_rx/rx_data[4]
+   Register : u_rx/rx_data[5]
+   Register : u_rx/rx_data[6]
+   Register : u_rx/rx_avail
+   Register : u_rx/k[0]
+   Register : u_rx/k[1]
+   Register : u_rx/k[2]
+   Register : u_rx/k[3]
+   Register : u_rx/k[4]
+   Register : u_rx/k[5]
+   Register : u_rx/k[6]
+   Register : u_rx/k[7]
+   Register : u_rx/k[8]
+   Register : u_rx/k[9]
+   Register : u_rx/k[10]
+   Register : u_rx/k[11]
+   Register : u_rx/k[12]
+   Register : u_rx/k[13]
+   Register : u_rx/k[14]
+
+                                   Page 15
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+GSR Usage (cont)
+----------------
+   Register : u_rx/k[15]
+   Register : u_rx/bitidx[0]
+   Register : u_rx/bitidx[1]
+   Register : u_rx/bitidx[2]
+   Register : u_rx/bitidx[3]
+   Register : u_tx/tx_busy
+   Register : u_tx/sr[0]
+   Register : u_tx/sr[1]
+   Register : u_tx/sr[2]
+   Register : u_tx/sr[3]
+   Register : u_tx/sr[4]
+   Register : u_tx/sr[5]
+   Register : u_tx/sr[6]
+   Register : u_tx/sr[7]
+   Register : u_tx/k[0]
+   Register : u_tx/k[1]
+   Register : u_tx/k[2]
+   Register : u_tx/k[3]
+   Register : u_tx/k[4]
+   Register : u_tx/k[5]
+   Register : u_tx/k[6]
+   Register : u_tx/k[7]
+   Register : u_tx/k[8]
+   Register : u_tx/k[9]
+   Register : u_tx/k[10]
+   Register : u_tx/k[11]
+   Register : u_tx/bitcnt[0]
+   Register : u_tx/bitcnt[1]
+   Register : u_tx/bitcnt[2]
+   Register : u_tx/bitcnt[3]
+   Register : u_rd/go_d
+   Register : u_rd/addr[0]
+   Register : u_rd/addr[1]
+   Register : u_rd/addr[2]
+   Register : u_rd/addr[3]
+   Register : u_rd/addr[4]
+   Register : u_rd/addr[5]
+   Register : u_rd/addr[6]
+   Register : u_rd/addr[7]
+   Register : u_rd/addr[8]
+   Register : u_rd/addr[9]
+   Register : u_rd/addr[10]
+   Register : u_rd/addr[11]
+   Register : u_rd/addr[12]
+   Register : u_rd/addr[13]
+   Register : u_rd/addr[14]
+   Register : u_rd/addr[15]
+   Register : rst_n_sync2
+   Register : rst_n_sync1
+   Register : rst_cnt[0]
+   Register : rst_cnt[1]
+   Register : rst_cnt[2]
+   Register : hb[0]
+   Register : hb[1]
+   Register : hb[2]
+   Register : hb[3]
+
+                                   Page 16
+
+
+
+
+Design:  z80cpm_brevia2                                Date:  11/16/26  02:54:00
+
+GSR Usage (cont)
+----------------
+   Register : hb[4]
+   Register : hb[5]
+   Register : hb[6]
+   Register : hb[7]
+   Register : hb[8]
+   Register : hb[9]
+   Register : hb[10]
+   Register : hb[11]
+   Register : hb[12]
+   Register : hb[13]
+   Register : hb[14]
+   Register : hb[15]
+   Register : hb[16]
+   Register : hb[17]
+   Register : hb[18]
+   Register : hb[19]
+   Register : hb[20]
+   Register : hb[21]
+   Register : hb[22]
+   Register : hb[23]
+
+     Components with synchronous local reset also reset by asynchronous GSR
+----------------------------------------------------------------------
+
+     These components have the GSR property set to ENABLED and the local reset
+     is synchronous. The components will respond to the synchronous local reset
+     and to the unrelated asynchronous reset signal 'rst_i' via the GSR
+     component.
 
      Type and number of components of the type: 
-   Register = 1 
+   Register = 2 
 
      Type and instance name of component: 
-   Register : u_cpu/rd_n_44
+   Register : u_cpu/i_tv80_core/Auto_Wait_t1
+   Register : u_cpu/i_tv80_core/Auto_Wait_t2
 
 Run Time and Memory Usage
 -------------------------
 
    Total CPU Time: 1 secs  
-   Total REAL Time: 0 secs  
-   Peak Memory Usage: 77 MB
+   Total REAL Time: 2 secs  
+   Peak Memory Usage: 79 MB
         
 
 
@@ -633,29 +1117,7 @@ Run Time and Memory Usage
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                   Page 10
+                                   Page 17
 
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.

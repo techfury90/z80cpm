@@ -1,0 +1,126 @@
+<HTML>
+<HEAD><TITLE>Lattice TCL Log</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="pn261115225919"></A><B><U><big>pn261115225919</big></U></B>
+#Start recording tcl command: 11/15/2026 18:56:06
+#Project Location: C:/Users/techf/Desktop/brevia2/z80cpm/build; Project name: z80cpm
+prj_project new -name "z80cpm" -impl "impl1" -dev LFXP2-5E-6TN144C -synthesis "lse"
+prj_src add "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom.v" "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v" "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_alu.v" "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_core.v" "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_mcode.v" "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_reg.v" "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80n.v" "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v" "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_tx.v" "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v"
+prj_project save
+prj_src add -exclude "C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.lpf"
+prj_src add -exclude "C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf"
+prj_src enable "C:/Users/techf/Desktop/brevia2/z80cpm/build/brevia2.lpf"
+prj_run Export -impl impl1 -task Bitgen -forceAll
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_project save "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_src add -exclude "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_src enable "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_project save "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+pgr_project close
+pgr_project open "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_project close
+prj_run Map -impl impl1 -task MapVerilogSimFile
+prj_run Map -impl impl1 -task MapVerilogSimFile -forceAll
+launch_synplify_prj impl1
+launch_synplify_prj impl1
+prj_run Export -impl impl1 -task Bitgen -forceAll
+#Stop recording: 11/15/2026 22:59:19
+
+
+
+<A name="pn261116021436"></A><B><U><big>pn261116021436</big></U></B>
+#Start recording tcl command: 11/15/2026 23:24:49
+#Project Location: C:/Users/techf/Desktop/brevia2/z80cpm/build; Project name: z80cpm
+prj_project open "C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.ldf"
+pgr_project open "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_src add -exclude "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_src enable "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_project save "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+pgr_project save "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_project save "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+pwc_command new
+pwc_command exit
+pgr_project close
+#Stop recording: 11/16/2026 02:14:36
+
+
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

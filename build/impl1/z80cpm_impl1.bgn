@@ -4,10 +4,10 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
-Sun Nov 15 20:24:45 2026
+Mon Nov 16 02:54:39 2026
 
 
-Command: bitgen -g RamCfg:Reset -g DisableUES:FALSE -g TAG_MEMORY:Normal -w -jedec -e -s C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.sec -k C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.bek z80cpm_impl1.ncd z80cpm_impl1.prf 
+Command: bitgen -g RamCfg:Reset -g DisableUES:FALSE -g TAG_MEMORY:Normal -w -jedec -e -s C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.sec -k C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.bek -gui -msgset C:/Users/techf/Desktop/brevia2/z80cpm/build/promote.xml z80cpm_impl1.ncd z80cpm_impl1.prf 
 
 Loading design for application Bitgen from file z80cpm_impl1.ncd.
 Design name: z80cpm_brevia2
@@ -63,5 +63,5 @@ Preference Summary:
 Creating bit map...
 Saving bit stream in "z80cpm_impl1.jed".
 Total CPU Time: 2 secs 
-Total REAL Time: 2 secs 
-Peak Memory Usage: 286 MB
+Total REAL Time: 3 secs 
+Peak Memory Usage: 288 MB

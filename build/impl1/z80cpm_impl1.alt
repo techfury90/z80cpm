@@ -1,26 +1,22 @@
 NOTE Copyright (C), 1992-2010, Lattice Semiconductor Corporation *
 NOTE All Rights Reserved *
-NOTE DATE CREATED: Sun Nov 15 20:24:47 2026 *
+NOTE DATE CREATED: Mon Nov 16 02:54:42 2026 *
 NOTE DESIGN NAME: z80cpm_brevia2 *
 NOTE DEVICE NAME: LFXP2-5E-6TQFP144 *
 NOTE PIN ASSIGNMENTS *
-NOTE PINS sram_data[6] : 9 : inout *
+NOTE PINS sram_data[0] : 1 : inout *
+NOTE PINS led[0] : 46 : out *
+NOTE PINS clk_in : 21 : in *
 NOTE PINS sram_data[7] : 10 : inout *
+NOTE PINS sram_data[6] : 9 : inout *
 NOTE PINS sram_data[5] : 8 : inout *
 NOTE PINS sram_data[4] : 7 : inout *
 NOTE PINS sram_data[3] : 6 : inout *
 NOTE PINS sram_data[2] : 5 : inout *
 NOTE PINS sram_data[1] : 2 : inout *
-NOTE PINS sram_data[0] : 1 : inout *
-NOTE PINS led[7] : 37 : out *
-NOTE PINS led[6] : 38 : out *
-NOTE PINS led[5] : 39 : out *
-NOTE PINS led[4] : 40 : out *
-NOTE PINS led[3] : 43 : out *
-NOTE PINS led[2] : 44 : out *
-NOTE PINS led[1] : 45 : out *
-NOTE PINS led[0] : 46 : out *
-NOTE PINS uart_tx : 109 : out *
+NOTE PINS sram_wen : 144 : out *
+NOTE PINS sram_oen : 143 : out *
+NOTE PINS sram_cen : 142 : out *
 NOTE PINS sram_addr[16] : 141 : out *
 NOTE PINS sram_addr[15] : 138 : out *
 NOTE PINS sram_addr[14] : 137 : out *
@@ -38,11 +34,8 @@ NOTE PINS sram_addr[3] : 122 : out *
 NOTE PINS sram_addr[2] : 121 : out *
 NOTE PINS sram_addr[1] : 120 : out *
 NOTE PINS sram_addr[0] : 119 : out *
-NOTE PINS sram_cen : 142 : out *
-NOTE PINS sram_oen : 143 : out *
-NOTE PINS sram_wen : 144 : out *
-NOTE PINS clk_in : 21 : in *
-NOTE PINS rst_n : 19 : in *
+NOTE PINS uart_tx : 109 : out *
+NOTE PINS uart_rx : 110 : in *
 NOTE PINS sw[7] : 50 : in *
 NOTE PINS sw[6] : 52 : in *
 NOTE PINS sw[5] : 53 : in *
@@ -51,6 +44,13 @@ NOTE PINS sw[3] : 55 : in *
 NOTE PINS sw[2] : 56 : in *
 NOTE PINS sw[1] : 57 : in *
 NOTE PINS sw[0] : 58 : in *
-NOTE PINS uart_rx : 110 : in *
+NOTE PINS led[7] : 37 : out *
+NOTE PINS led[6] : 38 : out *
+NOTE PINS led[5] : 39 : out *
+NOTE PINS led[4] : 40 : out *
+NOTE PINS led[3] : 43 : out *
+NOTE PINS led[2] : 44 : out *
+NOTE PINS led[1] : 45 : out *
+NOTE PINS rst_n : 19 : in *
 NOTE CONFIGURATION MODE: NONE *
 NOTE COMPRESSION: off *

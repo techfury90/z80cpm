@@ -1,0 +1,24 @@
+#Start recording tcl command: 11/15/2026 23:24:49
+#Project Location: C:/Users/techf/Desktop/brevia2/z80cpm/build; Project name: z80cpm
+prj_project open "C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.ldf"
+pgr_project open "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_src add -exclude "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_src enable "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_project save "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+pgr_project save "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_project save "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.xcf"
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+prj_run Export -impl impl1 -task Bitgen -forceAll
+pgr_program run
+pwc_command new
+pwc_command exit
+pgr_project close
+#Stop recording: 11/16/2026 02:14:36

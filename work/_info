@@ -1,0 +1,596 @@
+m255
+K4
+z2
+Z0 !s12c _opt
+Z1 !s99 nomlopt
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+!s11f MIXED_VERSIONS
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z2 dC:/Users/techf/Desktop/brevia2/z80cpm
+T_opt
+!s110 1794815028
+Vl4VG4IUJH[YS[dJ[0Y^j^3
+04 14 4 work tb_ramdisktest fast 0
+=1-98bb1e1e6117-6afab433-3cf-3bcc
+R1
+!s12f OEM25U14 
+!s12b OEM100
+!s124 OEM100
+!s135 nogc
+o-quiet -auto_acc_if_foreign -work work
+Z3 tCvgOpt 0
+n@_opt
+OL;O;2024.2;79
+vACIA
+Z4 2rtl/acia.v|rtl/nop_rom.v|rtl/ram_disk.v|rtl/sram_async.v|rtl/sram_model.v|rtl/sync_mem.v|rtl/tv80_alu.v|rtl/tv80_core.v|rtl/tv80_mcode.v|rtl/tv80_reg.v|rtl/tv80n.v|rtl/uart_rx.v|rtl/uart_tx.v|rtl/z80_soc_busless.v|rtl/z80_soc_sram.v|rtl/z80cpm_brevia2.v|tb/pmi_pll_sim.v|tb/tb_ramdisktest.v
+Z5 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z6 !s110 1794815026
+!i10b 1
+!s100 d=_5K`ONl1RIzob6FbJbR1
+I5Q<k^>1?WQna0YA<eoOlh0
+S1
+R2
+Z7 w1794778532
+Z8 8rtl/acia.v
+Z9 Frtl/acia.v
+!i122 10
+L0 2 107
+Z10 VDg1SIo80bB@j0V0VzS_@n1
+Z11 OL;L;2024.2;79
+r1
+!s85 0
+31
+Z12 !s108 1794815025.000000
+Z13 !s107 tb/tb_ramdisktest.v|tb/pmi_pll_sim.v|rtl/z80cpm_brevia2.v|rtl/z80_soc_sram.v|rtl/z80_soc_busless.v|rtl/uart_tx.v|rtl/uart_rx.v|rtl/tv80n.v|rtl/tv80_reg.v|rtl/tv80_mcode.v|rtl/tv80_core.v|rtl/tv80_alu.v|rtl/sync_mem.v|rtl/sram_model.v|rtl/sram_async.v|rtl/ram_disk.v|rtl/nop_rom.v|rtl/acia.v|
+Z14 !s90 -quiet|-sv|rtl/acia.v|rtl/nop_rom.v|rtl/ram_disk.v|rtl/sram_async.v|rtl/sram_model.v|rtl/sync_mem.v|rtl/tv80_alu.v|rtl/tv80_core.v|rtl/tv80_mcode.v|rtl/tv80_reg.v|rtl/tv80n.v|rtl/uart_rx.v|rtl/uart_tx.v|rtl/z80_soc_busless.v|rtl/z80_soc_sram.v|rtl/z80cpm_brevia2.v|tb/pmi_pll_sim.v|tb/tb_ramdisktest.v|
+!i113 0
+Z15 o-quiet -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R3
+n@a@c@i@a
+vacia_6850_ctl
+R4
+R5
+R6
+!i10b 1
+!s100 2A0gAYMTNCn7OXWRmzWea1
+IcOk>XO5_i^k9a9ZX9K5cc2
+S1
+R2
+R7
+R8
+R9
+!i122 10
+L0 110 168
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vacia_6850_rx
+R4
+R5
+R6
+!i10b 1
+!s100 ^aUcMlV=BFzeCl:GT9jcP1
+IOHhNO@B`:7ffiDOL7dh>31
+S1
+R2
+R7
+R8
+R9
+!i122 10
+L0 279 416
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vacia_6850_tx
+R4
+R5
+R6
+!i10b 1
+!s100 VRZa30672[cY?L>a;7Lho1
+I@7jPdX8CUB=VH9[oLLi4D0
+S1
+R2
+R7
+R8
+R9
+!i122 10
+L0 696 321
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vboot_rom
+R4
+R5
+R6
+!i10b 1
+!s100 Y9D2N:=bVAJ^faBOi6;713
+I8XleifQOPY20EzGD=0>:_0
+S1
+R2
+Z16 w1794815019
+Z17 8tb/tb_ramdisktest.v
+Z18 Ftb/tb_ramdisktest.v
+!i122 10
+L0 5 5
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vnop_rom
+R4
+R5
+R6
+!i10b 1
+!s100 S=fT_TBFiML0>TNCQCkfM3
+I@PJ[kTZ[TdjSzd=[<T1f<2
+S1
+R2
+R7
+8rtl/nop_rom.v
+Frtl/nop_rom.v
+!i122 10
+L0 5 17
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vpmi_pll
+R4
+R5
+R6
+!i10b 1
+!s100 FVLATdc1_:FUXL9;]UGjf1
+Imj5RdI7I;4>nd;0IeQKa50
+S1
+R2
+w1794789960
+8tb/pmi_pll_sim.v
+Ftb/pmi_pll_sim.v
+!i122 10
+L0 6 28
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vram_disk
+R4
+R5
+R6
+!i10b 1
+!s100 HbVamIT[dk[K>XWX`a`bg2
+IR_[X:L6XS_Zb2l9o2a?e@3
+S1
+R2
+w1794814953
+8rtl/ram_disk.v
+Frtl/ram_disk.v
+!i122 10
+L0 17 46
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vsram_async
+R4
+R5
+R6
+!i10b 1
+!s100 Q9fJ3E>eRDG:0TjC]_]I;1
+I?R0Eca2_azFJSAGP4U1e61
+S1
+R2
+w1794810318
+8rtl/sram_async.v
+Frtl/sram_async.v
+!i122 10
+L0 6 23
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vsram_model
+R4
+R5
+R6
+!i10b 1
+!s100 C]BVlaDQi<meaoz^ej?1z3
+I2>o044fT_K;YjYRkj:0H:0
+S1
+R2
+w1794785045
+8rtl/sram_model.v
+Frtl/sram_model.v
+!i122 10
+L0 5 23
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vsync_mem
+R4
+R5
+R6
+!i10b 1
+!s100 ;cFQ7hhA>>NHBECl<lKIf2
+IXO4bO:KEfb_oiiXAHCc8f0
+S1
+R2
+R7
+8rtl/sync_mem.v
+Frtl/sync_mem.v
+!i122 10
+L0 6 16
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vtb_ramdisktest
+R4
+R5
+R6
+!i10b 1
+!s100 l3N>_lN78`D9l>E9IWeHA1
+I?B?GAePz<kiSlK`aZ;oZe2
+S1
+R2
+R16
+R17
+R18
+!i122 10
+L0 11 73
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vtv80_alu
+R4
+R5
+R6
+!i10b 1
+!s100 D=T?67T;=e3:oEL4MT>TL3
+InmhmhJ]gOAM1FoAJikQ9:3
+S1
+R2
+R7
+8rtl/tv80_alu.v
+Frtl/tv80_alu.v
+!i122 10
+L0 26 418
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vtv80_core
+R4
+R5
+R6
+!i10b 1
+!s100 SBVezDm:iCnJ=mB<M@Z@>2
+IV>SNE2lHmNCaG5T]FTmU]2
+S1
+R2
+w1794799912
+8rtl/tv80_core.v
+Frtl/tv80_core.v
+!i122 10
+L0 26 1364
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vtv80_mcode
+R4
+R5
+R6
+!i10b 1
+!s100 aZz1]f7S6T]8OKMO=gJb=1
+IY6Yld6Q`JROJW:KBz?^<Z2
+S1
+R2
+R7
+8rtl/tv80_mcode.v
+Frtl/tv80_mcode.v
+!i122 10
+L0 26 2626
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vtv80_reg
+R4
+R5
+R6
+!i10b 1
+!s100 nkUj>]0`P89]8aLL1eSX11
+IM9e_SN;a41]LfDYgB6@nd0
+S1
+R2
+w1794788234
+8rtl/tv80_reg.v
+Frtl/tv80_reg.v
+!i122 10
+L0 26 52
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vtv80n
+R4
+R5
+R6
+!i10b 1
+!s100 ggS6VfmIVeII^g<PU_ln41
+IbU<2iRKK3]CiB[U07e:6:0
+S1
+R2
+w1794778501
+8rtl/tv80n.v
+Frtl/tv80n.v
+!i122 10
+L0 9 149
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vuart_rx
+R4
+R5
+R6
+!i10b 1
+!s100 zl1Q40z@5_T]@:?R5BQIE2
+IEhBgb@1jRKZ=0iG5cIRGn3
+S1
+R2
+w1794807822
+8rtl/uart_rx.v
+Frtl/uart_rx.v
+!i122 10
+L0 4 53
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vuart_tx
+R4
+R5
+R6
+!i10b 1
+!s100 N[fLjd1Sd8MJQogW;4D<A3
+Id3o>5lgKheU=hdR`EVNmn1
+S1
+R2
+w1794804637
+8rtl/uart_tx.v
+Frtl/uart_tx.v
+!i122 10
+L0 4 34
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vz80_soc_busless
+R4
+R5
+R6
+!i10b 1
+!s100 BeYI2bfa:3Se6fQR`olF=2
+I4iUBOm?JXk:KnCAjD?F5i2
+S1
+R2
+w1794780915
+8rtl/z80_soc_busless.v
+Frtl/z80_soc_busless.v
+!i122 10
+L0 12 60
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vz80_soc_sram
+R4
+R5
+R6
+!i10b 1
+!s100 5Q?4aCO4>imD=lA65:27F1
+IR5C^GNW4OTDXn;Pckozlm1
+S1
+R2
+w1794782070
+8rtl/z80_soc_sram.v
+Frtl/z80_soc_sram.v
+!i122 10
+L0 5 66
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3
+vz80cpm_brevia2
+R4
+R5
+R6
+!i10b 1
+!s100 ^6ozo0Yh<SW<eT?`1X[KZ0
+I5W_YfWW`9mEA`IhH3n[=>2
+S1
+R2
+w1794810430
+8rtl/z80cpm_brevia2.v
+Frtl/z80cpm_brevia2.v
+!i122 10
+L0 13 181
+R10
+R11
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 0
+R15
+R3

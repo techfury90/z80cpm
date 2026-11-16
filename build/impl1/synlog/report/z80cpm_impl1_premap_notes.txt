@@ -1,0 +1,15 @@
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+@N: FX493 |Applying initial value "00000000" on instance sr[7:0].
+@N: FX493 |Applying initial value "1" on instance rxd_s0.
+@N: FX493 |Applying initial value "1" on instance rxd_s1.
+@N: FX493 |Applying initial value "00000000" on instance sr[7:0].
+@N: FX493 |Applying initial value "0" on instance rst_n_sync2.
+@N: FX493 |Applying initial value "0" on instance rst_n_sync1.
+@N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":1159:2:1159:7|Removing sequential instance Oldnmi_n (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Removing sequential instance IStatus[1:0] (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffre(prim) because it does not drive other instances.
+@N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":1193:2:1193:7|Removing sequential instance m1_n (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffs(prim) because it does not drive other instances.
+@N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":1193:2:1193:7|Removing sequential instance IntE_FF1 (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: FX1184 |Applying syn_allowed_resources blockrams=9 on top level netlist z80cpm_brevia2 
+@N: FX1143 |Skipping assigning INTERNAL_VREF to iobanks, because the table of mapping from pin to iobank is not initialized.

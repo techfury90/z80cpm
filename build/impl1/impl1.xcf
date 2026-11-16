@@ -20,8 +20,8 @@
 				<BScanVal>0</BScanVal>
 			</Bypass>
 			<File>C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/z80cpm_impl1.jed</File>
-			<FileTime>11/15/26 20:11:12</FileTime>
-			<JedecChecksum>0x4D34</JedecChecksum>
+			<FileTime>11/16/26 00:01:45</FileTime>
+			<JedecChecksum>0xF06E</JedecChecksum>
 			<Operation>FLASH Erase,Program,Verify</Operation>
 			<Option>
 				<SVFVendor>JTAG STANDARD</SVFVendor>

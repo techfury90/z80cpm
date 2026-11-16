@@ -1,0 +1,1223 @@
+<html><body><samp><pre>
+<!@TC:1794815601>
+
+Loading design for application trce from file z80cpm_impl1.ncd.
+Design name: z80cpm_brevia2
+NCD version: 3.3
+Vendor:      LATTICE
+Device:      LFXP2-5E
+Package:     TQFP144
+Performance: 6
+Loading device for application trce from file 'mg5a26x29.nph' in environment: C:/lscc/diamond/3.14/ispfpga.
+Package Status:                     Final          Version 1.42.
+Performance Hardware Data Status:   Final          Version 11.5.
+Setup and Hold Report
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Setup, Version Diamond (64-bit) 3.14.0.75.2
+Mon Nov 16 00:50:41 2026
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 10 -gt -sethld -sp 6 -sphld m -o z80cpm_impl1.twr -gui -msgset C:/Users/techf/Desktop/brevia2/z80cpm/build/promote.xml z80cpm_impl1.ncd z80cpm_impl1.prf 
+Design file:     z80cpm_impl1.ncd
+Preference file: z80cpm_impl1.prf
+Device,speed:    LFXP2-5E,6
+Report level:    verbose report, limited to 10 items per preference
+--------------------------------------------------------------------------------
+
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+BLOCK JTAG PATHS
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+Preference: FREQUENCY NET "clk_op" 25.000000 MHz ;
+            4096 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+Passed: The following path meets requirements by 5.043ns (weighted slack = 10.086ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/ISet_fast[1]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/mreq_n  (to clk_op -)
+
+   Delay:              14.880ns  (15.2% logic, 84.8% route), 9 logic levels.
+
+ Constraint Details:
+
+     14.880ns physical path delay u_cpu/i_tv80_core/SLICE_168 to u_cpu/SLICE_100 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.043ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_168 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R11C18C.CLK to     R11C18C.Q0 u_cpu/i_tv80_core/SLICE_168 (from clk_op)
+ROUTE         8     1.780     R11C18C.Q0 to     R23C14D.A1 u_cpu/i_tv80_core/ISet_fast[1]
+CTOF_DEL    ---     0.238     R23C14D.A1 to     R23C14D.F1 u_cpu/i_tv80_core/i_alu/SLICE_783
+ROUTE        45     5.232     R23C14D.F1 to     R12C28B.D1 u_cpu/i_tv80_core/N_1482
+CTOF_DEL    ---     0.238     R12C28B.D1 to     R12C28B.F1 u_cpu/i_tv80_core/i_mcode/SLICE_976
+ROUTE         5     1.597     R12C28B.F1 to     R16C26C.A0 u_cpu/i_tv80_core/i_mcode/N_1748
+CTOF_DEL    ---     0.238     R16C26C.A0 to     R16C26C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_972
+ROUTE         1     0.673     R16C26C.F0 to     R16C25C.C0 u_cpu/i_tv80_core/i_mcode/N_961
+CTOF_DEL    ---     0.238     R16C25C.C0 to     R16C25C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_930
+ROUTE         1     1.306     R16C25C.F0 to      R7C26A.C1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_6
+CTOF_DEL    ---     0.238      R7C26A.C1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.005      R7C26A.F1 to      R6C19A.D1 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19A.D1 to      R6C19A.F1 u_cpu/SLICE_736
+ROUTE         3     0.569      R6C19A.F1 to      R6C19A.B0 u_cpu/N_339
+CTOF_DEL    ---     0.238      R6C19A.B0 to      R6C19A.F0 u_cpu/SLICE_736
+ROUTE         1     0.451      R6C19A.F0 to      R5C19A.D0 u_cpu/N_338
+CTOF_DEL    ---     0.238      R5C19A.D0 to      R5C19A.F0 u_cpu/SLICE_100
+ROUTE         1     0.000      R5C19A.F0 to     R5C19A.DI0 u_cpu/mreq_n_set (to clk_op)
+                  --------
+                   14.880   (15.2% logic, 84.8% route), 9 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_168:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R11C18C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R5C19A.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 5.300ns (weighted slack = 10.600ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/IR_fast[2]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/mreq_n  (to clk_op -)
+
+   Delay:              14.623ns  (18.8% logic, 81.2% route), 11 logic levels.
+
+ Constraint Details:
+
+     14.623ns physical path delay u_cpu/i_tv80_core/SLICE_161 to u_cpu/SLICE_100 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.300ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_161 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R16C19C.CLK to     R16C19C.Q0 u_cpu/i_tv80_core/SLICE_161 (from clk_op)
+ROUTE        11     2.160     R16C19C.Q0 to     R15C15C.C1 u_cpu/i_tv80_core/IR_fast[2]
+CTOF_DEL    ---     0.238     R15C15C.C1 to     R15C15C.F1 u_cpu/i_tv80_core/i_mcode/SLICE_907
+ROUTE        29     2.367     R15C15C.F1 to     R19C26B.C1 u_cpu/i_tv80_core/N_1487
+CTOF_DEL    ---     0.238     R19C26B.C1 to     R19C26B.F1 u_cpu/i_tv80_core/i_mcode/SLICE_1000
+ROUTE         4     1.424     R19C26B.F1 to     R15C24A.B1 u_cpu/i_tv80_core/i_mcode/N_1555
+CTOF_DEL    ---     0.238     R15C24A.B1 to     R15C24A.F1 u_cpu/i_tv80_core/i_mcode/SLICE_702
+ROUTE         1     0.568     R15C24A.F1 to     R15C24A.B0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_2
+CTOF_DEL    ---     0.238     R15C24A.B0 to     R15C24A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_702
+ROUTE         1     0.749     R15C24A.F0 to     R14C23B.D0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_4
+CTOF_DEL    ---     0.238     R14C23B.D0 to     R14C23B.F0 u_cpu/i_tv80_core/i_mcode/SLICE_889
+ROUTE         1     0.971     R14C23B.F0 to     R12C21A.C0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_9
+CTOF_DEL    ---     0.238     R12C21A.C0 to     R12C21A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_861
+ROUTE         1     1.616     R12C21A.F0 to      R7C26A.B1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_11
+CTOF_DEL    ---     0.238      R7C26A.B1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.005      R7C26A.F1 to      R6C19A.D1 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19A.D1 to      R6C19A.F1 u_cpu/SLICE_736
+ROUTE         3     0.569      R6C19A.F1 to      R6C19A.B0 u_cpu/N_339
+CTOF_DEL    ---     0.238      R6C19A.B0 to      R6C19A.F0 u_cpu/SLICE_736
+ROUTE         1     0.451      R6C19A.F0 to      R5C19A.D0 u_cpu/N_338
+CTOF_DEL    ---     0.238      R5C19A.D0 to      R5C19A.F0 u_cpu/SLICE_100
+ROUTE         1     0.000      R5C19A.F0 to     R5C19A.DI0 u_cpu/mreq_n_set (to clk_op)
+                  --------
+                   14.623   (18.8% logic, 81.2% route), 11 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_161:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R16C19C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R5C19A.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 5.370ns (weighted slack = 10.740ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/ISet_fast[1]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/mreq_n  (to clk_op -)
+
+   Delay:              14.553ns  (13.9% logic, 86.1% route), 8 logic levels.
+
+ Constraint Details:
+
+     14.553ns physical path delay u_cpu/i_tv80_core/SLICE_168 to u_cpu/SLICE_100 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.370ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_168 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R11C18C.CLK to     R11C18C.Q0 u_cpu/i_tv80_core/SLICE_168 (from clk_op)
+ROUTE         8     1.780     R11C18C.Q0 to     R23C14D.A1 u_cpu/i_tv80_core/ISet_fast[1]
+CTOF_DEL    ---     0.238     R23C14D.A1 to     R23C14D.F1 u_cpu/i_tv80_core/i_alu/SLICE_783
+ROUTE        45     5.232     R23C14D.F1 to     R12C28B.D1 u_cpu/i_tv80_core/N_1482
+CTOF_DEL    ---     0.238     R12C28B.D1 to     R12C28B.F1 u_cpu/i_tv80_core/i_mcode/SLICE_976
+ROUTE         5     1.597     R12C28B.F1 to     R16C26C.A0 u_cpu/i_tv80_core/i_mcode/N_1748
+CTOF_DEL    ---     0.238     R16C26C.A0 to     R16C26C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_972
+ROUTE         1     0.673     R16C26C.F0 to     R16C25C.C0 u_cpu/i_tv80_core/i_mcode/N_961
+CTOF_DEL    ---     0.238     R16C25C.C0 to     R16C25C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_930
+ROUTE         1     1.306     R16C25C.F0 to      R7C26A.C1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_6
+CTOF_DEL    ---     0.238      R7C26A.C1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.485      R7C26A.F1 to      R6C19A.C0 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19A.C0 to      R6C19A.F0 u_cpu/SLICE_736
+ROUTE         1     0.451      R6C19A.F0 to      R5C19A.D0 u_cpu/N_338
+CTOF_DEL    ---     0.238      R5C19A.D0 to      R5C19A.F0 u_cpu/SLICE_100
+ROUTE         1     0.000      R5C19A.F0 to     R5C19A.DI0 u_cpu/mreq_n_set (to clk_op)
+                  --------
+                   14.553   (13.9% logic, 86.1% route), 8 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_168:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R11C18C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R5C19A.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 5.563ns (weighted slack = 11.126ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/ISet_fast[1]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/rd_n  (to clk_op -)
+
+   Delay:              14.360ns  (14.1% logic, 85.9% route), 8 logic levels.
+
+ Constraint Details:
+
+     14.360ns physical path delay u_cpu/i_tv80_core/SLICE_168 to SLICE_101 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.563ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_168 to SLICE_101:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R11C18C.CLK to     R11C18C.Q0 u_cpu/i_tv80_core/SLICE_168 (from clk_op)
+ROUTE         8     1.780     R11C18C.Q0 to     R23C14D.A1 u_cpu/i_tv80_core/ISet_fast[1]
+CTOF_DEL    ---     0.238     R23C14D.A1 to     R23C14D.F1 u_cpu/i_tv80_core/i_alu/SLICE_783
+ROUTE        45     5.232     R23C14D.F1 to     R12C28B.D1 u_cpu/i_tv80_core/N_1482
+CTOF_DEL    ---     0.238     R12C28B.D1 to     R12C28B.F1 u_cpu/i_tv80_core/i_mcode/SLICE_976
+ROUTE         5     1.597     R12C28B.F1 to     R16C26C.A0 u_cpu/i_tv80_core/i_mcode/N_1748
+CTOF_DEL    ---     0.238     R16C26C.A0 to     R16C26C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_972
+ROUTE         1     0.673     R16C26C.F0 to     R16C25C.C0 u_cpu/i_tv80_core/i_mcode/N_961
+CTOF_DEL    ---     0.238     R16C25C.C0 to     R16C25C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_930
+ROUTE         1     1.306     R16C25C.F0 to      R7C26A.C1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_6
+CTOF_DEL    ---     0.238      R7C26A.C1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.005      R7C26A.F1 to      R6C19A.D1 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19A.D1 to      R6C19A.F1 u_cpu/SLICE_736
+ROUTE         3     0.738      R6C19A.F1 to      R2C19A.D0 u_cpu/N_339
+CTOF_DEL    ---     0.238      R2C19A.D0 to      R2C19A.F0 SLICE_101
+ROUTE         1     0.000      R2C19A.F0 to     R2C19A.DI0 u_cpu/rd_n_set (to clk_op)
+                  --------
+                   14.360   (14.1% logic, 85.9% route), 8 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_168:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R11C18C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to SLICE_101:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R2C19A.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 5.627ns (weighted slack = 11.254ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/IR_fast[2]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/mreq_n  (to clk_op -)
+
+   Delay:              14.296ns  (17.5% logic, 82.5% route), 10 logic levels.
+
+ Constraint Details:
+
+     14.296ns physical path delay u_cpu/i_tv80_core/SLICE_161 to u_cpu/SLICE_100 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.627ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_161 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R16C19C.CLK to     R16C19C.Q0 u_cpu/i_tv80_core/SLICE_161 (from clk_op)
+ROUTE        11     2.160     R16C19C.Q0 to     R15C15C.C1 u_cpu/i_tv80_core/IR_fast[2]
+CTOF_DEL    ---     0.238     R15C15C.C1 to     R15C15C.F1 u_cpu/i_tv80_core/i_mcode/SLICE_907
+ROUTE        29     2.367     R15C15C.F1 to     R19C26B.C1 u_cpu/i_tv80_core/N_1487
+CTOF_DEL    ---     0.238     R19C26B.C1 to     R19C26B.F1 u_cpu/i_tv80_core/i_mcode/SLICE_1000
+ROUTE         4     1.424     R19C26B.F1 to     R15C24A.B1 u_cpu/i_tv80_core/i_mcode/N_1555
+CTOF_DEL    ---     0.238     R15C24A.B1 to     R15C24A.F1 u_cpu/i_tv80_core/i_mcode/SLICE_702
+ROUTE         1     0.568     R15C24A.F1 to     R15C24A.B0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_2
+CTOF_DEL    ---     0.238     R15C24A.B0 to     R15C24A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_702
+ROUTE         1     0.749     R15C24A.F0 to     R14C23B.D0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_4
+CTOF_DEL    ---     0.238     R14C23B.D0 to     R14C23B.F0 u_cpu/i_tv80_core/i_mcode/SLICE_889
+ROUTE         1     0.971     R14C23B.F0 to     R12C21A.C0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_9
+CTOF_DEL    ---     0.238     R12C21A.C0 to     R12C21A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_861
+ROUTE         1     1.616     R12C21A.F0 to      R7C26A.B1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_11
+CTOF_DEL    ---     0.238      R7C26A.B1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.485      R7C26A.F1 to      R6C19A.C0 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19A.C0 to      R6C19A.F0 u_cpu/SLICE_736
+ROUTE         1     0.451      R6C19A.F0 to      R5C19A.D0 u_cpu/N_338
+CTOF_DEL    ---     0.238      R5C19A.D0 to      R5C19A.F0 u_cpu/SLICE_100
+ROUTE         1     0.000      R5C19A.F0 to     R5C19A.DI0 u_cpu/mreq_n_set (to clk_op)
+                  --------
+                   14.296   (17.5% logic, 82.5% route), 10 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_161:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R16C19C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R5C19A.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 5.673ns (weighted slack = 11.346ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/mcycle[3]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/mreq_n  (to clk_op -)
+
+   Delay:              14.250ns  (15.9% logic, 84.1% route), 9 logic levels.
+
+ Constraint Details:
+
+     14.250ns physical path delay u_cpu/i_tv80_core/SLICE_335 to u_cpu/SLICE_100 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.673ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_335 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R21C23A.CLK to     R21C23A.Q0 u_cpu/i_tv80_core/SLICE_335 (from clk_op)
+ROUTE        24     3.345     R21C23A.Q0 to     R10C23D.D1 u_cpu/i_tv80_core/mcycle_16[3]
+CTOF_DEL    ---     0.238     R10C23D.D1 to     R10C23D.F1 u_cpu/i_tv80_core/i_mcode/SLICE_916
+ROUTE        11     3.248     R10C23D.F1 to     R14C24A.C0 u_cpu/Inc_PC26
+CTOF_DEL    ---     0.238     R14C24A.C0 to     R14C24A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_1272
+ROUTE         1     0.778     R14C24A.F0 to     R14C23B.A0 u_cpu/i_tv80_core/i_mcode/N_1310
+CTOF_DEL    ---     0.238     R14C23B.A0 to     R14C23B.F0 u_cpu/i_tv80_core/i_mcode/SLICE_889
+ROUTE         1     0.971     R14C23B.F0 to     R12C21A.C0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_9
+CTOF_DEL    ---     0.238     R12C21A.C0 to     R12C21A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_861
+ROUTE         1     1.616     R12C21A.F0 to      R7C26A.B1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_11
+CTOF_DEL    ---     0.238      R7C26A.B1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.005      R7C26A.F1 to      R6C19A.D1 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19A.D1 to      R6C19A.F1 u_cpu/SLICE_736
+ROUTE         3     0.569      R6C19A.F1 to      R6C19A.B0 u_cpu/N_339
+CTOF_DEL    ---     0.238      R6C19A.B0 to      R6C19A.F0 u_cpu/SLICE_736
+ROUTE         1     0.451      R6C19A.F0 to      R5C19A.D0 u_cpu/N_338
+CTOF_DEL    ---     0.238      R5C19A.D0 to      R5C19A.F0 u_cpu/SLICE_100
+ROUTE         1     0.000      R5C19A.F0 to     R5C19A.DI0 u_cpu/mreq_n_set (to clk_op)
+                  --------
+                   14.250   (15.9% logic, 84.1% route), 9 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_335:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R21C23A.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R5C19A.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 5.733ns (weighted slack = 11.466ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/ISet_fast[1]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/iorq_n  (to clk_op -)
+
+   Delay:              14.190ns  (14.3% logic, 85.7% route), 8 logic levels.
+
+ Constraint Details:
+
+     14.190ns physical path delay u_cpu/i_tv80_core/SLICE_168 to u_cpu/SLICE_95 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.733ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_168 to u_cpu/SLICE_95:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R11C18C.CLK to     R11C18C.Q0 u_cpu/i_tv80_core/SLICE_168 (from clk_op)
+ROUTE         8     1.780     R11C18C.Q0 to     R23C14D.A1 u_cpu/i_tv80_core/ISet_fast[1]
+CTOF_DEL    ---     0.238     R23C14D.A1 to     R23C14D.F1 u_cpu/i_tv80_core/i_alu/SLICE_783
+ROUTE        45     5.232     R23C14D.F1 to     R12C28B.D1 u_cpu/i_tv80_core/N_1482
+CTOF_DEL    ---     0.238     R12C28B.D1 to     R12C28B.F1 u_cpu/i_tv80_core/i_mcode/SLICE_976
+ROUTE         5     1.597     R12C28B.F1 to     R16C26C.A0 u_cpu/i_tv80_core/i_mcode/N_1748
+CTOF_DEL    ---     0.238     R16C26C.A0 to     R16C26C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_972
+ROUTE         1     0.673     R16C26C.F0 to     R16C25C.C0 u_cpu/i_tv80_core/i_mcode/N_961
+CTOF_DEL    ---     0.238     R16C25C.C0 to     R16C25C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_930
+ROUTE         1     1.306     R16C25C.F0 to      R7C26A.C1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_6
+CTOF_DEL    ---     0.238      R7C26A.C1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.005      R7C26A.F1 to      R6C19C.D1 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19C.D1 to      R6C19C.F1 u_cpu/SLICE_95
+ROUTE         1     0.568      R6C19C.F1 to      R6C19C.B0 u_cpu/N_530
+CTOF_DEL    ---     0.238      R6C19C.B0 to      R6C19C.F0 u_cpu/SLICE_95
+ROUTE         1     0.000      R6C19C.F0 to     R6C19C.DI0 u_cpu/iorq_n_set (to clk_op)
+                  --------
+                   14.190   (14.3% logic, 85.7% route), 8 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_168:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R11C18C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/SLICE_95:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R6C19C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 5.759ns (weighted slack = 11.518ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/IR_2_rep1  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/mreq_n  (to clk_op -)
+
+   Delay:              14.164ns  (19.4% logic, 80.6% route), 11 logic levels.
+
+ Constraint Details:
+
+     14.164ns physical path delay u_cpu/i_tv80_core/SLICE_154 to u_cpu/SLICE_100 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.759ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_154 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R15C20C.CLK to     R15C20C.Q0 u_cpu/i_tv80_core/SLICE_154 (from clk_op)
+ROUTE        11     2.246     R15C20C.Q0 to      R9C27C.B1 u_cpu/i_tv80_core/IR_2_rep1
+CTOF_DEL    ---     0.238      R9C27C.B1 to      R9C27C.F1 u_cpu/i_tv80_core/i_mcode/SLICE_1007
+ROUTE        11     2.573      R9C27C.F1 to     R16C24C.B0 u_cpu/i_tv80_core/i_mcode/N_1523
+CTOF_DEL    ---     0.238     R16C24C.B0 to     R16C24C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_1295
+ROUTE         1     0.673     R16C24C.F0 to     R15C24A.C1 u_cpu/i_tv80_core/i_mcode/N_1683
+CTOF_DEL    ---     0.238     R15C24A.C1 to     R15C24A.F1 u_cpu/i_tv80_core/i_mcode/SLICE_702
+ROUTE         1     0.568     R15C24A.F1 to     R15C24A.B0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_2
+CTOF_DEL    ---     0.238     R15C24A.B0 to     R15C24A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_702
+ROUTE         1     0.749     R15C24A.F0 to     R14C23B.D0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_4
+CTOF_DEL    ---     0.238     R14C23B.D0 to     R14C23B.F0 u_cpu/i_tv80_core/i_mcode/SLICE_889
+ROUTE         1     0.971     R14C23B.F0 to     R12C21A.C0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_9
+CTOF_DEL    ---     0.238     R12C21A.C0 to     R12C21A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_861
+ROUTE         1     1.616     R12C21A.F0 to      R7C26A.B1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_11
+CTOF_DEL    ---     0.238      R7C26A.B1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.005      R7C26A.F1 to      R6C19A.D1 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19A.D1 to      R6C19A.F1 u_cpu/SLICE_736
+ROUTE         3     0.569      R6C19A.F1 to      R6C19A.B0 u_cpu/N_339
+CTOF_DEL    ---     0.238      R6C19A.B0 to      R6C19A.F0 u_cpu/SLICE_736
+ROUTE         1     0.451      R6C19A.F0 to      R5C19A.D0 u_cpu/N_338
+CTOF_DEL    ---     0.238      R5C19A.D0 to      R5C19A.F0 u_cpu/SLICE_100
+ROUTE         1     0.000      R5C19A.F0 to     R5C19A.DI0 u_cpu/mreq_n_set (to clk_op)
+                  --------
+                   14.164   (19.4% logic, 80.6% route), 11 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_154:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R15C20C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/SLICE_100:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R5C19A.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 5.817ns (weighted slack = 11.634ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/ISet_fast[1]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/iorq_n  (to clk_op -)
+
+   Delay:              14.106ns  (14.4% logic, 85.6% route), 8 logic levels.
+
+ Constraint Details:
+
+     14.106ns physical path delay u_cpu/i_tv80_core/SLICE_168 to u_cpu/SLICE_95 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.817ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_168 to u_cpu/SLICE_95:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R11C18C.CLK to     R11C18C.Q0 u_cpu/i_tv80_core/SLICE_168 (from clk_op)
+ROUTE         8     1.780     R11C18C.Q0 to     R23C14D.A1 u_cpu/i_tv80_core/ISet_fast[1]
+CTOF_DEL    ---     0.238     R23C14D.A1 to     R23C14D.F1 u_cpu/i_tv80_core/i_alu/SLICE_783
+ROUTE        45     5.232     R23C14D.F1 to     R12C28B.D1 u_cpu/i_tv80_core/N_1482
+CTOF_DEL    ---     0.238     R12C28B.D1 to     R12C28B.F1 u_cpu/i_tv80_core/i_mcode/SLICE_976
+ROUTE         5     1.597     R12C28B.F1 to     R16C26C.A0 u_cpu/i_tv80_core/i_mcode/N_1748
+CTOF_DEL    ---     0.238     R16C26C.A0 to     R16C26C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_972
+ROUTE         1     0.673     R16C26C.F0 to     R16C25C.C0 u_cpu/i_tv80_core/i_mcode/N_961
+CTOF_DEL    ---     0.238     R16C25C.C0 to     R16C25C.F0 u_cpu/i_tv80_core/i_mcode/SLICE_930
+ROUTE         1     1.306     R16C25C.F0 to      R7C26A.C1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_6
+CTOF_DEL    ---     0.238      R7C26A.C1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.005      R7C26A.F1 to      R6C19A.D1 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19A.D1 to      R6C19A.F1 u_cpu/SLICE_736
+ROUTE         3     0.484      R6C19A.F1 to      R6C19C.A0 u_cpu/N_339
+CTOF_DEL    ---     0.238      R6C19C.A0 to      R6C19C.F0 u_cpu/SLICE_95
+ROUTE         1     0.000      R6C19C.F0 to     R6C19C.DI0 u_cpu/iorq_n_set (to clk_op)
+                  --------
+                   14.106   (14.4% logic, 85.6% route), 8 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_168:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R11C18C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/SLICE_95:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R6C19C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 5.820ns (weighted slack = 11.640ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/IR_fast[2]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/rd_n  (to clk_op -)
+
+   Delay:              14.103ns  (17.8% logic, 82.2% route), 10 logic levels.
+
+ Constraint Details:
+
+     14.103ns physical path delay u_cpu/i_tv80_core/SLICE_161 to SLICE_101 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.077ns DIN_SET requirement (totaling 19.923ns) by 5.820ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_161 to SLICE_101:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.363    R16C19C.CLK to     R16C19C.Q0 u_cpu/i_tv80_core/SLICE_161 (from clk_op)
+ROUTE        11     2.160     R16C19C.Q0 to     R15C15C.C1 u_cpu/i_tv80_core/IR_fast[2]
+CTOF_DEL    ---     0.238     R15C15C.C1 to     R15C15C.F1 u_cpu/i_tv80_core/i_mcode/SLICE_907
+ROUTE        29     2.367     R15C15C.F1 to     R19C26B.C1 u_cpu/i_tv80_core/N_1487
+CTOF_DEL    ---     0.238     R19C26B.C1 to     R19C26B.F1 u_cpu/i_tv80_core/i_mcode/SLICE_1000
+ROUTE         4     1.424     R19C26B.F1 to     R15C24A.B1 u_cpu/i_tv80_core/i_mcode/N_1555
+CTOF_DEL    ---     0.238     R15C24A.B1 to     R15C24A.F1 u_cpu/i_tv80_core/i_mcode/SLICE_702
+ROUTE         1     0.568     R15C24A.F1 to     R15C24A.B0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_2
+CTOF_DEL    ---     0.238     R15C24A.B0 to     R15C24A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_702
+ROUTE         1     0.749     R15C24A.F0 to     R14C23B.D0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_4
+CTOF_DEL    ---     0.238     R14C23B.D0 to     R14C23B.F0 u_cpu/i_tv80_core/i_mcode/SLICE_889
+ROUTE         1     0.971     R14C23B.F0 to     R12C21A.C0 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_9
+CTOF_DEL    ---     0.238     R12C21A.C0 to     R12C21A.F0 u_cpu/i_tv80_core/i_mcode/SLICE_861
+ROUTE         1     1.616     R12C21A.F0 to      R7C26A.B1 u_cpu/i_tv80_core/i_mcode/Write_0_iv_0_11
+CTOF_DEL    ---     0.238      R7C26A.B1 to      R7C26A.F1 u_cpu/SLICE_377
+ROUTE         4     1.005      R7C26A.F1 to      R6C19A.D1 u_cpu/write
+CTOF_DEL    ---     0.238      R6C19A.D1 to      R6C19A.F1 u_cpu/SLICE_736
+ROUTE         3     0.738      R6C19A.F1 to      R2C19A.D0 u_cpu/N_339
+CTOF_DEL    ---     0.238      R2C19A.D0 to      R2C19A.F0 SLICE_101
+ROUTE         1     0.000      R2C19A.F0 to     R2C19A.DI0 u_cpu/rd_n_set (to clk_op)
+                  --------
+                   14.103   (17.8% logic, 82.2% route), 10 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_161:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to    R16C19C.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to SLICE_101:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     1.059    ULPLL.CLKOP to     R2C19A.CLK clk_op
+                  --------
+                    1.059   (0.0% logic, 100.0% route), 0 logic levels.
+
+Report:   33.429MHz is the maximum frequency for this preference.
+
+
+================================================================================
+Preference: FREQUENCY NET "clk_in_c" 50.000000 MHz ;
+            0 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+Report Summary
+--------------
+----------------------------------------------------------------------------
+Preference                              |   Constraint|       Actual|Levels
+----------------------------------------------------------------------------
+                                        |             |             |
+FREQUENCY NET "clk_op" 25.000000 MHz ;  |   25.000 MHz|   33.429 MHz|   9  
+                                        |             |             |
+FREQUENCY NET "clk_in_c" 50.000000 MHz  |             |             |
+;                                       |            -|            -|   0  
+                                        |             |             |
+----------------------------------------------------------------------------
+
+
+All preferences were met.
+
+
+Clock Domains Analysis
+------------------------
+
+Found 2 clocks:
+
+Clock Domain: clk_op   Source: pll_inst/PLLInst_0.CLKOP   Loads: 330
+   Covered under: FREQUENCY NET "clk_op" 25.000000 MHz ;
+
+Clock Domain: clk_in_c   Source: clk_in.PAD   Loads: 1
+   No transfer within this clock domain is found
+
+
+Timing summary (Setup):
+---------------
+
+Timing errors: 0  Score: 0
+Cumulative negative slack: 0
+
+Constraints cover 4782110 paths, 2 nets, and 10566 connections (99.13% coverage)
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Hold, Version Diamond (64-bit) 3.14.0.75.2
+Mon Nov 16 00:50:41 2026
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 10 -gt -sethld -sp 6 -sphld m -o z80cpm_impl1.twr -gui -msgset C:/Users/techf/Desktop/brevia2/z80cpm/build/promote.xml z80cpm_impl1.ncd z80cpm_impl1.prf 
+Design file:     z80cpm_impl1.ncd
+Preference file: z80cpm_impl1.prf
+Device,speed:    LFXP2-5E,m
+Report level:    verbose report, limited to 10 items per preference
+--------------------------------------------------------------------------------
+
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+BLOCK JTAG PATHS
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+Preference: FREQUENCY NET "clk_op" 25.000000 MHz ;
+            4096 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              rst_cnt[0]  (from clk_op +)
+   Destination:    FF         Data in        rst_cnt[0]  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay SLICE_102 to SLICE_102 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path SLICE_102 to SLICE_102:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120     R4C19B.CLK to      R4C19B.Q0 SLICE_102 (from clk_op)
+ROUTE         4     0.057      R4C19B.Q0 to      R4C19B.D0 rst_cnt[0]
+CTOF_DEL    ---     0.059      R4C19B.D0 to      R4C19B.F0 SLICE_102
+ROUTE         1     0.000      R4C19B.F0 to     R4C19B.DI0 N_350_i_i (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to SLICE_102:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R4C19B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to SLICE_102:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R4C19B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              rst_cnt[2]  (from clk_op +)
+   Destination:    FF         Data in        rst_cnt[2]  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay SLICE_103 to SLICE_103 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path SLICE_103 to SLICE_103:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120     R4C19C.CLK to      R4C19C.Q0 SLICE_103 (from clk_op)
+ROUTE         2     0.057      R4C19C.Q0 to      R4C19C.D0 rst_cnt[2]
+CTOF_DEL    ---     0.059      R4C19C.D0 to      R4C19C.F0 SLICE_103
+ROUTE         1     0.000      R4C19C.F0 to     R4C19C.DI0 N_292_i_i (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to SLICE_103:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R4C19C.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to SLICE_103:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R4C19C.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_tx/bitcnt[0]  (from clk_op +)
+   Destination:    FF         Data in        u_tx/bitcnt[0]  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay u_tx/SLICE_364 to u_tx/SLICE_364 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path u_tx/SLICE_364 to u_tx/SLICE_364:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120    R21C22B.CLK to     R21C22B.Q0 u_tx/SLICE_364 (from clk_op)
+ROUTE         5     0.057     R21C22B.Q0 to     R21C22B.D0 u_tx/bitcnt[0]
+CTOF_DEL    ---     0.059     R21C22B.D0 to     R21C22B.F0 u_tx/SLICE_364
+ROUTE         1     0.000     R21C22B.F0 to    R21C22B.DI0 u_tx/N_163 (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_tx/SLICE_364:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R21C22B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_tx/SLICE_364:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R21C22B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/BTR_r  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/i_tv80_core/BTR_r  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay u_cpu/i_tv80_core/SLICE_125 to u_cpu/i_tv80_core/SLICE_125 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_125 to u_cpu/i_tv80_core/SLICE_125:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120    R16C17B.CLK to     R16C17B.Q0 u_cpu/i_tv80_core/SLICE_125 (from clk_op)
+ROUTE         8     0.057     R16C17B.Q0 to     R16C17B.D0 u_cpu/i_tv80_core/BTR_r_7
+CTOF_DEL    ---     0.059     R16C17B.D0 to     R16C17B.F0 u_cpu/i_tv80_core/SLICE_125
+ROUTE         1     0.000     R16C17B.F0 to    R16C17B.DI0 u_cpu/i_tv80_core/BTR_r_5 (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_125:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R16C17B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_125:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R16C17B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/Halt_FF  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/i_tv80_core/Halt_FF  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay u_cpu/i_tv80_core/SLICE_147 to u_cpu/i_tv80_core/SLICE_147 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_147 to u_cpu/i_tv80_core/SLICE_147:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120    R14C19C.CLK to     R14C19C.Q0 u_cpu/i_tv80_core/SLICE_147 (from clk_op)
+ROUTE         4     0.057     R14C19C.Q0 to     R14C19C.D0 u_cpu/i_tv80_core/Halt_FF
+CTOF_DEL    ---     0.059     R14C19C.D0 to     R14C19C.F0 u_cpu/i_tv80_core/SLICE_147
+ROUTE         1     0.000     R14C19C.F0 to    R14C19C.DI0 u_cpu/i_tv80_core/N_3128_0 (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_147:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R14C19C.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_147:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R14C19C.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_rx/bitidx[1]  (from clk_op +)
+   Destination:    FF         Data in        u_rx/bitidx[1]  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay u_rx/SLICE_347 to u_rx/SLICE_347 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path u_rx/SLICE_347 to u_rx/SLICE_347:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120     R4C25A.CLK to      R4C25A.Q0 u_rx/SLICE_347 (from clk_op)
+ROUTE        32     0.057      R4C25A.Q0 to      R4C25A.D0 u_rx/bitidx[1]
+CTOF_DEL    ---     0.059      R4C25A.D0 to      R4C25A.F0 u_rx/SLICE_347
+ROUTE         1     0.000      R4C25A.F0 to     R4C25A.DI0 u_rx/N_119_i (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_rx/SLICE_347:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R4C25A.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_rx/SLICE_347:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R4C25A.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_rx/rx_state  (from clk_op +)
+   Destination:    FF         Data in        u_rx/rx_state  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay u_rx/SLICE_349 to u_rx/SLICE_349 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path u_rx/SLICE_349 to u_rx/SLICE_349:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120     R3C23C.CLK to      R3C23C.Q0 u_rx/SLICE_349 (from clk_op)
+ROUTE        29     0.057      R3C23C.Q0 to      R3C23C.D0 u_rx/k
+CTOF_DEL    ---     0.059      R3C23C.D0 to      R3C23C.F0 u_rx/SLICE_349
+ROUTE         1     0.000      R3C23C.F0 to     R3C23C.DI0 u_rx/rx_state_0 (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_rx/SLICE_349:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R3C23C.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_rx/SLICE_349:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R3C23C.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/mcycle[0]  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/i_tv80_core/mcycle[0]  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay u_cpu/i_tv80_core/SLICE_344 to u_cpu/i_tv80_core/SLICE_344 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_344 to u_cpu/i_tv80_core/SLICE_344:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120    R12C19B.CLK to     R12C19B.Q0 u_cpu/i_tv80_core/SLICE_344 (from clk_op)
+ROUTE        84     0.057     R12C19B.Q0 to     R12C19B.D0 u_cpu/mcycle[0]
+CTOF_DEL    ---     0.059     R12C19B.D0 to     R12C19B.F0 u_cpu/i_tv80_core/SLICE_344
+ROUTE         1     0.000     R12C19B.F0 to    R12C19B.DI0 u_cpu/i_tv80_core/mcycle_14[0] (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_344:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R12C19B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_344:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R12C19B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_rx/bitidx[0]  (from clk_op +)
+   Destination:    FF         Data in        u_rx/bitidx[0]  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay u_rx/SLICE_346 to u_rx/SLICE_346 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path u_rx/SLICE_346 to u_rx/SLICE_346:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120     R4C25B.CLK to      R4C25B.Q0 u_rx/SLICE_346 (from clk_op)
+ROUTE        34     0.057      R4C25B.Q0 to      R4C25B.D0 u_rx/CO0
+CTOF_DEL    ---     0.059      R4C25B.D0 to      R4C25B.F0 u_rx/SLICE_346
+ROUTE         1     0.000      R4C25B.F0 to     R4C25B.DI0 u_rx/bitidx_5[0] (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_rx/SLICE_346:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R4C25B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_rx/SLICE_346:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to     R4C25B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 0.235ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              u_cpu/i_tv80_core/Alternate  (from clk_op +)
+   Destination:    FF         Data in        u_cpu/i_tv80_core/Alternate  (to clk_op +)
+
+   Delay:               0.236ns  (75.8% logic, 24.2% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.236ns physical path delay u_cpu/i_tv80_core/SLICE_117 to u_cpu/i_tv80_core/SLICE_117 meets
+      0.001ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling 0.001ns) by 0.235ns
+
+ Physical Path Details:
+
+      Data path u_cpu/i_tv80_core/SLICE_117 to u_cpu/i_tv80_core/SLICE_117:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.120    R14C15B.CLK to     R14C15B.Q0 u_cpu/i_tv80_core/SLICE_117 (from clk_op)
+ROUTE         6     0.057     R14C15B.Q0 to     R14C15B.D0 u_cpu/i_tv80_core/Alternate
+CTOF_DEL    ---     0.059     R14C15B.D0 to     R14C15B.F0 u_cpu/i_tv80_core/SLICE_117
+ROUTE         1     0.000     R14C15B.F0 to    R14C15B.DI0 u_cpu/i_tv80_core/Alternate_0 (to clk_op)
+                  --------
+                    0.236   (75.8% logic, 24.2% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_117:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R14C15B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_inst/PLLInst_0 to u_cpu/i_tv80_core/SLICE_117:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE       330     0.300    ULPLL.CLKOP to    R14C15B.CLK clk_op
+                  --------
+                    0.300   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+================================================================================
+Preference: FREQUENCY NET "clk_in_c" 50.000000 MHz ;
+            0 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+Report Summary
+--------------
+----------------------------------------------------------------------------
+Preference(MIN Delays)                  |   Constraint|       Actual|Levels
+----------------------------------------------------------------------------
+                                        |             |             |
+FREQUENCY NET "clk_op" 25.000000 MHz ;  |     0.000 ns|     0.235 ns|   2  
+                                        |             |             |
+FREQUENCY NET "clk_in_c" 50.000000 MHz  |             |             |
+;                                       |            -|            -|   0  
+                                        |             |             |
+----------------------------------------------------------------------------
+
+
+All preferences were met.
+
+
+Clock Domains Analysis
+------------------------
+
+Found 2 clocks:
+
+Clock Domain: clk_op   Source: pll_inst/PLLInst_0.CLKOP   Loads: 330
+   Covered under: FREQUENCY NET "clk_op" 25.000000 MHz ;
+
+Clock Domain: clk_in_c   Source: clk_in.PAD   Loads: 1
+   No transfer within this clock domain is found
+
+
+Timing summary (Hold):
+---------------
+
+Timing errors: 0  Score: 0
+Cumulative negative slack: 0
+
+Constraints cover 4782110 paths, 2 nets, and 10566 connections (99.13% coverage)
+
+
+
+Timing summary (Setup and Hold):
+---------------
+
+Timing errors: 0 (setup), 0 (hold)
+Score: 0 (setup), 0 (hold)
+Cumulative negative slack: 0 (0+0)
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+
+</pre></samp></body></html>

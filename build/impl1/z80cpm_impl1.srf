@@ -1,0 +1,1460 @@
+#Build: Synplify Pro (R) V-2023.09L-2, Build 349R, Sep 17 2024
+#install: C:\lscc\diamond\3.14\synpbase
+#OS: Windows 10 or later
+#Hostname: MEMETOP
+
+# Mon Nov 16 02:53:21 2026
+
+#Implementation: impl1
+
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: C:\lscc\diamond\3.14\synpbase
+OS: Windows 10 or later
+Hostname: MEMETOP
+
+Implementation : impl1
+Synopsys HDL Compiler, Version comp202309synp1, Build 349R, Built Sep 17 2024 08:16:26, @
+
+@N|Running in 64-bit mode
+###########################################################[
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: C:\lscc\diamond\3.14\synpbase
+OS: Windows 10 or later
+Hostname: MEMETOP
+
+Implementation : impl1
+Synopsys Verilog Compiler, Version comp202309synp1, Build 349R, Built Sep 17 2024 08:16:26, @
+
+@N|Running in 64-bit mode
+@I::"C:\lscc\diamond\3.14\synpbase\lib\lucent\xp2.v" (library work)
+@I::"C:\lscc\diamond\3.14\synpbase\lib\lucent\pmi_def.v" (library work)
+@I::"C:\lscc\diamond\3.14\synpbase\lib\vlog\hypermods.v" (library __hyper__lib__)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v" (library work)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v" (library work)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v" (library work)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_core.v" (library work)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v" (library work)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v" (library work)
+@N: CG334 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":65:12:65:24|Read directive translate_off.
+@N: CG333 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":75:12:75:23|Read directive translate_on.
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v" (library work)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v" (library work)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v" (library work)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v" (library work)
+@I::"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v" (library work)
+Verilog syntax check successful!
+Options changed - recompiling
+Selecting top level module z80cpm_brevia2
+@W: CG168 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":43:2:43:9|Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type 
+@N: CG364 :"C:\lscc\diamond\3.14\synpbase\lib\lucent\pmi_def.v":1077:7:1077:13|Synthesizing module pmi_pll in library work.
+Running optimization stage 1 on pmi_pll .......
+Finished optimization stage 1 on pmi_pll (CPU Time 0h:00m:00s, Memory Used current: 95MB peak: 96MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v":3:7:3:14|Synthesizing module boot_rom in library work.
+Running optimization stage 1 on boot_rom .......
+Finished optimization stage 1 on boot_rom (CPU Time 0h:00m:00s, Memory Used current: 97MB peak: 98MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v":6:7:6:16|Synthesizing module sram_async in library work.
+Running optimization stage 1 on sram_async .......
+Finished optimization stage 1 on sram_async (CPU Time 0h:00m:00s, Memory Used current: 97MB peak: 98MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v":17:7:17:14|Synthesizing module ram_disk in library work.
+Running optimization stage 1 on ram_disk .......
+Finished optimization stage 1 on ram_disk (CPU Time 0h:00m:00s, Memory Used current: 97MB peak: 98MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v":4:7:4:13|Synthesizing module uart_tx in library work.
+Running optimization stage 1 on uart_tx .......
+Finished optimization stage 1 on uart_tx (CPU Time 0h:00m:00s, Memory Used current: 98MB peak: 99MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v":4:7:4:13|Synthesizing module uart_rx in library work.
+Running optimization stage 1 on uart_rx .......
+@A: CL282 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v":20:2:20:7|Feedback mux created for signal rx_data[7:0]. It is possible a set/reset assignment for this is signal missing. To improve timing and area, specify a set/reset value.
+Finished optimization stage 1 on uart_rx (CPU Time 0h:00m:00s, Memory Used current: 98MB peak: 99MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v":26:7:26:16|Synthesizing module tv80_mcode in library work.
+
+	Mode=32'b00000000000000000000000000000000
+	Flag_C=32'b00000000000000000000000000000000
+	Flag_N=32'b00000000000000000000000000000001
+	Flag_P=32'b00000000000000000000000000000010
+	Flag_X=32'b00000000000000000000000000000011
+	Flag_H=32'b00000000000000000000000000000100
+	Flag_Y=32'b00000000000000000000000000000101
+	Flag_Z=32'b00000000000000000000000000000110
+	Flag_S=32'b00000000000000000000000000000111
+	aNone=3'b111
+	aBC=3'b000
+	aDE=3'b001
+	aXY=3'b010
+	aIOA=3'b100
+	aSP=3'b101
+	aZI=3'b110
+   Generated name = tv80_mcode_Z1
+Running optimization stage 1 on tv80_mcode_Z1 .......
+Finished optimization stage 1 on tv80_mcode_Z1 (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 109MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v":26:7:26:14|Synthesizing module tv80_alu in library work.
+
+	Mode=32'b00000000000000000000000000000000
+	Flag_C=32'b00000000000000000000000000000000
+	Flag_N=32'b00000000000000000000000000000001
+	Flag_P=32'b00000000000000000000000000000010
+	Flag_X=32'b00000000000000000000000000000011
+	Flag_H=32'b00000000000000000000000000000100
+	Flag_Y=32'b00000000000000000000000000000101
+	Flag_Z=32'b00000000000000000000000000000110
+	Flag_S=32'b00000000000000000000000000000111
+   Generated name = tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s
+Running optimization stage 1 on tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s .......
+Finished optimization stage 1 on tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 109MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":26:7:26:14|Synthesizing module tv80_reg in library work.
+Running optimization stage 1 on tv80_reg .......
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsL, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsH, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsL, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsH, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsL, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsH, depth=8, width=8
+Finished optimization stage 1 on tv80_reg (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 109MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_core.v":26:7:26:15|Synthesizing module tv80_core in library work.
+
+	Mode=32'b00000000000000000000000000000000
+	IOWait=32'b00000000000000000000000000000001
+	Flag_C=32'b00000000000000000000000000000000
+	Flag_N=32'b00000000000000000000000000000001
+	Flag_P=32'b00000000000000000000000000000010
+	Flag_X=32'b00000000000000000000000000000011
+	Flag_H=32'b00000000000000000000000000000100
+	Flag_Y=32'b00000000000000000000000000000101
+	Flag_Z=32'b00000000000000000000000000000110
+	Flag_S=32'b00000000000000000000000000000111
+	aNone=3'b111
+	aBC=3'b000
+	aDE=3'b001
+	aXY=3'b010
+	aIOA=3'b100
+	aSP=3'b101
+	aZI=3'b110
+   Generated name = tv80_core_Z2
+Running optimization stage 1 on tv80_core_Z2 .......
+Finished optimization stage 1 on tv80_core_Z2 (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v":9:7:9:11|Synthesizing module tv80n in library work.
+Running optimization stage 1 on tv80n .......
+Finished optimization stage 1 on tv80n (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Synthesizing module z80cpm_brevia2 in library work.
+Running optimization stage 1 on z80cpm_brevia2 .......
+@W: CL265 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":153:2:153:7|Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.
+Finished optimization stage 1 on z80cpm_brevia2 (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
+Running optimization stage 2 on z80cpm_brevia2 .......
+Finished optimization stage 2 on z80cpm_brevia2 (CPU Time 0h:00m:00s, Memory Used current: 110MB peak: 115MB)
+Running optimization stage 2 on tv80n .......
+Finished optimization stage 2 on tv80n (CPU Time 0h:00m:00s, Memory Used current: 110MB peak: 115MB)
+Running optimization stage 2 on tv80_core_Z2 .......
+Finished optimization stage 2 on tv80_core_Z2 (CPU Time 0h:00m:00s, Memory Used current: 120MB peak: 135MB)
+Running optimization stage 2 on tv80_reg .......
+Finished optimization stage 2 on tv80_reg (CPU Time 0h:00m:00s, Memory Used current: 120MB peak: 135MB)
+Running optimization stage 2 on tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s .......
+Finished optimization stage 2 on tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s (CPU Time 0h:00m:00s, Memory Used current: 119MB peak: 135MB)
+Running optimization stage 2 on tv80_mcode_Z1 .......
+@W: CL246 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v":52:24:52:24|Input port bits 5 to 3 of F[7:0] are unused. Assign logic for all port bits or change the input port size.
+@W: CL247 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v":52:24:52:24|Input port bit 1 of F[7:0] is unused
+
+Finished optimization stage 2 on tv80_mcode_Z1 (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on uart_rx .......
+Finished optimization stage 2 on uart_rx (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on uart_tx .......
+Finished optimization stage 2 on uart_tx (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on ram_disk .......
+Finished optimization stage 2 on ram_disk (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on sram_async .......
+@N: CL159 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v":7:16:7:18|Input clk is unused.
+@N: CL159 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v":8:16:8:20|Input rst_n is unused.
+Finished optimization stage 2 on sram_async (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on boot_rom .......
+Finished optimization stage 2 on boot_rom (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on pmi_pll .......
+Finished optimization stage 2 on pmi_pll (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+
+For a summary of runtime per design unit, please see file:
+==========================================================
+@L: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synwork\layer0.duruntime
+
+
+
+At c_ver Exit (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 122MB peak: 135MB)
+
+Process took 0h:00m:06s realtime, 0h:00m:06s cputime
+
+Process completed successfully.
+# Mon Nov 16 02:53:27 2026
+
+###########################################################]
+###########################################################[
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: C:\lscc\diamond\3.14\synpbase
+OS: Windows 10 or later
+Hostname: MEMETOP
+
+Implementation : impl1
+Synopsys Synopsys Netlist Linker, Version comp202309synp1, Build 349R, Built Sep 17 2024 08:16:26, @
+
+@N|Running in 64-bit mode
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 95MB peak: 96MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Mon Nov 16 02:53:28 2026
+
+###########################################################]
+
+For a summary of runtime and memory usage for all design units, please see file:
+==========================================================
+@L: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synwork\z80cpm_impl1_comp.rt.csv
+
+@END
+
+At c_hdl Exit (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 31MB peak: 32MB)
+
+Process took 0h:00m:07s realtime, 0h:00m:06s cputime
+
+Process completed successfully.
+# Mon Nov 16 02:53:28 2026
+
+###########################################################]
+###########################################################[
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: C:\lscc\diamond\3.14\synpbase
+OS: Windows 10 or later
+Hostname: MEMETOP
+
+Implementation : impl1
+Synopsys Synopsys Netlist Linker, Version comp202309synp1, Build 349R, Built Sep 17 2024 08:16:26, @
+
+@N|Running in 64-bit mode
+File C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synwork\z80cpm_impl1_comp.srs changed - recompiling
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 95MB peak: 96MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Mon Nov 16 02:53:29 2026
+
+###########################################################]
+# Mon Nov 16 02:53:30 2026
+
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: C:\lscc\diamond\3.14\synpbase
+OS: Windows 10 or later
+Hostname: MEMETOP
+
+Implementation : impl1
+Synopsys Lattice Technology Pre-mapping, Version map202309lat, Build 191R, Built Sep 17 2024 10:38:50, @
+
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 184MB peak: 184MB)
+
+
+Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 188MB peak: 199MB)
+
+@A: MF827 |No constraint file specified.
+@L: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1_scck.rpt 
+See clock summary report "C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1_scck.rpt"
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 196MB peak: 199MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 196MB peak: 199MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 207MB peak: 207MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 208MB peak: 209MB)
+
+NConnInternalConnection caching is on
+@N: FX493 |Applying initial value "00000000" on instance sr[7:0].
+@W: FX474 |User-specified initial value defined for some sequential elements which can prevent optimum synthesis results from being achieved. 
+@N: FX493 |Applying initial value "1" on instance rxd_s0.
+@N: FX493 |Applying initial value "1" on instance rxd_s1.
+@N: FX493 |Applying initial value "00000000" on instance sr[7:0].
+@N: FX493 |Applying initial value "0" on instance rst_n_sync2.
+@N: FX493 |Applying initial value "0" on instance rst_n_sync1.
+
+Starting HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 259MB)
+
+
+Finished HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
+
+
+Started DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
+
+
+Finished DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
+
+@N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":1159:2:1159:7|Removing sequential instance Oldnmi_n (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Removing sequential instance IStatus[1:0] (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffre(prim) because it does not drive other instances.
+@N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":1193:2:1193:7|Removing sequential instance m1_n (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffs(prim) because it does not drive other instances.
+@N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":1193:2:1193:7|Removing sequential instance IntE_FF1 (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+
+Starting clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 261MB peak: 261MB)
+
+
+mixed edge conversion for GCC is OFF
+
+Finished clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 263MB peak: 263MB)
+
+
+Starting clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 263MB peak: 264MB)
+
+
+Finished clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 263MB peak: 264MB)
+
+@N: FX1184 |Applying syn_allowed_resources blockrams=9 on top level netlist z80cpm_brevia2 
+
+Finished netlist restructuring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 263MB peak: 264MB)
+
+
+
+Clock Summary
+******************
+
+          Start                                    Requested     Requested     Clock        Clock          Clock
+Level     Clock                                    Frequency     Period        Type         Group          Load 
+----------------------------------------------------------------------------------------------------------------
+0 -       z80cpm_brevia2|clk_op_inferred_clock     200.0 MHz     5.000         inferred     (multiple)     390  
+================================================================================================================
+
+
+
+Clock Load Summary
+***********************
+
+                                         Clock     Source                      Clock Pin          Non-clock Pin     Non-clock Pin          
+Clock                                    Load      Pin                         Seq Example        Seq Example       Comb Example           
+-------------------------------------------------------------------------------------------------------------------------------------------
+z80cpm_brevia2|clk_op_inferred_clock     390       pll_inst.CLKOP(pmi_pll)     rst_cnt[3:0].C     -                 u_cpu.un1_clk.I[0](inv)
+===========================================================================================================================================
+
+@W: MT529 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v":42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 390 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+
+ICG Latch Removal Summary:
+Number of ICG latches removed: 0
+Number of ICG latches not removed:	0
+
+
+@S |Clock Optimization Summary
+
+
+
+#### START OF PREMAP CLOCK OPTIMIZATION REPORT #####[
+
+1 non-gated/non-generated clock tree(s) driving 348 clock pin(s) of sequential element(s)
+0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+0 instances converted, 0 sequential instances remain driven by gated/generated clocks
+
+=========================== Non-Gated/Non-Generated Clocks ============================
+Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample Instance
+---------------------------------------------------------------------------------------
+@KP:ckid0_0       pll_inst.CLKOP      pmi_pll                348        rst_n_sync1    
+=======================================================================================
+
+
+##### END OF CLOCK OPTIMIZATION REPORT ######
+
+
+Summary of user generated gated clocks:
+0 user generated gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+
+@N: FX1143 |Skipping assigning INTERNAL_VREF to iobanks, because the table of mapping from pin to iobank is not initialized.
+Finished Pre Mapping Phase.
+
+Starting constraint checker (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 263MB peak: 264MB)
+
+
+Finished constraint checker preprocessing (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 263MB peak: 264MB)
+
+
+Finished constraint checker (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 264MB peak: 264MB)
+
+Pre-mapping successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 179MB peak: 265MB)
+
+Process took 0h:00m:03s realtime, 0h:00m:02s cputime
+# Mon Nov 16 02:53:33 2026
+
+###########################################################]
+# Mon Nov 16 02:53:33 2026
+
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: C:\lscc\diamond\3.14\synpbase
+OS: Windows 10 or later
+Hostname: MEMETOP
+
+Implementation : impl1
+Synopsys Lattice Technology Mapper, Version map202309lat, Build 191R, Built Sep 17 2024 10:38:50, @
+
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 184MB peak: 184MB)
+
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 186MB peak: 199MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 186MB peak: 199MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 200MB peak: 200MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 201MB peak: 203MB)
+
+
+
+Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 256MB peak: 256MB)
+
+@N: BZ173 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_mcode.v":1956:12:1956:16|ROM Special_LD_2[2:0] (in view: work.tv80_mcode_Z1(verilog)) mapped in logic.
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net clk_op has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[2] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[4] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[5] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[6] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[7] has multiple drivers .
+
+Finished RTL optimizations (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 263MB peak: 263MB)
+
+@N: MO231 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":89:2:89:7|Found counter in view:work.z80cpm_brevia2(verilog) instance hb[24:0] 
+@N: MO231 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v":42:2:42:7|Found counter in view:work.z80cpm_brevia2(verilog) instance u_rd.addr[15:0] 
+@N: FX493 |Applying initial value "0" on instance rst_n_sync2.
+@W: FX474 |User-specified initial value defined for some sequential elements which can prevent optimum synthesis results from being achieved. 
+@N: FX493 |Applying initial value "0" on instance rst_n_sync1.
+@N: FX493 |Applying initial value "0" on instance rst_cnt[0].
+@N: FX493 |Applying initial value "0" on instance rst_cnt[1].
+@N: FX493 |Applying initial value "0" on instance rst_cnt[2].
+@N: FX493 |Applying initial value "0" on instance rst_cnt[3].
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.rd_n_3 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_79 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_80 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_81 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_82 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_83 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_84 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_85 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_86 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_87 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_88 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_89 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_90 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_91 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_92 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_93 has multiple drivers .
+@N: MO231 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\uart_tx.v":18:2:18:7|Found counter in view:work.uart_tx(verilog) instance bitcnt[3:0] 
+@N: MO231 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\uart_tx.v":18:2:18:7|Found counter in view:work.uart_tx(verilog) instance k[11:0] 
+@N: FX493 |Applying initial value "0" on instance bitcnt[0].
+@N: FX493 |Applying initial value "0" on instance bitcnt[1].
+@N: FX493 |Applying initial value "0" on instance bitcnt[2].
+@N: FX493 |Applying initial value "0" on instance bitcnt[3].
+@N: MO231 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\uart_rx.v":20:2:20:7|Found counter in view:work.uart_rx(verilog) instance k[15:0] 
+@N: FX493 |Applying initial value "1" on instance rxd_s0.
+@N: FX493 |Applying initial value "1" on instance rxd_s1.
+@N: MF179 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\uart_rx.v":42:31:42:70|Found 16 by 16 bit equality operator ('==') un1_k_16 (in view: work.uart_rx(verilog))
+@N: MF135 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|RAM u_cpu.i_tv80_core.i_reg.RegsL_2[7:0] is 8 words by 8 bits.
+@N: MF135 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|RAM u_cpu.i_tv80_core.i_reg.RegsL_1[7:0] is 8 words by 8 bits.
+@N: MF135 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|RAM u_cpu.i_tv80_core.i_reg.RegsL[7:0] is 8 words by 8 bits.
+@N: MF135 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|RAM u_cpu.i_tv80_core.i_reg.RegsH_2[7:0] is 8 words by 8 bits.
+@N: MF135 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|RAM u_cpu.i_tv80_core.i_reg.RegsH_1[7:0] is 8 words by 8 bits.
+@N: MF135 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|RAM u_cpu.i_tv80_core.i_reg.RegsH[7:0] is 8 words by 8 bits.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+
+Only the first 100 messages of id 'BN132' are reported. To see all messages use 'report_messages -log C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synlog\z80cpm_impl1_fpga_mapper.srr -id BN132' in the Tcl shell. To see all messages in future runs, use the command 'message_override -limit {BN132} -count unlimited' in the Tcl shell.
+@N: MF794 |RAM i_reg.RegsH[7:0] required 128 registers during mapping 
+
+Starting factoring (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 272MB peak: 272MB)
+
+
+Finished factoring (Real Time elapsed 0h:00m:05s; CPU Time elapsed 0h:00m:05s; Memory used current: 290MB peak: 290MB)
+
+
+Available hyper_sources - for debug and ip models
+	None Found
+
+NConnInternalConnection caching is on
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.mcycle[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.tstate[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.di_reg5 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_70 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_101 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_102 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_103 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_104 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_105 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_106 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_107 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_108 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_109 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_110 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_111 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_112 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_113 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_114 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_115 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_116 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_117 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_118 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_119 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_120 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_121 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_122 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_18 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_21 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_55 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_56 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_57 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_58 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_59 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_60 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_61 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_62 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_63 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_64 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_65 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_66 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_67 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_68 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[2] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[4] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[5] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[6] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[4] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[5] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[6] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Arith16_r_5 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[2] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.BTR_r_7 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[2] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[4] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Save_ALU_r_8 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.last_mcycle has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.last_tstate has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_805 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_806 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_807 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_816 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_817 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_818 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_819 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_821 has multiple drivers .
+
+Only the first 100 messages of id 'BN161' are reported. To see all messages use 'report_messages -log C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synlog\z80cpm_impl1_fpga_mapper.srr -id BN161' in the Tcl shell. To see all messages in future runs, use the command 'message_override -limit {BN161} -count unlimited' in the Tcl shell.
+
+Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 292MB peak: 319MB)
+
+
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:10s; Memory used current: 297MB peak: 319MB)
+
+
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:11s; Memory used current: 310MB peak: 319MB)
+
+
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:12s; Memory used current: 310MB peak: 319MB)
+
+@N: FX214 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\boot_rom.v":7:6:7:9|Generating ROM u_rom.byte_read[7:0] (in view: work.z80cpm_brevia2(verilog)).
+@N: MO106 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_mcode.v":1956:12:1956:16|Found ROM u_cpu.i_tv80_core.i_mcode.MCycles_19_0[6:0] (in view: work.z80cpm_brevia2(verilog)) with 78 words by 7 bits.
+
+Finished preparing to map (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:12s; Memory used current: 311MB peak: 319MB)
+
+
+Finished technology mapping (Real Time elapsed 0h:00m:14s; CPU Time elapsed 0h:00m:14s; Memory used current: 330MB peak: 366MB)
+
+Pass		 CPU time		Worst Slack		Luts / Registers
+------------------------------------------------------------
+   1		0h:00m:14s		    -7.18ns		2023 /       468
+   2		0h:00m:14s		    -7.18ns		2007 /       468
+   3		0h:00m:14s		    -7.07ns		2006 /       468
+   4		0h:00m:14s		    -7.07ns		2006 /       468
+   5		0h:00m:14s		    -7.07ns		2006 /       468
+   6		0h:00m:14s		    -7.07ns		2006 /       468
+   7		0h:00m:14s		    -7.07ns		2006 /       468
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[4] (in view: work.z80cpm_brevia2(verilog)) with 71 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[1] (in view: work.z80cpm_brevia2(verilog)) with 88 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[7] (in view: work.z80cpm_brevia2(verilog)) with 68 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[6] (in view: work.z80cpm_brevia2(verilog)) with 61 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[2] (in view: work.z80cpm_brevia2(verilog)) with 79 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[3] (in view: work.z80cpm_brevia2(verilog)) with 111 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[2] (in view: work.z80cpm_brevia2(verilog)) with 10 loads 1 time to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[7] (in view: work.z80cpm_brevia2(verilog)) with 8 loads 1 time to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[0] (in view: work.z80cpm_brevia2(verilog)) with 15 loads 1 time to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80n.v":56:28:56:38|Replicating instance u_cpu.i_tv80_core.F[6] (in view: work.z80cpm_brevia2(verilog)) with 12 loads 1 time to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[0] (in view: work.z80cpm_brevia2(verilog)) with 100 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[5] (in view: work.z80cpm_brevia2(verilog)) with 96 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.ISet[1] (in view: work.z80cpm_brevia2(verilog)) with 67 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.ISet[0] (in view: work.z80cpm_brevia2(verilog)) with 18 loads 2 times to improve timing.
+Timing driven replication report
+Added 33 Registers via timing driven replication
+Added 29 LUTs via timing driven replication
+
+   8		0h:00m:16s		    -6.73ns		2059 /       501
+   9		0h:00m:16s		    -6.55ns		2067 /       501
+  10		0h:00m:16s		    -6.43ns		2066 /       501
+  11		0h:00m:16s		    -6.76ns		2067 /       501
+  12		0h:00m:16s		    -6.42ns		2070 /       501
+  13		0h:00m:16s		    -6.65ns		2069 /       501
+  14		0h:00m:16s		    -6.38ns		2071 /       501
+  15		0h:00m:16s		    -6.24ns		2075 /       501
+
+  16		0h:00m:16s		    -6.51ns		2074 /       501
+  17		0h:00m:16s		    -6.15ns		2077 /       501
+  18		0h:00m:17s		    -6.11ns		2075 /       501
+  19		0h:00m:17s		    -6.62ns		2079 /       501
+  20		0h:00m:17s		    -6.18ns		2080 /       501
+  21		0h:00m:17s		    -6.04ns		2078 /       501
+  22		0h:00m:17s		    -6.00ns		2087 /       501
+  23		0h:00m:17s		    -6.59ns		2087 /       501
+  24		0h:00m:17s		    -6.38ns		2089 /       501
+  25		0h:00m:17s		    -6.16ns		2090 /       501
+  26		0h:00m:17s		    -5.95ns		2090 /       501
+
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:17s; Memory used current: 337MB peak: 366MB)
+
+@N: FX164 |The option to pack registers in the IOB has not been specified. Please set syn_useioff attribute.  
+
+Warning: Forcing use of GSR for flip-flops and
+latches that do not specify sets or resets
+   hb[24] (in view: work.z80cpm_brevia2(verilog))
+   hb[23] (in view: work.z80cpm_brevia2(verilog))
+   hb[22] (in view: work.z80cpm_brevia2(verilog))
+   hb[21] (in view: work.z80cpm_brevia2(verilog))
+   hb[20] (in view: work.z80cpm_brevia2(verilog))
+   hb[19] (in view: work.z80cpm_brevia2(verilog))
+   hb[18] (in view: work.z80cpm_brevia2(verilog))
+   hb[17] (in view: work.z80cpm_brevia2(verilog))
+   hb[16] (in view: work.z80cpm_brevia2(verilog))
+   hb[15] (in view: work.z80cpm_brevia2(verilog))
+   hb[14] (in view: work.z80cpm_brevia2(verilog))
+   hb[13] (in view: work.z80cpm_brevia2(verilog))
+   hb[12] (in view: work.z80cpm_brevia2(verilog))
+   hb[11] (in view: work.z80cpm_brevia2(verilog))
+   hb[10] (in view: work.z80cpm_brevia2(verilog))
+   hb[9] (in view: work.z80cpm_brevia2(verilog))
+   hb[8] (in view: work.z80cpm_brevia2(verilog))
+   hb[7] (in view: work.z80cpm_brevia2(verilog))
+   hb[6] (in view: work.z80cpm_brevia2(verilog))
+   hb[5] (in view: work.z80cpm_brevia2(verilog))
+   hb[4] (in view: work.z80cpm_brevia2(verilog))
+   hb[3] (in view: work.z80cpm_brevia2(verilog))
+   hb[2] (in view: work.z80cpm_brevia2(verilog))
+   hb[1] (in view: work.z80cpm_brevia2(verilog))
+   hb[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.di_reg[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.di_reg[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.di_reg[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.di_reg[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.di_reg[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.di_reg[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.di_reg[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.di_reg[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusA[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusA[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusA[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusA[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusA[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusA[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusA[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusA[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusB[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusB[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusB[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusB[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusB[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusB[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusB[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.BusB[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.IncDecZ (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegAddrA_r[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegAddrA_r[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegAddrA_r[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegAddrB_r[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegAddrB_r[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegAddrB_r[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegAddrC[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegAddrC[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegAddrC[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[15] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[14] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[13] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[12] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[11] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[10] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[9] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[8] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.RegBusA_r[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[7] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[6] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[5] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[4] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[3] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[2] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[1] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[0] (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.iorq_n (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.mreq_n (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.rd_n (in view: work.z80cpm_brevia2(verilog))
+   u_cpu.wr_n (in view: work.z80cpm_brevia2(verilog))
+   u_rx.rx_data[7] (in view: work.z80cpm_brevia2(verilog))
+   u_rx.rx_data[6] (in view: work.z80cpm_brevia2(verilog))
+   u_rx.rx_data[5] (in view: work.z80cpm_brevia2(verilog))
+   u_rx.rx_data[4] (in view: work.z80cpm_brevia2(verilog))
+   u_rx.rx_data[3] (in view: work.z80cpm_brevia2(verilog))
+   u_rx.rx_data[2] (in view: work.z80cpm_brevia2(verilog))
+   u_rx.rx_data[1] (in view: work.z80cpm_brevia2(verilog))
+   u_rx.rx_data[0] (in view: work.z80cpm_brevia2(verilog))
+
+
+Finished restoring hierarchy (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:18s; Memory used current: 338MB peak: 366MB)
+
+
+Starting CDBProcessSetClockGroups... (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:18s; Memory used current: 338MB peak: 366MB)
+
+
+Finished with CDBProcessSetClockGroups (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:18s; Memory used current: 338MB peak: 366MB)
+
+
+Start Writing Netlists (Real Time elapsed 0h:00m:19s; CPU Time elapsed 0h:00m:18s; Memory used current: 277MB peak: 366MB)
+
+Writing Analyst data base C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synwork\z80cpm_impl1_m.srm
+
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:19s; CPU Time elapsed 0h:00m:19s; Memory used current: 337MB peak: 366MB)
+
+Writing EDIF Netlist and constraint files
+@N: FX1056 |Writing EDF file: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.edi
+@W: BW268 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":43:2:43:9|Ignoring parameter pmi_freq_clkok with floating-point value in -edn file
+@N: BW106 |Synplicity Constraint File capacitance units using default value of 1pF 
+
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:20s; CPU Time elapsed 0h:00m:20s; Memory used current: 345MB peak: 366MB)
+
+
+Finished Writing Netlists (Real Time elapsed 0h:00m:20s; CPU Time elapsed 0h:00m:20s; Memory used current: 345MB peak: 366MB)
+
+
+Start final timing analysis (Real Time elapsed 0h:00m:20s; CPU Time elapsed 0h:00m:20s; Memory used current: 338MB peak: 366MB)
+
+@W: MT246 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":43:2:43:9|Blackbox pmi_pll is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)
+@W: MT420 |Found inferred clock z80cpm_brevia2|clk_op_inferred_clock with period 5.00ns. Please declare a user-defined clock on net clk_op.
+
+
+##### START OF TIMING REPORT #####[
+# Timing report written on Mon Nov 16 02:53:54 2026
+#
+
+
+Top view:               z80cpm_brevia2
+Requested Frequency:    200.0 MHz
+Wire load mode:         top
+Paths requested:        3
+Constraint File(s):    
+@N: MT320 |This timing report is an estimate of place and route data. For final timing results, use the FPGA vendor place and route report.
+
+@N: MT322 |Clock constraints include only register-to-register paths associated with each individual clock.
+
+
+
+Performance Summary
+*******************
+
+
+Worst slack in design: -7.267
+
+                                         Requested     Estimated     Requested     Estimated                Clock        Clock          
+Starting Clock                           Frequency     Frequency     Period        Period        Slack      Type         Group          
+----------------------------------------------------------------------------------------------------------------------------------------
+z80cpm_brevia2|clk_op_inferred_clock     200.0 MHz     60.3 MHz      5.000         16.586        -7.267     inferred     (multiple)     
+System                                   200.0 MHz     NA            5.000         NA            NA         system       system_clkgroup
+========================================================================================================================================
+Estimated period and frequency reported as NA means no slack depends directly on the clock waveform
+
+
+
+
+
+Clock Relationships
+*******************
+
+Clocks                                                                      |    rise  to  rise    |    fall  to  fall   |    rise  to  fall    |    fall  to  rise  
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Starting                              Ending                                |  constraint  slack   |  constraint  slack  |  constraint  slack   |  constraint  slack 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+z80cpm_brevia2|clk_op_inferred_clock  System                                |  5.000       3.138   |  No paths    -      |  No paths    -       |  No paths    -     
+z80cpm_brevia2|clk_op_inferred_clock  z80cpm_brevia2|clk_op_inferred_clock  |  5.000       -7.267  |  No paths    -      |  2.500       -5.793  |  2.500       -3.461
+=====================================================================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+
+Interface Information 
+*********************
+
+No IO constraint found
+
+
+
+====================================
+Detailed Report for Clock: z80cpm_brevia2|clk_op_inferred_clock
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                                 Starting                                                                    Arrival           
+Instance                         Reference                                Type        Pin     Net            Time        Slack 
+                                 Clock                                                                                         
+-------------------------------------------------------------------------------------------------------------------------------
+u_cpu.i_tv80_core.IR_fast[4]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3DX     Q       IR_fast[4]     1.035       -7.267
+u_cpu.i_tv80_core.F_fast[0]      z80cpm_brevia2|clk_op_inferred_clock     FD1S3BX     Q       F_fast[0]      0.929       -7.096
+u_cpu.i_tv80_core.F_fast[6]      z80cpm_brevia2|clk_op_inferred_clock     FD1S3BX     Q       F_fast[6]      0.857       -7.088
+u_cpu.i_tv80_core.IR_2_rep2      z80cpm_brevia2|clk_op_inferred_clock     FD1P3DX     Q       IR_2_rep2      1.177       -6.869
+u_cpu.i_tv80_core.IR_1_rep1      z80cpm_brevia2|clk_op_inferred_clock     FD1P3DX     Q       IR_1_rep1      1.144       -6.836
+u_cpu.i_tv80_core.mcycle[4]      z80cpm_brevia2|clk_op_inferred_clock     FD1S3DX     Q       mcycle[4]      1.132       -6.824
+u_cpu.i_tv80_core.IR_5_rep1      z80cpm_brevia2|clk_op_inferred_clock     FD1P3DX     Q       IR_5_rep1      1.124       -6.816
+u_cpu.i_tv80_core.IR_fast[0]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3DX     Q       IR_fast[0]     1.075       -6.723
+u_cpu.i_tv80_core.IR_fast[2]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3DX     Q       IR_fast[2]     1.067       -6.715
+u_cpu.i_tv80_core.mcycle[1]      z80cpm_brevia2|clk_op_inferred_clock     FD1S3DX     Q       mcycle[1]      1.290       -6.617
+===============================================================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                                                       Starting                                                                        Required           
+Instance                                               Reference                                Type        Pin     Net                Time         Slack 
+                                                       Clock                                                                                              
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3AX     D       RegDIH[7]          4.908        -7.267
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3AX     D       RegDIH[7]          4.908        -7.267
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[7]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3AX     D       RegDIH[7]          4.908        -7.267
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[7]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3AX     D       RegDIH[7]          4.908        -7.267
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[7]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3AX     D       RegDIH[7]          4.908        -7.267
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[7]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3AX     D       RegDIH[7]          4.908        -7.267
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[7]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3AX     D       RegDIH[7]          4.908        -7.267
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[7]     z80cpm_brevia2|clk_op_inferred_clock     FD1P3AX     D       RegDIH[7]          4.908        -7.267
+u_cpu.i_tv80_core.SP[13]                               z80cpm_brevia2|clk_op_inferred_clock     FD1S3BX     D       SP_11[13]          4.389        -7.229
+u_cpu.i_tv80_core.TmpAddr[13]                          z80cpm_brevia2|clk_op_inferred_clock     FD1S3DX     D       TmpAddr_19[13]     4.389        -7.229
+==========================================================================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      5.000
+    - Setup time:                            0.092
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.908
+
+    - Propagation time:                      12.175
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -7.267
+
+    Number of logic level(s):                22
+    Starting point:                          u_cpu.i_tv80_core.IR_fast[4] / Q
+    Ending point:                            u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7] / D
+    The start point is clocked by            z80cpm_brevia2|clk_op_inferred_clock [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            z80cpm_brevia2|clk_op_inferred_clock [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                                                 Pin      Pin               Arrival      No. of    
+Name                                                              Type         Name     Dir     Delay     Time         Fan Out(s)
+---------------------------------------------------------------------------------------------------------------------------------
+u_cpu.i_tv80_core.IR_fast[4]                                      FD1P3DX      Q        Out     1.035     1.035 r      -         
+IR_fast[4]                                                        Net          -        -       -         -            4         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_8[1]                  ORCALUT4     B        In      0.000     1.035 r      -         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_8[1]                  ORCALUT4     Z        Out     0.892     1.927 f      -         
+N_1769                                                            Net          -        -       -         -            3         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_9_RNI70G6N[1]         ORCALUT4     C        In      0.000     1.927 f      -         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_9_RNI70G6N[1]         ORCALUT4     Z        Out     0.754     2.681 r      -         
+MCycles_1_iv_0_a2_9_RNI70G6N[1]                                   Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_3_o2_RNIKVQR41[1]           ORCALUT4     D        In      0.000     2.681 r      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_3_o2_RNIKVQR41[1]           ORCALUT4     Z        Out     1.018     3.699 f      -         
+N_1499                                                            Net          -        -       -         -            10        
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNO[0]             ORCALUT4     A        In      0.000     3.699 f      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNO[0]             ORCALUT4     Z        Out     0.754     4.453 f      -         
+Set_BusB_To_4_a2_0_0_RNO[0]                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0[0]                 ORCALUT4     C        In      0.000     4.453 f      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0[0]                 ORCALUT4     Z        Out     0.965     5.418 f      -         
+N_1519                                                            Net          -        -       -         -            5         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIOCINE[0]        ORCALUT4     B        In      0.000     5.418 f      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIOCINE[0]        ORCALUT4     Z        Out     0.754     6.173 r      -         
+Set_BusB_To_4_a2_0_0_RNIOCINE[0]                                  Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIU06EHA[0]       ORCALUT4     A        In      0.000     6.173 r      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIU06EHA[0]       ORCALUT4     Z        Out     0.179     6.352 f      -         
+g0_11_1                                                           Net          -        -       -         -            1         
+u_cpu.i_tv80_core.RegAddrA_m3_i_RNIUOK1NO                         ORCALUT4     D        In      0.000     6.352 f      -         
+u_cpu.i_tv80_core.RegAddrA_m3_i_RNIUOK1NO                         ORCALUT4     Z        Out     0.179     6.531 r      -         
+RegAddrA[0]                                                       Net          -        -       -         -            80        
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4__RNI7JNK3P[0]      ORCALUT4     A        In      0.000     6.531 r      -         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4__RNI7JNK3P[0]      ORCALUT4     Z        Out     0.754     7.286 r      -         
+RegsL_ram4__RNI7JNK3P[0]                                          Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNIVG2VLD2[0]     PFUMX        BLUT     In      0.000     7.286 r      -         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNIVG2VLD2[0]     PFUMX        Z        Out     0.108     7.394 r      -         
+N_327                                                             Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNI6USP8R[0]      L6MUX21      D1       In      0.000     7.394 r      -         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNI6USP8R[0]      L6MUX21      Z        Out     0.784     8.178 r      -         
+ID16                                                              Net          -        -       -         -            5         
+u_cpu.i_tv80_core.ID16_cry_0_0                                    CCU2B        A1       In      0.000     8.178 r      -         
+u_cpu.i_tv80_core.ID16_cry_0_0                                    CCU2B        COUT     Out     1.056     9.233 r      -         
+ID16_cry_0                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_1_0                                    CCU2B        CIN      In      0.000     9.233 r      -         
+u_cpu.i_tv80_core.ID16_cry_1_0                                    CCU2B        COUT     Out     0.073     9.306 r      -         
+ID16_cry_2                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_3_0                                    CCU2B        CIN      In      0.000     9.306 r      -         
+u_cpu.i_tv80_core.ID16_cry_3_0                                    CCU2B        COUT     Out     0.073     9.379 r      -         
+ID16_cry_4                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_5_0                                    CCU2B        CIN      In      0.000     9.379 r      -         
+u_cpu.i_tv80_core.ID16_cry_5_0                                    CCU2B        COUT     Out     0.073     9.452 r      -         
+ID16_cry_6                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_7_0                                    CCU2B        CIN      In      0.000     9.452 r      -         
+u_cpu.i_tv80_core.ID16_cry_7_0                                    CCU2B        COUT     Out     0.073     9.525 r      -         
+ID16_cry_8                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_9_0                                    CCU2B        CIN      In      0.000     9.525 r      -         
+u_cpu.i_tv80_core.ID16_cry_9_0                                    CCU2B        COUT     Out     0.073     9.598 r      -         
+ID16_cry_10                                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_11_0                                   CCU2B        CIN      In      0.000     9.598 r      -         
+u_cpu.i_tv80_core.ID16_cry_11_0                                   CCU2B        COUT     Out     0.073     9.671 r      -         
+ID16_cry_12                                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_13_0                                   CCU2B        CIN      In      0.000     9.671 r      -         
+u_cpu.i_tv80_core.ID16_cry_13_0                                   CCU2B        COUT     Out     0.073     9.744 r      -         
+ID16_cry_14                                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_s_15_0                                     CCU2B        CIN      In      0.000     9.744 r      -         
+u_cpu.i_tv80_core.ID16_s_15_0                                     CCU2B        S0       Out     1.307     11.051 r     -         
+ID16[15]                                                          Net          -        -       -         -            2         
+u_cpu.i_tv80_core.RegDIH_RNO[7]                                   ORCALUT4     A        In      0.000     11.051 r     -         
+u_cpu.i_tv80_core.RegDIH_RNO[7]                                   ORCALUT4     Z        Out     0.754     11.806 r     -         
+RegDIH_RNO[7]                                                     Net          -        -       -         -            1         
+u_cpu.i_tv80_core.RegDIH[7]                                       PFUMX        BLUT     In      0.000     11.806 r     -         
+u_cpu.i_tv80_core.RegDIH[7]                                       PFUMX        Z        Out     0.369     12.175 r     -         
+RegDIH[7]                                                         Net          -        -       -         -            8         
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]                FD1P3AX      D        In      0.000     12.175 r     -         
+=================================================================================================================================
+
+
+Path information for path number 2: 
+      Requested Period:                      5.000
+    - Setup time:                            0.092
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.908
+
+    - Propagation time:                      12.175
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -7.267
+
+    Number of logic level(s):                22
+    Starting point:                          u_cpu.i_tv80_core.IR_fast[4] / Q
+    Ending point:                            u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7] / D
+    The start point is clocked by            z80cpm_brevia2|clk_op_inferred_clock [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            z80cpm_brevia2|clk_op_inferred_clock [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                                                 Pin      Pin               Arrival      No. of    
+Name                                                              Type         Name     Dir     Delay     Time         Fan Out(s)
+---------------------------------------------------------------------------------------------------------------------------------
+u_cpu.i_tv80_core.IR_fast[4]                                      FD1P3DX      Q        Out     1.035     1.035 r      -         
+IR_fast[4]                                                        Net          -        -       -         -            4         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_8[1]                  ORCALUT4     B        In      0.000     1.035 r      -         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_8[1]                  ORCALUT4     Z        Out     0.892     1.927 f      -         
+N_1769                                                            Net          -        -       -         -            3         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_9_RNI70G6N[1]         ORCALUT4     C        In      0.000     1.927 f      -         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_9_RNI70G6N[1]         ORCALUT4     Z        Out     0.754     2.681 r      -         
+MCycles_1_iv_0_a2_9_RNI70G6N[1]                                   Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_3_o2_RNIKVQR41[1]           ORCALUT4     D        In      0.000     2.681 r      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_3_o2_RNIKVQR41[1]           ORCALUT4     Z        Out     1.018     3.699 f      -         
+N_1499                                                            Net          -        -       -         -            10        
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNO[0]             ORCALUT4     A        In      0.000     3.699 f      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNO[0]             ORCALUT4     Z        Out     0.754     4.453 f      -         
+Set_BusB_To_4_a2_0_0_RNO[0]                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0[0]                 ORCALUT4     C        In      0.000     4.453 f      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0[0]                 ORCALUT4     Z        Out     0.965     5.418 f      -         
+N_1519                                                            Net          -        -       -         -            5         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIOCINE[0]        ORCALUT4     B        In      0.000     5.418 f      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIOCINE[0]        ORCALUT4     Z        Out     0.754     6.173 r      -         
+Set_BusB_To_4_a2_0_0_RNIOCINE[0]                                  Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIU06EHA[0]       ORCALUT4     A        In      0.000     6.173 r      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIU06EHA[0]       ORCALUT4     Z        Out     0.179     6.352 f      -         
+g0_11_1                                                           Net          -        -       -         -            1         
+u_cpu.i_tv80_core.RegAddrA_m3_i_RNIUOK1NO                         ORCALUT4     D        In      0.000     6.352 f      -         
+u_cpu.i_tv80_core.RegAddrA_m3_i_RNIUOK1NO                         ORCALUT4     Z        Out     0.179     6.531 r      -         
+RegAddrA[0]                                                       Net          -        -       -         -            80        
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNIB3G50P[0]      ORCALUT4     A        In      0.000     6.531 r      -         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNIB3G50P[0]      ORCALUT4     Z        Out     0.754     7.286 r      -         
+RegsL_ram7__RNIB3G50P[0]                                          Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNIVG2VLD2[0]     PFUMX        ALUT     In      0.000     7.286 r      -         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNIVG2VLD2[0]     PFUMX        Z        Out     0.108     7.394 r      -         
+N_327                                                             Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNI6USP8R[0]      L6MUX21      D1       In      0.000     7.394 r      -         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNI6USP8R[0]      L6MUX21      Z        Out     0.784     8.178 r      -         
+ID16                                                              Net          -        -       -         -            5         
+u_cpu.i_tv80_core.ID16_cry_0_0                                    CCU2B        A1       In      0.000     8.178 r      -         
+u_cpu.i_tv80_core.ID16_cry_0_0                                    CCU2B        COUT     Out     1.056     9.233 r      -         
+ID16_cry_0                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_1_0                                    CCU2B        CIN      In      0.000     9.233 r      -         
+u_cpu.i_tv80_core.ID16_cry_1_0                                    CCU2B        COUT     Out     0.073     9.306 r      -         
+ID16_cry_2                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_3_0                                    CCU2B        CIN      In      0.000     9.306 r      -         
+u_cpu.i_tv80_core.ID16_cry_3_0                                    CCU2B        COUT     Out     0.073     9.379 r      -         
+ID16_cry_4                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_5_0                                    CCU2B        CIN      In      0.000     9.379 r      -         
+u_cpu.i_tv80_core.ID16_cry_5_0                                    CCU2B        COUT     Out     0.073     9.452 r      -         
+ID16_cry_6                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_7_0                                    CCU2B        CIN      In      0.000     9.452 r      -         
+u_cpu.i_tv80_core.ID16_cry_7_0                                    CCU2B        COUT     Out     0.073     9.525 r      -         
+ID16_cry_8                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_9_0                                    CCU2B        CIN      In      0.000     9.525 r      -         
+u_cpu.i_tv80_core.ID16_cry_9_0                                    CCU2B        COUT     Out     0.073     9.598 r      -         
+ID16_cry_10                                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_11_0                                   CCU2B        CIN      In      0.000     9.598 r      -         
+u_cpu.i_tv80_core.ID16_cry_11_0                                   CCU2B        COUT     Out     0.073     9.671 r      -         
+ID16_cry_12                                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_13_0                                   CCU2B        CIN      In      0.000     9.671 r      -         
+u_cpu.i_tv80_core.ID16_cry_13_0                                   CCU2B        COUT     Out     0.073     9.744 r      -         
+ID16_cry_14                                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_s_15_0                                     CCU2B        CIN      In      0.000     9.744 r      -         
+u_cpu.i_tv80_core.ID16_s_15_0                                     CCU2B        S0       Out     1.307     11.051 r     -         
+ID16[15]                                                          Net          -        -       -         -            2         
+u_cpu.i_tv80_core.RegDIH_RNO[7]                                   ORCALUT4     A        In      0.000     11.051 r     -         
+u_cpu.i_tv80_core.RegDIH_RNO[7]                                   ORCALUT4     Z        Out     0.754     11.806 r     -         
+RegDIH_RNO[7]                                                     Net          -        -       -         -            1         
+u_cpu.i_tv80_core.RegDIH[7]                                       PFUMX        BLUT     In      0.000     11.806 r     -         
+u_cpu.i_tv80_core.RegDIH[7]                                       PFUMX        Z        Out     0.369     12.175 r     -         
+RegDIH[7]                                                         Net          -        -       -         -            8         
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]                FD1P3AX      D        In      0.000     12.175 r     -         
+=================================================================================================================================
+
+
+Path information for path number 3: 
+      Requested Period:                      5.000
+    - Setup time:                            0.092
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.908
+
+    - Propagation time:                      12.175
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -7.267
+
+    Number of logic level(s):                22
+    Starting point:                          u_cpu.i_tv80_core.IR_fast[4] / Q
+    Ending point:                            u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7] / D
+    The start point is clocked by            z80cpm_brevia2|clk_op_inferred_clock [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            z80cpm_brevia2|clk_op_inferred_clock [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                                                 Pin      Pin               Arrival      No. of    
+Name                                                              Type         Name     Dir     Delay     Time         Fan Out(s)
+---------------------------------------------------------------------------------------------------------------------------------
+u_cpu.i_tv80_core.IR_fast[4]                                      FD1P3DX      Q        Out     1.035     1.035 r      -         
+IR_fast[4]                                                        Net          -        -       -         -            4         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_8[1]                  ORCALUT4     B        In      0.000     1.035 r      -         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_8[1]                  ORCALUT4     Z        Out     0.892     1.927 f      -         
+N_1769                                                            Net          -        -       -         -            3         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_9_RNI70G6N[1]         ORCALUT4     C        In      0.000     1.927 f      -         
+u_cpu.i_tv80_core.i_mcode.MCycles_1_iv_0_a2_9_RNI70G6N[1]         ORCALUT4     Z        Out     0.754     2.681 r      -         
+MCycles_1_iv_0_a2_9_RNI70G6N[1]                                   Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_3_o2_RNIKVQR41[1]           ORCALUT4     D        In      0.000     2.681 r      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_3_o2_RNIKVQR41[1]           ORCALUT4     Z        Out     1.018     3.699 f      -         
+N_1499                                                            Net          -        -       -         -            10        
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNO[0]             ORCALUT4     A        In      0.000     3.699 f      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNO[0]             ORCALUT4     Z        Out     0.754     4.453 f      -         
+Set_BusB_To_4_a2_0_0_RNO[0]                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0[0]                 ORCALUT4     C        In      0.000     4.453 f      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0[0]                 ORCALUT4     Z        Out     0.965     5.418 f      -         
+N_1519                                                            Net          -        -       -         -            5         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIOCINE[0]        ORCALUT4     B        In      0.000     5.418 f      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIOCINE[0]        ORCALUT4     Z        Out     0.754     6.173 r      -         
+Set_BusB_To_4_a2_0_0_RNIOCINE[0]                                  Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIU06EHA[0]       ORCALUT4     A        In      0.000     6.173 r      -         
+u_cpu.i_tv80_core.i_mcode.Set_BusB_To_4_a2_0_0_RNIU06EHA[0]       ORCALUT4     Z        Out     0.179     6.352 f      -         
+g0_11_1                                                           Net          -        -       -         -            1         
+u_cpu.i_tv80_core.RegAddrA_m3_i_RNIUOK1NO                         ORCALUT4     D        In      0.000     6.352 f      -         
+u_cpu.i_tv80_core.RegAddrA_m3_i_RNIUOK1NO                         ORCALUT4     Z        Out     0.179     6.531 r      -         
+RegAddrA[0]                                                       Net          -        -       -         -            80        
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4__RNI7JNK3P[0]      ORCALUT4     A        In      0.000     6.531 r      -         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4__RNI7JNK3P[0]      ORCALUT4     Z        Out     0.754     7.286 r      -         
+RegsL_ram4__RNI7JNK3P[0]                                          Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNIVG2VLD2[0]     PFUMX        BLUT     In      0.000     7.286 r      -         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNIVG2VLD2[0]     PFUMX        Z        Out     0.108     7.394 r      -         
+N_327                                                             Net          -        -       -         -            1         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNI6USP8R[0]      L6MUX21      D1       In      0.000     7.394 r      -         
+u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7__RNI6USP8R[0]      L6MUX21      Z        Out     0.784     8.178 r      -         
+ID16                                                              Net          -        -       -         -            5         
+u_cpu.i_tv80_core.ID16_cry_0_0                                    CCU2B        A1       In      0.000     8.178 r      -         
+u_cpu.i_tv80_core.ID16_cry_0_0                                    CCU2B        COUT     Out     1.056     9.233 r      -         
+ID16_cry_0                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_1_0                                    CCU2B        CIN      In      0.000     9.233 r      -         
+u_cpu.i_tv80_core.ID16_cry_1_0                                    CCU2B        COUT     Out     0.073     9.306 r      -         
+ID16_cry_2                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_3_0                                    CCU2B        CIN      In      0.000     9.306 r      -         
+u_cpu.i_tv80_core.ID16_cry_3_0                                    CCU2B        COUT     Out     0.073     9.379 r      -         
+ID16_cry_4                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_5_0                                    CCU2B        CIN      In      0.000     9.379 r      -         
+u_cpu.i_tv80_core.ID16_cry_5_0                                    CCU2B        COUT     Out     0.073     9.452 r      -         
+ID16_cry_6                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_7_0                                    CCU2B        CIN      In      0.000     9.452 r      -         
+u_cpu.i_tv80_core.ID16_cry_7_0                                    CCU2B        COUT     Out     0.073     9.525 r      -         
+ID16_cry_8                                                        Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_9_0                                    CCU2B        CIN      In      0.000     9.525 r      -         
+u_cpu.i_tv80_core.ID16_cry_9_0                                    CCU2B        COUT     Out     0.073     9.598 r      -         
+ID16_cry_10                                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_11_0                                   CCU2B        CIN      In      0.000     9.598 r      -         
+u_cpu.i_tv80_core.ID16_cry_11_0                                   CCU2B        COUT     Out     0.073     9.671 r      -         
+ID16_cry_12                                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_cry_13_0                                   CCU2B        CIN      In      0.000     9.671 r      -         
+u_cpu.i_tv80_core.ID16_cry_13_0                                   CCU2B        COUT     Out     0.073     9.744 r      -         
+ID16_cry_14                                                       Net          -        -       -         -            1         
+u_cpu.i_tv80_core.ID16_s_15_0                                     CCU2B        CIN      In      0.000     9.744 r      -         
+u_cpu.i_tv80_core.ID16_s_15_0                                     CCU2B        S0       Out     1.307     11.051 r     -         
+ID16[15]                                                          Net          -        -       -         -            2         
+u_cpu.i_tv80_core.RegDIH_RNO[7]                                   ORCALUT4     A        In      0.000     11.051 r     -         
+u_cpu.i_tv80_core.RegDIH_RNO[7]                                   ORCALUT4     Z        Out     0.754     11.806 r     -         
+RegDIH_RNO[7]                                                     Net          -        -       -         -            1         
+u_cpu.i_tv80_core.RegDIH[7]                                       PFUMX        BLUT     In      0.000     11.806 r     -         
+u_cpu.i_tv80_core.RegDIH[7]                                       PFUMX        Z        Out     0.369     12.175 r     -         
+RegDIH[7]                                                         Net          -        -       -         -            8         
+u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]                FD1P3AX      D        In      0.000     12.175 r     -         
+=================================================================================================================================
+
+
+
+##### END OF TIMING REPORT #####]
+
+Timing exceptions that could not be applied
+
+Finished final timing analysis (Real Time elapsed 0h:00m:21s; CPU Time elapsed 0h:00m:20s; Memory used current: 339MB peak: 366MB)
+
+
+Finished timing report (Real Time elapsed 0h:00m:21s; CPU Time elapsed 0h:00m:20s; Memory used current: 339MB peak: 366MB)
+
+---------------------------------------
+Resource Usage Report
+Part: lfxp2_5e-6
+
+Register bits: 501 of 4752 (11%)
+PIC Latch:       0
+I/O cells:       48
+
+
+Details:
+BB:             8
+CCU2B:          82
+FD1P3AX:        137
+FD1P3BX:        24
+FD1P3DX:        154
+FD1P3IX:        8
+FD1S3AX:        68
+FD1S3BX:        31
+FD1S3DX:        73
+FD1S3IX:        2
+FD1S3JX:        2
+GSR:            1
+IB:             11
+IFS1P3BX:       1
+INV:            11
+L6MUX21:        47
+OB:             29
+OFS1P3BX:       1
+ORCALUT4:       2076
+PFUMX:          235
+PUR:            1
+ROM256X1:       16
+VHI:            10
+VLO:            10
+pmi_pll:        1
+Mapper successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:21s; CPU Time elapsed 0h:00m:21s; Memory used current: 146MB peak: 366MB)
+
+Process took 0h:00m:21s realtime, 0h:00m:21s cputime
+# Mon Nov 16 02:53:55 2026
+
+###########################################################]

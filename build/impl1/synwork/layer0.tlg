@@ -1,0 +1,129 @@
+Selecting top level module z80cpm_brevia2
+@W: CG168 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":43:2:43:9|Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type 
+@N: CG364 :"C:\lscc\diamond\3.14\synpbase\lib\lucent\pmi_def.v":1077:7:1077:13|Synthesizing module pmi_pll in library work.
+Running optimization stage 1 on pmi_pll .......
+Finished optimization stage 1 on pmi_pll (CPU Time 0h:00m:00s, Memory Used current: 95MB peak: 96MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v":3:7:3:14|Synthesizing module boot_rom in library work.
+Running optimization stage 1 on boot_rom .......
+Finished optimization stage 1 on boot_rom (CPU Time 0h:00m:00s, Memory Used current: 97MB peak: 98MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v":6:7:6:16|Synthesizing module sram_async in library work.
+Running optimization stage 1 on sram_async .......
+Finished optimization stage 1 on sram_async (CPU Time 0h:00m:00s, Memory Used current: 97MB peak: 98MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v":17:7:17:14|Synthesizing module ram_disk in library work.
+Running optimization stage 1 on ram_disk .......
+Finished optimization stage 1 on ram_disk (CPU Time 0h:00m:00s, Memory Used current: 97MB peak: 98MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v":4:7:4:13|Synthesizing module uart_tx in library work.
+Running optimization stage 1 on uart_tx .......
+Finished optimization stage 1 on uart_tx (CPU Time 0h:00m:00s, Memory Used current: 98MB peak: 99MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v":4:7:4:13|Synthesizing module uart_rx in library work.
+Running optimization stage 1 on uart_rx .......
+@A: CL282 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v":20:2:20:7|Feedback mux created for signal rx_data[7:0]. It is possible a set/reset assignment for this is signal missing. To improve timing and area, specify a set/reset value.
+Finished optimization stage 1 on uart_rx (CPU Time 0h:00m:00s, Memory Used current: 98MB peak: 99MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v":26:7:26:16|Synthesizing module tv80_mcode in library work.
+
+	Mode=32'b00000000000000000000000000000000
+	Flag_C=32'b00000000000000000000000000000000
+	Flag_N=32'b00000000000000000000000000000001
+	Flag_P=32'b00000000000000000000000000000010
+	Flag_X=32'b00000000000000000000000000000011
+	Flag_H=32'b00000000000000000000000000000100
+	Flag_Y=32'b00000000000000000000000000000101
+	Flag_Z=32'b00000000000000000000000000000110
+	Flag_S=32'b00000000000000000000000000000111
+	aNone=3'b111
+	aBC=3'b000
+	aDE=3'b001
+	aXY=3'b010
+	aIOA=3'b100
+	aSP=3'b101
+	aZI=3'b110
+   Generated name = tv80_mcode_Z1
+Running optimization stage 1 on tv80_mcode_Z1 .......
+Finished optimization stage 1 on tv80_mcode_Z1 (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 109MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v":26:7:26:14|Synthesizing module tv80_alu in library work.
+
+	Mode=32'b00000000000000000000000000000000
+	Flag_C=32'b00000000000000000000000000000000
+	Flag_N=32'b00000000000000000000000000000001
+	Flag_P=32'b00000000000000000000000000000010
+	Flag_X=32'b00000000000000000000000000000011
+	Flag_H=32'b00000000000000000000000000000100
+	Flag_Y=32'b00000000000000000000000000000101
+	Flag_Z=32'b00000000000000000000000000000110
+	Flag_S=32'b00000000000000000000000000000111
+   Generated name = tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s
+Running optimization stage 1 on tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s .......
+Finished optimization stage 1 on tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 109MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":26:7:26:14|Synthesizing module tv80_reg in library work.
+Running optimization stage 1 on tv80_reg .......
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsL, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsH, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsL, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsH, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsL, depth=8, width=8
+@N: CL134 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Found RAM RegsH, depth=8, width=8
+Finished optimization stage 1 on tv80_reg (CPU Time 0h:00m:00s, Memory Used current: 108MB peak: 109MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_core.v":26:7:26:15|Synthesizing module tv80_core in library work.
+
+	Mode=32'b00000000000000000000000000000000
+	IOWait=32'b00000000000000000000000000000001
+	Flag_C=32'b00000000000000000000000000000000
+	Flag_N=32'b00000000000000000000000000000001
+	Flag_P=32'b00000000000000000000000000000010
+	Flag_X=32'b00000000000000000000000000000011
+	Flag_H=32'b00000000000000000000000000000100
+	Flag_Y=32'b00000000000000000000000000000101
+	Flag_Z=32'b00000000000000000000000000000110
+	Flag_S=32'b00000000000000000000000000000111
+	aNone=3'b111
+	aBC=3'b000
+	aDE=3'b001
+	aXY=3'b010
+	aIOA=3'b100
+	aSP=3'b101
+	aZI=3'b110
+   Generated name = tv80_core_Z2
+Running optimization stage 1 on tv80_core_Z2 .......
+Finished optimization stage 1 on tv80_core_Z2 (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v":9:7:9:11|Synthesizing module tv80n in library work.
+Running optimization stage 1 on tv80n .......
+Finished optimization stage 1 on tv80n (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Synthesizing module z80cpm_brevia2 in library work.
+Running optimization stage 1 on z80cpm_brevia2 .......
+@W: CL265 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":153:2:153:7|Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.
+Finished optimization stage 1 on z80cpm_brevia2 (CPU Time 0h:00m:00s, Memory Used current: 111MB peak: 115MB)
+Running optimization stage 2 on z80cpm_brevia2 .......
+Finished optimization stage 2 on z80cpm_brevia2 (CPU Time 0h:00m:00s, Memory Used current: 110MB peak: 115MB)
+Running optimization stage 2 on tv80n .......
+Finished optimization stage 2 on tv80n (CPU Time 0h:00m:00s, Memory Used current: 110MB peak: 115MB)
+Running optimization stage 2 on tv80_core_Z2 .......
+Finished optimization stage 2 on tv80_core_Z2 (CPU Time 0h:00m:00s, Memory Used current: 120MB peak: 135MB)
+Running optimization stage 2 on tv80_reg .......
+Finished optimization stage 2 on tv80_reg (CPU Time 0h:00m:00s, Memory Used current: 120MB peak: 135MB)
+Running optimization stage 2 on tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s .......
+Finished optimization stage 2 on tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s (CPU Time 0h:00m:00s, Memory Used current: 119MB peak: 135MB)
+Running optimization stage 2 on tv80_mcode_Z1 .......
+@W: CL246 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v":52:24:52:24|Input port bits 5 to 3 of F[7:0] are unused. Assign logic for all port bits or change the input port size.
+@W: CL247 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v":52:24:52:24|Input port bit 1 of F[7:0] is unused
+
+Finished optimization stage 2 on tv80_mcode_Z1 (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on uart_rx .......
+Finished optimization stage 2 on uart_rx (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on uart_tx .......
+Finished optimization stage 2 on uart_tx (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on ram_disk .......
+Finished optimization stage 2 on ram_disk (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on sram_async .......
+@N: CL159 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v":7:16:7:18|Input clk is unused.
+@N: CL159 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v":8:16:8:20|Input rst_n is unused.
+Finished optimization stage 2 on sram_async (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on boot_rom .......
+Finished optimization stage 2 on boot_rom (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+Running optimization stage 2 on pmi_pll .......
+Finished optimization stage 2 on pmi_pll (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 135MB)
+
+For a summary of runtime per design unit, please see file:
+==========================================================
+@L: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synwork\layer0.duruntime
+
+

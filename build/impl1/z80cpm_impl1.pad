@@ -6,7 +6,7 @@ Performance Grade:      6
 PACKAGE:          TQFP144
 Package Status:                     Final          Version 1.42
 
-Sun Nov 15 20:24:36 2026
+Mon Nov 16 02:54:29 2026
 
 Pinout by Port Name:
 +---------------+----------+---------------+-------+-------------------------------+
@@ -338,7 +338,7 @@ LOCATE  COMP  "uart_rx"  SITE  "110";
 LOCATE  COMP  "uart_tx"  SITE  "109";
 
 #PLL
-LOCATE  COMP  "pmi_pll0offCLKOP500XP212.50000025252550/PLLInst_0"  SITE  "ULPLL" ;
+LOCATE  COMP  "pll_inst/PLLInst_0"  SITE  "ULPLL" ;
 
 
 
@@ -349,5 +349,5 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
-Sun Nov 15 20:24:36 2026
+Mon Nov 16 02:54:29 2026
 

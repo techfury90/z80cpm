@@ -7,7 +7,6 @@ module sram_async(
   input         clk,
   input         rst_n,
   input  [15:0] addr,
-  input  [7:0]  wdata,
   input         mem_rd,
   input         mem_we,
   output        wait_n,
@@ -16,15 +15,14 @@ module sram_async(
   output        sram_cen,
   output        sram_oen,
   output        sram_wen,
-  inout  [7:0]  sram_data
+  input  [7:0]  sram_data_in
 );
   wire go = mem_rd | mem_we;
 
-  assign sram_addr = {1'b0, addr};              // combinational address
-  assign wait_n    = 1'b1;                      // no wait at 25 MHz
-  assign rdata     = sram_data;                 // combinational read data
+  assign sram_addr = {1'b0, addr};   // bank A (bit16=0)
+  assign wait_n    = 1'b1;           // no wait at 25 MHz
+  assign rdata     = sram_data_in;   // read data comes from the shared bus
   assign sram_cen  = ~go;
   assign sram_oen  = ~(go & ~mem_we);
   assign sram_wen  = ~(go & mem_we);
-  assign sram_data = (go & mem_we) ? wdata : 8'bz;
 endmodule

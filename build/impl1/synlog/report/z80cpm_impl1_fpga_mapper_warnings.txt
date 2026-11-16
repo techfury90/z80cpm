@@ -1,0 +1,920 @@
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net clk_op has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[2] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[4] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[5] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[6] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net rd_dout[7] has multiple drivers .
+@W: FX474 |User-specified initial value defined for some sequential elements which can prevent optimum synthesis results from being achieved. 
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.rd_n_3 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_79 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_80 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_81 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_82 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_83 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_84 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_85 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_86 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_87 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_88 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_89 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_90 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_91 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_92 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_93 has multiple drivers .
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram2_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram2_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram2_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram2_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram2_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram2_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram2_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram2_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram2_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram2_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram2_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram2_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram2_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram2_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram2_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram2_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram2_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram3_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram3_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram3_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram3_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram3_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram3_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram3_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram3_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram3_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram3_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram3_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram3_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram3_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram3_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram3_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram4_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram4_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram4_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram4_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram4_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram4_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram4_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram4_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram4_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram4_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram4_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram4_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram5_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram5_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram5_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram4_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram4_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram4_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram4_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram4_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram5_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram5_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram5_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram5_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram5_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram5_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram5_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram5_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram5_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram6_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.mcycle[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.tstate[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.di_reg5 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_70 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_101 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_102 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_103 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_104 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_105 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_106 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_107 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_108 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_109 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_110 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_111 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_112 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_113 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_114 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_115 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_116 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_117 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_118 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_119 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_120 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_121 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.N_122 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_18 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_21 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_55 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_56 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_57 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_58 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_59 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_60 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_61 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_62 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_63 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_64 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_65 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_66 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_67 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_tx.N_68 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[2] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[4] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[5] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[6] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[4] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[5] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[6] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Arith16_r_5 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[2] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.BTR_r_7 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[0] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[1] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[2] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[3] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[4] has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.Save_ALU_r_8 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.last_mcycle has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.last_tstate has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_805 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_806 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_807 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_816 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_817 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_818 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_819 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_821 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_906 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_907 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_908 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_909 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_910 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_911 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_912 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_913 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_914 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_915 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_916 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_917 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_918 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_919 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_920 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_921 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_922 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_923 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_924 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_925 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_926 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_927 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_928 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_929 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_930 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_931 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_932 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_933 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_934 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_935 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_936 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_937 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_940 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_945 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_947 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_948 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_949 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_950 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_951 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_952 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_953 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_954 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_955 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_956 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_957 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_958 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_959 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_960 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_962 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_966 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_967 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_968 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_969 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_974 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_975 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_976 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_993 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_994 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_995 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1008 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1009 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1010 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1011 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1098 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1099 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1100 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1101 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1102 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1103 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1104 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1105 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1106 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1107 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1108 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1109 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1110 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1111 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1112 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1113 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1114 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1115 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1116 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1117 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1118 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1119 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1120 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1121 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1122 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1123 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1124 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1125 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1126 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1130 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1133 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1134 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1135 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1136 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1137 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1138 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1139 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1140 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1141 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1142 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1143 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1146 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1147 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1148 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1149 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1150 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1151 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1152 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1153 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1157 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1158 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1159 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1160 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1165 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1166 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1167 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1168 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1189 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1190 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1191 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1192 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1193 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1194 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1195 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1196 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1197 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1198 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1199 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1200 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1201 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1202 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1203 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1204 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1205 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1206 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1207 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1208 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1209 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1210 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1211 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1212 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1213 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1214 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1215 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1216 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1217 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1218 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1219 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1220 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1221 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1222 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1223 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1224 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1225 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1226 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1227 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1228 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1229 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1230 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1231 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1232 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1233 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1234 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1235 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1236 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1237 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1238 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1239 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1240 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1241 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1242 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1243 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1244 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1245 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1246 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1247 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1248 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1249 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1250 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1251 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1252 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1253 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1254 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1255 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1256 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1257 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1258 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1259 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1260 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1261 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1262 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1263 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1264 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1265 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1266 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1267 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1268 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1269 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1270 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1271 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1272 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1273 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1274 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1275 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1276 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1277 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1278 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.N_1279 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.SP16 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.ID16 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_0 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_1 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_2 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_3 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_4 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_5 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_6 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_7 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_8 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_9 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_10 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_11 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_12 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_13 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_14 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.un1_TmpAddr_0_axb_15 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_rx.k has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.PC_20_0 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1083 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1086 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1089 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1092 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1095 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1098 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1101 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.i_alu.DAA_Q_13 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.i_alu.DAA_Q_13_0 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1105 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1108 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_1111 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net u_cpu.i_tv80_core.i_alu.DAA_Q_13_axb_8 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3632 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3634 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3636 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3638 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3640 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3642 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3644 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3660 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3662 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3664 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3666 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3668 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3670 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3672 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3674 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3676 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3678 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3680 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3682 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3684 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3686 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3688 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3690 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3692 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3694 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3696 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3698 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3703 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3705 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3707 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3709 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3713 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3715 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3717 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3719 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3721 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3723 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3725 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3727 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3752 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3755 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3757 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3760 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3763 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3767 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3769 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3772 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3776 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3778 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3780 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3782 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3784 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3786 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3788 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3790 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3792 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3794 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3796 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3798 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3800 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3802 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3804 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3806 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3808 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3810 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3812 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3814 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3816 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3818 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3820 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3822 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3824 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3826 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3828 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3830 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3832 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3834 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3836 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3838 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3840 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3842 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3844 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3846 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3848 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3850 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3852 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3854 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3856 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3858 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3860 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3862 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3864 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3866 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3868 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3870 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3872 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3875 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3877 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3879 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3881 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3883 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3885 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3887 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3889 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3891 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3893 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3895 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3897 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3899 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3901 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3903 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3905 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3907 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3909 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3911 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3977 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3979 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3981 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3984 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3986 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3988 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3990 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3992 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3994 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3996 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_3998 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4000 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4002 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4004 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4006 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4008 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4010 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4012 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4014 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4016 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4018 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4020 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4022 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4024 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4026 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4028 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4030 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4032 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4034 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4036 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4038 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4040 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4042 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4044 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4046 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4048 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4050 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4052 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4054 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4056 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4058 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4060 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4062 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4064 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4066 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4068 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4070 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4072 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4074 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4076 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4078 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4080 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4082 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4084 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4086 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4088 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4090 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4092 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4094 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4096 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4098 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4100 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4102 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4104 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4106 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4108 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4110 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4112 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4114 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4116 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4118 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4120 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4122 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4124 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4126 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4128 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4130 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4132 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4134 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4136 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4138 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4140 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4142 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4144 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4146 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4148 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4150 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4152 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4154 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4156 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4158 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4160 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4162 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4164 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4166 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4168 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4170 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4172 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4174 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4176 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4178 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4180 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4182 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4184 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4186 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4188 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4190 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4192 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4194 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4196 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4198 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4200 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4202 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4204 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4206 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4208 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4210 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4212 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4214 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4216 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4218 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4220 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4222 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4224 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4226 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4228 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4230 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4232 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4234 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4236 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4238 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4240 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4242 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4244 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4246 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4248 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4250 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4252 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4254 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4294 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4296 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4298 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4300 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4302 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4304 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4306 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4308 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4310 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4312 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4314 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4316 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4318 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4320 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4322 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4324 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4326 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4328 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4330 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4332 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4334 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4336 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4338 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4340 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4342 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4344 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4346 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4348 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4350 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4355 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4357 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4359 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4361 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4363 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4365 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4367 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4369 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4371 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4373 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4375 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4377 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4379 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4381 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4383 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4385 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4387 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4389 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4391 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4393 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4395 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4397 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4399 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4401 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4403 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4405 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4407 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4409 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4411 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4413 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4415 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4417 has multiple drivers .
+@W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":13:7:13:20|Net N_4420 has multiple drivers .
+@W: BW268 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":43:2:43:9|Ignoring parameter pmi_freq_clkok with floating-point value in -edn file
+@W: MT246 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":43:2:43:9|Blackbox pmi_pll is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)
+@W: MT420 |Found inferred clock z80cpm_brevia2|clk_op_inferred_clock with period 5.00ns. Please declare a user-defined clock on net clk_op.

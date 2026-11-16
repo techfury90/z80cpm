@@ -1,0 +1,19 @@
+BEGIN 1:tv80_core:fast:work
+    PC :  1:tb_ramdisktest:fast:work
+    RegBusB :  1:tb_ramdisktest:fast:work
+END 
+BEGIN 1:z80cpm_brevia2:fast:work
+    io_rd :  1:tb_ramdisktest:fast:work
+    cpu_dout :  1:tb_ramdisktest:fast:work
+    ram_wr :  1:tb_ramdisktest:fast:work
+    clk :  1:tb_ramdisktest:fast:work
+    bus_din :  1:tb_ramdisktest:fast:work
+    rd_dout :  1:tb_ramdisktest:fast:work
+    rd_stb :  1:tb_ramdisktest:fast:work
+END 
+BEGIN 1:sram_model:fast:work
+    mem :  1:tb_ramdisktest:fast:work
+END 
+BEGIN 1:ram_disk:fast:work
+    addr :  1:tb_ramdisktest:fast:work
+END 

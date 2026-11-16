@@ -49,7 +49,7 @@ XMBUF   EQU     2000H                   ; 128-byte XMODEM block buffer
 FCB     EQU     2100H                   ; 32-byte FCB (extent 0) in RAM
 FCB2    EQU     2120H                   ; 32-byte FCB (extent 1) in RAM
 RCNT_L  EQU     2160H                   ; total records received (16-bit, L then H)
-FNAME   EQU     2180H                   ; 9-byte user filename (name.ext)
+FNAME   EQU     2180H                   ; 12-byte user filename buffer (8.3)
 
 ; ============================================================================
         JMP     START
@@ -150,6 +150,8 @@ MENU:   LXI     H,MSGMENU
         JZ      DO_DOWNLOAD
         CPI     'H'
         JZ      DO_HELP
+        CPI     'B'
+        JZ      DO_DUMP
         JMP     MENU
 
 ; ---------------- command: format ----------------
@@ -489,7 +491,7 @@ SA21:   MOV     M,A
 ; ============================================================================
 READNAME:
         LXI     H,FNAME
-        MVI     B,9
+        MVI     B,12
 RN1:    CALL    RXCHAR
         CPI     0DH
         JZ      RN_DONE
@@ -581,7 +583,7 @@ BF_EXT_PAD:
         JNZ     BF_EXT_PAD
 BF_EXT0:
         LXI     H,FCB
-        MVI     M,00H                   ; drive = 0 (A:)
+        MVI     M,01H                   ; drive 1 = A: (dir entry byte0)
         LXI     H,FCB
         LXI     D,FCB2
         MVI     B,32
@@ -667,16 +669,82 @@ XS_BLK:  DS     1
 XS_ADDR: DS     2
 
 ; ============================================================================
+; DO_DUMP -- dump 256 bytes from the RAM disk at a hex address, as hex (16/line).
+; ============================================================================
+DO_DUMP:
+        LXI     H,MSGDUMP
+        CALL    PRTSTR
+        CALL    READHEX                 ; HL = start address
+        CALL    RDSETA
+        MVI     B,16                    ; 16 lines
+DUMP_L1: MVI     D,16                    ; 16 bytes per line
+DUMP_B: IN      RDDATA
+        CALL    PRTBYTE
+        MVI     A,' '
+        CALL    TXCHAR
+        DCR     D
+        JNZ     DUMP_B
+        CALL    CRLF
+        DCR     B
+        JNZ     DUMP_L1
+        JMP     MENU
+
+; ---------------------------------------------------------------------------
+; READHEX -- read up to 4 hex digits from the console into HL (echoed).
+; ---------------------------------------------------------------------------
+READHEX:
+        LXI     H,0000H
+        MVI     B,4
+RH1:    CALL    RXCHAR
+        CPI     0DH
+        JZ      RH_DONE                 ; Enter ends
+        ; determine hex digit value 0-15 in A
+        CPI     '0'
+        JC      RH_NEXT                 ; < '0' -> ignore
+        CPI     '9'+1
+        JC      RH_DIG                  ; '0'-'9'
+        ANI     0DFH                    ; uppercase
+        CPI     'A'
+        JC      RH_NEXT                 ; < 'A' -> ignore
+        CPI     'F'+1
+        JNC     RH_NEXT                 ; > 'F' -> ignore
+        SUI     'A'-10                  ; 'A'-'F' -> 10-15
+        JMP     RH_ADD
+RH_DIG: SUI     '0'                     ; '0'-'9' -> 0-9
+RH_ADD: CALL    TXCHAR                  ; echo the digit
+        MOV     C,A                     ; C = digit value
+        ; HL = (HL << 4) | C
+        MVI     D,04H
+RH_SHL: MOV     A,L
+        ADD     A
+        MOV     L,A
+        MOV     A,H
+        RAL
+        MOV     H,A
+        DCR     D
+        JNZ     RH_SHL
+        MOV     A,L
+        ORA     C
+        MOV     L,A
+        DCR     B
+        JNZ     RH1
+RH_DONE:
+        CALL    CRLF
+        RET
+RH_NEXT: JMP     RH1
+
+; ============================================================================
 ; Messages
 ; ============================================================================
 MSGBANNER: DB 'Z80 Brevia2 RAM-disk utility',0DH,0AH,0
 MSGMENU:   DB 'F)ormat U)pload D)ownload H)elp > ',0
-MSGHELP:   DB 'F=format A:  U=xmodem receive  D=xmodem send',0DH,0AH,0
+MSGHELP:   DB 'F=format A:  U=xmodem receive  D=xmodem send  B=dump',0DH,0AH,0
 MSGFMT:    DB 'Formatting...',0DH,0AH,0
 MSGFMTOK:  DB 'Format OK.',0DH,0AH,0
 MSGPROMPT: DB 'Receive FILENAME (8.3): ',0
 MSGRECV:   DB 'Receiving (xmodem)...',0DH,0AH,0
 MSGDONE:   DB 'Received. Records(hi lo): ',0
+MSGDUMP:   DB 'Dump 256 bytes at hex addr: ',0
 MSGDL:     DB 'Sending (xmodem)...',0DH,0AH,0
 MSGDLDONE: DB 'Send complete.',0DH,0AH,0
 

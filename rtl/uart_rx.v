@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
-// uart_rx -- simple 8N1 receiver. Detects start bit, samples 8 data bits at
-// mid-bit (LSB first), checks the stop bit, sets rx_avail. rx_consume clears it.
+// uart_rx -- simple 8N1 receiver, hardened: the async rxd is 2-flop synchronized
+// (rxd_s0/rxd_s1) before sampling to kill metastability, per Lattice rxcver.v.
 module uart_rx(
   input         clk,
   input         rst_n,
@@ -15,37 +15,37 @@ module uart_rx(
   reg [15:0]    k     = 0;
   reg [3:0]    bitidx= 0;
   reg [7:0]    sr    = 0;
-  reg          rxd_d = 1'b1;
-  reg          start_ok = 1'b0;
+  reg          rxd_s0 = 1'b1, rxd_s1 = 1'b1;   // 2-flop async->sync synchronizer
 
   always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       rx_state <= 1'b0; rx_avail <= 1'b0; k <= 0; bitidx <= 0; sr <= 0;
-      rxd_d <= 1'b1; start_ok <= 1'b0;
+      rxd_s0 <= 1'b1; rxd_s1 <= 1'b1;
     end
     else begin
-      rxd_d <= rxd;
+      rxd_s0 <= rxd;        // sync stage 1
+      rxd_s1 <= rxd_s0;     // sync stage 2 (metastability-free; use this)
       if (rx_consume) rx_avail <= 1'b0;
       if (!rx_state) begin
-        // Idle: wait for a start bit (falling edge of rxd).
-        if (rxd_d === 1'b1 && rxd === 1'b0) begin
-          rx_state <= 1'b1; k <= 0; bitidx <= 0; start_ok <= 1'b0;
+        // Idle: wait for the start bit (falling edge of the synchronized rxd).
+        if (rxd_s0 === 1'b0 && rxd_s1 === 1'b1) begin
+          rx_state <= 1'b1; k <= 0; bitidx <= 0;
         end
       end
       else begin
         k <= k + 1;
-        // Confirm start bit is still low at mid-start.
-        if (bitidx == 0 && k == (BAUD_DIV/2) && rxd === 1'b1) begin
-          rx_state <= 1'b0;  // false start
+        // Verify the start bit is still low at mid-start; if high, it was a false start.
+        if (bitidx == 0 && k == (BAUD_DIV/2) && rxd_s1 === 1'b1) begin
+          rx_state <= 1'b0;
         end
         // Sample each data bit at mid-bit. Data bit i is at (i+1.5)*BAUD_DIV.
         else if (bitidx < 8 && k == ((bitidx+1)*BAUD_DIV + BAUD_DIV/2)) begin
-          sr[bitidx] <= rxd;
+          sr[bitidx] <= rxd_s1;
           bitidx <= bitidx + 1;
         end
-        // Stop bit check.
+        // Stop bit check; accept the byte only if the stop bit is high.
         else if (bitidx == 8 && k == (9*BAUD_DIV + BAUD_DIV/2)) begin
-          if (rxd === 1'b1) begin
+          if (rxd_s1 === 1'b1) begin
             rx_data <= sr; rx_avail <= 1'b1;
           end
           rx_state <= 1'b0;

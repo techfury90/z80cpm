@@ -13,6 +13,10 @@
 ;   D  -- XMODEM download: send a file from the RAM disk to the host PC.
 ;   H  -- help
 ;
+; XMODEM receive retries the initiating NAK with a ~1.5s timeout each cycle,
+; so the host (Tera Term / minicom) picks it up even if it starts the transfer
+; AFTER we began waiting. Supports checksum blocks (SOH) and CRC blocks (STX).
+;
 ; Assembled with the Glitch Works a85 8085 cross-assembler (same as cbios.asm).
 ; ============================================================================
 
@@ -33,10 +37,12 @@ RECSZ   EQU     128                     ; CP/M record size
 
 ; ---------------- XMODEM control bytes ----------------
 XM_SOH  EQU     01H
+XM_STX  EQU     02H
 XM_EOT  EQU     04H
 XM_ACK  EQU     06H
 XM_NAK  EQU     15H
 XM_CAN  EQU     18H
+XM_TO   EQU     0FEH                    ; internal: RX timeout marker
 
 ; ---------------- Workspace (bank A SRAM, well below the CCP at 0xE400) ----------------
 XMBUF   EQU     2000H                   ; 128-byte XMODEM block buffer
@@ -49,6 +55,7 @@ FNAME   EQU     2180H                   ; 9-byte user filename (name.ext)
         JMP     START
 
 ; ---------------- UART primitives ----------------
+; TXCHAR: output char in A; poll tx_busy(bit0) low.
 TXCHAR: PUSH    PSW
 TXCH1:  IN      USTAT
         ANI     01H
@@ -57,18 +64,44 @@ TXCH1:  IN      USTAT
         OUT     UDATA
         RET
 
+; RXCHAR: block until a char, return it in A.
 RXCHAR: IN      USTAT
         ANI     02H
         JZ      RXCHAR
         IN      UDATA
         RET
 
+; RXCHAR_T: receive a char with a ~1.5s timeout.
+;   Returns: carry CLEAR + A=char if a char arrived; carry SET if timeout.
+RXCHAR_T:
+        MVI     B,0B0H                  ; outer count
+RT_L2:  MVI     C,0B0H                  ; mid count
+RT_L1:  MVI     D,0B0H                  ; inner count
+RT_L0:  IN      USTAT
+        ANI     02H
+        JNZ     RT_HAVE
+        DCR     D
+        JNZ     RT_L0
+        DCR     C
+        JNZ     RT_L1
+        DCR     B
+        JNZ     RT_L2
+        STC                             ; timeout
+        RET
+RT_HAVE:
+        IN      UDATA                   ; char
+        STC
+        CMC                             ; carry clear (char read)
+        RET
+
+; CRLF: send CR + LF.
 CRLF:   MVI     A,0DH
         CALL    TXCHAR
         MVI     A,0AH
         CALL    TXCHAR
         RET
 
+; PRTSTR: print NUL-terminated string at HL.
 PRTSTR: MOV     A,M
         ORA     A
         RZ
@@ -76,6 +109,7 @@ PRTSTR: MOV     A,M
         INX     H
         JMP     PRTSTR
 
+; PRTBYTE: print A as two hex digits.
 PRTBYTE: PUSH    PSW
         ANI     0F0H
         RRC
@@ -107,6 +141,7 @@ START:  LXI     SP,0F000H               ; stack high in bank A (clear of code/bu
 MENU:   LXI     H,MSGMENU
         CALL    PRTSTR
         CALL    RXCHAR                  ; wait for a command char
+        ANI     0DFH                    ; force uppercase (accept lowercase)
         CPI     'F'
         JZ      DO_FMT
         CPI     'U'
@@ -138,27 +173,28 @@ DO_HELP: LXI     H,MSGHELP
         JMP     MENU
 
 ; ============================================================================
-; DO_UPLOAD -- XMODEM (checksum) receive a file, write it as a CP/M file.
+; DO_UPLOAD -- XMODEM (checksum/CRC) receive a file, write it as a CP/M file.
 ; ============================================================================
 DO_UPLOAD:
         LXI     H,MSGPROMPT
         CALL    PRTSTR
-        CALL    READNAME                ; read "name.ext" into FNAME
+        CALL    READNAME                ; read "name.ext" into FNAME (echoed)
         LXI     H,0000H
         SHLD    RCNT_L                  ; init record counter
         LXI     H,MSGRECV
         CALL    PRTSTR
-        MVI     A,XM_NAK                ; request checksum mode
+        MVI     A,XM_NAK                ; kick off with a checksum NAK
         CALL    TXCHAR
 
-UPLOOP: CALL    GETBLK                  ; A=00 EOT, 01 good, FF bad, 02 cancel
-        MOV     B,A
+UPLOOP: CALL    GETBLK                  ; A=TO(timeout),01 good,FF bad,00 EOT,02 CAN
+        CPI     XM_TO
+        JZ      UP_NAK                  ; timeout -> resend NAK, keep waiting
         CPI     02H
-        JZ      UPL_NAK
+        JZ      UP_NAK                  ; CAN
         CPI     00H
-        JZ      UPL_EOT
+        JZ      UP_EOT
         CPI     0FFH
-        JZ      UPL_NAK
+        JZ      UP_NAK                  ; bad block -> NAK
         ; good block -> write it to the disk
         CALL    WRITEBLK
         MVI     A,XM_ACK
@@ -166,11 +202,11 @@ UPLOOP: CALL    GETBLK                  ; A=00 EOT, 01 good, FF bad, 02 cancel
         MVI     A,'.'
         CALL    TXCHAR
         JMP     UPLOOP
-UPL_NAK: MVI     A,XM_NAK
+UP_NAK: MVI     A,XM_NAK
         CALL    TXCHAR
         JMP     UPLOOP
 
-UPL_EOT: MVI     A,XM_ACK
+UP_EOT: MVI     A,XM_ACK
         CALL    TXCHAR
         CALL    CRLF
         CALL    WRITEFCB                ; write directory entries
@@ -185,29 +221,36 @@ UPL_EOT: MVI     A,XM_ACK
         JMP     MENU
 
 ; ============================================================================
-; GETBLK -- receive one XMODEM block (checksum mode) into XMBUF.
-; Returns A: 00=EOT, 01=good, FF=bad, 02=CAN. Good => XMBUF[0..127]=data.
+; GETBLK -- receive one XMODEM block into XMBUF.
+; Returns A: XM_TO(timeout), 00=EOT, 01=good, FF=bad, 02=CAN.
+; (First byte uses the timed read so we can retry the NAK on timeout; the rest
+;  of the block uses blocking reads because the host sends them back-to-back.)
 ; ============================================================================
-GETBLK: CALL    RXCHAR
+GETBLK: CALL    RXCHAR_T
+        JC      GT_TIMEOUT              ; carry set = timeout
         CPI     XM_EOT
         JZ      GT_EOT
         CPI     XM_CAN
         JZ      GT_CAN
         CPI     XM_SOH
         JZ      GT_SOH
-        JMP     GETBLK                  ; ignore stray bytes
+        CPI     XM_STX
+        JZ      GT_STX
+        JMP     GETBLK                  ; stray byte (e.g. 'rx name'), ignore
 
+GT_TIMEOUT:
+        MVI     A,XM_TO
+        RET
 GT_EOT: XRA     A
         RET
 GT_CAN: MVI     A,02H
         RET
 
-; SOH block: blkno, ~blkno, 128 data, 1-byte checksum.
-GT_SOH: STA     GT_BLK                  ; blkno
+; ---- SOH: checksum block (blkno, ~blkno, 128 data, 1-byte checksum) ----
+GT_SOH: CALL    RXCHAR
+        MOV     B,A                     ; blkno
         CALL    RXCHAR
-        LDA     GT_BLK
-        MOV     B,A
-        XRA     B                       ; blkno ^ ~blkno
+        XRA     B                       ; ~blkno ^ blkno
         CPI     0FFH
         JNZ     GT_BAD
         LXI     H,XMBUF
@@ -225,9 +268,83 @@ GT_LP:  CALL    RXCHAR
         JNZ     GT_BAD
         MVI     A,01H
         RET
+
+; ---- STX: CRC block (blkno, ~blkno, 128 data, 2-byte CRC-16) ----
+GT_STX: CALL    RXCHAR
+        MOV     B,A                     ; blkno
+        CALL    RXCHAR
+        XRA     B
+        CPI     0FFH
+        JNZ     GT_BAD
+        LXI     H,XMBUF
+        MVI     C,128
+GT_LP2: CALL    RXCHAR
+        MOV     M,A
+        INX     H
+        DCR     C
+        JNZ     GT_LP2
+        ; compute CRC-16 XMODEM over XMBUF -> D: E (D high, E low)
+        LXI     H,XMBUF
+        LXI     D,0000H                 ; crc = 0
+        MVI     C,128
+GT_CRC: MOV     A,M
+        MOV     B,A
+        MOV     A,D
+        XRA     B                       ; crc_hi ^= byte
+        MOV     D,A
+        MVI     B,08H
+GTCB:   MOV     A,D
+        ANI     80H                     ; crc & 0x8000 ?
+        JZ      GTCS
+        ANA     A                       ; clear carry
+        MOV     A,E
+        RAL                             ; E = E<<1 (carry = old E bit7)
+        MOV     E,A
+        MOV     A,D
+        RAL                             ; D = D<<1 | old E bit7
+        MOV     D,A
+        MOV     A,D
+        XRI     10H                     ; crc ^= 0x1021 (hi)
+        MOV     D,A
+        MOV     A,E
+        XRI     21H                     ; crc ^= 0x1021 (lo)
+        MOV     E,A
+        DCR     B
+        JNZ     GTCB
+        INX     H
+        DCR     C
+        JNZ     GT_CRC
+        JMP     GT_CHK
+GTCS:   ANA     A                       ; clear carry
+        MOV     A,E
+        RAL
+        MOV     E,A
+        MOV     A,D
+        RAL
+        MOV     D,A
+        DCR     B
+        JNZ     GTCB
+        INX     H
+        DCR     C
+        JNZ     GT_CRC
+GT_CHK:
+        INX     H
+        DCR     C
+        JNZ     GT_CRC
+        ; read 2 CRC bytes (high, low), compare
+        CALL    RXCHAR
+        MOV     B,A                     ; received crc hi
+        CALL    RXCHAR
+        CMP     E                       ; compare low
+        JNZ     GT_BAD
+        MOV     A,B
+        CMP     D                       ; compare high
+        JNZ     GT_BAD
+        MVI     A,01H
+        RET
+
 GT_BAD: MVI     A,0FFH
         RET
-GT_BLK: DS      1
 
 ; ============================================================================
 ; WRITEBLK -- write the 128 good bytes in XMBUF to the RAM disk at the current
@@ -368,7 +485,7 @@ SA21:   MOV     M,A
         RET
 
 ; ============================================================================
-; READNAME -- read "name.ext" (max 9 chars) from console into FNAME, NUL-terminated.
+; READNAME -- read "name.ext" (max 9 chars) from console into FNAME, echoing.
 ; ============================================================================
 READNAME:
         LXI     H,FNAME
@@ -376,18 +493,33 @@ READNAME:
 RN1:    CALL    RXCHAR
         CPI     0DH
         JZ      RN_DONE
-        CPI     08H
+        CPI     08H                     ; ^H backspace
+        JZ      RN_BS
+        CPI     7FH                     ; DEL backspace
         JZ      RN_BS
         MOV     M,A
+        CALL    TXCHAR                  ; ECHO the char
         INX     H
         DCR     B
         JNZ     RN1
-RN_DONE: MVI     A,00H
-        MOV     M,A
-        RET
-RN_BS:  DCR     H
-        DCR     B
+        JMP     RN_DONE
+RN_BS:  ; backspace: erase from the screen and back the buffer up (if possible)
+        MVI     A,08H
+        CALL    TXCHAR
+        MVI     A,20H
+        CALL    TXCHAR
+        MVI     A,08H
+        CALL    TXCHAR
+        MOV     A,B
+        CPI     9
+        JZ      RN1                     ; buffer full, at start -> nothing to back up
+        DCX     H
+        INR     B
         JMP     RN1
+RN_DONE: MVI     A,00H
+        MOV     M,A                     ; NUL terminate
+        CALL    CRLF
+        RET
 
 ; ============================================================================
 ; BUILD_FCB -- parse FNAME into the 32-byte FCB (and copy into FCB2).

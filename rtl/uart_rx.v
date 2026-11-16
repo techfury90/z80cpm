@@ -12,7 +12,7 @@ module uart_rx(
   localparam [11:0] BAUD_DIV = 2604;  // 25 MHz / 9600
 
   reg          rx_state;
-  reg [11:0]    k     = 0;
+  reg [15:0]    k     = 0;
   reg [3:0]    bitidx= 0;
   reg [7:0]    sr    = 0;
   reg          rxd_d = 1'b1;

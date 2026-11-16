@@ -121,7 +121,7 @@ PRTBYTE: PUSH    PSW
         ANI     0FH
 PRTH1:  ADI     90H
         DAA
-        ADI     40H
+        ACI     40H                     ; add carry (ACI) so 0xA-0xF print A-F
         DAA
         JMP     TXCHAR
 
@@ -160,8 +160,9 @@ DO_FMT: LXI     H,MSGFMT
         LXI     H,DIRBASE
         CALL    RDSETA
         LXI     B,2048                  ; 2K directory
-        MVI     A,0E5H
-FMTW:   OUT     RDDATA                  ; write 0xE5 (auto-increment)
+        MVI     D,0E5H                  ; keep the fill value in D (A is clobbered below)
+FMTW:   MOV     A,D
+        OUT     RDDATA                  ; write 0xE5 (auto-increment)
         DCX     B
         MOV     A,B
         ORA     C

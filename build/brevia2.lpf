@@ -62,7 +62,7 @@ BLOCK JTAGPATHS ;
 FREQUENCY NET "clk_in_c" 50.000000 MHz ;
 CLOCK_TO_OUT PORT "sram_addr*" 15.000000 ns CLKNET "clk_op" ;
 INPUT_SETUP PORT "uart_rx" 20.000000 ns CLKNET "clk_op" ;
-INPUT_SETUP PORT "sram_data*" 5.000000 ns CLKNET "clk_op" ;
+INPUT_SETUP PORT "sram_data*" 10.000000 ns CLKNET "clk_op" ;
 CLOCK_TO_OUT PORT "sram_cen" 15.000000 ns CLKNET "clk_op" ;
 CLOCK_TO_OUT PORT "sram_oen" 15.000000 ns CLKNET "clk_op" ;
 CLOCK_TO_OUT PORT "sram_wen" 15.000000 ns CLKNET "clk_op" ;

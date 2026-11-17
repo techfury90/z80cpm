@@ -114,6 +114,23 @@ report `ID: 7F 9D 7E` and PASS on the IS25LD040.
 > cleanly; it is only a stand-in for the byte-engine framing, not a faithful
 > IS25LD040 ID model, so do not use the sim's `BF 20 02` as the expected silicon ID.
 
+## PnR setup violation (build/z80cpm.lpf) — fixed
+
+The Diamond place & route flagged one `INPUT_SETUP PORT "sram_data*"` violation:
+`sram_data[3] -> u_cpu/i_tv80_core/TmpAddr[3]`, 6.281 ns data path (6 logic levels,
+65% route), -0.406 ns slack. Root cause: the constraint was `5.000 ns`, but the
+on-board SRAM is an **IDT 71V124SA15 (15 ns access)** read through `sram_async`
+with **no wait states** at 25 MHz. The read window is clk-to-out 15 ns + access
+15 ns = 30 ns, so the data is valid only ~10 ns before the 40 ns `clk_op` edge.
+The 5 ns set-up was simply too tight for the 6.28 ns pad->CPU path (which itself
+fits the 40 ns period with deep margin). The preference was corrected to
+`INPUT_SETUP PORT "sram_data*" 10.000000 ns` in both `build/z80cpm.lpf` and
+`build/brevia2.lpf` (the real achievable window, consistent with the 15 ns clk-
+to-out / access). Re-run place & route; the `sram_data` setup should now close.
+
+> If the CPU clock is ever raised toward 50 MHz, re-check this pad->CPU path
+> (registering `sram_data` or adding wait states would then be the right lever).
+
 ---
 *(Original diagnostic content below, retained for reference.)*
 

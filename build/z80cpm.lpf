@@ -62,7 +62,11 @@ BLOCK JTAGPATHS ;
 FREQUENCY NET "clk_in_c" 50.000000 MHz ;
 CLOCK_TO_OUT PORT "sram_addr*" 15.000000 ns CLKNET "clk_op" ;
 INPUT_SETUP PORT "uart_rx" 20.000000 ns CLKNET "clk_op" ;
-INPUT_SETUP PORT "sram_data*" 5.000000 ns CLKNET "clk_op" ;
+# IDT 71V124SA15 (15 ns access) read window: clk-to-out 15ns + access 15ns = 30ns,
+# so data is valid only ~10 ns before the 40 ns clk_op edge. 5 ns was too tight for
+# the 6.28 ns pad->CPU path (the PnR '-0.406ns setup' error). 10 ns is the real
+# achievable window and clears it.
+INPUT_SETUP PORT "sram_data*" 10.000000 ns CLKNET "clk_op" ;
 CLOCK_TO_OUT PORT "sram_cen" 15.000000 ns CLKNET "clk_op" ;
 CLOCK_TO_OUT PORT "sram_oen" 15.000000 ns CLKNET "clk_op" ;
 CLOCK_TO_OUT PORT "sram_wen" 15.000000 ns CLKNET "clk_op" ;

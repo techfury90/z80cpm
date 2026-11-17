@@ -2,9 +2,20 @@
 
 This directory contains a complete CP/M 2.2 system image plus its custom BIOS
 (CBIOS) for the Brevia2 board.  It boots to a CP/M `A>` prompt on the serial
-console, with the 64K I/O-mapped RAM disk presenting as drive A: and the
-on-board ISSI IS25LD040 SPI flash (512 KB) presenting as drive B:.  `DIR`,
-`SAVE`, `TYPE`, `ERA`, `REN`, etc. operate against those disks.
+console, with the on-board ISSI IS25LD040 SPI flash (512 KB) presenting as
+**drive A:** (the persistent boot drive) and the 64K I/O-mapped RAM disk
+presenting as **drive B:** (volatile scratch).  `DIR`, `SAVE`, `TYPE`, `ERA`,
+`REN`, etc. operate against those disks.
+
+**Boot (after the FPGA is programmed with a GWMON that has the `b` command):**
+1. Load diskutil (`L` + paste `programs/diskutil.hex`, or as you normally do),
+   `G 1000`.
+2. `S` — format the SPI flash (creates drive A:'s empty directory).
+3. `C` — XMODEM-send `cpm/brevia2_cpm.bin`; diskutil now also burns that CP/M
+   image to the flash system area (0x0000-0x1FFF), then cold-boots to `A>`.
+4. On subsequent power-ups, just type **`b`** at the GWMON prompt (or re-run
+   diskutil `C`) to boot CP/M from the SPI flash — no re-upload needed.
+   `^C` warm start reloads CCP/BDOS from the RAM disk system tracks.
 
 ## Files
 

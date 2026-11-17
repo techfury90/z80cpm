@@ -291,8 +291,8 @@ MENU:   LXI     H,MSGMENU
         JZ      DO_FMT
         CPI     'U'
         JZ      DO_UPLOAD
-        CPI     'D'
-        JZ      DO_DOWNLOAD
+        CPI     'C'
+        JZ      DO_BOOTCPM
         CPI     'H'
         JZ      DO_HELP
         CPI     'B'
@@ -821,77 +821,58 @@ BF_C:   MOV     A,M
         RET
 
 ; ============================================================================
-; DO_DOWNLOAD -- XMODEM send dir-slot-0 file's extent 0 to the host (checksum).
+; DO_BOOTCPM -- receive the CP/M system image (CCP+BDOS+CBIOS, the combined
+;   brevia2_cpm binary) via XMODEM into MACHINE RAM at 0xE400, then cold-boot
+;   CP/M by jumping to the CBIOS cold-boot entry (0xFA00). The CBIOS persists
+;   CCP/BDOS to the RAM-disk system tracks and enters the CCP, so we reuse the
+;   proven boot path instead of duplicating it.
+;   Transfers into bank A via XMBUF, then copies each block to machine RAM.
 ; ============================================================================
-DO_DOWNLOAD:
-        LXI     H,MSGDL
+DO_BOOTCPM:
+        LXI     H,MSGBCPM
         CALL    PRTSTR
-        LXI     H,DIRBASE+15
-        CALL    RDSETA
-        IN      RDDATA                  ; A = RC (extent 0)
-        STA     SEND_RC
-        CALL    RXCHAR                  ; wait for NAK/'C' from host
-        CALL    XM_SENDFILE
-        JMP     MENU
-
-XM_SENDFILE:
-        LDA     SEND_RC
-        MOV     B,A                     ; B = records to send
-        MVI     A,01H
-        STA     XS_BLK
-        LXI     H,DBLOCK0
-        SHLD    XS_ADDR
-XS_LOOP: MOV     A,B
-        ORA     A
-        JZ      XS_DONE
-        MVI     A,XM_SOH
+        LXI     H,0E400H                ; load CCP at 0xE400 (image is contiguous)
+        SHLD    BCPADDR
+        LXI     H,MSGRECV
+        CALL    PRTSTR
+        MVI     A,XM_NAK                ; kick off with a checksum NAK
         CALL    TXCHAR
-        LDA     XS_BLK
-        CALL    TXCHAR
-        MOV     C,A
-        CMA
-        CALL    TXCHAR
-        LHLD    XS_ADDR
-        CALL    RDSETA
-        MVI     E,00H
+BCPLOOP: CALL    GETBLK                  ; A=TO,01 good,FF bad,00 EOT,02 CAN
+        CPI     XM_TO
+        JZ      BCP_NAK                 ; timeout -> resend NAK
+        CPI     02H
+        JZ      BCP_NAK                 ; CAN
+        CPI     00H
+        JZ      BCP_EOT
+        CPI     0FFH
+        JZ      BCP_NAK                 ; bad block -> NAK
+        ; good block -> copy XMBUF to machine RAM at BCPADDR, advance by 128
+        LHLD    BCPADDR
+        LXI     D,XMBUF
         MVI     C,128
-XS_DATA: IN      RDDATA
-        ADD     E
-        MOV     E,A
+BCPC:   LDAX    D
+        MOV     M,A
+        INX     D
+        INX     H
         DCR     C
-        JNZ     XS_DATA
-        MOV     A,E
-        CALL    TXCHAR                  ; checksum
-        LHLD    XS_ADDR
-        LXI     D,0128H
-        DAD     D
-        SHLD    XS_ADDR
-        CALL    RXCHAR
-        CPI     XM_ACK
-        JNZ     XS_LOOP                 ; NAK/unknown -> resend
-        LDA     XS_BLK
-        INR     A
-        STA     XS_BLK
-        MOV     A,B
-        DCR     A
-        MOV     B,A
-        JNZ     XS_LOOP
-XS_DONE:
-        MVI     A,XM_EOT
+        JNZ     BCPC
+        SHLD    BCPADDR                 ; advance for the next block
+        MVI     A,XM_ACK
         CALL    TXCHAR
-        CALL    RXCHAR
-        CPI     XM_ACK
-        JZ      XS_END
-        MVI     A,XM_EOT
+        MVI     A,'.'
         CALL    TXCHAR
-        CALL    RXCHAR
-XS_END: LXI     H,MSGDLDONE
+        JMP     BCPLOOP
+BCP_NAK: MVI     A,XM_NAK
+        CALL    TXCHAR
+        JMP     BCPLOOP
+BCP_EOT: MVI     A,XM_ACK
+        CALL    TXCHAR
+        CALL    CRLF
+        LXI     H,MSGBCPMOK
         CALL    PRTSTR
-        JMP     MENU
+        JMP     0FA00H                  ; CBIOS cold boot -> enters CCP (A>)
 
-SEND_RC: DS     1
-XS_BLK:  DS     1
-XS_ADDR: DS     2
+BCPADDR: DS     2                        ; machine-RAM load address for the boot image
 FSLOT:   DS     1               ; directory slot index for the file being written
 TWOF:    DS     1               ; !=0 -> two-extent file (extents 0 AND 1 slots)
 FNEED:   DS     1               ; slots needed by FINDFREE (1 = single, 2 = two-extent)
@@ -990,8 +971,8 @@ RH_NEXT: JMP     RH1
 ; Messages
 ; ============================================================================
 MSGBANNER: DB 'Z80 Brevia2 RAM-disk utility',0DH,0AH,0
-MSGMENU:   DB 'F)ormat U)pload D)ownload H)elp > ',0
-MSGHELP:   DB 'F=format A:  U=xmodem receive  D=xmodem send  B=dump',0DH,0AH,0
+MSGMENU:   DB 'F)ormat U)pload C)old-boot B)dump M)emdump H)elp > ',0
+MSGHELP:   DB 'F=format A:  U=xmodem receive  C=xmodem receive CP/M + cold boot',0DH,0AH,0
 MSGFMT:    DB 'Formatting...',0DH,0AH,0
 MSGFMTOK:  DB 'Format OK.',0DH,0AH,0
 MSGPROMPT: DB 'Receive FILENAME (8.3): ',0
@@ -999,8 +980,8 @@ MSGRECV:   DB 'Receiving (xmodem)...',0DH,0AH,0
 MSGDONE:   DB 'Received. Records(hi lo): ',0
 MSGDUMP:   DB 'Dump 256 bytes at hex addr: ',0
 MSGMD:     DB 'Dump 128 bytes of CPU RAM at hex addr: ',0
-MSGDL:     DB 'Sending (xmodem)...',0DH,0AH,0
-MSGDLDONE: DB 'Send complete.',0DH,0AH,0
+MSGBCPM:   DB 'Receive CP/M image, then cold boot...',0DH,0AH,0
+MSGBCPMOK: DB 'CP/M image loaded - cold boot...',0DH,0AH,0
 MSGNOSPC:  DB 'No space - disk or directory full.',0DH,0AH,0
 ; ---- DEBUG trace tags (remove once the upload path is confirmed) ----
 MSGT_BLK:  DB 'blk=',0

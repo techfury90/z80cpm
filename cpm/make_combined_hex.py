@@ -92,5 +92,24 @@ assert not (set(bdos) & set(cbios)), "BDOS/CBIOS overlap"
 
 image = {}
 image.update(ccp); image.update(bdos); image.update(cbios)
-write_hex(os.path.join(base, "brevia2_cpm.hex"), image)
-print("OK: combined image is contiguous 0x%04X-0x%04X" % (min(image), max(image)))
+
+# a85 omits zero bytes from the CBIOS HEX (e.g. the DPB/variable area), leaving
+# internal gaps. The diskutil 'C' command loads a contiguous raw .bin straight
+# into machine RAM, so pad every gap with 0x00 (matching the .mem/sim, which
+# initialize unused SRAM to 0). Emit BOTH the .hex and the .bin from this same
+# contiguous image so they never diverge.
+lo, hi = min(image), max(image)
+full = {a: image.get(a, 0x00) for a in range(lo, hi + 1)}   # fill gaps with 0
+write_hex(os.path.join(base, "brevia2_cpm.hex"), full)
+
+# Raw .bin: contiguous bytes from 0xE400 (CCP) to end of CBIOS. This is exactly
+# what diskutil's 'C' command receives over XMODEM: it loads sequentially into
+# machine RAM from 0xE400, then cold-boots CP/M. No address header; the fixed
+# CP/M layout defines where each block goes.
+bin_bytes = bytes(full[a] for a in range(lo, hi + 1))
+with open(os.path.join(base, "brevia2_cpm.bin"), "wb") as fh:
+    fh.write(bin_bytes)
+print("wrote brevia2_cpm.bin: %d bytes from 0x%04X to 0x%04X"
+      % (len(bin_bytes), lo, hi))
+
+print("OK: combined image is contiguous 0x%04X-0x%04X" % (lo, hi))

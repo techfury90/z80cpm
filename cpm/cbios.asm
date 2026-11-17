@@ -115,6 +115,10 @@ BOOT:
 ; ============================================================================
 WBOOT:
         LXI     SP,0DC00H
+        MVI     A,01H
+        OUT     30H             ; bank OUT the GWMON monitor ROM (same as cold boot:
+                                ;  'G FA03' from the monitor after a reset must swap
+                                ;  the ROM out too, else page-zero/CCP reads hit ROM)
 ;
 ; ---- reload CCP and BDOS from the RAM disk SYSTEM tracks --------------------
         LXI     H,SYSCPP

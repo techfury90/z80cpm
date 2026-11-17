@@ -136,92 +136,94 @@
                         ; START
                         ; ============================================================================
    106b   31 00 f0      START:  LXI     SP,0F000H               ; stack high in bank A (clear of code/buffers)
-   106e   21 99 14              LXI     H,MSGBANNER
+   106e   21 c7 14              LXI     H,MSGBANNER
    1071   cd 44 10              CALL    PRTSTR
-   1074   21 b8 14      MENU:   LXI     H,MSGMENU
+   1074   21 e6 14      MENU:   LXI     H,MSGMENU
    1077   cd 44 10              CALL    PRTSTR
    107a   cd 0f 10              CALL    RXCHAR                  ; wait for a command char
    107d   e6 df                 ANI     0DFH                    ; force uppercase (accept lowercase)
    107f   fe 46                 CPI     'F'
-   1081   ca 9b 10              JZ      DO_FMT
+   1081   ca a0 10              JZ      DO_FMT
    1084   fe 55                 CPI     'U'
-   1086   ca c7 10              JZ      DO_UPLOAD
+   1086   ca cc 10              JZ      DO_UPLOAD
    1089   fe 44                 CPI     'D'
-   108b   ca 94 13              JZ      DO_DOWNLOAD
+   108b   ca 9d 13              JZ      DO_DOWNLOAD
    108e   fe 48                 CPI     'H'
-   1090   ca be 10              JZ      DO_HELP
+   1090   ca c3 10              JZ      DO_HELP
    1093   fe 42                 CPI     'B'
-   1095   ca 29 14              JZ      DO_DUMP
-   1098   c3 74 10              JMP     MENU
+   1095   ca 32 14              JZ      DO_DUMP
+   1098   fe 4d                 CPI     'M'
+   109a   ca 5a 14              JZ      DO_MDUMP
+   109d   c3 74 10              JMP     MENU
                         
                         ; ---------------- command: format ----------------
-   109b   21 12 15      DO_FMT: LXI     H,MSGFMT
-   109e   cd 44 10              CALL    PRTSTR
-   10a1   21 00 20              LXI     H,DIRBASE
-   10a4   cd 64 10              CALL    RDSETA
-   10a7   01 00 08              LXI     B,2048                  ; 2K directory
-   10aa   16 e5                 MVI     D,0E5H                  ; keep the fill value in D (A is clobbered below)
-   10ac   7a            FMTW:   MOV     A,D
-   10ad   d3 20                 OUT     RDDATA                  ; write 0xE5 (auto-increment)
-   10af   0b                    DCX     B
-   10b0   78                    MOV     A,B
-   10b1   b1                    ORA     C
-   10b2   c2 ac 10              JNZ     FMTW
-   10b5   21 22 15              LXI     H,MSGFMTOK
-   10b8   cd 44 10              CALL    PRTSTR
-   10bb   c3 74 10              JMP     MENU
+   10a0   21 40 15      DO_FMT: LXI     H,MSGFMT
+   10a3   cd 44 10              CALL    PRTSTR
+   10a6   21 00 00              LXI     H,0000H                 ; start at byte 0 of the RAM disk
+   10a9   cd 64 10              CALL    RDSETA
+   10ac   01 00 00              LXI     B,65536                 ; erase the ENTIRE 64K bank-B RAM disk
+   10af   16 e5                 MVI     D,0E5H                  ; keep the fill value in D (A is clobbered below)
+   10b1   7a            FMTW:   MOV     A,D
+   10b2   d3 20                 OUT     RDDATA                  ; write 0xE5 (auto-increment)
+   10b4   0b                    DCX     B
+   10b5   78                    MOV     A,B
+   10b6   b1                    ORA     C
+   10b7   c2 b1 10              JNZ     FMTW
+   10ba   21 50 15              LXI     H,MSGFMTOK
+   10bd   cd 44 10              CALL    PRTSTR
+   10c0   c3 74 10              JMP     MENU
                         
-   10be   21 db 14      DO_HELP: LXI     H,MSGHELP
-   10c1   cd 44 10              CALL    PRTSTR
-   10c4   c3 74 10              JMP     MENU
+   10c3   21 09 15      DO_HELP: LXI     H,MSGHELP
+   10c6   cd 44 10              CALL    PRTSTR
+   10c9   c3 74 10              JMP     MENU
                         
                         ; ============================================================================
                         ; DO_UPLOAD -- XMODEM (checksum/CRC) receive a file, write it as a CP/M file.
                         ; ============================================================================
-   10c7                 DO_UPLOAD:
-   10c7   21 2f 15              LXI     H,MSGPROMPT
-   10ca   cd 44 10              CALL    PRTSTR
-   10cd   cd da 12              CALL    READNAME                ; read "name.ext" into FNAME (echoed)
-   10d0   21 00 00              LXI     H,0000H
-   10d3   22 60 21              SHLD    RCNT_L                  ; init record counter
-   10d6   21 48 15              LXI     H,MSGRECV
-   10d9   cd 44 10              CALL    PRTSTR
-   10dc   3e 15                 MVI     A,XM_NAK                ; kick off with a checksum NAK
-   10de   cd 03 10              CALL    TXCHAR
+   10cc                 DO_UPLOAD:
+   10cc   21 5d 15              LXI     H,MSGPROMPT
+   10cf   cd 44 10              CALL    PRTSTR
+   10d2   cd e3 12              CALL    READNAME                ; read "name.ext" into FNAME (echoed)
+   10d5   21 00 00              LXI     H,0000H
+   10d8   22 60 21              SHLD    RCNT_L                  ; init record counter
+   10db   21 76 15              LXI     H,MSGRECV
+   10de   cd 44 10              CALL    PRTSTR
+   10e1   3e 15                 MVI     A,XM_NAK                ; kick off with a checksum NAK
+   10e3   cd 03 10              CALL    TXCHAR
                         
-   10e1   cd 32 11      UPLOOP: CALL    GETBLK                  ; A=TO(timeout),01 good,FF bad,00 EOT,02 CAN
-   10e4   fe fe                 CPI     XM_TO
-   10e6   ca 08 11              JZ      UP_NAK                  ; timeout -> resend NAK, keep waiting
-   10e9   fe 02                 CPI     02H
-   10eb   ca 08 11              JZ      UP_NAK                  ; CAN
-   10ee   fe 00                 CPI     00H
-   10f0   ca 10 11              JZ      UP_EOT
-   10f3   fe ff                 CPI     0FFH
-   10f5   ca 08 11              JZ      UP_NAK                  ; bad block -> NAK
+   10e6   cd 37 11      UPLOOP: CALL    GETBLK                  ; A=TO(timeout),01 good,FF bad,00 EOT,02 CAN
+   10e9   fe fe                 CPI     XM_TO
+   10eb   ca 0d 11              JZ      UP_NAK                  ; timeout -> resend NAK, keep waiting
+   10ee   fe 02                 CPI     02H
+   10f0   ca 0d 11              JZ      UP_NAK                  ; CAN
+   10f3   fe 00                 CPI     00H
+   10f5   ca 15 11              JZ      UP_EOT
+   10f8   fe ff                 CPI     0FFH
+   10fa   ca 0d 11              JZ      UP_NAK                  ; bad block -> NAK
                                 ; good block -> write it to the disk
-   10f8   cd f6 11              CALL    WRITEBLK
-   10fb   3e 06                 MVI     A,XM_ACK
-   10fd   cd 03 10              CALL    TXCHAR
-   1100   3e 2e                 MVI     A,'.'
+   10fd   cd fb 11              CALL    WRITEBLK
+   1100   3e 06                 MVI     A,XM_ACK
    1102   cd 03 10              CALL    TXCHAR
-   1105   c3 e1 10              JMP     UPLOOP
-   1108   3e 15         UP_NAK: MVI     A,XM_NAK
-   110a   cd 03 10              CALL    TXCHAR
-   110d   c3 e1 10              JMP     UPLOOP
+   1105   3e 2e                 MVI     A,'.'
+   1107   cd 03 10              CALL    TXCHAR
+   110a   c3 e6 10              JMP     UPLOOP
+   110d   3e 15         UP_NAK: MVI     A,XM_NAK
+   110f   cd 03 10              CALL    TXCHAR
+   1112   c3 e6 10              JMP     UPLOOP
                         
-   1110   3e 06         UP_EOT: MVI     A,XM_ACK
-   1112   cd 03 10              CALL    TXCHAR
-   1115   cd 39 10              CALL    CRLF
-   1118   cd 23 12              CALL    WRITEFCB                ; write directory entries
-   111b   21 60 15              LXI     H,MSGDONE
-   111e   cd 44 10              CALL    PRTSTR
-   1121   2a 60 21              LHLD    RCNT_L
-   1124   7c                    MOV     A,H
-   1125   cd 4e 10              CALL    PRTBYTE
-   1128   7d                    MOV     A,L
-   1129   cd 4e 10              CALL    PRTBYTE
-   112c   cd 39 10              CALL    CRLF
-   112f   c3 74 10              JMP     MENU
+   1115   3e 06         UP_EOT: MVI     A,XM_ACK
+   1117   cd 03 10              CALL    TXCHAR
+   111a   cd 39 10              CALL    CRLF
+   111d   cd 28 12              CALL    WRITEFCB                ; write directory entries
+   1120   21 8e 15              LXI     H,MSGDONE
+   1123   cd 44 10              CALL    PRTSTR
+   1126   2a 60 21              LHLD    RCNT_L
+   1129   7c                    MOV     A,H
+   112a   cd 4e 10              CALL    PRTBYTE
+   112d   7d                    MOV     A,L
+   112e   cd 4e 10              CALL    PRTBYTE
+   1131   cd 39 10              CALL    CRLF
+   1134   c3 74 10              JMP     MENU
                         
                         ; ============================================================================
                         ; GETBLK -- receive one XMODEM block into XMBUF.
@@ -229,622 +231,660 @@
                         ; (First byte uses the timed read so we can retry the NAK on timeout; the rest
                         ;  of the block uses blocking reads because the host sends them back-to-back.)
                         ; ============================================================================
-   1132   cd 19 10      GETBLK: CALL    RXCHAR_T
-   1135   da 4f 11              JC      GT_TIMEOUT              ; carry set = timeout
-   1138   fe 04                 CPI     XM_EOT
-   113a   ca 52 11              JZ      GT_EOT
-   113d   fe 18                 CPI     XM_CAN
-   113f   ca 54 11              JZ      GT_CAN
-   1142   fe 01                 CPI     XM_SOH
-   1144   ca 57 11              JZ      GT_SOH
-   1147   fe 02                 CPI     XM_STX
-   1149   ca 80 11              JZ      GT_STX
-   114c   c3 32 11              JMP     GETBLK                  ; stray byte (e.g. 'rx name'), ignore
+   1137   cd 19 10      GETBLK: CALL    RXCHAR_T
+   113a   da 54 11              JC      GT_TIMEOUT              ; carry set = timeout
+   113d   fe 04                 CPI     XM_EOT
+   113f   ca 57 11              JZ      GT_EOT
+   1142   fe 18                 CPI     XM_CAN
+   1144   ca 59 11              JZ      GT_CAN
+   1147   fe 01                 CPI     XM_SOH
+   1149   ca 5c 11              JZ      GT_SOH
+   114c   fe 02                 CPI     XM_STX
+   114e   ca 85 11              JZ      GT_STX
+   1151   c3 37 11              JMP     GETBLK                  ; stray byte (e.g. 'rx name'), ignore
                         
-   114f                 GT_TIMEOUT:
-   114f   3e fe                 MVI     A,XM_TO
-   1151   c9                    RET
-   1152   af            GT_EOT: XRA     A
-   1153   c9                    RET
-   1154   3e 02         GT_CAN: MVI     A,02H
+   1154                 GT_TIMEOUT:
+   1154   3e fe                 MVI     A,XM_TO
    1156   c9                    RET
+   1157   af            GT_EOT: XRA     A
+   1158   c9                    RET
+   1159   3e 02         GT_CAN: MVI     A,02H
+   115b   c9                    RET
                         
                         ; ---- SOH: checksum block (blkno, ~blkno, 128 data, 1-byte checksum) ----
-   1157   cd 0f 10      GT_SOH: CALL    RXCHAR
-   115a   47                    MOV     B,A                     ; blkno
-   115b   cd 0f 10              CALL    RXCHAR
-   115e   a8                    XRA     B                       ; ~blkno ^ blkno
-   115f   fe ff                 CPI     0FFH
-   1161   c2 f3 11              JNZ     GT_BAD
-   1164   21 00 20              LXI     H,XMBUF
-   1167   1e 00                 MVI     E,00H
-   1169   0e 80                 MVI     C,128
-   116b   cd 0f 10      GT_LP:  CALL    RXCHAR
-   116e   77                    MOV     M,A
-   116f   83                    ADD     E
-   1170   5f                    MOV     E,A
-   1171   23                    INX     H
-   1172   0d                    DCR     C
-   1173   c2 6b 11              JNZ     GT_LP
-   1176   cd 0f 10              CALL    RXCHAR                  ; checksum byte
-   1179   bb                    CMP     E
-   117a   c2 f3 11              JNZ     GT_BAD
-   117d   3e 01                 MVI     A,01H
-   117f   c9                    RET
+   115c   cd 0f 10      GT_SOH: CALL    RXCHAR
+   115f   47                    MOV     B,A                     ; blkno
+   1160   cd 0f 10              CALL    RXCHAR
+   1163   a8                    XRA     B                       ; ~blkno ^ blkno
+   1164   fe ff                 CPI     0FFH
+   1166   c2 f8 11              JNZ     GT_BAD
+   1169   21 00 20              LXI     H,XMBUF
+   116c   1e 00                 MVI     E,00H
+   116e   0e 80                 MVI     C,128
+   1170   cd 0f 10      GT_LP:  CALL    RXCHAR
+   1173   77                    MOV     M,A
+   1174   83                    ADD     E
+   1175   5f                    MOV     E,A
+   1176   23                    INX     H
+   1177   0d                    DCR     C
+   1178   c2 70 11              JNZ     GT_LP
+   117b   cd 0f 10              CALL    RXCHAR                  ; checksum byte
+   117e   bb                    CMP     E
+   117f   c2 f8 11              JNZ     GT_BAD
+   1182   3e 01                 MVI     A,01H
+   1184   c9                    RET
                         
                         ; ---- STX: CRC block (blkno, ~blkno, 128 data, 2-byte CRC-16) ----
-   1180   cd 0f 10      GT_STX: CALL    RXCHAR
-   1183   47                    MOV     B,A                     ; blkno
-   1184   cd 0f 10              CALL    RXCHAR
-   1187   a8                    XRA     B
-   1188   fe ff                 CPI     0FFH
-   118a   c2 f3 11              JNZ     GT_BAD
-   118d   21 00 20              LXI     H,XMBUF
-   1190   0e 80                 MVI     C,128
-   1192   cd 0f 10      GT_LP2: CALL    RXCHAR
-   1195   77                    MOV     M,A
-   1196   23                    INX     H
-   1197   0d                    DCR     C
-   1198   c2 92 11              JNZ     GT_LP2
+   1185   cd 0f 10      GT_STX: CALL    RXCHAR
+   1188   47                    MOV     B,A                     ; blkno
+   1189   cd 0f 10              CALL    RXCHAR
+   118c   a8                    XRA     B
+   118d   fe ff                 CPI     0FFH
+   118f   c2 f8 11              JNZ     GT_BAD
+   1192   21 00 20              LXI     H,XMBUF
+   1195   0e 80                 MVI     C,128
+   1197   cd 0f 10      GT_LP2: CALL    RXCHAR
+   119a   77                    MOV     M,A
+   119b   23                    INX     H
+   119c   0d                    DCR     C
+   119d   c2 97 11              JNZ     GT_LP2
                                 ; compute CRC-16 XMODEM over XMBUF -> D: E (D high, E low)
-   119b   21 00 20              LXI     H,XMBUF
-   119e   11 00 00              LXI     D,0000H                 ; crc = 0
-   11a1   0e 80                 MVI     C,128
-   11a3   7e            GT_CRC: MOV     A,M
-   11a4   47                    MOV     B,A
-   11a5   7a                    MOV     A,D
-   11a6   a8                    XRA     B                       ; crc_hi ^= byte
-   11a7   57                    MOV     D,A
-   11a8   06 08                 MVI     B,08H
-   11aa   7a            GTCB:   MOV     A,D
-   11ab   e6 80                 ANI     80H                     ; crc & 0x8000 ?
-   11ad   ca cb 11              JZ      GTCS
-   11b0   a7                    ANA     A                       ; clear carry
-   11b1   7b                    MOV     A,E
-   11b2   17                    RAL                             ; E = E<<1 (carry = old E bit7)
-   11b3   5f                    MOV     E,A
-   11b4   7a                    MOV     A,D
-   11b5   17                    RAL                             ; D = D<<1 | old E bit7
-   11b6   57                    MOV     D,A
-   11b7   7a                    MOV     A,D
-   11b8   ee 10                 XRI     10H                     ; crc ^= 0x1021 (hi)
-   11ba   57                    MOV     D,A
-   11bb   7b                    MOV     A,E
-   11bc   ee 21                 XRI     21H                     ; crc ^= 0x1021 (lo)
-   11be   5f                    MOV     E,A
-   11bf   05                    DCR     B
-   11c0   c2 aa 11              JNZ     GTCB
-   11c3   23                    INX     H
-   11c4   0d                    DCR     C
-   11c5   c2 a3 11              JNZ     GT_CRC
-   11c8   c3 db 11              JMP     GT_CHK
-   11cb   a7            GTCS:   ANA     A                       ; clear carry
-   11cc   7b                    MOV     A,E
-   11cd   17                    RAL
-   11ce   5f                    MOV     E,A
-   11cf   7a                    MOV     A,D
-   11d0   17                    RAL
-   11d1   57                    MOV     D,A
-   11d2   05                    DCR     B
-   11d3   c2 aa 11              JNZ     GTCB
-   11d6   23                    INX     H
-   11d7   0d                    DCR     C
-   11d8   c2 a3 11              JNZ     GT_CRC
-   11db                 GT_CHK:
+   11a0   21 00 20              LXI     H,XMBUF
+   11a3   11 00 00              LXI     D,0000H                 ; crc = 0
+   11a6   0e 80                 MVI     C,128
+   11a8   7e            GT_CRC: MOV     A,M
+   11a9   47                    MOV     B,A
+   11aa   7a                    MOV     A,D
+   11ab   a8                    XRA     B                       ; crc_hi ^= byte
+   11ac   57                    MOV     D,A
+   11ad   06 08                 MVI     B,08H
+   11af   7a            GTCB:   MOV     A,D
+   11b0   e6 80                 ANI     80H                     ; crc & 0x8000 ?
+   11b2   ca d0 11              JZ      GTCS
+   11b5   a7                    ANA     A                       ; clear carry
+   11b6   7b                    MOV     A,E
+   11b7   17                    RAL                             ; E = E<<1 (carry = old E bit7)
+   11b8   5f                    MOV     E,A
+   11b9   7a                    MOV     A,D
+   11ba   17                    RAL                             ; D = D<<1 | old E bit7
+   11bb   57                    MOV     D,A
+   11bc   7a                    MOV     A,D
+   11bd   ee 10                 XRI     10H                     ; crc ^= 0x1021 (hi)
+   11bf   57                    MOV     D,A
+   11c0   7b                    MOV     A,E
+   11c1   ee 21                 XRI     21H                     ; crc ^= 0x1021 (lo)
+   11c3   5f                    MOV     E,A
+   11c4   05                    DCR     B
+   11c5   c2 af 11              JNZ     GTCB
+   11c8   23                    INX     H
+   11c9   0d                    DCR     C
+   11ca   c2 a8 11              JNZ     GT_CRC
+   11cd   c3 e0 11              JMP     GT_CHK
+   11d0   a7            GTCS:   ANA     A                       ; clear carry
+   11d1   7b                    MOV     A,E
+   11d2   17                    RAL
+   11d3   5f                    MOV     E,A
+   11d4   7a                    MOV     A,D
+   11d5   17                    RAL
+   11d6   57                    MOV     D,A
+   11d7   05                    DCR     B
+   11d8   c2 af 11              JNZ     GTCB
    11db   23                    INX     H
    11dc   0d                    DCR     C
-   11dd   c2 a3 11              JNZ     GT_CRC
+   11dd   c2 a8 11              JNZ     GT_CRC
+   11e0                 GT_CHK:
+   11e0   23                    INX     H
+   11e1   0d                    DCR     C
+   11e2   c2 a8 11              JNZ     GT_CRC
                                 ; read 2 CRC bytes (high, low), compare
-   11e0   cd 0f 10              CALL    RXCHAR
-   11e3   47                    MOV     B,A                     ; received crc hi
-   11e4   cd 0f 10              CALL    RXCHAR
-   11e7   bb                    CMP     E                       ; compare low
-   11e8   c2 f3 11              JNZ     GT_BAD
-   11eb   78                    MOV     A,B
-   11ec   ba                    CMP     D                       ; compare high
-   11ed   c2 f3 11              JNZ     GT_BAD
-   11f0   3e 01                 MVI     A,01H
-   11f2   c9                    RET
+   11e5   cd 0f 10              CALL    RXCHAR
+   11e8   47                    MOV     B,A                     ; received crc hi
+   11e9   cd 0f 10              CALL    RXCHAR
+   11ec   bb                    CMP     E                       ; compare low
+   11ed   c2 f8 11              JNZ     GT_BAD
+   11f0   78                    MOV     A,B
+   11f1   ba                    CMP     D                       ; compare high
+   11f2   c2 f8 11              JNZ     GT_BAD
+   11f5   3e 01                 MVI     A,01H
+   11f7   c9                    RET
                         
-   11f3   3e ff         GT_BAD: MVI     A,0FFH
-   11f5   c9                    RET
+   11f8   3e ff         GT_BAD: MVI     A,0FFH
+   11fa   c9                    RET
                         
                         ; ============================================================================
                         ; WRITEBLK -- write the 128 good bytes in XMBUF to the RAM disk at the current
                         ;   file position. Position = DBLOCK0 + RCNT_L*128. (Blocks contiguous; block #
                         ;   = RCNT/8 + 2.)
                         ; ============================================================================
-   11f6                 WRITEBLK:
-   11f6   2a 60 21              LHLD    RCNT_L
-   11f9   54                    MOV     D,H
-   11fa   5d                    MOV     E,L
-   11fb   06 07                 MVI     B,07H
-   11fd                 WBLK_SHL:
-   11fd   7b                    MOV     A,E
-   11fe   87                    ADD     A
-   11ff   5f                    MOV     E,A
-   1200   7a                    MOV     A,D
-   1201   17                    RAL
-   1202   57                    MOV     D,A
-   1203   05                    DCR     B
-   1204   c2 fd 11              JNZ     WBLK_SHL
-   1207   21 00 28              LXI     H,DBLOCK0
-   120a   19                    DAD     D
-   120b   cd 64 10              CALL    RDSETA
-   120e   21 00 20              LXI     H,XMBUF
-   1211   0e 80                 MVI     C,128
-   1213   7e            WBLK:   MOV     A,M
-   1214   d3 20                 OUT     RDDATA
-   1216   23                    INX     H
-   1217   0d                    DCR     C
-   1218   c2 13 12              JNZ     WBLK
-   121b   2a 60 21              LHLD    RCNT_L
-   121e   23                    INX     H
-   121f   22 60 21              SHLD    RCNT_L
-   1222   c9                    RET
+   11fb                 WRITEBLK:
+   11fb   2a 60 21              LHLD    RCNT_L
+   11fe   54                    MOV     D,H
+   11ff   5d                    MOV     E,L
+   1200   06 07                 MVI     B,07H
+   1202                 WBLK_SHL:
+   1202   7b                    MOV     A,E
+   1203   87                    ADD     A
+   1204   5f                    MOV     E,A
+   1205   7a                    MOV     A,D
+   1206   17                    RAL
+   1207   57                    MOV     D,A
+   1208   05                    DCR     B
+   1209   c2 02 12              JNZ     WBLK_SHL
+   120c   21 00 28              LXI     H,DBLOCK0
+   120f   19                    DAD     D
+   1210   cd 64 10              CALL    RDSETA
+   1213   21 00 20              LXI     H,XMBUF
+   1216   0e 80                 MVI     C,128
+   1218   7e            WBLK:   MOV     A,M
+   1219   d3 20                 OUT     RDDATA
+   121b   23                    INX     H
+   121c   0d                    DCR     C
+   121d   c2 18 12              JNZ     WBLK
+   1220   2a 60 21              LHLD    RCNT_L
+   1223   23                    INX     H
+   1224   22 60 21              SHLD    RCNT_L
+   1227   c9                    RET
                         
                         ; ============================================================================
                         ; WRITEFCB -- write the FCB directory entry/entries for the received file.
                         ;   Single extent (<=16K) -> one slot; >16K -> two slots (extents 0 and 1).
                         ; ============================================================================
-   1223                 WRITEFCB:
-   1223   cd 1e 13              CALL    BUILD_FCB               ; builds FCB (and FCB2 copy) with name/ext
-   1226   2a 60 21              LHLD    RCNT_L
-   1229   7c                    MOV     A,H
-   122a   b7                    ORA     A
-   122b   c2 4d 12              JNZ     WFC_TWO
-   122e   7d                    MOV     A,L
-   122f   fe 81                 CPI     129
-   1231   d2 4d 12              JNC     WFC_TWO
+   1228                 WRITEFCB:
+   1228   cd 27 13              CALL    BUILD_FCB               ; builds FCB (and FCB2 copy) with name/ext
+   122b   2a 60 21              LHLD    RCNT_L
+   122e   7c                    MOV     A,H
+   122f   b7                    ORA     A
+   1230   c2 52 12              JNZ     WFC_TWO
+   1233   7d                    MOV     A,L
+   1234   fe 81                 CPI     129
+   1236   d2 52 12              JNC     WFC_TWO
                                 ; ---- single extent (<=16K) ----
-   1234   3e 00                 MVI     A,00H
-   1236   32 0c 21              STA     FCB+12                  ; EX=0
-   1239   32 0d 21              STA     FCB+13                  ; S1=0
-   123c   32 0e 21              STA     FCB+14                  ; S2=0
-   123f   2a 60 21              LHLD    RCNT_L
-   1242   7d                    MOV     A,L
-   1243   32 0f 21              STA     FCB+15                  ; RC = records
-   1246   cd aa 12              CALL    SETALLO                 ; fill FCB+16..31 (blocks from 2)
-   1249   cd 96 12              CALL    WDIRFCB
-   124c   c9                    RET
+   1239   3e 00                 MVI     A,00H
+   123b   32 0c 21              STA     FCB+12                  ; EX=0
+   123e   32 0d 21              STA     FCB+13                  ; S1=0
+   1241   32 0e 21              STA     FCB+14                  ; S2=0
+   1244   2a 60 21              LHLD    RCNT_L
+   1247   7d                    MOV     A,L
+   1248   32 0f 21              STA     FCB+15                  ; RC = records
+   124b   cd af 12              CALL    SETALLO                 ; fill FCB+16..31 (blocks from 2)
+   124e   cd 9b 12              CALL    WDIRFCB
+   1251   c9                    RET
                         
-   124d                 WFC_TWO:
-   124d   3e 00                 MVI     A,00H
-   124f   32 0c 21              STA     FCB+12
-   1252   32 0d 21              STA     FCB+13
-   1255   32 0e 21              STA     FCB+14
-   1258   3e 80                 MVI     A,128
-   125a   32 0f 21              STA     FCB+15
-   125d   cd aa 12              CALL    SETALLO
-   1260   2a 60 21              LHLD    RCNT_L
-   1263   7d                    MOV     A,L
-   1264   d6 80                 SUI     128
-   1266   6f                    MOV     L,A
-   1267   7c                    MOV     A,H
-   1268   de 00                 SBI     00H
-   126a   67                    MOV     H,A
-   126b   7d                    MOV     A,L
-   126c   32 2f 21              STA     FCB2+15                 ; RC extent 1
-   126f   3e 01                 MVI     A,01H
-   1271   32 2c 21              STA     FCB2+12                 ; EX=1
-   1274   3e 00                 MVI     A,00H
-   1276   32 2d 21              STA     FCB2+13                 ; S1=0
-   1279   32 2e 21              STA     FCB2+14                 ; S2=0
-   127c   cd c2 12              CALL    SETALLO2
-   127f   cd 96 12              CALL    WDIRFCB
-   1282   21 20 20              LXI     H,DIRBASE+32
-   1285   cd 64 10              CALL    RDSETA
-   1288   21 20 21              LXI     H,FCB2
-   128b   0e 20                 MVI     C,32
-   128d   7e            WFC2B:  MOV     A,M
-   128e   d3 20                 OUT     RDDATA
-   1290   23                    INX     H
-   1291   0d                    DCR     C
-   1292   c2 8d 12              JNZ     WFC2B
-   1295   c9                    RET
+   1252                 WFC_TWO:
+   1252   3e 00                 MVI     A,00H
+   1254   32 0c 21              STA     FCB+12
+   1257   32 0d 21              STA     FCB+13
+   125a   32 0e 21              STA     FCB+14
+   125d   3e 80                 MVI     A,128
+   125f   32 0f 21              STA     FCB+15
+   1262   cd af 12              CALL    SETALLO
+   1265   2a 60 21              LHLD    RCNT_L
+   1268   7d                    MOV     A,L
+   1269   d6 80                 SUI     128
+   126b   6f                    MOV     L,A
+   126c   7c                    MOV     A,H
+   126d   de 00                 SBI     00H
+   126f   67                    MOV     H,A
+   1270   7d                    MOV     A,L
+   1271   32 2f 21              STA     FCB2+15                 ; RC extent 1
+   1274   3e 01                 MVI     A,01H
+   1276   32 2c 21              STA     FCB2+12                 ; EX=1
+   1279   3e 00                 MVI     A,00H
+   127b   32 2d 21              STA     FCB2+13                 ; S1=0
+   127e   32 2e 21              STA     FCB2+14                 ; S2=0
+   1281   cd c9 12              CALL    SETALLO2
+   1284   cd 9b 12              CALL    WDIRFCB
+   1287   21 20 20              LXI     H,DIRBASE+32
+   128a   cd 64 10              CALL    RDSETA
+   128d   21 20 21              LXI     H,FCB2
+   1290   0e 20                 MVI     C,32
+   1292   7e            WFC2B:  MOV     A,M
+   1293   d3 20                 OUT     RDDATA
+   1295   23                    INX     H
+   1296   0d                    DCR     C
+   1297   c2 92 12              JNZ     WFC2B
+   129a   c9                    RET
                         
-   1296   21 00 20      WDIRFCB: LXI     H,DIRBASE
-   1299   cd 64 10              CALL    RDSETA
-   129c   21 00 21              LXI     H,FCB
-   129f   0e 20                 MVI     C,32
-   12a1   7e            WDF:    MOV     A,M
-   12a2   d3 20                 OUT     RDDATA
-   12a4   23                    INX     H
-   12a5   0d                    DCR     C
-   12a6   c2 a1 12              JNZ     WDF
-   12a9   c9                    RET
+   129b   21 00 20      WDIRFCB: LXI     H,DIRBASE
+   129e   cd 64 10              CALL    RDSETA
+   12a1   21 00 21              LXI     H,FCB
+   12a4   0e 20                 MVI     C,32
+   12a6   7e            WDF:    MOV     A,M
+   12a7   d3 20                 OUT     RDDATA
+   12a9   23                    INX     H
+   12aa   0d                    DCR     C
+   12ab   c2 a6 12              JNZ     WDF
+   12ae   c9                    RET
                         
-   12aa                 SETALLO:
-   12aa   3a 0f 21              LDA     FCB+15
-   12ad   c6 07                 ADI     07H
-   12af   0f                    RRC
-   12b0   0f                    RRC
-   12b1   0f                    RRC
-   12b2   e6 1f                 ANI     1FH
-   12b4   47                    MOV     B,A
-   12b5   21 10 21              LXI     H,FCB+16
-   12b8   3e 02                 MVI     A,02H
-   12ba   77            SA1:    MOV     M,A
-   12bb   23                    INX     H
-   12bc   3c                    INR     A
-   12bd   05                    DCR     B
-   12be   c2 ba 12              JNZ     SA1
-   12c1   c9                    RET
+   12af                 SETALLO:
+   12af   3a 0f 21              LDA     FCB+15
+   12b2   b7                    ORA     A
+   12b3   c8                    RZ                              ; RC=0 -> no blocks to allocate
+   12b4   c6 07                 ADI     07H
+   12b6   0f                    RRC
+   12b7   0f                    RRC
+   12b8   0f                    RRC
+   12b9   e6 1f                 ANI     1FH
+   12bb   47                    MOV     B,A
+   12bc   21 10 21              LXI     H,FCB+16
+   12bf   3e 02                 MVI     A,02H
+   12c1   77            SA1:    MOV     M,A
+   12c2   23                    INX     H
+   12c3   3c                    INR     A
+   12c4   05                    DCR     B
+   12c5   c2 c1 12              JNZ     SA1
+   12c8   c9                    RET
                         
-   12c2                 SETALLO2:
-   12c2   3a 2f 21              LDA     FCB2+15
-   12c5   c6 07                 ADI     07H
-   12c7   0f                    RRC
-   12c8   0f                    RRC
-   12c9   0f                    RRC
-   12ca   e6 1f                 ANI     1FH
-   12cc   47                    MOV     B,A
-   12cd   21 30 21              LXI     H,FCB2+16
-   12d0   3e 18                 MVI     A,18H
-   12d2   77            SA21:   MOV     M,A
-   12d3   23                    INX     H
-   12d4   3c                    INR     A
-   12d5   05                    DCR     B
-   12d6   c2 d2 12              JNZ     SA21
-   12d9   c9                    RET
+   12c9                 SETALLO2:
+   12c9   3a 2f 21              LDA     FCB2+15
+   12cc   b7                    ORA     A
+   12cd   c8                    RZ                              ; RC=0 -> no blocks to allocate
+   12ce   c6 07                 ADI     07H
+   12d0   0f                    RRC
+   12d1   0f                    RRC
+   12d2   0f                    RRC
+   12d3   e6 1f                 ANI     1FH
+   12d5   47                    MOV     B,A
+   12d6   21 30 21              LXI     H,FCB2+16
+   12d9   3e 12                 MVI     A,12H                   ; extent 1 starts at block 18 (2 + 16)
+   12db   77            SA21:   MOV     M,A
+   12dc   23                    INX     H
+   12dd   3c                    INR     A
+   12de   05                    DCR     B
+   12df   c2 db 12              JNZ     SA21
+   12e2   c9                    RET
                         
                         ; ============================================================================
                         ; READNAME -- read "name.ext" (max 9 chars) from console into FNAME, echoing.
                         ; ============================================================================
-   12da                 READNAME:
-   12da   21 80 21              LXI     H,FNAME
-   12dd   06 0c                 MVI     B,12
-   12df   cd 0f 10      RN1:    CALL    RXCHAR
-   12e2   fe 0d                 CPI     0DH
-   12e4   ca 17 13              JZ      RN_DONE
-   12e7   fe 08                 CPI     08H                     ; ^H backspace
-   12e9   ca fd 12              JZ      RN_BS
-   12ec   fe 7f                 CPI     7FH                     ; DEL backspace
-   12ee   ca fd 12              JZ      RN_BS
-   12f1   77                    MOV     M,A
-   12f2   cd 03 10              CALL    TXCHAR                  ; ECHO the char
-   12f5   23                    INX     H
-   12f6   05                    DCR     B
-   12f7   c2 df 12              JNZ     RN1
-   12fa   c3 17 13              JMP     RN_DONE
-   12fd                 RN_BS:  ; backspace: erase from the screen and back the buffer up (if possible)
-   12fd   3e 08                 MVI     A,08H
-   12ff   cd 03 10              CALL    TXCHAR
-   1302   3e 20                 MVI     A,20H
-   1304   cd 03 10              CALL    TXCHAR
-   1307   3e 08                 MVI     A,08H
-   1309   cd 03 10              CALL    TXCHAR
-   130c   78                    MOV     A,B
-   130d   fe 09                 CPI     9
-   130f   ca df 12              JZ      RN1                     ; buffer full, at start -> nothing to back up
-   1312   2b                    DCX     H
-   1313   04                    INR     B
-   1314   c3 df 12              JMP     RN1
-   1317   3e 00         RN_DONE: MVI     A,00H
-   1319   77                    MOV     M,A                     ; NUL terminate
-   131a   cd 39 10              CALL    CRLF
-   131d   c9                    RET
+   12e3                 READNAME:
+   12e3   21 80 21              LXI     H,FNAME
+   12e6   06 0c                 MVI     B,12
+   12e8   cd 0f 10      RN1:    CALL    RXCHAR
+   12eb   fe 0d                 CPI     0DH
+   12ed   ca 20 13              JZ      RN_DONE
+   12f0   fe 08                 CPI     08H                     ; ^H backspace
+   12f2   ca 06 13              JZ      RN_BS
+   12f5   fe 7f                 CPI     7FH                     ; DEL backspace
+   12f7   ca 06 13              JZ      RN_BS
+   12fa   77                    MOV     M,A
+   12fb   cd 03 10              CALL    TXCHAR                  ; ECHO the char
+   12fe   23                    INX     H
+   12ff   05                    DCR     B
+   1300   c2 e8 12              JNZ     RN1
+   1303   c3 20 13              JMP     RN_DONE
+   1306                 RN_BS:  ; backspace: erase from the screen and back the buffer up (if possible)
+   1306   3e 08                 MVI     A,08H
+   1308   cd 03 10              CALL    TXCHAR
+   130b   3e 20                 MVI     A,20H
+   130d   cd 03 10              CALL    TXCHAR
+   1310   3e 08                 MVI     A,08H
+   1312   cd 03 10              CALL    TXCHAR
+   1315   78                    MOV     A,B
+   1316   fe 09                 CPI     9
+   1318   ca e8 12              JZ      RN1                     ; buffer full, at start -> nothing to back up
+   131b   2b                    DCX     H
+   131c   04                    INR     B
+   131d   c3 e8 12              JMP     RN1
+   1320   3e 00         RN_DONE: MVI     A,00H
+   1322   77                    MOV     M,A                     ; NUL terminate
+   1323   cd 39 10              CALL    CRLF
+   1326   c9                    RET
                         
                         ; ============================================================================
                         ; BUILD_FCB -- parse FNAME into the 32-byte FCB (and copy into FCB2).
                         ; ============================================================================
-   131e                 BUILD_FCB:
-   131e   21 00 21              LXI     H,FCB
-   1321   06 40                 MVI     B,64                    ; zero both FCBs (2 x 32)
-   1323   3e 00         BF_Z:   MVI     A,00H
-   1325   77                    MOV     M,A
-   1326   23                    INX     H
-   1327   05                    DCR     B
-   1328   c2 23 13              JNZ     BF_Z
-   132b   11 80 21              LXI     D,FNAME
-   132e   21 01 21              LXI     H,FCB+1
-   1331   06 08                 MVI     B,8
-   1333   1a            BF_N:   LDAX    D
-   1334   fe 00                 CPI     00H
-   1336   ca 4f 13              JZ      BF_NPAD
-   1339   fe 2e                 CPI     '.'
-   133b   ca 4f 13              JZ      BF_GOTEXT
-   133e   77                    MOV     M,A
-   133f   23                    INX     H
-   1340   13                    INX     D
-   1341   05                    DCR     B
-   1342   c2 33 13              JNZ     BF_N
-   1345   1a                    LDAX    D
-   1346   fe 2e                 CPI     '.'
-   1348   c2 7e 13              JNZ     BF_EXT0
-   134b   13                    INX     D
-   134c   c3 58 13              JMP     BF_EXT
-   134f                 BF_GOTEXT:
-   134f   3e 20         BF_NPAD: MVI     A,' '
-   1351   77                    MOV     M,A
-   1352   23                    INX     H
-   1353   05                    DCR     B
-   1354   c2 4f 13              JNZ     BF_NPAD
-   1357   13                    INX     D                       ; skip '.'
-   1358   21 09 21      BF_EXT: LXI     H,FCB+9
-   135b   06 03                 MVI     B,3
-   135d   1a            BF_E:   LDAX    D
-   135e   fe 00                 CPI     00H
-   1360   ca 76 13              JZ      BF_EXT_PAD
-   1363   fe 2e                 CPI     '.'
-   1365   ca 72 13              JZ      BF_EXT_SKIP
-   1368   77                    MOV     M,A
-   1369   23                    INX     H
-   136a   13                    INX     D
-   136b   05                    DCR     B
-   136c   c2 5d 13              JNZ     BF_E
-   136f   c3 7e 13              JMP     BF_EXT0
-   1372                 BF_EXT_SKIP:
-   1372   13                    INX     D
-   1373   c3 5d 13              JMP     BF_E
-   1376                 BF_EXT_PAD:
-   1376   3e 20                 MVI     A,' '
-   1378   77                    MOV     M,A
-   1379   23                    INX     H
-   137a   05                    DCR     B
-   137b   c2 76 13              JNZ     BF_EXT_PAD
-   137e                 BF_EXT0:
-   137e   21 00 21              LXI     H,FCB
-   1381   36 01                 MVI     M,01H                   ; drive 1 = A: (dir entry byte0)
-   1383   21 00 21              LXI     H,FCB
-   1386   11 20 21              LXI     D,FCB2
-   1389   06 20                 MVI     B,32
-   138b   7e            BF_C:   MOV     A,M
-   138c   12                    STAX    D
-   138d   23                    INX     H
-   138e   13                    INX     D
-   138f   05                    DCR     B
-   1390   c2 8b 13              JNZ     BF_C
-   1393   c9                    RET
+   1327                 BUILD_FCB:
+   1327   21 00 21              LXI     H,FCB
+   132a   06 40                 MVI     B,64                    ; zero both FCBs (2 x 32)
+   132c   3e 00         BF_Z:   MVI     A,00H
+   132e   77                    MOV     M,A
+   132f   23                    INX     H
+   1330   05                    DCR     B
+   1331   c2 2c 13              JNZ     BF_Z
+   1334   11 80 21              LXI     D,FNAME
+   1337   21 01 21              LXI     H,FCB+1
+   133a   06 08                 MVI     B,8
+   133c   1a            BF_N:   LDAX    D
+   133d   fe 00                 CPI     00H
+   133f   ca 58 13              JZ      BF_NPAD
+   1342   fe 2e                 CPI     '.'
+   1344   ca 58 13              JZ      BF_GOTEXT
+   1347   77                    MOV     M,A
+   1348   23                    INX     H
+   1349   13                    INX     D
+   134a   05                    DCR     B
+   134b   c2 3c 13              JNZ     BF_N
+   134e   1a                    LDAX    D
+   134f   fe 2e                 CPI     '.'
+   1351   c2 87 13              JNZ     BF_EXT0
+   1354   13                    INX     D
+   1355   c3 61 13              JMP     BF_EXT
+   1358                 BF_GOTEXT:
+   1358   3e 20         BF_NPAD: MVI     A,' '
+   135a   77                    MOV     M,A
+   135b   23                    INX     H
+   135c   05                    DCR     B
+   135d   c2 58 13              JNZ     BF_NPAD
+   1360   13                    INX     D                       ; skip '.'
+   1361   21 09 21      BF_EXT: LXI     H,FCB+9
+   1364   06 03                 MVI     B,3
+   1366   1a            BF_E:   LDAX    D
+   1367   fe 00                 CPI     00H
+   1369   ca 7f 13              JZ      BF_EXT_PAD
+   136c   fe 2e                 CPI     '.'
+   136e   ca 7b 13              JZ      BF_EXT_SKIP
+   1371   77                    MOV     M,A
+   1372   23                    INX     H
+   1373   13                    INX     D
+   1374   05                    DCR     B
+   1375   c2 66 13              JNZ     BF_E
+   1378   c3 87 13              JMP     BF_EXT0
+   137b                 BF_EXT_SKIP:
+   137b   13                    INX     D
+   137c   c3 66 13              JMP     BF_E
+   137f                 BF_EXT_PAD:
+   137f   3e 20                 MVI     A,' '
+   1381   77                    MOV     M,A
+   1382   23                    INX     H
+   1383   05                    DCR     B
+   1384   c2 7f 13              JNZ     BF_EXT_PAD
+   1387                 BF_EXT0:
+   1387   21 00 21              LXI     H,FCB
+   138a   36 00                 MVI     M,00H                   ; dir entry byte0 = USER number (0), not drive
+   138c   21 00 21              LXI     H,FCB
+   138f   11 20 21              LXI     D,FCB2
+   1392   06 20                 MVI     B,32
+   1394   7e            BF_C:   MOV     A,M
+   1395   12                    STAX    D
+   1396   23                    INX     H
+   1397   13                    INX     D
+   1398   05                    DCR     B
+   1399   c2 94 13              JNZ     BF_C
+   139c   c9                    RET
                         
                         ; ============================================================================
                         ; DO_DOWNLOAD -- XMODEM send dir-slot-0 file's extent 0 to the host (checksum).
                         ; ============================================================================
-   1394                 DO_DOWNLOAD:
-   1394   21 98 15              LXI     H,MSGDL
-   1397   cd 44 10              CALL    PRTSTR
-   139a   21 0f 20              LXI     H,DIRBASE+15
-   139d   cd 64 10              CALL    RDSETA
-   13a0   db 20                 IN      RDDATA                  ; A = RC (extent 0)
-   13a2   32 25 14              STA     SEND_RC
-   13a5   cd 0f 10              CALL    RXCHAR                  ; wait for NAK/'C' from host
-   13a8   cd ae 13              CALL    XM_SENDFILE
-   13ab   c3 74 10              JMP     MENU
+   139d                 DO_DOWNLOAD:
+   139d   21 ee 15              LXI     H,MSGDL
+   13a0   cd 44 10              CALL    PRTSTR
+   13a3   21 0f 20              LXI     H,DIRBASE+15
+   13a6   cd 64 10              CALL    RDSETA
+   13a9   db 20                 IN      RDDATA                  ; A = RC (extent 0)
+   13ab   32 2e 14              STA     SEND_RC
+   13ae   cd 0f 10              CALL    RXCHAR                  ; wait for NAK/'C' from host
+   13b1   cd b7 13              CALL    XM_SENDFILE
+   13b4   c3 74 10              JMP     MENU
                         
-   13ae                 XM_SENDFILE:
-   13ae   3a 25 14              LDA     SEND_RC
-   13b1   47                    MOV     B,A                     ; B = records to send
-   13b2   3e 01                 MVI     A,01H
-   13b4   32 26 14              STA     XS_BLK
-   13b7   21 00 28              LXI     H,DBLOCK0
-   13ba   22 27 14              SHLD    XS_ADDR
-   13bd   78            XS_LOOP: MOV     A,B
-   13be   b7                    ORA     A
-   13bf   ca 07 14              JZ      XS_DONE
-   13c2   3e 01                 MVI     A,XM_SOH
-   13c4   cd 03 10              CALL    TXCHAR
-   13c7   3a 26 14              LDA     XS_BLK
-   13ca   cd 03 10              CALL    TXCHAR
-   13cd   4f                    MOV     C,A
-   13ce   2f                    CMA
-   13cf   cd 03 10              CALL    TXCHAR
-   13d2   2a 27 14              LHLD    XS_ADDR
-   13d5   cd 64 10              CALL    RDSETA
-   13d8   1e 00                 MVI     E,00H
-   13da   0e 80                 MVI     C,128
-   13dc   db 20         XS_DATA: IN      RDDATA
-   13de   83                    ADD     E
-   13df   5f                    MOV     E,A
-   13e0   0d                    DCR     C
-   13e1   c2 dc 13              JNZ     XS_DATA
-   13e4   7b                    MOV     A,E
-   13e5   cd 03 10              CALL    TXCHAR                  ; checksum
-   13e8   2a 27 14              LHLD    XS_ADDR
-   13eb   11 28 01              LXI     D,0128H
-   13ee   19                    DAD     D
-   13ef   22 27 14              SHLD    XS_ADDR
-   13f2   cd 0f 10              CALL    RXCHAR
-   13f5   fe 06                 CPI     XM_ACK
-   13f7   c2 bd 13              JNZ     XS_LOOP                 ; NAK/unknown -> resend
-   13fa   3a 26 14              LDA     XS_BLK
-   13fd   3c                    INR     A
-   13fe   32 26 14              STA     XS_BLK
-   1401   78                    MOV     A,B
-   1402   3d                    DCR     A
-   1403   47                    MOV     B,A
-   1404   c2 bd 13              JNZ     XS_LOOP
-   1407                 XS_DONE:
-   1407   3e 04                 MVI     A,XM_EOT
-   1409   cd 03 10              CALL    TXCHAR
-   140c   cd 0f 10              CALL    RXCHAR
-   140f   fe 06                 CPI     XM_ACK
-   1411   ca 1c 14              JZ      XS_END
-   1414   3e 04                 MVI     A,XM_EOT
-   1416   cd 03 10              CALL    TXCHAR
-   1419   cd 0f 10              CALL    RXCHAR
-   141c   21 ae 15      XS_END: LXI     H,MSGDLDONE
-   141f   cd 44 10              CALL    PRTSTR
-   1422   c3 74 10              JMP     MENU
+   13b7                 XM_SENDFILE:
+   13b7   3a 2e 14              LDA     SEND_RC
+   13ba   47                    MOV     B,A                     ; B = records to send
+   13bb   3e 01                 MVI     A,01H
+   13bd   32 2f 14              STA     XS_BLK
+   13c0   21 00 28              LXI     H,DBLOCK0
+   13c3   22 30 14              SHLD    XS_ADDR
+   13c6   78            XS_LOOP: MOV     A,B
+   13c7   b7                    ORA     A
+   13c8   ca 10 14              JZ      XS_DONE
+   13cb   3e 01                 MVI     A,XM_SOH
+   13cd   cd 03 10              CALL    TXCHAR
+   13d0   3a 2f 14              LDA     XS_BLK
+   13d3   cd 03 10              CALL    TXCHAR
+   13d6   4f                    MOV     C,A
+   13d7   2f                    CMA
+   13d8   cd 03 10              CALL    TXCHAR
+   13db   2a 30 14              LHLD    XS_ADDR
+   13de   cd 64 10              CALL    RDSETA
+   13e1   1e 00                 MVI     E,00H
+   13e3   0e 80                 MVI     C,128
+   13e5   db 20         XS_DATA: IN      RDDATA
+   13e7   83                    ADD     E
+   13e8   5f                    MOV     E,A
+   13e9   0d                    DCR     C
+   13ea   c2 e5 13              JNZ     XS_DATA
+   13ed   7b                    MOV     A,E
+   13ee   cd 03 10              CALL    TXCHAR                  ; checksum
+   13f1   2a 30 14              LHLD    XS_ADDR
+   13f4   11 28 01              LXI     D,0128H
+   13f7   19                    DAD     D
+   13f8   22 30 14              SHLD    XS_ADDR
+   13fb   cd 0f 10              CALL    RXCHAR
+   13fe   fe 06                 CPI     XM_ACK
+   1400   c2 c6 13              JNZ     XS_LOOP                 ; NAK/unknown -> resend
+   1403   3a 2f 14              LDA     XS_BLK
+   1406   3c                    INR     A
+   1407   32 2f 14              STA     XS_BLK
+   140a   78                    MOV     A,B
+   140b   3d                    DCR     A
+   140c   47                    MOV     B,A
+   140d   c2 c6 13              JNZ     XS_LOOP
+   1410                 XS_DONE:
+   1410   3e 04                 MVI     A,XM_EOT
+   1412   cd 03 10              CALL    TXCHAR
+   1415   cd 0f 10              CALL    RXCHAR
+   1418   fe 06                 CPI     XM_ACK
+   141a   ca 25 14              JZ      XS_END
+   141d   3e 04                 MVI     A,XM_EOT
+   141f   cd 03 10              CALL    TXCHAR
+   1422   cd 0f 10              CALL    RXCHAR
+   1425   21 04 16      XS_END: LXI     H,MSGDLDONE
+   1428   cd 44 10              CALL    PRTSTR
+   142b   c3 74 10              JMP     MENU
                         
-   1425                 SEND_RC: DS     1
-   1426                 XS_BLK:  DS     1
-   1427                 XS_ADDR: DS     2
+   142e                 SEND_RC: DS     1
+   142f                 XS_BLK:  DS     1
+   1430                 XS_ADDR: DS     2
                         
                         ; ============================================================================
                         ; DO_DUMP -- dump 256 bytes from the RAM disk at a hex address, as hex (16/line).
                         ; ============================================================================
-   1429                 DO_DUMP:
-   1429   21 7b 15              LXI     H,MSGDUMP
-   142c   cd 44 10              CALL    PRTSTR
-   142f   cd 51 14              CALL    READHEX                 ; HL = start address
-   1432   cd 64 10              CALL    RDSETA
-   1435   06 10                 MVI     B,16                    ; 16 lines
-   1437   16 10         DUMP_L1: MVI     D,16                    ; 16 bytes per line
-   1439   db 20         DUMP_B: IN      RDDATA
-   143b   cd 4e 10              CALL    PRTBYTE
-   143e   3e 20                 MVI     A,' '
-   1440   cd 03 10              CALL    TXCHAR
-   1443   15                    DCR     D
-   1444   c2 39 14              JNZ     DUMP_B
-   1447   cd 39 10              CALL    CRLF
-   144a   05                    DCR     B
-   144b   c2 37 14              JNZ     DUMP_L1
-   144e   c3 74 10              JMP     MENU
+   1432                 DO_DUMP:
+   1432   21 a9 15              LXI     H,MSGDUMP
+   1435   cd 44 10              CALL    PRTSTR
+   1438   cd 7f 14              CALL    READHEX                 ; HL = start address
+   143b   cd 64 10              CALL    RDSETA
+   143e   06 10                 MVI     B,16                    ; 16 lines
+   1440   16 10         DUMP_L1: MVI     D,16                    ; 16 bytes per line
+   1442   db 20         DUMP_B: IN      RDDATA
+   1444   cd 4e 10              CALL    PRTBYTE
+   1447   3e 20                 MVI     A,' '
+   1449   cd 03 10              CALL    TXCHAR
+   144c   15                    DCR     D
+   144d   c2 42 14              JNZ     DUMP_B
+   1450   cd 39 10              CALL    CRLF
+   1453   05                    DCR     B
+   1454   c2 40 14              JNZ     DUMP_L1
+   1457   c3 74 10              JMP     MENU
+                        
+                        ; ============================================================================
+                        ; DO_MDUMP -- dump 128 bytes of CPU (bank A) memory at a hex address.
+                        ; Runs with the monitor banked out; reads bank A RAM directly. Useful for
+                        ; inspecting CBIOS/BDOS variable state AFTER a CP/M session (reset -> G 1000).
+                        ; ============================================================================
+   145a                 DO_MDUMP:
+   145a   21 c6 15              LXI     H,MSGMD
+   145d   cd 44 10              CALL    PRTSTR
+   1460   cd 7f 14              CALL    READHEX                 ; HL = start address
+   1463   06 08                 MVI     B,8                     ; 8 lines
+   1465   16 10         MD_L1:  MVI     D,16                    ; 16 bytes per line
+   1467   7e            MD_B:   MOV     A,M
+   1468   cd 4e 10              CALL    PRTBYTE
+   146b   3e 20                 MVI     A,' '
+   146d   cd 03 10              CALL    TXCHAR
+   1470   23                    INX     H
+   1471   15                    DCR     D
+   1472   c2 67 14              JNZ     MD_B
+   1475   cd 39 10              CALL    CRLF
+   1478   05                    DCR     B
+   1479   c2 65 14              JNZ     MD_L1
+   147c   c3 74 10              JMP     MENU
                         
                         ; ---------------------------------------------------------------------------
                         ; READHEX -- read up to 4 hex digits from the console into HL (echoed).
                         ; ---------------------------------------------------------------------------
-   1451                 READHEX:
-   1451   21 00 00              LXI     H,0000H
-   1454   06 04                 MVI     B,4
-   1456   cd 0f 10      RH1:    CALL    RXCHAR
-   1459   fe 0d                 CPI     0DH
-   145b   ca 92 14              JZ      RH_DONE                 ; Enter ends
+   147f                 READHEX:
+   147f   21 00 00              LXI     H,0000H
+   1482   06 04                 MVI     B,4
+   1484   cd 0f 10      RH1:    CALL    RXCHAR
+   1487   fe 0d                 CPI     0DH
+   1489   ca c0 14              JZ      RH_DONE                 ; Enter ends
                                 ; determine hex digit value 0-15 in A
-   145e   fe 30                 CPI     '0'
-   1460   da 96 14              JC      RH_NEXT                 ; < '0' -> ignore
-   1463   fe 3a                 CPI     '9'+1
-   1465   da 79 14              JC      RH_DIG                  ; '0'-'9'
-   1468   e6 df                 ANI     0DFH                    ; uppercase
-   146a   fe 41                 CPI     'A'
-   146c   da 96 14              JC      RH_NEXT                 ; < 'A' -> ignore
-   146f   fe 47                 CPI     'F'+1
-   1471   d2 96 14              JNC     RH_NEXT                 ; > 'F' -> ignore
-   1474   d6 37                 SUI     'A'-10                  ; 'A'-'F' -> 10-15
-   1476   c3 7b 14              JMP     RH_ADD
-   1479   d6 30         RH_DIG: SUI     '0'                     ; '0'-'9' -> 0-9
-   147b   cd 03 10      RH_ADD: CALL    TXCHAR                  ; echo the digit
-   147e   4f                    MOV     C,A                     ; C = digit value
+   148c   fe 30                 CPI     '0'
+   148e   da c4 14              JC      RH_NEXT                 ; < '0' -> ignore
+   1491   fe 3a                 CPI     '9'+1
+   1493   da a7 14              JC      RH_DIG                  ; '0'-'9'
+   1496   e6 df                 ANI     0DFH                    ; uppercase
+   1498   fe 41                 CPI     'A'
+   149a   da c4 14              JC      RH_NEXT                 ; < 'A' -> ignore
+   149d   fe 47                 CPI     'F'+1
+   149f   d2 c4 14              JNC     RH_NEXT                 ; > 'F' -> ignore
+   14a2   d6 37                 SUI     'A'-10                  ; 'A'-'F' -> 10-15
+   14a4   c3 a9 14              JMP     RH_ADD
+   14a7   d6 30         RH_DIG: SUI     '0'                     ; '0'-'9' -> 0-9
+   14a9   cd 03 10      RH_ADD: CALL    TXCHAR                  ; echo the digit
+   14ac   4f                    MOV     C,A                     ; C = digit value
                                 ; HL = (HL << 4) | C
-   147f   16 04                 MVI     D,04H
-   1481   7d            RH_SHL: MOV     A,L
-   1482   87                    ADD     A
-   1483   6f                    MOV     L,A
-   1484   7c                    MOV     A,H
-   1485   17                    RAL
-   1486   67                    MOV     H,A
-   1487   15                    DCR     D
-   1488   c2 81 14              JNZ     RH_SHL
-   148b   7d                    MOV     A,L
-   148c   b1                    ORA     C
-   148d   6f                    MOV     L,A
-   148e   05                    DCR     B
-   148f   c2 56 14              JNZ     RH1
-   1492                 RH_DONE:
-   1492   cd 39 10              CALL    CRLF
-   1495   c9                    RET
-   1496   c3 56 14      RH_NEXT: JMP     RH1
+   14ad   16 04                 MVI     D,04H
+   14af   7d            RH_SHL: MOV     A,L
+   14b0   87                    ADD     A
+   14b1   6f                    MOV     L,A
+   14b2   7c                    MOV     A,H
+   14b3   17                    RAL
+   14b4   67                    MOV     H,A
+   14b5   15                    DCR     D
+   14b6   c2 af 14              JNZ     RH_SHL
+   14b9   7d                    MOV     A,L
+   14ba   b1                    ORA     C
+   14bb   6f                    MOV     L,A
+   14bc   05                    DCR     B
+   14bd   c2 84 14              JNZ     RH1
+   14c0                 RH_DONE:
+   14c0   cd 39 10              CALL    CRLF
+   14c3   c9                    RET
+   14c4   c3 84 14      RH_NEXT: JMP     RH1
                         
                         ; ============================================================================
                         ; Messages
                         ; ============================================================================
-   1499   5a 38 30 20   MSGBANNER: DB 'Z80 Brevia2 RAM-disk utility',0DH,0AH,0
-   149d   42 72 65 76   
-   14a1   69 61 32 20   
-   14a5   52 41 4d 2d   
-   14a9   64 69 73 6b   
-   14ad   20 75 74 69   
-   14b1   6c 69 74 79   
-   14b5   0d 0a 00      
-   14b8   46 29 6f 72   MSGMENU:   DB 'F)ormat U)pload D)ownload H)elp > ',0
-   14bc   6d 61 74 20   
-   14c0   55 29 70 6c   
-   14c4   6f 61 64 20   
-   14c8   44 29 6f 77   
-   14cc   6e 6c 6f 61   
-   14d0   64 20 48 29   
-   14d4   65 6c 70 20   
-   14d8   3e 20 00      
-   14db   46 3d 66 6f   MSGHELP:   DB 'F=format A:  U=xmodem receive  D=xmodem send  B=dump',0DH,0AH,0
-   14df   72 6d 61 74   
-   14e3   20 41 3a 20   
-   14e7   20 55 3d 78   
-   14eb   6d 6f 64 65   
-   14ef   6d 20 72 65   
-   14f3   63 65 69 76   
-   14f7   65 20 20 44   
-   14fb   3d 78 6d 6f   
-   14ff   64 65 6d 20   
-   1503   73 65 6e 64   
-   1507   20 20 42 3d   
-   150b   64 75 6d 70   
-   150f   0d 0a 00      
-   1512   46 6f 72 6d   MSGFMT:    DB 'Formatting...',0DH,0AH,0
-   1516   61 74 74 69   
-   151a   6e 67 2e 2e   
-   151e   2e 0d 0a 00   
-   1522   46 6f 72 6d   MSGFMTOK:  DB 'Format OK.',0DH,0AH,0
-   1526   61 74 20 4f   
-   152a   4b 2e 0d 0a   
-   152e   00            
-   152f   52 65 63 65   MSGPROMPT: DB 'Receive FILENAME (8.3): ',0
-   1533   69 76 65 20   
-   1537   46 49 4c 45   
-   153b   4e 41 4d 45   
-   153f   20 28 38 2e   
-   1543   33 29 3a 20   
-   1547   00            
-   1548   52 65 63 65   MSGRECV:   DB 'Receiving (xmodem)...',0DH,0AH,0
-   154c   69 76 69 6e   
-   1550   67 20 28 78   
-   1554   6d 6f 64 65   
-   1558   6d 29 2e 2e   
-   155c   2e 0d 0a 00   
-   1560   52 65 63 65   MSGDONE:   DB 'Received. Records(hi lo): ',0
-   1564   69 76 65 64   
-   1568   2e 20 52 65   
-   156c   63 6f 72 64   
-   1570   73 28 68 69   
-   1574   20 6c 6f 29   
-   1578   3a 20 00      
-   157b   44 75 6d 70   MSGDUMP:   DB 'Dump 256 bytes at hex addr: ',0
-   157f   20 32 35 36   
-   1583   20 62 79 74   
-   1587   65 73 20 61   
-   158b   74 20 68 65   
-   158f   78 20 61 64   
-   1593   64 72 3a 20   
-   1597   00            
-   1598   53 65 6e 64   MSGDL:     DB 'Sending (xmodem)...',0DH,0AH,0
-   159c   69 6e 67 20   
-   15a0   28 78 6d 6f   
-   15a4   64 65 6d 29   
-   15a8   2e 2e 2e 0d   
-   15ac   0a 00         
-   15ae   53 65 6e 64   MSGDLDONE: DB 'Send complete.',0DH,0AH,0
-   15b2   20 63 6f 6d   
-   15b6   70 6c 65 74   
-   15ba   65 2e 0d 0a   
-   15be   00            
+   14c7   5a 38 30 20   MSGBANNER: DB 'Z80 Brevia2 RAM-disk utility',0DH,0AH,0
+   14cb   42 72 65 76   
+   14cf   69 61 32 20   
+   14d3   52 41 4d 2d   
+   14d7   64 69 73 6b   
+   14db   20 75 74 69   
+   14df   6c 69 74 79   
+   14e3   0d 0a 00      
+   14e6   46 29 6f 72   MSGMENU:   DB 'F)ormat U)pload D)ownload H)elp > ',0
+   14ea   6d 61 74 20   
+   14ee   55 29 70 6c   
+   14f2   6f 61 64 20   
+   14f6   44 29 6f 77   
+   14fa   6e 6c 6f 61   
+   14fe   64 20 48 29   
+   1502   65 6c 70 20   
+   1506   3e 20 00      
+   1509   46 3d 66 6f   MSGHELP:   DB 'F=format A:  U=xmodem receive  D=xmodem send  B=dump',0DH,0AH,0
+   150d   72 6d 61 74   
+   1511   20 41 3a 20   
+   1515   20 55 3d 78   
+   1519   6d 6f 64 65   
+   151d   6d 20 72 65   
+   1521   63 65 69 76   
+   1525   65 20 20 44   
+   1529   3d 78 6d 6f   
+   152d   64 65 6d 20   
+   1531   73 65 6e 64   
+   1535   20 20 42 3d   
+   1539   64 75 6d 70   
+   153d   0d 0a 00      
+   1540   46 6f 72 6d   MSGFMT:    DB 'Formatting...',0DH,0AH,0
+   1544   61 74 74 69   
+   1548   6e 67 2e 2e   
+   154c   2e 0d 0a 00   
+   1550   46 6f 72 6d   MSGFMTOK:  DB 'Format OK.',0DH,0AH,0
+   1554   61 74 20 4f   
+   1558   4b 2e 0d 0a   
+   155c   00            
+   155d   52 65 63 65   MSGPROMPT: DB 'Receive FILENAME (8.3): ',0
+   1561   69 76 65 20   
+   1565   46 49 4c 45   
+   1569   4e 41 4d 45   
+   156d   20 28 38 2e   
+   1571   33 29 3a 20   
+   1575   00            
+   1576   52 65 63 65   MSGRECV:   DB 'Receiving (xmodem)...',0DH,0AH,0
+   157a   69 76 69 6e   
+   157e   67 20 28 78   
+   1582   6d 6f 64 65   
+   1586   6d 29 2e 2e   
+   158a   2e 0d 0a 00   
+   158e   52 65 63 65   MSGDONE:   DB 'Received. Records(hi lo): ',0
+   1592   69 76 65 64   
+   1596   2e 20 52 65   
+   159a   63 6f 72 64   
+   159e   73 28 68 69   
+   15a2   20 6c 6f 29   
+   15a6   3a 20 00      
+   15a9   44 75 6d 70   MSGDUMP:   DB 'Dump 256 bytes at hex addr: ',0
+   15ad   20 32 35 36   
+   15b1   20 62 79 74   
+   15b5   65 73 20 61   
+   15b9   74 20 68 65   
+   15bd   78 20 61 64   
+   15c1   64 72 3a 20   
+   15c5   00            
+   15c6   44 75 6d 70   MSGMD:     DB 'Dump 128 bytes of CPU RAM at hex addr: ',0
+   15ca   20 31 32 38   
+   15ce   20 62 79 74   
+   15d2   65 73 20 6f   
+   15d6   66 20 43 50   
+   15da   55 20 52 41   
+   15de   4d 20 61 74   
+   15e2   20 68 65 78   
+   15e6   20 61 64 64   
+   15ea   72 3a 20 00   
+   15ee   53 65 6e 64   MSGDL:     DB 'Sending (xmodem)...',0DH,0AH,0
+   15f2   69 6e 67 20   
+   15f6   28 78 6d 6f   
+   15fa   64 65 6d 29   
+   15fe   2e 2e 2e 0d   
+   1602   0a 00         
+   1604   53 65 6e 64   MSGDLDONE: DB 'Send complete.',0DH,0AH,0
+   1608   20 63 6f 6d   
+   160c   70 6c 65 74   
+   1610   65 2e 0d 0a   
+   1614   00            
                         
-   15bf                         END
-138b  BF_C          135d  BF_E          1358  BF_EXT        137e  BF_EXT0   
-1376  BF_EXT_PAD    1372  BF_EXT_SKIP    134f  BF_GOTEXT     1333  BF_N      
-134f  BF_NPAD       1323  BF_Z          0400  BLKSZ         131e  BUILD_FCB 
-1039  CRLF          2800  DBLOCK0       2000  DIRBASE       1394  DO_DOWNLOAD
-1429  DO_DUMP       109b  DO_FMT        10be  DO_HELP       10c7  DO_UPLOAD 
-1439  DUMP_B        1437  DUMP_L1       2100  FCB           2120  FCB2      
-10ac  FMTW          2180  FNAME         1132  GETBLK        11aa  GTCB      
-11cb  GTCS          11f3  GT_BAD        1154  GT_CAN        11db  GT_CHK    
-11a3  GT_CRC        1152  GT_EOT        116b  GT_LP         1192  GT_LP2    
-1157  GT_SOH        1180  GT_STX        114f  GT_TIMEOUT    1074  MENU      
-1499  MSGBANNER     1598  MSGDL         15ae  MSGDLDONE     1560  MSGDONE   
-157b  MSGDUMP       1512  MSGFMT        1522  MSGFMTOK      14db  MSGHELP   
-14b8  MSGMENU       152f  MSGPROMPT     1548  MSGRECV       104e  PRTBYTE   
+   1615                         END
+1394  BF_C          1366  BF_E          1361  BF_EXT        1387  BF_EXT0   
+137f  BF_EXT_PAD    137b  BF_EXT_SKIP    1358  BF_GOTEXT     133c  BF_N      
+1358  BF_NPAD       132c  BF_Z          0400  BLKSZ         1327  BUILD_FCB 
+1039  CRLF          2800  DBLOCK0       2000  DIRBASE       139d  DO_DOWNLOAD
+1432  DO_DUMP       10a0  DO_FMT        10c3  DO_HELP       145a  DO_MDUMP  
+10cc  DO_UPLOAD     1442  DUMP_B        1440  DUMP_L1       2100  FCB       
+2120  FCB2          10b1  FMTW          2180  FNAME         1137  GETBLK    
+11af  GTCB          11d0  GTCS          11f8  GT_BAD        1159  GT_CAN    
+11e0  GT_CHK        11a8  GT_CRC        1157  GT_EOT        1170  GT_LP     
+1197  GT_LP2        115c  GT_SOH        1185  GT_STX        1154  GT_TIMEOUT
+1467  MD_B          1465  MD_L1         1074  MENU          14c7  MSGBANNER 
+15ee  MSGDL         1604  MSGDLDONE     158e  MSGDONE       15a9  MSGDUMP   
+1540  MSGFMT        1550  MSGFMTOK      1509  MSGHELP       15c6  MSGMD     
+14e6  MSGMENU       155d  MSGPROMPT     1576  MSGRECV       104e  PRTBYTE   
 105b  PRTH1         1044  PRTSTR        2160  RCNT_L        0022  RDADRH    
-0021  RDADRL        0020  RDDATA        1064  RDSETA        1451  READHEX   
-12da  READNAME      0080  RECSZ         1456  RH1           147b  RH_ADD    
-1479  RH_DIG        1492  RH_DONE       1496  RH_NEXT       1481  RH_SHL    
-12df  RN1           12fd  RN_BS         1317  RN_DONE       1034  RT_HAVE   
+0021  RDADRL        0020  RDDATA        1064  RDSETA        147f  READHEX   
+12e3  READNAME      0080  RECSZ         1484  RH1           14a9  RH_ADD    
+14a7  RH_DIG        14c0  RH_DONE       14c4  RH_NEXT       14af  RH_SHL    
+12e8  RN1           1306  RN_BS         1320  RN_DONE       1034  RT_HAVE   
 101f  RT_L0         101d  RT_L1         101b  RT_L2         100f  RXCHAR    
-1019  RXCHAR_T      12ba  SA1           12d2  SA21          1425  SEND_RC   
-12aa  SETALLO       12c2  SETALLO2      106b  START         1004  TXCH1     
-1003  TXCHAR        0081  UDATA         10e1  UPLOOP        1110  UP_EOT    
-1108  UP_NAK        0080  USTAT         1213  WBLK          11fd  WBLK_SHL  
-12a1  WDF           1296  WDIRFCB       128d  WFC2B         124d  WFC_TWO   
-11f6  WRITEBLK      1223  WRITEFCB      2000  XMBUF         0006  XM_ACK    
-0018  XM_CAN        0004  XM_EOT        0015  XM_NAK        13ae  XM_SENDFILE
-0001  XM_SOH        0002  XM_STX        00fe  XM_TO         1427  XS_ADDR   
-1426  XS_BLK        13dc  XS_DATA       1407  XS_DONE       141c  XS_END    
-13bd  XS_LOOP       
+1019  RXCHAR_T      12c1  SA1           12db  SA21          142e  SEND_RC   
+12af  SETALLO       12c9  SETALLO2      106b  START         1004  TXCH1     
+1003  TXCHAR        0081  UDATA         10e6  UPLOOP        1115  UP_EOT    
+110d  UP_NAK        0080  USTAT         1218  WBLK          1202  WBLK_SHL  
+12a6  WDF           129b  WDIRFCB       1292  WFC2B         1252  WFC_TWO   
+11fb  WRITEBLK      1228  WRITEFCB      2000  XMBUF         0006  XM_ACK    
+0018  XM_CAN        0004  XM_EOT        0015  XM_NAK        13b7  XM_SENDFILE
+0001  XM_SOH        0002  XM_STX        00fe  XM_TO         1430  XS_ADDR   
+142f  XS_BLK        13e5  XS_DATA       1410  XS_DONE       1425  XS_END    
+13c6  XS_LOOP       
 

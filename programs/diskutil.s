@@ -152,14 +152,16 @@ MENU:   LXI     H,MSGMENU
         JZ      DO_HELP
         CPI     'B'
         JZ      DO_DUMP
+        CPI     'M'
+        JZ      DO_MDUMP
         JMP     MENU
 
 ; ---------------- command: format ----------------
 DO_FMT: LXI     H,MSGFMT
         CALL    PRTSTR
-        LXI     H,DIRBASE
+        LXI     H,0000H                 ; start at byte 0 of the RAM disk
         CALL    RDSETA
-        LXI     B,2048                  ; 2K directory
+        LXI     B,65536                 ; erase the ENTIRE 64K bank-B RAM disk
         MVI     D,0E5H                  ; keep the fill value in D (A is clobbered below)
 FMTW:   MOV     A,D
         OUT     RDDATA                  ; write 0xE5 (auto-increment)
@@ -456,6 +458,8 @@ WDF:    MOV     A,M
 
 SETALLO:
         LDA     FCB+15
+        ORA     A
+        RZ                              ; RC=0 -> no blocks to allocate
         ADI     07H
         RRC
         RRC
@@ -473,6 +477,8 @@ SA1:    MOV     M,A
 
 SETALLO2:
         LDA     FCB2+15
+        ORA     A
+        RZ                              ; RC=0 -> no blocks to allocate
         ADI     07H
         RRC
         RRC
@@ -480,7 +486,7 @@ SETALLO2:
         ANI     1FH
         MOV     B,A
         LXI     H,FCB2+16
-        MVI     A,18H
+        MVI     A,12H                   ; extent 1 starts at block 18 (2 + 16)
 SA21:   MOV     M,A
         INX     H
         INR     A
@@ -585,7 +591,7 @@ BF_EXT_PAD:
         JNZ     BF_EXT_PAD
 BF_EXT0:
         LXI     H,FCB
-        MVI     M,01H                   ; drive 1 = A: (dir entry byte0)
+        MVI     M,00H                   ; dir entry byte0 = USER number (0), not drive
         LXI     H,FCB
         LXI     D,FCB2
         MVI     B,32
@@ -691,6 +697,29 @@ DUMP_B: IN      RDDATA
         JNZ     DUMP_L1
         JMP     MENU
 
+; ============================================================================
+; DO_MDUMP -- dump 128 bytes of CPU (bank A) memory at a hex address.
+; Runs with the monitor banked out; reads bank A RAM directly. Useful for
+; inspecting CBIOS/BDOS variable state AFTER a CP/M session (reset -> G 1000).
+; ============================================================================
+DO_MDUMP:
+        LXI     H,MSGMD
+        CALL    PRTSTR
+        CALL    READHEX                 ; HL = start address
+        MVI     B,8                     ; 8 lines
+MD_L1:  MVI     D,16                    ; 16 bytes per line
+MD_B:   MOV     A,M
+        CALL    PRTBYTE
+        MVI     A,' '
+        CALL    TXCHAR
+        INX     H
+        DCR     D
+        JNZ     MD_B
+        CALL    CRLF
+        DCR     B
+        JNZ     MD_L1
+        JMP     MENU
+
 ; ---------------------------------------------------------------------------
 ; READHEX -- read up to 4 hex digits from the console into HL (echoed).
 ; ---------------------------------------------------------------------------
@@ -747,6 +776,7 @@ MSGPROMPT: DB 'Receive FILENAME (8.3): ',0
 MSGRECV:   DB 'Receiving (xmodem)...',0DH,0AH,0
 MSGDONE:   DB 'Received. Records(hi lo): ',0
 MSGDUMP:   DB 'Dump 256 bytes at hex addr: ',0
+MSGMD:     DB 'Dump 128 bytes of CPU RAM at hex addr: ',0
 MSGDL:     DB 'Sending (xmodem)...',0DH,0AH,0
 MSGDLDONE: DB 'Send complete.',0DH,0AH,0
 

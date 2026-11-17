@@ -28,7 +28,7 @@ UDATA   EQU     81H                     ; UART data (read=RX char, write=TX char
 RDDATA  EQU     20H                     ; RAM disk DATA (read/write, auto-increment)
 RDADRL  EQU     21H                     ; RAM disk ADDR low
 RDADRH  EQU     22H                     ; RAM disk ADDR high
-; ---- on-board SST25VF020 serial flash (SPI) ----
+; ---- on-board ISSI IS25LP040E serial flash (SPI, 512 KB) ----
 SPI_DATA EQU    50H                     ; read = clock 1 byte in (returns in A), write = clock 1 byte out. MSB-first.
 SPI_CTL  EQU    51H                     ; write bit0 = CS#: 0 = select flash low, 1 = release high
 SPI_STAT EQU    52H                     ; read bit0 = transfer busy (1 while a byte is clocked; polling OPTIONAL)
@@ -984,13 +984,13 @@ RH_DONE:
 RH_NEXT: JMP     RH1
 
 ; ============================================================================
-; --- SST25VF020 serial-flash routines (SPI) --------------------------------
+; --- ISSI IS25LP040E serial-flash routines (SPI) ---------------------------
 ; Ports: SPI_DATA(0x50) read clocks a byte in / write clocks a byte out (MSB
 ;        first); SPI_CTL(0x51) bit0 = CS# (0=select low, 1=release high);
 ;        SPI_STAT(0x52) bit0 = transfer busy. The byte engine stretches the
 ;        CPU wait state during every 0x50 access, so back-to-back 0x50
 ;        accesses complete within the access -- a busy poll on 0x52 is OPTIONAL.
-; The flash is 256 KB (SST25VF020): 64 x 4KB sectors, 256-byte pages,
+; The flash is a 512 KB ISSI IS25LP040E: 128 x 4KB sectors, 256-byte pages,
 ; byte-granular program that only CLEARS 1->0. Restoring a bit to 1 requires
 ; erasing its whole 4KB sector (to 0xFF) first, so ERASE-BEFORE-WRITE is
 ; mandatory unless writing into known-erased 0xFF regions.
@@ -1089,7 +1089,7 @@ DO_ID:   LXI     H,MSGID
          MOV     A,D
          CALL    PRTBYTE
          CALL    CRLF
-         MVI     A,0BFH
+         MVI     A,09DH                 ; ISSI (IS25LP040E) manufacturer ID
          CMP     B
          JNZ     ID_FAIL
          LXI     H,MSGPASS
@@ -1226,7 +1226,7 @@ ER_FAIL: CALL    SPI_REL
 ;                            empty-directory-entry marker).
 ;   Offset 0x0800 - 0x3FFFF: Data area (247.5K), left erased (0xFF).
 ;   Blocks are 1K; records are 128 bytes. This mirrors the RAM-disk drive A:
-;   layout (DIRBASE=2000H, 1K blocks) scaled onto the 256KB flash, so the CBIOS
+;   layout (DIRBASE=2000H, 1K blocks) scaled onto the 512KB flash, so the CBIOS
 ;   can reuse the same directory/block arithmetic for drive B:.
 DO_FMTFLASH:
          LXI     H,MSGFMTFL

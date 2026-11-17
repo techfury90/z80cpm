@@ -64,23 +64,27 @@ module spi_flash(
       // Writing sends the byte on MOSI; a read clocks out 0xFF (MOSI don't-care).
       sh_out <= rd_stb ? 8'hFF : din;
     end else if (run) begin
-      if (cnt == 5'd16) begin          // byte complete -> latch + idle SCK low
+      if (cnt == 5'd17) begin          // byte complete -> latch + idle SCK low
         run    <= 1'b0;
         sck    <= 1'b0;
         dout_q <= sh_in;
         cnt    <= 5'h0;
       end else if (cnt[0] == 1'b0) begin
-        // Even clock: SCK low.  Present the current MSB, then shift for the
-        // next bit (data changes on the falling edge in mode 0).
+        // Even counts 0,2,...,16: SCK LOW (falling edge).  Sample MISO (the
+        // flash presents its output bit here) and advance the MOSI bit.
+        // Sampling on the rising edge was ONE BIT LATE (read data came back as
+        // `data << 1` on silicon) -- aligning to the falling edge fixes it.
         sck <= 1'b0;
-        if (cnt != 5'h0) sh_out <= {sh_out[6:0], 1'b0};
+        if (cnt != 5'h0) begin
+          sh_in  <= {sh_in[6:0], spi_miso};   // capture the response bit
+          sh_out <= {sh_out[6:0], 1'b0};      // advance MOSI for the next bit
+        end
         cnt <= cnt + 5'h1;
       end else begin
-        // Odd clock: SCK high (rising edge).  Sample MISO MSB-first.
-        sck  <= 1'b1;
-        sh_in <= {sh_in[6:0], spi_miso};
-        if (cnt == 5'd15) cnt <= 5'd16;   // 8th bit sampled -> next clock finishes
-        else              cnt <= cnt + 5'h1;
+        // Odd counts 1,3,...,15: SCK HIGH (rising edge).  The flash samples the
+        // MOSI bit here (mode-0: master changes data on falling, sampled rising).
+        sck <= 1'b1;
+        cnt <= cnt + 5'h1;
       end
     end
   end

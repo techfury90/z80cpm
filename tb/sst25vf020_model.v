@@ -142,8 +142,11 @@ module sst25vf020_model(
     end
   end
 
-  // ---------- MISO drive (negedge): present the next response bit ----------
-  always @(negedge spi_sclk) begin
+  // ---------- MISO drive: present the response bit on the rising edge ----------
+  // (The real ISSI part presents its output bit aligned with SCK; presenting on
+  //  the rising edge here lets the byte engine's falling-edge sampling capture
+  //  the settled value, validating the read path in sim.)
+  always @(posedge spi_sclk) begin
     if (spi_csn) begin
       spi_miso = 1'b1;
     end else if (resp) begin

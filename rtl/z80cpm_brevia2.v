@@ -87,10 +87,6 @@ module z80cpm_brevia2(
   // low OR the hold counter has not reached 8 yet.
   wire rst = ~rst_n_sync2 | ~rst_cnt[3];
 
-  // Hardware heartbeat: free-running counter on clk -> led[7] blinks if the PLL
-  // clock is actually ticking and the FPGA is configured. Independent of the CPU.
-  reg [24:0] hb = 0;
-  always @(posedge clk) hb <= hb + 1'b1;
 
   wire        m1_n, mreq_n, iorq_n, rd_n, wr_n, rfsh_n, busak_n;
   wire [15:0] A;
@@ -219,10 +215,8 @@ module z80cpm_brevia2(
                  : (mem_rd    ? sram_rdata
                  :              io_rdata);
 
-  // led[7]=heartbeat (clock); led[6:0]=~led_reg (CPU's port 0x40 value,
-  // active-low). Confirms whether the core actually executes OUT 0x40.
-  assign led[7]   = hb[24];
-  assign led[6:0] = ~led_reg[6:0];
+  // CPU-programmable LEDs (I/O port 40h)
+  assign led[7:0] = ~led_reg[7:0];
 
   tv80n u_cpu(
     .reset_n(~rst), .clk(clk), .wait_n(cpu_wait_n), .int_n(vcc), .nmi_n(vcc), .busrq_n(vcc),

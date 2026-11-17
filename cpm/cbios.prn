@@ -55,21 +55,21 @@
                         ; ============================================================================
    fa00   c3 33 fa              JMP     BOOT            ; 0  BIOS+0   cold start
    fa03   c3 67 fa              JMP     WBOOT           ; 1  BIOS+3   warm start
-   fa06   c3 aa fa              JMP     CONST           ; 2  BIOS+6   console status
-   fa09   c3 b6 fa              JMP     CONIN           ; 3  BIOS+9   console input
-   fa0c   c3 c0 fa              JMP     CONOUT          ; 4  BIOS+12  console output
-   fa0f   c3 e4 fa              JMP     LIST            ; 5  BIOS+15  list device output
-   fa12   c3 e7 fa              JMP     PUNCH           ; 6  BIOS+18  punch device output
-   fa15   c3 ea fa              JMP     READER          ; 7  BIOS+21  reader device input
-   fa18   c3 02 fb              JMP     HOME            ; 8  BIOS+24  home the disk
-   fa1b   c3 f0 fa              JMP     SELDSK          ; 9  BIOS+27  select disk drive
-   fa1e   c3 0b fb              JMP     SETTRK          ; 10 BIOS+30  set current track
-   fa21   c3 10 fb              JMP     SETSEC          ; 11 BIOS+33  set current sector
-   fa24   c3 15 fb              JMP     SETDMA          ; 12 BIOS+36  set DMA address
-   fa27   c3 4b fb              JMP     READ            ; 13 BIOS+39  read one 128-byte sector
-   fa2a   c3 63 fb              JMP     WRITE           ; 14 BIOS+42  write one 128-byte sector
-   fa2d   c3 ed fa              JMP     LISTST          ; 15 BIOS+45  list device status
-   fa30   c3 1e fb              JMP     SECTRAN         ; 16 BIOS+48  sector translate (identity)
+   fa06   c3 ae fa              JMP     CONST           ; 2  BIOS+6   console status
+   fa09   c3 ba fa              JMP     CONIN           ; 3  BIOS+9   console input
+   fa0c   c3 c4 fa              JMP     CONOUT          ; 4  BIOS+12  console output
+   fa0f   c3 e8 fa              JMP     LIST            ; 5  BIOS+15  list device output
+   fa12   c3 eb fa              JMP     PUNCH           ; 6  BIOS+18  punch device output
+   fa15   c3 ee fa              JMP     READER          ; 7  BIOS+21  reader device input
+   fa18   c3 06 fb              JMP     HOME            ; 8  BIOS+24  home the disk
+   fa1b   c3 f4 fa              JMP     SELDSK          ; 9  BIOS+27  select disk drive
+   fa1e   c3 0f fb              JMP     SETTRK          ; 10 BIOS+30  set current track
+   fa21   c3 14 fb              JMP     SETSEC          ; 11 BIOS+33  set current sector
+   fa24   c3 19 fb              JMP     SETDMA          ; 12 BIOS+36  set DMA address
+   fa27   c3 4f fb              JMP     READ            ; 13 BIOS+39  read one 128-byte sector
+   fa2a   c3 67 fb              JMP     WRITE           ; 14 BIOS+42  write one 128-byte sector
+   fa2d   c3 f1 fa              JMP     LISTST          ; 15 BIOS+45  list device status
+   fa30   c3 22 fb              JMP     SECTRAN         ; 16 BIOS+48  sector translate (identity)
                         
                         ; ============================================================================
                         ;   COLD BOOT  (entry at 0xFA00 via 'G FA00')
@@ -82,17 +82,17 @@
    fa38   d3 30                 OUT     30H             ; bank OUT the GWMON monitor ROM
                         ;
                         ; ---- set page-zero vectors ------------------------------------------------
-   fa3a   cd 8b fa              CALL    SETVEC
+   fa3a   cd 8f fa              CALL    SETVEC
                         ;
                         ; ---- write CCP and BDOS from machine RAM onto the RAM disk SYSTEM tracks ----
    fa3d   21 00 00              LXI     H,SYSCPP        ; disk byte 0 (system track 0)
    fa40   11 00 e4              LXI     D,CCP           ; source = CCP image
    fa43   01 00 08              LXI     B,2048          ; 2048 bytes
-   fa46   cd 7b fb              CALL    RAMWR
+   fa46   cd 7f fb              CALL    RAMWR
    fa49   21 00 08              LXI     H,SYSBDS        ; disk byte 0x0800 (system track 0/1)
    fa4c   11 00 ec              LXI     D,BDOSL         ; source = BDOS image
    fa4f   01 00 0e              LXI     B,3584          ; 3584 bytes
-   fa52   cd 7b fb              CALL    RAMWR
+   fa52   cd 7f fb              CALL    RAMWR
                         ;
                         ; ---- the user DATA area is NOT formatted here --------------------------------
                         ; The diskutil formats the disk explicitly. The cold boot leaves the directory
@@ -101,12 +101,12 @@
                         ; 0x2000: a boot-format'd disk yields a clean NO FILE from DIR.
                         ;
                         ; ---- output the sign-on banner ---------------------------------------------
-   fa55   21 a9 fb              LXI     H,BANNER
-   fa58   cd d7 fa              CALL    PRTSTR
+   fa55   21 ad fb              LXI     H,BANNER
+   fa58   cd db fa              CALL    PRTSTR
                         ;
                         ; ---- initialize the default DMA address and jump to the CCP -----------------
    fa5b   21 80 00              LXI     H,DMA0
-   fa5e   22 c2 fb              SHLD    DMA
+   fa5e   22 e1 fb              SHLD    DMA
    fa61   01 00 00              LXI     B,0000H         ; drive A (low nibble), user 0 (high nibble)
    fa64   c3 00 e4              JMP     CCP             ; the CCP sets up its own stack and prints "A>"
                         
@@ -115,110 +115,114 @@
                         ; ============================================================================
    fa67                 WBOOT:
    fa67   31 00 dc              LXI     SP,0DC00H
+   fa6a   3e 01                 MVI     A,01H
+   fa6c   d3 30                 OUT     30H             ; bank OUT the GWMON monitor ROM (same as cold boot:
+                                                        ;  'G FA03' from the monitor after a reset must swap
+                                                        ;  the ROM out too, else page-zero/CCP reads hit ROM)
                         ;
                         ; ---- reload CCP and BDOS from the RAM disk SYSTEM tracks --------------------
-   fa6a   21 00 00              LXI     H,SYSCPP
-   fa6d   11 00 e4              LXI     D,CCP
-   fa70   01 00 08              LXI     B,2048
-   fa73   cd 89 fb              CALL    RAMRD
-   fa76   21 00 08              LXI     H,SYSBDS
-   fa79   11 00 ec              LXI     D,BDOSL
-   fa7c   01 00 0e              LXI     B,3584
-   fa7f   cd 89 fb              CALL    RAMRD
+   fa6e   21 00 00              LXI     H,SYSCPP
+   fa71   11 00 e4              LXI     D,CCP
+   fa74   01 00 08              LXI     B,2048
+   fa77   cd 8d fb              CALL    RAMRD
+   fa7a   21 00 08              LXI     H,SYSBDS
+   fa7d   11 00 ec              LXI     D,BDOSL
+   fa80   01 00 0e              LXI     B,3584
+   fa83   cd 8d fb              CALL    RAMRD
                         ;
                         ; ---- restore page-zero vectors (a transient program may have clobbered them) -
-   fa82   cd 8b fa              CALL    SETVEC
+   fa86   cd 8f fa              CALL    SETVEC
                         ;
                         ; ---- re-enter the CCP -------------------------------------------------------
-   fa85   01 00 00              LXI     B,0000H
-   fa88   c3 00 e4              JMP     CCP
+   fa89   01 00 00              LXI     B,0000H
+   fa8c   c3 00 e4              JMP     CCP
                         
                         ; ============================================================================
                         ;   PAGE-ZERO VECTOR SETUP
                         ;   0x0000 = JP WBOOT (0xFA03), 0x0003 = IOBYTE, 0x0005 = JP BDOSENT (0xEC06)
                         ; ============================================================================
-   fa8b                 SETVEC:
-   fa8b   21 00 00              LXI     H,0000H
-   fa8e   36 c3                 MVI     M,0C3H          ; JP
-   fa90   23                    INX     H
-   fa91   36 03                 MVI     M,LOW(BIOS)+3   ; 0x0000 = JP 0xFA03 (the WBOOT table entry)
-   fa93   23                    INX     H
-   fa94   36 fa                 MVI     M,HIGH(BIOS)
-   fa96   21 03 00              LXI     H,0003H
-   fa99   36 00                 MVI     M,00H           ; IOBYTE = 0 (video console default)
-   fa9b   23                    INX     H
-   fa9c   36 00                 MVI     M,00H
-   fa9e   21 05 00              LXI     H,0005H
-   faa1   36 c3                 MVI     M,0C3H          ; JP BDOS entry
-   faa3   23                    INX     H
-   faa4   36 06                 MVI     M,LOW(BDOSENT)
-   faa6   23                    INX     H
-   faa7   36 ec                 MVI     M,HIGH(BDOSENT)
-   faa9   c9                    RET
+   fa8f                 SETVEC:
+   fa8f   21 00 00              LXI     H,0000H
+   fa92   36 c3                 MVI     M,0C3H          ; JP
+   fa94   23                    INX     H
+   fa95   36 03                 MVI     M,LOW(BIOS)+3   ; 0x0000 = JP 0xFA03 (the WBOOT table entry)
+   fa97   23                    INX     H
+   fa98   36 fa                 MVI     M,HIGH(BIOS)
+   fa9a   21 03 00              LXI     H,0003H
+   fa9d   36 00                 MVI     M,00H           ; IOBYTE = 0 (video console default)
+   fa9f   23                    INX     H
+   faa0   36 00                 MVI     M,00H
+   faa2   21 05 00              LXI     H,0005H
+   faa5   36 c3                 MVI     M,0C3H          ; JP BDOS entry
+   faa7   23                    INX     H
+   faa8   36 06                 MVI     M,LOW(BDOSENT)
+   faaa   23                    INX     H
+   faab   36 ec                 MVI     M,HIGH(BDOSENT)
+   faad   c9                    RET
                         
                         ; ============================================================================
                         ;   CONSOLE ROUTINES (Brevia2 UART: 0x80 status, 0x81 data)
                         ; ============================================================================
                         ; CONST: return 0xFF if a character is ready, else 0x00.
-   faaa                 CONST:
-   faaa   db 80                 IN      80H
-   faac   e6 02                 ANI     02H             ; rx_avail (bit1)
-   faae   3e 00                 MVI     A,00H           ; default: no char
-   fab0   ca b5 fa              JZ      CONST2
-   fab3   3e ff                 MVI     A,0FFH          ; char ready
-   fab5                 CONST2:
-   fab5   c9                    RET
+   faae                 CONST:
+   faae   db 80                 IN      80H
+   fab0   e6 02                 ANI     02H             ; rx_avail (bit1)
+   fab2   3e 00                 MVI     A,00H           ; default: no char
+   fab4   ca b9 fa              JZ      CONST2
+   fab7   3e ff                 MVI     A,0FFH          ; char ready
+   fab9                 CONST2:
+   fab9   c9                    RET
                         
                         ; CONIN: poll rx_avail, then read the character (returned in A).
-   fab6                 CONIN:
-   fab6   db 80                 IN      80H
-   fab8   e6 02                 ANI     02H             ; rx_avail (bit1)
-   faba   ca b6 fa              JZ      CONIN           ; wait for a character
-   fabd   db 81                 IN      81H             ; read it (8N1, no parity strip needed)
-   fabf   c9                    RET
+   faba                 CONIN:
+   faba   db 80                 IN      80H
+   fabc   e6 02                 ANI     02H             ; rx_avail (bit1)
+   fabe   ca ba fa              JZ      CONIN           ; wait for a character
+   fac1   db 81                 IN      81H             ; read it (8N1, no parity strip needed)
+   fac3   c9                    RET
                         
                         ; CONOUT: output the character held in register C (BDOS/DOS convention).
-   fac0                 CONOUT:
-   fac0   db 80                 IN      80H
-   fac2   e6 01                 ANI     01H             ; tx_busy (bit0)
-   fac4   c2 c0 fa              JNZ     CONOUT          ; wait until transmitter is idle
-   fac7   79                    MOV     A,C
-   fac8   d3 81                 OUT     81H
-   faca   c9                    RET
+   fac4                 CONOUT:
+   fac4   db 80                 IN      80H
+   fac6   e6 01                 ANI     01H             ; tx_busy (bit0)
+   fac8   c2 c4 fa              JNZ     CONOUT          ; wait until transmitter is idle
+   facb   79                    MOV     A,C
+   facc   d3 81                 OUT     81H
+   face   c9                    RET
                         
                         ; PUTC: internal helper - output the character held in A (used for the banner).
-   facb                 PUTC:
-   facb   f5                    PUSH    PSW
-   facc                 PUTC1:
-   facc   db 80                 IN      80H
-   face   e6 01                 ANI     01H
-   fad0   c2 cc fa              JNZ     PUTC1
-   fad3   f1                    POP     PSW
-   fad4   d3 81                 OUT     81H
-   fad6   c9                    RET
+   facf                 PUTC:
+   facf   f5                    PUSH    PSW
+   fad0                 PUTC1:
+   fad0   db 80                 IN      80H
+   fad2   e6 01                 ANI     01H
+   fad4   c2 d0 fa              JNZ     PUTC1
+   fad7   f1                    POP     PSW
+   fad8   d3 81                 OUT     81H
+   fada   c9                    RET
                         
                         ; PRTSTR: print a NUL-terminated string pointed to by HL.
-   fad7                 PRTSTR:
-   fad7   7e                    MOV     A,M
-   fad8   b7                    ORA     A
-   fad9   ca e3 fa              JZ      PRTEND
-   fadc   cd cb fa              CALL    PUTC
-   fadf   23                    INX     H
-   fae0   c3 d7 fa              JMP     PRTSTR
-   fae3                 PRTEND:
-   fae3   c9                    RET
+   fadb                 PRTSTR:
+   fadb   7e                    MOV     A,M
+   fadc   b7                    ORA     A
+   fadd   ca e7 fa              JZ      PRTEND
+   fae0   cd cf fa              CALL    PUTC
+   fae3   23                    INX     H
+   fae4   c3 db fa              JMP     PRTSTR
+   fae7                 PRTEND:
+   fae7   c9                    RET
                         
                         ; LIST / PUNCH / READER / LISTST: the serial console is the only device, so
                         ; the list/punch devices map to the console UART and the reader is the console.
-   fae4                 LIST:
-   fae4   c3 c0 fa              JMP     CONOUT          ; char in C
-   fae7                 PUNCH:
-   fae7   c3 c0 fa              JMP     CONOUT          ; char in C
-   faea                 READER:
-   faea   c3 b6 fa              JMP     CONIN           ; returns char in A
-   faed                 LISTST:
-   faed   3e ff                 MVI     A,0FFH          ; list device always "ready"
-   faef   c9                    RET
+   fae8                 LIST:
+   fae8   c3 c4 fa              JMP     CONOUT          ; char in C
+   faeb                 PUNCH:
+   faeb   c3 c4 fa              JMP     CONOUT          ; char in C
+   faee                 READER:
+   faee   c3 ba fa              JMP     CONIN           ; returns char in A
+   faf1                 LISTST:
+   faf1   3e ff                 MVI     A,0FFH          ; list device always "ready"
+   faf3   c9                    RET
                         
                         ; ============================================================================
                         ;   DISK SELECT / TRACK / SECTOR / DMA  (these merely save parameters)
@@ -226,52 +230,52 @@
                         ; SELDSK: select drive given by register C.  Return HL = DPH address for the
                         ; selected drive, or HL=0000 with A=0xFF if the drive is not present.
                         ; Only drive A (C=0) exists (the RAM disk); all other drives return an error.
-   faf0                 SELDSK:
-   faf0   79                    MOV     A,C
-   faf1   32 bf fb              STA     SELBL           ; remember the selected drive number
-   faf4   b7                    ORA     A
-   faf5   c2 fc fa              JNZ     SELERR          ; C != 0 -> not present
-   faf8   21 c9 fb              LXI     H,DPH           ; drive A disk parameter header
-   fafb   c9                    RET
-   fafc                 SELERR:
-   fafc   21 00 00              LXI     H,0000H         ; error return: HL=0
-   faff   3e ff                 MVI     A,0FFH
-   fb01   c9                    RET
+   faf4                 SELDSK:
+   faf4   79                    MOV     A,C
+   faf5   32 de fb              STA     SELBL           ; remember the selected drive number
+   faf8   b7                    ORA     A
+   faf9   c2 00 fb              JNZ     SELERR          ; C != 0 -> not present
+   fafc   21 e8 fb              LXI     H,DPH           ; drive A disk parameter header
+   faff   c9                    RET
+   fb00                 SELERR:
+   fb00   21 00 00              LXI     H,0000H         ; error return: HL=0
+   fb03   3e ff                 MVI     A,0FFH
+   fb05   c9                    RET
                         
                         ; HOME: move to track 0, sector 0.
-   fb02                 HOME:
-   fb02   3e 00                 MVI     A,00H
-   fb04   32 c0 fb              STA     TRK
-   fb07   32 c1 fb              STA     SECN
-   fb0a   c9                    RET
+   fb06                 HOME:
+   fb06   3e 00                 MVI     A,00H
+   fb08   32 df fb              STA     TRK
+   fb0b   32 e0 fb              STA     SECN
+   fb0e   c9                    RET
                         
                         ; SETTRK: set the current track (register C).
-   fb0b                 SETTRK:
-   fb0b   79                    MOV     A,C
-   fb0c   32 c0 fb              STA     TRK
-   fb0f   c9                    RET
+   fb0f                 SETTRK:
+   fb0f   79                    MOV     A,C
+   fb10   32 df fb              STA     TRK
+   fb13   c9                    RET
                         
                         ; SETSEC: set the current sector (register C).
-   fb10                 SETSEC:
-   fb10   79                    MOV     A,C
-   fb11   32 c1 fb              STA     SECN
-   fb14   c9                    RET
+   fb14                 SETSEC:
+   fb14   79                    MOV     A,C
+   fb15   32 e0 fb              STA     SECN
+   fb18   c9                    RET
                         
                         ; SETDMA: set the DMA buffer address (registers B,C).
-   fb15                 SETDMA:
-   fb15   79                    MOV     A,C
-   fb16   32 c2 fb              STA     DMA
-   fb19   78                    MOV     A,B
-   fb1a   32 c3 fb              STA     DMA+1
-   fb1d   c9                    RET
+   fb19                 SETDMA:
+   fb19   79                    MOV     A,C
+   fb1a   32 e1 fb              STA     DMA
+   fb1d   78                    MOV     A,B
+   fb1e   32 e2 fb              STA     DMA+1
+   fb21   c9                    RET
                         
                         ; SECTRAN: sector translate = identity.  The requested sector (BC) is returned
                         ; unchanged in HL.  (XLT in the DPH is 0, i.e. no translation table, so we do
                         ; a pure identity and never read from a table.)
-   fb1e                 SECTRAN:
-   fb1e   69                    MOV     L,C
-   fb1f   60                    MOV     H,B
-   fb20   c9                    RET
+   fb22                 SECTRAN:
+   fb22   69                    MOV     L,C
+   fb23   60                    MOV     H,B
+   fb24   c9                    RET
                         
                         ; ============================================================================
                         ;   RAM-DISK ADDRESS CALCULATION
@@ -279,150 +283,158 @@
                         ;   The BDOS passes the absolute track (offset already included), so OFF is not
                         ;   re-added here.
                         ; ============================================================================
-   fb21                 CALC:
-   fb21   3a c0 fb              LDA     TRK
-   fb24   6f                    MOV     L,A
-   fb25   26 00                 MVI     H,00H           ; HL = TRK
-   fb27   29                    DAD     H               ; *2
-   fb28   29                    DAD     H               ; *4
-   fb29   29                    DAD     H               ; *8
-   fb2a   29                    DAD     H               ; *16
-   fb2b   29                    DAD     H               ; *32
-   fb2c   29                    DAD     H               ; *64
-   fb2d   29                    DAD     H               ; *128
-   fb2e   29                    DAD     H               ; *256
-   fb2f   29                    DAD     H               ; *512
-   fb30   29                    DAD     H               ; *1024
-   fb31   29                    DAD     H               ; *2048
-   fb32   29                    DAD     H               ; *4096  -> HL = TRK*4096
-   fb33   44                    MOV     B,H
-   fb34   4d                    MOV     C,L             ; BC = TRK*4096
-   fb35   3a c1 fb              LDA     SECN
-   fb38   6f                    MOV     L,A
-   fb39   26 00                 MVI     H,00H           ; HL = SECN
-   fb3b   29                    DAD     H               ; *2
-   fb3c   29                    DAD     H               ; *4
-   fb3d   29                    DAD     H               ; *8
-   fb3e   29                    DAD     H               ; *16
-   fb3f   29                    DAD     H               ; *32
-   fb40   29                    DAD     H               ; *64
-   fb41   29                    DAD     H               ; *128  -> HL = SECN*128
-   fb42   09                    DAD     B               ; HL = TRK*4096 + SECN*128
-   fb43   c9                    RET
+   fb25                 CALC:
+   fb25   3a df fb              LDA     TRK
+   fb28   6f                    MOV     L,A
+   fb29   26 00                 MVI     H,00H           ; HL = TRK
+   fb2b   29                    DAD     H               ; *2
+   fb2c   29                    DAD     H               ; *4
+   fb2d   29                    DAD     H               ; *8
+   fb2e   29                    DAD     H               ; *16
+   fb2f   29                    DAD     H               ; *32
+   fb30   29                    DAD     H               ; *64
+   fb31   29                    DAD     H               ; *128
+   fb32   29                    DAD     H               ; *256
+   fb33   29                    DAD     H               ; *512
+   fb34   29                    DAD     H               ; *1024
+   fb35   29                    DAD     H               ; *2048
+   fb36   29                    DAD     H               ; *4096  -> HL = TRK*4096
+   fb37   44                    MOV     B,H
+   fb38   4d                    MOV     C,L             ; BC = TRK*4096
+   fb39   3a e0 fb              LDA     SECN
+   fb3c   6f                    MOV     L,A
+   fb3d   26 00                 MVI     H,00H           ; HL = SECN
+   fb3f   29                    DAD     H               ; *2
+   fb40   29                    DAD     H               ; *4
+   fb41   29                    DAD     H               ; *8
+   fb42   29                    DAD     H               ; *16
+   fb43   29                    DAD     H               ; *32
+   fb44   29                    DAD     H               ; *64
+   fb45   29                    DAD     H               ; *128  -> HL = SECN*128
+   fb46   09                    DAD     B               ; HL = TRK*4096 + SECN*128
+   fb47   c9                    RET
                         
                         ; ============================================================================
                         ;   RAM-DISK SET-POINTER:  write HL to ports 0x21/0x22
                         ; ============================================================================
-   fb44                 RAMPTR:
-   fb44   7d                    MOV     A,L
-   fb45   d3 21                 OUT     21H             ; address low byte
-   fb47   7c                    MOV     A,H
-   fb48   d3 22                 OUT     22H             ; address high byte
-   fb4a   c9                    RET
+   fb48                 RAMPTR:
+   fb48   7d                    MOV     A,L
+   fb49   d3 21                 OUT     21H             ; address low byte
+   fb4b   7c                    MOV     A,H
+   fb4c   d3 22                 OUT     22H             ; address high byte
+   fb4e   c9                    RET
                         
                         ; ============================================================================
                         ;   READ:  read one 128-byte CP/M sector from the RAM disk into the DMA buffer.
                         ;   Returns A=0 on success (RAM disk is error-free -> always 0).
                         ; ============================================================================
-   fb4b                 READ:
-   fb4b   cd 21 fb              CALL    CALC            ; HL = RAM-disk byte address
-   fb4e   cd 44 fb              CALL    RAMPTR          ; set the disk data-pointer
-   fb51   2a c2 fb              LHLD    DMA
-   fb54   54                    MOV     D,H
-   fb55   5d                    MOV     E,L             ; DE = DMA destination
-   fb56   06 80                 MVI     B,128
-   fb58                 READ1:
-   fb58   db 20                 IN      20H             ; read a byte (data port auto-increments)
-   fb5a   12                    STAX    D
-   fb5b   13                    INX     D
-   fb5c   05                    DCR     B
-   fb5d   c2 58 fb              JNZ     READ1
-   fb60   3e 00                 MVI     A,00H           ; success
-   fb62   c9                    RET
+   fb4f                 READ:
+   fb4f   cd 25 fb              CALL    CALC            ; HL = RAM-disk byte address
+   fb52   cd 48 fb              CALL    RAMPTR          ; set the disk data-pointer
+   fb55   2a e1 fb              LHLD    DMA
+   fb58   54                    MOV     D,H
+   fb59   5d                    MOV     E,L             ; DE = DMA destination
+   fb5a   06 80                 MVI     B,128
+   fb5c                 READ1:
+   fb5c   db 20                 IN      20H             ; read a byte (data port auto-increments)
+   fb5e   12                    STAX    D
+   fb5f   13                    INX     D
+   fb60   05                    DCR     B
+   fb61   c2 5c fb              JNZ     READ1
+   fb64   3e 00                 MVI     A,00H           ; success
+   fb66   c9                    RET
                         
                         ; ============================================================================
                         ;   WRITE: write one 128-byte CP/M sector from the DMA buffer to the RAM disk.
                         ;   Returns A=0 on success.
                         ; ============================================================================
-   fb63                 WRITE:
-   fb63   cd 21 fb              CALL    CALC            ; HL = RAM-disk byte address
-   fb66   cd 44 fb              CALL    RAMPTR
-   fb69   2a c2 fb              LHLD    DMA
-   fb6c   54                    MOV     D,H
-   fb6d   5d                    MOV     E,L             ; DE = DMA source
-   fb6e   06 80                 MVI     B,128
-   fb70                 WRITE1:
-   fb70   1a                    LDAX    D
-   fb71   d3 20                 OUT     20H             ; write a byte (data port auto-increments)
-   fb73   13                    INX     D
-   fb74   05                    DCR     B
-   fb75   c2 70 fb              JNZ     WRITE1
-   fb78   3e 00                 MVI     A,00H           ; success
-   fb7a   c9                    RET
+   fb67                 WRITE:
+   fb67   cd 25 fb              CALL    CALC            ; HL = RAM-disk byte address
+   fb6a   cd 48 fb              CALL    RAMPTR
+   fb6d   2a e1 fb              LHLD    DMA
+   fb70   54                    MOV     D,H
+   fb71   5d                    MOV     E,L             ; DE = DMA source
+   fb72   06 80                 MVI     B,128
+   fb74                 WRITE1:
+   fb74   1a                    LDAX    D
+   fb75   d3 20                 OUT     20H             ; write a byte (data port auto-increments)
+   fb77   13                    INX     D
+   fb78   05                    DCR     B
+   fb79   c2 74 fb              JNZ     WRITE1
+   fb7c   3e 00                 MVI     A,00H           ; success
+   fb7e   c9                    RET
                         
                         ; ============================================================================
                         ;   RAM-DISK BLOCK COPY / FILL HELPERS (used by BOOT/WBOOT)
                         ; ============================================================================
                         ; RAMWR: write BC bytes from (DE) to the RAM disk starting at disk byte addr HL.
-   fb7b                 RAMWR:
-   fb7b   cd 44 fb              CALL    RAMPTR
-   fb7e                 RAMWR1:
-   fb7e   1a                    LDAX    D
-   fb7f   d3 20                 OUT     20H
-   fb81   13                    INX     D
-   fb82   0b                    DCX     B
-   fb83   78                    MOV     A,B
-   fb84   b1                    ORA     C
-   fb85   c2 7e fb              JNZ     RAMWR1
-   fb88   c9                    RET
+   fb7f                 RAMWR:
+   fb7f   cd 48 fb              CALL    RAMPTR
+   fb82                 RAMWR1:
+   fb82   1a                    LDAX    D
+   fb83   d3 20                 OUT     20H
+   fb85   13                    INX     D
+   fb86   0b                    DCX     B
+   fb87   78                    MOV     A,B
+   fb88   b1                    ORA     C
+   fb89   c2 82 fb              JNZ     RAMWR1
+   fb8c   c9                    RET
                         
                         ; RAMRD: read BC bytes from the RAM disk at disk byte addr HL into (DE).
-   fb89                 RAMRD:
-   fb89   cd 44 fb              CALL    RAMPTR
-   fb8c                 RAMRD1:
-   fb8c   db 20                 IN      20H
-   fb8e   12                    STAX    D
-   fb8f   13                    INX     D
-   fb90   0b                    DCX     B
-   fb91   78                    MOV     A,B
-   fb92   b1                    ORA     C
-   fb93   c2 8c fb              JNZ     RAMRD1
-   fb96   c9                    RET
+   fb8d                 RAMRD:
+   fb8d   cd 48 fb              CALL    RAMPTR
+   fb90                 RAMRD1:
+   fb90   db 20                 IN      20H
+   fb92   12                    STAX    D
+   fb93   13                    INX     D
+   fb94   0b                    DCX     B
+   fb95   78                    MOV     A,B
+   fb96   b1                    ORA     C
+   fb97   c2 90 fb              JNZ     RAMRD1
+   fb9a   c9                    RET
                         
                         ; RAMFILL: fill BC bytes on the RAM disk starting at disk byte addr HL with
                         ; the value in A.
-   fb97                 RAMFILL:
-   fb97   32 c4 fb              STA     FILLV
-   fb9a   cd 44 fb              CALL    RAMPTR
-   fb9d                 RAMFILL1:
-   fb9d   3a c4 fb              LDA     FILLV
-   fba0   d3 20                 OUT     20H
-   fba2   0b                    DCX     B
-   fba3   78                    MOV     A,B
-   fba4   b1                    ORA     C
-   fba5   c2 9d fb              JNZ     RAMFILL1
-   fba8   c9                    RET
+   fb9b                 RAMFILL:
+   fb9b   32 e3 fb              STA     FILLV
+   fb9e   cd 48 fb              CALL    RAMPTR
+   fba1                 RAMFILL1:
+   fba1   3a e3 fb              LDA     FILLV
+   fba4   d3 20                 OUT     20H
+   fba6   0b                    DCX     B
+   fba7   78                    MOV     A,B
+   fba8   b1                    ORA     C
+   fba9   c2 a1 fb              JNZ     RAMFILL1
+   fbac   c9                    RET
                         
                         ; ============================================================================
                         ;   SIGN-ON BANNER
                         ; ============================================================================
-   fba9                 BANNER:
-   fba9   43 50 2f 4d           DB      'CP/M 2.2 on Brevia2',0DH,0AH,0
-   fbad   20 32 2e 32   
-   fbb1   20 6f 6e 20   
-   fbb5   42 72 65 76   
-   fbb9   69 61 32 0d   
-   fbbd   0a 00         
+   fbad                 BANNER:
+   fbad   0d 0a                 DB      0DH,0AH                          ; blank line before the banner
+   fbaf   43 50 2f 4d           DB      'CP/M 2.2 on Brevia2',0DH,0AH
+   fbb3   20 32 2e 32   
+   fbb7   20 6f 6e 20   
+   fbbb   42 72 65 76   
+   fbbf   69 61 32 0d   
+   fbc3   0a            
+   fbc4   43 50 2f 4d           DB      'CP/M port by Whale-Chan',0DH,0AH,0
+   fbc8   20 70 6f 72   
+   fbcc   74 20 62 79   
+   fbd0   20 57 68 61   
+   fbd4   6c 65 2d 43   
+   fbd8   68 61 6e 0d   
+   fbdc   0a 00         
                         
                         ; ============================================================================
                         ;   CBIOS VARIABLES
                         ; ============================================================================
-   fbbf                 SELBL:  DS      1               ; last selected drive
-   fbc0                 TRK:    DS      1               ; current (absolute) track
-   fbc1                 SECN:   DS      1               ; current sector
-   fbc2                 DMA:    DS      2               ; current DMA address
-   fbc4                 FILLV:  DS      1               ; scratch for RAMFILL
-   fbc5                         DS      4               ; (padding/alignment reserved)
+   fbde                 SELBL:  DS      1               ; last selected drive
+   fbdf                 TRK:    DS      1               ; current (absolute) track
+   fbe0                 SECN:   DS      1               ; current sector
+   fbe1                 DMA:    DS      2               ; current DMA address
+   fbe3                 FILLV:  DS      1               ; scratch for RAMFILL
+   fbe4                         DS      4               ; (padding/alignment reserved)
                         
                         ; ============================================================================
                         ;   DISK PARAMETER HEADER (DPH) for drive A
@@ -431,15 +443,15 @@
                         ;     +2  scratch, +4 scratch, +6 scratch
                         ;     +8  DIRBUF, +10 DPB, +12 CSV, +14 ALV
                         ; ============================================================================
-   fbc9                 DPH:
-   fbc9   00 00                 DW      0000H           ; XLT: no sector translation
-   fbcb   00 00                 DW      0000H           ; scratch (cdrmax)
-   fbcd   00 00                 DW      0000H           ; scratch (curtrk)
-   fbcf   00 00                 DW      0000H           ; scratch (currec)
-   fbd1   f1 fb                 DW      DIRBUF          ; directory buffer (128 bytes)
-   fbd3   d9 fb                 DW      DPB             ; disk parameter block
-   fbd5   e8 fb                 DW      CSV             ; checksum vector
-   fbd7   e9 fb                 DW      ALV             ; allocation vector
+   fbe8                 DPH:
+   fbe8   00 00                 DW      0000H           ; XLT: no sector translation
+   fbea   00 00                 DW      0000H           ; scratch (cdrmax)
+   fbec   00 00                 DW      0000H           ; scratch (curtrk)
+   fbee   00 00                 DW      0000H           ; scratch (currec)
+   fbf0   10 fc                 DW      DIRBUF          ; directory buffer (128 bytes)
+   fbf2   f8 fb                 DW      DPB             ; disk parameter block
+   fbf4   07 fc                 DW      CSV             ; checksum vector
+   fbf6   08 fc                 DW      ALV             ; allocation vector
                         
                         ; ============================================================================
                         ;   DISK PARAMETER BLOCK (DPB)
@@ -456,38 +468,38 @@
                         ;   0 and 1, so AL0=0xC0 / AL1=0x00.  (AL0=0x00/AL1=0xC0 would reserve blocks
                         ;   8-9 and leave the real directory at block 0 unprotected, breaking SAVE.)
                         ; ============================================================================
-   fbd9                 DPB:
-   fbd9   20 00                 DW      SPT             ; SPT  = 32   (sectors per track)
-   fbdb   03                    DB      03H             ; BSH  = 3    (block shift  -> 1K blocks)
-   fbdc   07                    DB      07H             ; BLM  = 7    (block mask)
-   fbdd   00                    DB      00H             ; EXM  = 0
-   fbde   37 00                 DW      55              ; DSM  = 55   (max block number = 56 blocks)
-   fbe0   3f 00                 DW      63              ; DRM  = 63   (max directory entry = 64 entries)
-   fbe2   c0                    DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1)
-   fbe3   00                    DB      00H             ; AL1  = 0x00
-   fbe4   00 00                 DW      00H             ; CKS  = 0    (fixed media -> no checksum)
-   fbe6   02 00                 DW      02H             ; OFF  = 2    (reserve 2 system tracks)
+   fbf8                 DPB:
+   fbf8   20 00                 DW      SPT             ; SPT  = 32   (sectors per track)
+   fbfa   03                    DB      03H             ; BSH  = 3    (block shift  -> 1K blocks)
+   fbfb   07                    DB      07H             ; BLM  = 7    (block mask)
+   fbfc   00                    DB      00H             ; EXM  = 0
+   fbfd   37 00                 DW      55              ; DSM  = 55   (max block number = 56 blocks)
+   fbff   3f 00                 DW      63              ; DRM  = 63   (max directory entry = 64 entries)
+   fc01   c0                    DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1)
+   fc02   00                    DB      00H             ; AL1  = 0x00
+   fc03   00 00                 DW      00H             ; CKS  = 0    (fixed media -> no checksum)
+   fc05   02 00                 DW      02H             ; OFF  = 2    (reserve 2 system tracks)
                         
                         ; ============================================================================
                         ;   CBIOS BUFFERS / VECTORS
                         ; ============================================================================
-   fbe8                 CSV:    DS      1               ; checksum vector (0 bytes needed since CKS=0)
-   fbe9                 ALV:    DS      8               ; allocation vector (56 blocks / 8 = 7 -> pad 8)
-   fbf1                 DIRBUF: DS      128             ; directory buffer (one 128-byte directory record)
+   fc07                 CSV:    DS      1               ; checksum vector (0 bytes needed since CKS=0)
+   fc08                 ALV:    DS      8               ; allocation vector (56 blocks / 8 = 7 -> pad 8)
+   fc10                 DIRBUF: DS      128             ; directory buffer (one 128-byte directory record)
                         
-   fc71                         END
-fbe9  ALV           fba9  BANNER        ec06  BDOSENT       ec00  BDOSL     
-fa00  BIOS          fa33  BOOT          fb21  CALC          e400  CCP       
-fab6  CONIN         fac0  CONOUT        faaa  CONST         fab5  CONST2    
-fbe8  CSV           fbf1  DIRBUF        fbc2  DMA           0080  DMA0      
-fbd9  DPB           fbc9  DPH           fbc4  FILLV         fb02  HOME      
-fae4  LIST          faed  LISTST        fae3  PRTEND        fad7  PRTSTR    
-fae7  PUNCH         facb  PUTC          facc  PUTC1         fb97  RAMFILL   
-fb9d  RAMFILL1      fb44  RAMPTR        fb89  RAMRD         fb8c  RAMRD1    
-fb7b  RAMWR         fb7e  RAMWR1        fb4b  READ          fb58  READ1     
-faea  READER        fbc1  SECN          fb1e  SECTRAN       fbbf  SELBL     
-faf0  SELDSK        fafc  SELERR        fb15  SETDMA        fb10  SETSEC    
-fb0b  SETTRK        fa8b  SETVEC        0020  SPT           0800  SYSBDS    
-0000  SYSCPP        fbc0  TRK           fa67  WBOOT         fb63  WRITE     
-fb70  WRITE1        
+   fc90                         END
+fc08  ALV           fbad  BANNER        ec06  BDOSENT       ec00  BDOSL     
+fa00  BIOS          fa33  BOOT          fb25  CALC          e400  CCP       
+faba  CONIN         fac4  CONOUT        faae  CONST         fab9  CONST2    
+fc07  CSV           fc10  DIRBUF        fbe1  DMA           0080  DMA0      
+fbf8  DPB           fbe8  DPH           fbe3  FILLV         fb06  HOME      
+fae8  LIST          faf1  LISTST        fae7  PRTEND        fadb  PRTSTR    
+faeb  PUNCH         facf  PUTC          fad0  PUTC1         fb9b  RAMFILL   
+fba1  RAMFILL1      fb48  RAMPTR        fb8d  RAMRD         fb90  RAMRD1    
+fb7f  RAMWR         fb82  RAMWR1        fb4f  READ          fb5c  READ1     
+faee  READER        fbe0  SECN          fb22  SECTRAN       fbde  SELBL     
+faf4  SELDSK        fb00  SELERR        fb19  SETDMA        fb14  SETSEC    
+fb0f  SETTRK        fa8f  SETVEC        0020  SPT           0800  SYSBDS    
+0000  SYSCPP        fbdf  TRK           fa67  WBOOT         fb67  WRITE     
+fb74  WRITE1        
 

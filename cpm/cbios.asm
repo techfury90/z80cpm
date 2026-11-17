@@ -411,7 +411,9 @@ RAMFILL1:
 ;   SIGN-ON BANNER
 ; ============================================================================
 BANNER:
-        DB      'CP/M 2.2 on Brevia2',0DH,0AH,0
+        DB      0DH,0AH                          ; blank line before the banner
+        DB      'CP/M 2.2 on Brevia2',0DH,0AH
+        DB      'CP/M port by Whale-Chan',0DH,0AH,0
 
 ; ============================================================================
 ;   CBIOS VARIABLES

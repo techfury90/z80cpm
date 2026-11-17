@@ -35,7 +35,9 @@ user area, prints a banner, and enters the CCP.
 ### Expected output
 
 ```
+(blank line)
 CP/M 2.2 on Brevia2
+CP/M port by Whale-Chan
 A>
 ```
 

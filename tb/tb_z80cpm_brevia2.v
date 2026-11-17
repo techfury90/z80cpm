@@ -20,7 +20,7 @@ module tb_z80cpm_brevia2;
   integer    k;
   integer    found_msg = 0;
   integer    i;
-  localparam [11:0] BP = 2604;   // clk cycles per bit @ 9600
+  localparam [11:0] BP = 217;   // clk cycles per bit @ 115200
 
   z80cpm_brevia2 u_dut(.clk_in(clk_in), .rst_n(rst_n), .led(led), .sw(sw),
                        .uart_rx(uart_rx), .uart_tx(uart_tx),

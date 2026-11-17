@@ -1,0 +1,60 @@
+                        ; idtest.s -- JEDEC ID read via 0x9F through the Z80, exactly like diskutil DO_ID:
+                        ; select CS# low, OUT 0x9F, then 3x IN 0x50, store at 0x2000, print.
+   1000                         ORG 1000H
+   0050                 SFDATA  EQU 50H
+   0051                 SFCTL   EQU 51H
+   1000                 START:
+   1000   31 00 e0              LXI SP,0E000H
+   1003   3e 00                 MVI A,00H
+   1005   d3 51                 OUT SFCTL                 ; CS# select
+   1007   3e 9f                 MVI A,09FH
+   1009   d3 50                 OUT SFDATA                ; JEDEC ID opcode (0x9F, NO dummy byte)
+   100b   db 50                 IN  SFDATA                ; manufacturer
+   100d   32 00 20              STA 2000H
+   1010   db 50                 IN  SFDATA                ; device id 1
+   1012   32 01 20              STA 2001H
+   1015   db 50                 IN  SFDATA                ; device id 2
+   1017   32 02 20              STA 2002H
+   101a   3e 01                 MVI A,01H
+   101c   d3 51                 OUT SFCTL                 ; CS# release
+                                ; print the 3 ID bytes from 0x2000
+   101e   21 00 20              LXI H,2000H
+   1021   06 03                 MVI B,3
+   1023   7e            P:      MOV A,M
+   1024   cd 48 10              CALL PRTBYTE
+   1027   3e 20                 MVI A,' '
+   1029   cd 3c 10              CALL COUT
+   102c   23                    INX H
+   102d   05                    DCR B
+   102e   c2 23 10              JNZ P
+   1031   3e 0d                 MVI A,0DH
+   1033   cd 3c 10              CALL COUT
+   1036   3e 0a                 MVI A,0AH
+   1038   cd 3c 10              CALL COUT
+   103b   76                    HLT
+   103c   f5            COUT:   PUSH PSW
+   103d   db 80         COUT1:  IN  80H
+   103f   e6 01                 ANI 01H
+   1041   c2 3d 10              JNZ COUT1
+   1044   f1                    POP PSW
+   1045   d3 81                 OUT 81H
+   1047   c9                    RET
+   1048                 PRTBYTE:
+   1048   f5                    PUSH PSW
+   1049   e6 f0                 ANI 0F0H
+   104b   0f                    RRC
+   104c   0f                    RRC
+   104d   0f                    RRC
+   104e   0f                    RRC
+   104f   cd 55 10              CALL PRTH1
+   1052   f1                    POP PSW
+   1053   e6 0f                 ANI 0FH
+   1055   c6 90         PRTH1:  ADI 90H
+   1057   27                    DAA
+   1058   ce 40                 ACI 40H
+   105a   27                    DAA
+   105b   c3 3c 10              JMP COUT
+   105e                         END
+103c  COUT          103d  COUT1         1023  P             1048  PRTBYTE   
+1055  PRTH1         0051  SFCTL         0050  SFDATA        1000  START     
+

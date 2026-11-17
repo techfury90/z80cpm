@@ -57,6 +57,7 @@ add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uar
 add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v}
 add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v}
 add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/ram_disk.v}
+add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/spi_flash.v}
 
 #-- top module name
 set_option -top_module z80cpm_brevia2

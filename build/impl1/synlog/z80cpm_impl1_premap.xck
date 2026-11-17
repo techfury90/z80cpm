@@ -1,1 +1,1 @@
-ckid0_0:@|S:pll_inst.CLKOP@|E:boot_done@|F:@syn_dgcc_clockid0_0==1@|M:ClockId_0_0
+ckid0_0:@|S:pll_inst.CLKOP@|E:spi_cs@|F:@syn_dgcc_clockid0_0==1@|M:ClockId_0_0

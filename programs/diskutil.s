@@ -1064,16 +1064,23 @@ SPI_ERASE_SECT0:
          RET
 
 ; ---------------- command: read JEDEC ID ----------------
+; The on-board flash is an ISSI IS25LD040.  Per the IS25LD040 datasheet (JEDEC ID
+; READ 0x9F, Table 11), the 0x9F read shifts out, in this order:
+;     second Manufacturer ID 7Fh  ->  first Manufacturer ID 9Dh  ->  Device ID 7Eh
+; i.e. the JEDEC stream is  7F 9D 7E .  The 0x9F command is a 1-byte instruction
+; (no dummy/address byte), so we read the 3 ID bytes back directly and verify the
+; exact IS25LD040 signature.  (The READ command 0x03 is unaffected -- it carries
+; 3 address bytes, so its data path needs no special handling.)
 DO_ID:   LXI     H,MSGID
          CALL    PRTSTR
          CALL    SPI_SEL
          MVI     A,09FH
          CALL    SPI_XMIT                ; JEDEC ID opcode (0x9F)
-         IN      SPI_DATA                ; manufacturer id (MUST be 0xBF)
+         IN      SPI_DATA                ; byte 0 = 2nd mfr ID (7Fh)
          MOV     B,A
-         IN      SPI_DATA                ; device id byte 1
+         IN      SPI_DATA                ; byte 1 = 1st mfr ID (9Dh)
          MOV     C,A
-         IN      SPI_DATA                ; device id byte 2
+         IN      SPI_DATA                ; byte 2 = device ID (7Eh)
          MOV     D,A
          CALL    SPI_REL
          LXI     H,MSGIDVAL
@@ -1089,8 +1096,14 @@ DO_ID:   LXI     H,MSGID
          MOV     A,D
          CALL    PRTBYTE
          CALL    CRLF
-         MVI     A,09DH                 ; ISSI (IS25LP040E) manufacturer ID
+         MVI     A,07FH                  ; IS25LD040 JEDEC ID: 7F 9D 7E
          CMP     B
+         JNZ     ID_FAIL
+         MVI     A,09DH
+         CMP     C
+         JNZ     ID_FAIL
+         MVI     A,07EH
+         CMP     D
          JNZ     ID_FAIL
          LXI     H,MSGPASS
          CALL    PRTSTR

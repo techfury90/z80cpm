@@ -19,7 +19,7 @@ module tb_gwmon_rx;
   sram_model u_sram(.addr(sram_addr), .cen(sram_cen), .oen(sram_oen),
                     .wen(sram_wen), .data(sram_data));
 
-  localparam integer BAUD_DIV = 2604;
+  localparam integer BAUD_DIV = 217;
   always #10 clk_in = ~clk_in;
 
   reg [15:0] tx_ctr = 0; reg [3:0] tx_bit = 0; reg [7:0] tx_shift = 0; reg tx_prev = 1;
@@ -30,8 +30,8 @@ module tb_gwmon_rx;
       if (tx_prev===1 && uart_tx===0) begin tx_active<=1; tx_ctr<=0; tx_bit<=0; tx_shift<=0; end
     end else begin
       tx_ctr <= tx_ctr + 1;
-      if (tx_bit<8 && tx_ctr == ((tx_bit*2604)+2604+1302)) begin tx_shift<={uart_tx,tx_shift[7:1]}; tx_bit<=tx_bit+1; end
-      if (tx_ctr == (10*2604)) begin if(tx_count<1023) tx_mem[tx_count]<=tx_shift; tx_count<=tx_count+1; tx_active<=0; end
+      if (tx_bit<8 && tx_ctr == ((tx_bit*217)+217+108)) begin tx_shift<={uart_tx,tx_shift[7:1]}; tx_bit<=tx_bit+1; end
+      if (tx_ctr == (10*217)) begin if(tx_count<1023) tx_mem[tx_count]<=tx_shift; tx_count<=tx_count+1; tx_active<=0; end
     end
   end
 

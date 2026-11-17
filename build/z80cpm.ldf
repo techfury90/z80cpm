@@ -2,9 +2,9 @@
 <BaliProject version="3.2" title="z80cpm" device="LFXP2-5E-6TN144C" default_implementation="impl1">
     <Options/>
     <Implementation title="impl1" dir="impl1" description="impl1" synthesis="synplify" default_strategy="Strategy1">
-        <Options/>
+        <Options def_top="z80cpm_brevia2"/>
         <Source name="../rtl/z80cpm_brevia2.v" type="Verilog" type_short="Verilog">
-            <Options/>
+            <Options top_module="z80cpm_brevia2"/>
         </Source>
         <Source name="../rtl/boot_rom.v" type="Verilog" type_short="Verilog">
             <Options/>
@@ -31,6 +31,15 @@
             <Options/>
         </Source>
         <Source name="../rtl/sram_async.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="../rtl/ram_disk.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="../rtl/spi_flash.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="impl1/impl1.xcf" type="Programming Project File" type_short="Programming">
             <Options/>
         </Source>
         <Source name="z80cpm.lpf" type="Logic Preference" type_short="LPF">

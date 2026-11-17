@@ -37,7 +37,7 @@ module tb_flashtest;
   always #10 clk_in = ~clk_in;
 
   // capture UART output
-  localparam [11:0] BP = 2604;
+  localparam [11:0] BP = 217;
   reg  [7:0] tx_mem[0:2047]; reg [11:0] tx_count = 0; reg tx_active = 0;
   reg [15:0] tx_ctr = 0; reg [3:0] tx_bit = 0; reg [7:0] tx_shift = 0; reg tx_prev = 1; integer i;
   always @(posedge u_dut.clk) begin

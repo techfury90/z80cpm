@@ -40,14 +40,26 @@ module spi_flash(
 );
   reg [7:0] sh_out;   // shift-out register (MSB first on MOSI)
   reg [7:0] sh_in;    // shift-in register  (MSB first from MISO)
-  reg [4:0] cnt;      // 0..16 across one byte (2 clocks per bit; 16 = terminal)
+  reg [4:0] cnt;      // 0..17 across one byte (2 clocks per bit; 17 = terminal)
   reg       run;      // a byte transfer is in progress
   reg       sck;      // generated SCK (idles low)
   reg [7:0] dout_q;
+  reg       go_stb_d; // delayed access strobe, for rising-edge detection
 
   wire go_stb = rd_stb || wr_stb;
-  // Start a transfer on a 0x50 access only while the flash is selected (CS# low).
-  wire start  = go_stb & ~cs & ~run;
+  // CRITICAL: start a transfer only on the RISING EDGE of the 0x50 access strobe.
+  // The top level stretches the CPU's I/O cycle (wait_req) while a byte transfer
+  // is in progress, so rd_stb/wr_stb is a LEVEL that stays high for the whole
+  // (wait-stretched) access.  Using the level directly re-triggers `start` the
+  // instant `run` drops, so the engine free-runs and clocks MANY bytes per
+  // logical 0x50 access -- the flash's read address then advances by ~3 instead
+  // of 1 per byte the software reads (the "3k+1" / `01 04 07 0A 0D` sorrow).
+  // Edge-detecting makes the engine clock EXACTLY one byte per 0x50 access.
+  always @(posedge clk or posedge rst)
+    if (rst) go_stb_d <= 1'b0;
+    else     go_stb_d <= go_stb;
+  wire go_stb_edge = go_stb & ~go_stb_d;   // 1-cycle pulse on the access strobe rise
+  wire start  = go_stb_edge & ~cs & ~run;
 
   always @(posedge clk or posedge rst) begin
     if (rst) begin

@@ -618,26 +618,14 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>CG168 :&quot;C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:43:2:43:9|Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type</Dynamic>
+            <Dynamic>CG168 :&quot;C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:47:2:47:9|Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type</Dynamic>
             <Navigation>CG168</Navigation>
             <Navigation>C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>43</Navigation>
+            <Navigation>47</Navigation>
             <Navigation>2</Navigation>
-            <Navigation>43</Navigation>
+            <Navigation>47</Navigation>
             <Navigation>9</Navigation>
             <Navigation>Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type </Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>CL265 :&quot;C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:163:2:163:7|Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.</Dynamic>
-            <Navigation>CL265</Navigation>
-            <Navigation>C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>163</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>163</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing unused bit 7 of led_reg[7:0]. Either assign all bits or reduce the width of the signal.</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -673,14 +661,14 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>MT529 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v&quot;:42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 391 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance.</Dynamic>
+            <Dynamic>MT529 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v&quot;:42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 400 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance.</Dynamic>
             <Navigation>MT529</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v</Navigation>
             <Navigation>42</Navigation>
             <Navigation>2</Navigation>
             <Navigation>42</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 391 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. </Navigation>
+            <Navigation>Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 400 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. </Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -812,194 +800,890 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_83 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_55 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_83 has multiple drivers .</Navigation>
+            <Navigation>Net N_55 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_84 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_56 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_84 has multiple drivers .</Navigation>
+            <Navigation>Net N_56 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_85 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_57 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_85 has multiple drivers .</Navigation>
+            <Navigation>Net N_57 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_86 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_58 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_86 has multiple drivers .</Navigation>
+            <Navigation>Net N_58 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_87 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_59 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_87 has multiple drivers .</Navigation>
+            <Navigation>Net N_59 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_88 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_60 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_88 has multiple drivers .</Navigation>
+            <Navigation>Net N_60 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_89 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_61 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_89 has multiple drivers .</Navigation>
+            <Navigation>Net N_61 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_90 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_62 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_90 has multiple drivers .</Navigation>
+            <Navigation>Net N_62 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_91 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_63 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_91 has multiple drivers .</Navigation>
+            <Navigation>Net N_63 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_92 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_64 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_92 has multiple drivers .</Navigation>
+            <Navigation>Net N_64 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_93 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_65 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_93 has multiple drivers .</Navigation>
+            <Navigation>Net N_65 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_94 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_66 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_94 has multiple drivers .</Navigation>
+            <Navigation>Net N_66 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_95 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_67 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_95 has multiple drivers .</Navigation>
+            <Navigation>Net N_67 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_96 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_68 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_96 has multiple drivers .</Navigation>
+            <Navigation>Net N_68 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_97 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_69 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_97 has multiple drivers .</Navigation>
+            <Navigation>Net N_69 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_98 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_70 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_98 has multiple drivers .</Navigation>
+            <Navigation>Net N_70 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_71 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_71 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_72 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_72 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram2_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram2_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram2_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -1096,30 +1780,6 @@
             <Navigation>48</Navigation>
             <Navigation>7</Navigation>
             <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram3_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram3_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -1244,6 +1904,54 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
             <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram4_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
             <Navigation>BN132</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
@@ -1312,6 +2020,30 @@
             <Navigation>48</Navigation>
             <Navigation>7</Navigation>
             <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram4_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram4_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -1388,54 +2120,6 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
             <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
             <Navigation>BN132</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
@@ -1456,30 +2140,6 @@
             <Navigation>48</Navigation>
             <Navigation>7</Navigation>
             <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -1508,6 +2168,30 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
+            <Navigation>BN132</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>2</Navigation>
+            <Navigation>48</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
             <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
             <Navigation>BN132</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
@@ -1528,678 +2212,6 @@
             <Navigation>48</Navigation>
             <Navigation>7</Navigation>
             <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram5_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram5_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram6_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram6_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_1.i_reg.RegsL_1_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsL_2.i_reg.RegsL_2_ram7_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsL.i_reg.RegsL_ram7_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[4] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[5] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[6] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram0_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram0_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[7] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[0] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[1] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[2] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_2.i_reg.RegsH_2_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN132 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v&quot;:48:2:48:7|Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Dynamic>
-            <Navigation>BN132</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>2</Navigation>
-            <Navigation>48</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>Removing instance u_cpu.i_tv80_core.i_reg.RegsH_1.i_reg.RegsH_1_ram1_[3] because it is equivalent to instance u_cpu.i_tv80_core.i_reg.RegsH.i_reg.RegsH_ram1_[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -2228,62 +2240,350 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.di_reg5 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.tstate[2] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.di_reg5 has multiple drivers .</Navigation>
+            <Navigation>Net u_cpu.tstate[2] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_70 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_2 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_70 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi.N_2 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_101 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_25 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_101 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi.N_25 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_102 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_26 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_102 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi.N_26 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_103 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_27 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
             <Navigation>13</Navigation>
             <Navigation>7</Navigation>
             <Navigation>13</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_103 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi.N_27 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_28 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_28 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_29 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_29 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_30 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_30 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_31 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_31 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_32 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_32 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_33 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_33 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_34 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_34 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_35 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_35 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_36 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_36 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_37 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_37 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_38 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_38 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_39 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_39 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_40 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_40 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_41 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_41 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_42 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_42 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_43 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_43 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_44 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_44 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_45 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_45 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_46 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_46 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_47 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_47 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_48 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_48 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_49 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_49 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_50 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_50 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_73 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_rx.N_73 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -2516,6 +2816,42 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_123 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_rx.N_123 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_124 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_rx.N_124 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_125 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>13</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_rx.N_125 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
             <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_18 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
@@ -2744,372 +3080,24 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[4] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.mcycle_16[4] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[5] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.mcycle_16[5] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[6] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.mcycle_16[6] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[0] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.tstate_14[0] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[3] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.tstate_14[3] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[4] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.tstate_14[4] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[5] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.tstate_14[5] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.tstate_14[6] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.tstate_14[6] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.Arith16_r_5 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.Arith16_r_5 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[0] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.ALU_Op_r_7[0] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[1] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.ALU_Op_r_7[1] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[2] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.ALU_Op_r_7[2] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.ALU_Op_r_7[3] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.ALU_Op_r_7[3] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.BTR_r_7 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.BTR_r_7 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[0] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.Read_To_Reg_r_9[0] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[1] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.Read_To_Reg_r_9[1] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[2] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.Read_To_Reg_r_9[2] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[3] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.Read_To_Reg_r_9[3] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.Read_To_Reg_r_9[4] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.Read_To_Reg_r_9[4] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.Save_ALU_r_8 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.Save_ALU_r_8 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.last_mcycle has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.last_mcycle has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.last_tstate has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.last_tstate has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.N_805 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.N_805 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.N_806 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.N_806 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.N_807 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.N_807 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.N_816 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.N_816 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.N_817 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.N_817 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.N_818 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.N_818 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.N_819 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.N_819 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BW268 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:43:2:43:9|Ignoring parameter pmi_freq_clkok with floating-point value in -edn file</Dynamic>
+            <Dynamic>BW268 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:47:2:47:9|Ignoring parameter pmi_freq_clkok with floating-point value in -edn file</Dynamic>
             <Navigation>BW268</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>43</Navigation>
+            <Navigation>47</Navigation>
             <Navigation>2</Navigation>
-            <Navigation>43</Navigation>
+            <Navigation>47</Navigation>
             <Navigation>9</Navigation>
             <Navigation>Ignoring parameter pmi_freq_clkok with floating-point value in -edn file</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>MT246 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:43:2:43:9|Blackbox pmi_pll is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)</Dynamic>
+            <Dynamic>MT246 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:47:2:47:9|Blackbox pmi_pll is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)</Dynamic>
             <Navigation>MT246</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>43</Navigation>
+            <Navigation>47</Navigation>
             <Navigation>2</Navigation>
-            <Navigation>43</Navigation>
+            <Navigation>47</Navigation>
             <Navigation>9</Navigation>
             <Navigation>Blackbox pmi_pll is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)</Navigation>
         </Message>

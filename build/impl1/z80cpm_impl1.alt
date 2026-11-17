@@ -1,6 +1,6 @@
 NOTE Copyright (C), 1992-2010, Lattice Semiconductor Corporation *
 NOTE All Rights Reserved *
-NOTE DATE CREATED: Mon Nov 16 11:43:11 2026 *
+NOTE DATE CREATED: Tue Nov 17 02:48:04 2026 *
 NOTE DESIGN NAME: z80cpm_brevia2 *
 NOTE DEVICE NAME: LFXP2-5E-6TQFP144 *
 NOTE PIN ASSIGNMENTS *
@@ -34,6 +34,10 @@ NOTE PINS sram_addr[3] : 122 : out *
 NOTE PINS sram_addr[2] : 121 : out *
 NOTE PINS sram_addr[1] : 120 : out *
 NOTE PINS sram_addr[0] : 119 : out *
+NOTE PINS spi_miso : 16 : in *
+NOTE PINS spi_mosi : 15 : out *
+NOTE PINS spi_csn : 11 : out *
+NOTE PINS spi_sclk : 13 : out *
 NOTE PINS uart_tx : 109 : out *
 NOTE PINS uart_rx : 110 : in *
 NOTE PINS sw[7] : 50 : in *

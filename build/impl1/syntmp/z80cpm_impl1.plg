@@ -1,15 +1,15 @@
-@P:  Worst Slack : -7.370
-@P:  z80cpm_brevia2|clk_op_inferred_clock - Estimated Frequency : 62.3 MHz
+@P:  Worst Slack : -9.236
+@P:  z80cpm_brevia2|clk_op_inferred_clock - Estimated Frequency : 60.8 MHz
 @P:  z80cpm_brevia2|clk_op_inferred_clock - Requested Frequency : 200.0 MHz
-@P:  z80cpm_brevia2|clk_op_inferred_clock - Estimated Period : 16.053
+@P:  z80cpm_brevia2|clk_op_inferred_clock - Estimated Period : 16.449
 @P:  z80cpm_brevia2|clk_op_inferred_clock - Requested Period : 5.000
-@P:  z80cpm_brevia2|clk_op_inferred_clock - Slack : -7.370
+@P:  z80cpm_brevia2|clk_op_inferred_clock - Slack : -9.236
 @P:  System - Estimated Frequency : NA
 @P:  System - Requested Frequency : 200.0 MHz
 @P:  System - Estimated Period : NA
 @P:  System - Requested Period : 5.000
 @P:  System - Slack : NA
-@P:  Total Area : 2093.0
+@P:  Total Area : 2151.0
 @P:  Total Area : 0.0
 @P:  Total Area : 0.0
 @P:  Total Area : 0.0
@@ -19,4 +19,5 @@
 @P:  Total Area : 0.0
 @P:  Total Area : 0.0
 @P:  Total Area : 0.0
-@P:  CPU Time : 0h:00m:19s
+@P:  Total Area : 0.0
+@P:  CPU Time : 0h:00m:22s

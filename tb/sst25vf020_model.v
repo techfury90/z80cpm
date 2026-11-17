@@ -157,17 +157,21 @@ module sst25vf020_model(
         if (resp_cnt > 1) begin
           resp_cnt <= resp_cnt - 1'b1;
           resp_data <= (resp_cnt==3) ? 8'h20 : 8'h02;   // JEDEC device-id bytes
-          mso <= resp_data;
+          mso <= (resp_cnt==3) ? 8'h20 : 8'h02;
         end else begin
           if (resp_cnt == 1) begin
             resp_cnt <= 0;
             resp_data <= (opcode==8'h05) ? status : mem[aaddr];
-            mso <= resp_data;
+            mso <= (opcode==8'h05) ? status : mem[aaddr];
           end else begin
-            // continuous mode (Read / free-run): next memory byte
-            resp_data <= mem[aaddr];
+            // continuous mode (Read / free-run): next memory byte (address+1).
+            // NB: must drive mso with the NEW byte, not the stale resp_data --
+            // `mso <= resp_data` is a nonblocking read of the OLD resp_data and
+            // made the model present every byte one byte late (masking the real
+            // over-clock bug and giving a bogus one-byte shifted read).
+            resp_data <= mem[aaddr + 24'h1];
+            mso <= mem[aaddr + 24'h1];
             aaddr <= aaddr + 24'h1;
-            mso <= resp_data;
           end
         end
       end else begin

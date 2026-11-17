@@ -1,0 +1,2 @@
+@E: CG342 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v":20:6:20:13|Expecting target variable, found rx_state -- possible misspelling
+

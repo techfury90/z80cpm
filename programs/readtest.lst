@@ -1,0 +1,70 @@
+                        ; readtest.s -- issue a single 0x03 READ command at flash 0x000000 and read
+                        ; back 16 sequential bytes from port 0x50, storing them at 0x2000, then print
+                        ; them.  Mirrors diskutil's DO_READ path through the Z80 bus (CPU wait-stretched
+                        ; 0x50 accesses) so any engine over-clock / free-run shows up.
+   1000                         ORG 1000H
+   0050                 SFDATA  EQU 50H
+   0051                 SFCTL   EQU 51H
+   1000                 START:
+   1000   31 00 e0              LXI SP,0E000H
+   1003   3e 00                 MVI A,00H
+   1005   d3 51                 OUT SFCTL                 ; CS# select
+   1007   3e 03                 MVI A,03H
+   1009   d3 50                 OUT SFDATA                ; Read opcode
+   100b   3e 00                 MVI A,00H
+   100d   d3 50                 OUT SFDATA                ; A23-A16
+   100f   3e 00                 MVI A,00H
+   1011   d3 50                 OUT SFDATA                ; A15-A8
+   1013   3e 00                 MVI A,00H
+   1015   d3 50                 OUT SFDATA                ; A7-A0
+   1017   21 00 20              LXI H,2000H
+   101a   06 10                 MVI B,16
+   101c   db 50         LP:     IN  SFDATA                ; next byte
+   101e   77                    MOV M,A
+   101f   23                    INX H
+   1020   05                    DCR B
+   1021   c2 1c 10              JNZ LP
+   1024   3e 01                 MVI A,01H
+   1026   d3 51                 OUT SFCTL                 ; CS# release
+                                ; print the 16 bytes from 0x2000
+   1028   21 00 20              LXI H,2000H
+   102b   06 10                 MVI B,16
+   102d   7e            P:      MOV A,M
+   102e   cd 52 10              CALL PRTBYTE
+   1031   3e 20                 MVI A,' '
+   1033   cd 46 10              CALL COUT
+   1036   23                    INX H
+   1037   05                    DCR B
+   1038   c2 2d 10              JNZ P
+   103b   3e 0d                 MVI A,0DH
+   103d   cd 46 10              CALL COUT
+   1040   3e 0a                 MVI A,0AH
+   1042   cd 46 10              CALL COUT
+   1045   76                    HLT
+   1046   f5            COUT:   PUSH PSW
+   1047   db 80         COUT1:  IN  80H
+   1049   e6 01                 ANI 01H
+   104b   c2 47 10              JNZ COUT1
+   104e   f1                    POP PSW
+   104f   d3 81                 OUT 81H
+   1051   c9                    RET
+   1052                 PRTBYTE:
+   1052   f5                    PUSH PSW
+   1053   e6 f0                 ANI 0F0H
+   1055   0f                    RRC
+   1056   0f                    RRC
+   1057   0f                    RRC
+   1058   0f                    RRC
+   1059   cd 5f 10              CALL PRTH1
+   105c   f1                    POP PSW
+   105d   e6 0f                 ANI 0FH
+   105f   c6 90         PRTH1:  ADI 90H
+   1061   27                    DAA
+   1062   ce 40                 ACI 40H
+   1064   27                    DAA
+   1065   c3 46 10              JMP COUT
+   1068                         END
+1046  COUT          1047  COUT1         101c  LP            102d  P         
+1052  PRTBYTE       105f  PRTH1         0051  SFCTL         0050  SFDATA    
+1000  START         
+

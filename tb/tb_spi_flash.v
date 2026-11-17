@@ -42,6 +42,8 @@ module tb_spi_flash;
 
   reg [7:0] id0, id1, id2, r, rd0, rd1, rd2;
   integer errs = 0;
+  integer txrun = 0;                 // count of engine byte transfers
+  always @(posedge u_dut.run) txrun = txrun + 1;
   task chk(input [7:0] got, input [7:0] exp, input [255:0] label);
     begin
       if (got !== exp) begin
@@ -61,6 +63,8 @@ module tb_spi_flash;
     rxb(id0); rxb(id1); rxb(id2);
     cs = 1; #10;
     chk(id0, 8'hBF, "JEDEC manufacturer");
+    chk(id1, 8'h20, "JEDEC device id 1");
+    chk(id2, 8'h02, "JEDEC device id 2");
     $display("  JEDEC id = %02x %02x %02x", id0, id1, id2);
 
     // ---- Byte Program @ 0x000010 = 0xAA ----
@@ -97,6 +101,19 @@ module tb_spi_flash;
     txb(8'h03, r); txb(8'h00, r); txb(8'h00, r); txb(8'h20, r);
     rxb(rd2); cs = 1; #10;
     chk(rd2, 8'h00, "program 00 -> read 00 (1->0 ok)");
+
+    // ---- regression: a HELD 0x50 strobe (the CPU wait-stretched cycle) must
+    //      clock EXACTLY ONE byte, not free-run.  The over-clock bug re-triggered
+    //      `start` on the level as soon as `run` dropped, so the engine clocked
+    //      ~3 bytes per logical 0x50 access (the "3k+1" stride) and advanced the
+    //      flash read address by 3 per software byte. ----
+    txrun = 0;
+    cs = 0; #10;
+    rd_stb = 1;                       // hold the read strobe high (wait-stretched)
+    #4000;                            // several byte-times' worth of clock
+    rd_stb = 0;
+    cs = 1; #10;
+    chk(txrun[7:0], 8'h01, "bytes clocked per held 0x50 strobe");
 
     $display("=== RESULT: %0d errors ===", errs);
     if (errs == 0) $display("FLASH ENGINE TEST PASS");

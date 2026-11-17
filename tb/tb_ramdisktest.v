@@ -26,7 +26,7 @@ module tb_ramdisktest;
   initial begin #1; $readmemh("C:/Users/techf/Desktop/brevia2/z80cpm/programs/ramdisktest.mem", u_sram.mem);
     $display("mem[1000]=%02x mem[1001]=%02x mem[1002]=%02x (expect 31 00 ff = LXI SP)", u_sram.mem[16'h1000], u_sram.mem[16'h1001], u_sram.mem[16'h1002]); end
 
-  localparam [11:0] BP = 2604;
+  localparam [11:0] BP = 217;
   always #10 clk_in = ~clk_in;
 
   reg  [7:0] tx_mem[0:1023]; reg [10:0] tx_count = 0; reg tx_active = 0;

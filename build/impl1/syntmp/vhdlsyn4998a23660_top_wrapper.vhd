@@ -1,6 +1,6 @@
 --
 -- Synopsys
--- Vhdl wrapper for top level design, written on Sun Nov 15 23:07:25 2026
+-- Vhdl wrapper for top level design, written on Tue Nov 17 02:43:13 2026
 --
 library ieee;
 use ieee.std_logic_1164.all;
@@ -10,8 +10,8 @@ use work.genpackage.all;
 entity wrapper_for_top is
    port (
       EQ : out std_logic;
-      A : in std_logic_vector(11 downto 0);
-      B : in std_logic_vector(11 downto 0)
+      A : in std_logic_vector(15 downto 0);
+      B : in std_logic_vector(15 downto 0)
    );
 end wrapper_for_top;
 
@@ -20,14 +20,14 @@ architecture gen of wrapper_for_top is
 component top
  port (
    EQ : out std_logic;
-   A : in std_logic_vector (11 downto 0);
-   B : in std_logic_vector (11 downto 0)
+   A : in std_logic_vector (15 downto 0);
+   B : in std_logic_vector (15 downto 0)
  );
 end component;
 
 signal tmp_EQ : std_logic;
-signal tmp_A : std_logic_vector (11 downto 0);
-signal tmp_B : std_logic_vector (11 downto 0);
+signal tmp_A : std_logic_vector (15 downto 0);
+signal tmp_B : std_logic_vector (15 downto 0);
 
 begin
 

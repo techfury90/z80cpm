@@ -14,7 +14,7 @@ Performance Grade:      6
 PACKAGE:          TQFP144
 Package Status:                     Final          Version 1.42
 
-Mon Nov 16 11:42:57 2026
+Tue Nov 17 02:47:04 2026
 
 Pinout by Port Name:
 +---------------+----------+---------------+-------+-------------------------------+
@@ -30,6 +30,10 @@ Pinout by Port Name:
 | led[6]        | 38/5     | LVCMOS33_OUT  | PB7A  | DRIVE:12mA SLEW:FAST PULL:UP  |
 | led[7]        | 37/5     | LVCMOS33_OUT  | PB8A  | DRIVE:12mA SLEW:FAST PULL:UP  |
 | rst_n         | 19/7     | LVCMOS33_IN   | PL11A | SLEW:FAST PULL:UP             |
+| spi_csn       | 11/7     | LVCMOS33_OUT  | PL8A  | DRIVE:12mA SLEW:FAST PULL:UP  |
+| spi_miso      | 16/7     | LVCMOS33_IN   | PL10A | SLEW:FAST PULL:UP             |
+| spi_mosi      | 15/7     | LVCMOS33_OUT  | PL9A  | DRIVE:12mA SLEW:FAST PULL:UP  |
+| spi_sclk      | 13/7     | LVCMOS33_OUT  | PL8B  | DRIVE:12mA SLEW:FAST PULL:UP  |
 | sram_addr[0]  | 119/0    | LVCMOS33_OUT  | PT19B | DRIVE:12mA SLEW:FAST PULL:UP  |
 | sram_addr[10] | 131/0    | LVCMOS33_OUT  | PT15A | DRIVE:12mA SLEW:FAST PULL:UP  |
 | sram_addr[11] | 132/0    | LVCMOS33_OUT  | PT14A | DRIVE:12mA SLEW:FAST PULL:UP  |
@@ -99,10 +103,10 @@ Vccio by Bank:
 | 8/7      | sram_data[5]        | LOCATED    | LVCMOS33_BIDI | PL6B  | DONE/LDQ9            |
 | 9/7      | sram_data[6]        | LOCATED    | LVCMOS33_BIDI | PL7A  | CFG1/LDQ9            |
 | 10/7     | sram_data[7]        | LOCATED    | LVCMOS33_BIDI | PL7B  | LDQ9                 |
-| 11/7     |     unused, PULL:UP |            |               | PL8A  | CSSPISN/LDQ9         |
-| 13/7     |     unused, PULL:UP |            |               | PL8B  | CSSPIN/LDQ9          |
-| 15/7     |     unused, PULL:UP |            |               | PL9A  | LDQS9                |
-| 16/7     |     unused, PULL:UP |            |               | PL10A | CCLK/LDQ9            |
+| 11/7     | spi_csn             | LOCATED    | LVCMOS33_OUT  | PL8A  | CSSPISN/LDQ9         |
+| 13/7     | spi_sclk            | LOCATED    | LVCMOS33_OUT  | PL8B  | CSSPIN/LDQ9          |
+| 15/7     | spi_mosi            | LOCATED    | LVCMOS33_OUT  | PL9A  | LDQS9                |
+| 16/7     | spi_miso            | LOCATED    | LVCMOS33_IN   | PL10A | CCLK/LDQ9            |
 | 17/7     |     unused, PULL:UP |            |               | PL9B  | LDQ9                 |
 | 18/7     |     unused, PULL:UP |            |               | PL10B | SO/LDQ9              |
 | 19/7     | rst_n               | LOCATED    | LVCMOS33_IN   | PL11A | SI/LDQ9              |
@@ -307,6 +311,10 @@ LOCATE  COMP  "led[5]"  SITE  "39";
 LOCATE  COMP  "led[6]"  SITE  "38";
 LOCATE  COMP  "led[7]"  SITE  "37";
 LOCATE  COMP  "rst_n"  SITE  "19";
+LOCATE  COMP  "spi_csn"  SITE  "11";
+LOCATE  COMP  "spi_miso"  SITE  "16";
+LOCATE  COMP  "spi_mosi"  SITE  "15";
+LOCATE  COMP  "spi_sclk"  SITE  "13";
 LOCATE  COMP  "sram_addr[0]"  SITE  "119";
 LOCATE  COMP  "sram_addr[10]"  SITE  "131";
 LOCATE  COMP  "sram_addr[11]"  SITE  "132";
@@ -358,7 +366,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
-Mon Nov 16 11:42:57 2026
+Tue Nov 17 02:47:04 2026
 
 
 

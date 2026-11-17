@@ -14,6 +14,7 @@ add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uar
 add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v"
 add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v"
 add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/ram_disk.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/spi_flash.v"
 
 
 #implementation: "impl1"

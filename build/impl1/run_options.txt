@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version V-2023.09L-2
 #--  Project file C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\run_options.txt
-#--  Written on Mon Nov 16 11:42:00 2026
+#--  Written on Tue Nov 17 02:45:51 2026
 
 
 #project files
@@ -16,6 +16,7 @@ add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uar
 add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v"
 add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v"
 add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/ram_disk.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/spi_flash.v"
 
 
 #implementation: "impl1"

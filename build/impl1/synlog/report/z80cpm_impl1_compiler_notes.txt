@@ -8,6 +8,7 @@
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v":17:7:17:14|Synthesizing module ram_disk in library work.
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v":4:7:4:13|Synthesizing module uart_tx in library work.
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v":4:7:4:13|Synthesizing module uart_rx in library work.
+@N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\spi_flash.v":26:7:26:15|Synthesizing module spi_flash in library work.
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v":26:7:26:16|Synthesizing module tv80_mcode in library work.
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v":26:7:26:14|Synthesizing module tv80_alu in library work.
 @N: CG364 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v":26:7:26:14|Synthesizing module tv80_reg in library work.

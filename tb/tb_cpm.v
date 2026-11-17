@@ -27,7 +27,7 @@ module tb_cpm;
                     .wen(sram_wen), .data(sram_data));
   initial begin #1; $readmemh("C:/Users/techf/Desktop/brevia2/z80cpm/cpm/brevia2_cpm.mem", u_sram.mem); end
 
-  localparam [11:0] BP = 2604;   // 9600 baud @ 25 MHz
+  localparam [11:0] BP = 217;   // 115200 baud @ 25 MHz
   always #10 clk_in = ~clk_in;
 
   reg  [7:0] tx_mem[0:4095]; reg [12:0] tx_count = 0; reg tx_active = 0;

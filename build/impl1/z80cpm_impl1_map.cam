@@ -1,20 +1,23 @@
 [ START MERGED ]
 rst_n_c_i rst_n_c
-u_cpu/i_tv80_core/Auto_Wait_t1_i u_cpu/i_tv80_core/Auto_Wait_t1
 u_cpu/CN clk_op
+u_cpu/i_tv80_core/i_mcode/un1_IncDec_16_3_0_mb_rn_2 u_cpu/tstate[2]
+u_cpu/i_tv80_core/ISet_i[1] u_cpu/i_tv80_core/ISet[1]
+u_cpu/i_tv80_core/Auto_Wait_t1_i u_cpu/i_tv80_core/Auto_Wait_t1
 [ END MERGED ]
 [ START CLIPPED ]
+GND
 pll_inst/scuba_vlo
-hb_cry_0_COUT[23]
+u_cpu/i_tv80_core/i_mcode/GND
 pll_inst/PLLInst_0/CLKINTFB
 LOCK
 CLKOK2
 pll_inst/PLLInst_0/CLKOK
 CLKOS
-u_rd/addr_cry_0_S0[0]
-u_rd/N_1
 u_rd/addr_s_0_S1[15]
 u_rd/addr_s_0_COUT[15]
+u_rd/addr_cry_0_S0[0]
+u_rd/N_1
 u_tx/k_cry_0_S0[0]
 u_tx/N_1
 u_tx/k_s_0_S1[11]
@@ -23,22 +26,25 @@ u_rx/k_cry_0_S0_0[0]
 u_rx/N_1
 u_rx/k_s_0_S1[15]
 u_rx/k_s_0_COUT[15]
-u_rx/un1_k_16_0_I_1_0_S1
-u_rx/un1_k_16_0_I_1_0_S0
+u_rx/un1_k_15_0_I_1_0_S1
+u_rx/un1_k_15_0_I_1_0_S0
 u_rx/N_2
-u_rx/un1_k_16_0_I_39_0_S1
-u_rx/un1_k_16_0_I_39_0_S0
-u_rx/un1_k_16_0_I_21_0_S1
-u_rx/un1_k_16_0_I_21_0_S0
-u_rx/un1_k_16_0_I_15_0_S1
-u_rx/un1_k_16_0_I_15_0_S0
-u_rx/un1_k_16_0_I_45_0_S0
-u_rx/un1_k_16_0_I_45_0_COUT
-u_cpu/i_tv80_core/PC_20_0_cry_0_0_S1
-u_cpu/i_tv80_core/PC_20_0_cry_0_0_S0
+u_rx/un1_k_15_0_I_39_0_S1
+u_rx/un1_k_15_0_I_39_0_S0
+u_rx/un1_k_15_0_I_21_0_S1
+u_rx/un1_k_15_0_I_21_0_S0
+u_rx/un1_k_15_0_I_15_0_S1
+u_rx/un1_k_15_0_I_15_0_S0
+u_rx/un1_k_15_0_I_45_0_S0
+u_rx/un1_k_15_0_I_45_0_COUT
+u_spi/cnt_cry_0_S0[0]
+u_spi/N_1
+u_spi/cnt_cry_0_COUT[3]
+u_cpu/i_tv80_core/PC_20_m1_0_cry_0_0_S1
+u_cpu/i_tv80_core/PC_20_m1_0_cry_0_0_S0
 u_cpu/i_tv80_core/N_1
-u_cpu/i_tv80_core/PC_20_0_s_15_0_S1
-u_cpu/i_tv80_core/PC_20_0_s_15_0_COUT
+u_cpu/i_tv80_core/PC_20_m1_0_s_15_0_S1
+u_cpu/i_tv80_core/PC_20_m1_0_s_15_0_COUT
 u_cpu/i_tv80_core/un1_TmpAddr_0_cry_0_0_S1
 u_cpu/i_tv80_core/un1_TmpAddr_0_cry_0_0_S0
 u_cpu/i_tv80_core/N_2
@@ -49,22 +55,30 @@ u_cpu/i_tv80_core/ID16_cry_0_0_S0
 u_cpu/i_tv80_core/N_3
 u_cpu/i_tv80_core/ID16_s_15_0_S1
 u_cpu/i_tv80_core/ID16_s_15_0_COUT
-u_cpu/i_tv80_core/SP16_cry_0_0_S1
-u_cpu/i_tv80_core/SP16_cry_0_0_S0
-u_cpu/i_tv80_core/N_12
-u_cpu/i_tv80_core/SP16_s_15_0_S1
-u_cpu/i_tv80_core/SP16_s_15_0_COUT
-u_cpu/i_tv80_core/i_alu/DAA_Q_13_cry_5_0_S1
-u_cpu/i_tv80_core/i_alu/DAA_Q_13_cry_5_0_S0
-u_cpu/i_tv80_core/i_alu/N_2
-u_cpu/i_tv80_core/i_alu/DAA_Q_13_s_8_0_S1
-u_cpu/i_tv80_core/i_alu/DAA_Q_13_s_8_0_COUT
-hb_cry_0_S0[0]
-N_1
+u_cpu/i_tv80_core/SP16_1_cry_0_0_S1
+u_cpu/i_tv80_core/SP16_1_cry_0_0_S0
+u_cpu/i_tv80_core/N_4
+u_cpu/i_tv80_core/SP16_1_s_15_0_S1
+u_cpu/i_tv80_core/SP16_1_s_15_0_COUT
+u_cpu/i_tv80_core/SP16_0_cry_0_0_S1
+u_cpu/i_tv80_core/SP16_0_cry_0_0_S0
+u_cpu/i_tv80_core/N_10
+u_cpu/i_tv80_core/SP16_0_s_15_0_S1
+u_cpu/i_tv80_core/SP16_0_s_15_0_COUT
+u_cpu/i_tv80_core/i_alu/un1_BusA_0_cry_5_0_S1
+u_cpu/i_tv80_core/i_alu/un1_BusA_0_cry_5_0_S0
+u_cpu/i_tv80_core/i_alu/N_6
+u_cpu/i_tv80_core/i_alu/un1_BusA_0_s_8_0_S1
+u_cpu/i_tv80_core/i_alu/un1_BusA_0_s_8_0_COUT
+u_cpu/i_tv80_core/i_alu/un1_BusA_3_cry_5_0_S1
+u_cpu/i_tv80_core/i_alu/un1_BusA_3_cry_5_0_S0
+u_cpu/i_tv80_core/i_alu/N_7
+u_cpu/i_tv80_core/i_alu/un1_BusA_3_s_8_0_S1
+u_cpu/i_tv80_core/i_alu/un1_BusA_3_s_8_0_COUT
 [ END CLIPPED ]
 [ START DESIGN PREFS ]
 SCHEMATIC START ;
-# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Mon Nov 16 11:42:30 2026
+# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Tue Nov 17 02:46:27 2026
 
 SYSCONFIG DONE_OD=ON DONE_EX=OFF CONFIG_SECURE=OFF WAKE_UP=21 WAKE_ON_LOCK=OFF INBUF=ON MASTER_SPI_PORT=DISABLE SLAVE_SPI_PORT=DISABLE MY_ASSP=OFF ONE_TIME_PROGRAM=OFF ;
 LOCATE COMP "sram_data[0]" SITE "1" ;
@@ -97,6 +111,10 @@ LOCATE COMP "sram_addr[3]" SITE "122" ;
 LOCATE COMP "sram_addr[2]" SITE "121" ;
 LOCATE COMP "sram_addr[1]" SITE "120" ;
 LOCATE COMP "sram_addr[0]" SITE "119" ;
+LOCATE COMP "spi_miso" SITE "16" ;
+LOCATE COMP "spi_mosi" SITE "15" ;
+LOCATE COMP "spi_csn" SITE "11" ;
+LOCATE COMP "spi_sclk" SITE "13" ;
 LOCATE COMP "uart_tx" SITE "109" ;
 LOCATE COMP "uart_rx" SITE "110" ;
 LOCATE COMP "sw[7]" SITE "50" ;

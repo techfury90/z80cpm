@@ -11,7 +11,7 @@
 ;       0xD000-0xD7FF  CCP  (already loaded by the combined HEX)
 ;       0xD800-0xE5FF  BDOS (already loaded by the combined HEX)
 ;       0xE600-0xEFFF  THIS CBIOS
-;       0xEF00-0xFEFF  drive B: 4KB RMW buffer (ABOVE the whole CP/M system, so
+;       0xEF00-0xFEFF  drive A: 4KB RMW buffer (ABOVE the whole CP/M system, so
 ;                     no transient program can ever load over it)
 ;       0xFF00-0xFFFF  reserved for GWMON (its stack / banked-out area; CP/M
 ;                     must stay strictly below 0xFF00 so the monitor cannot
@@ -24,7 +24,8 @@
 ;                             0x20 = DATA (IN=read / OUT=write, AUTO-INCREMENT)
 ;                             0x21 = ADDR low byte (write)
 ;                             0x22 = ADDR high byte (write)
-;       SPI flash (ISSI IS25LD040, 512 KB -> CP/M drive B:):
+;   drive A:  the on-board ISSI IS25LD040 SPI flash (512 KB, persistent boot drive).
+;   drive B:  the 64K I/O-mapped RAM disk (volatile scratch).
 ;                             0x50 = DATA (read clocks a byte in / write clocks
 ;                                     a byte out, MSB first)
 ;                             0x51 = CTL (bit0 = CS#: 0=select low, 1=release)
@@ -33,7 +34,7 @@
 ;                                     CPU wait on every 0x50 access)
 ;       ROM banking:          OUT 0x30 with bit0=1 banks out the GWMON ROM.
 ;
-;   The 64K RAM disk is treated as a single CP/M disk (drive A:).  Its first
+;   The 64K RAM disk is treated as a single CP/M disk (drive B:).  Its first
 ;   two tracks (0 and 1) hold the SYSTEM tracks where this CBIOS writes the CCP
 ;   and BDOS so that WBOOT (warm start) can reload them.  Tracks 2-15 are the
 ;   user file area.  See the DPB below for the exact geometry.
@@ -253,23 +254,24 @@ LISTST:
 ; ============================================================================
 ; SELDSK: select drive given by register C.  Return HL = DPH address for the
 ; selected drive, or HL=0000 with A=0xFF if the drive is not present.
-;   C=0 -> drive A (the RAM disk), C=1 -> drive B (the SPI flash).  C>1 -> error.
+;   C=0 -> drive A (the SPI flash boot drive), C=1 -> drive B (the RAM disk).
+;   C>1 -> error.
 SELDSK:
         MOV     A,C
         STA     SELBL           ; remember the selected drive number
         ORA     A
         JZ      SELD0           ; C=0 -> drive A
         CPI     01H
-        JZ      SELD1           ; C=1 -> drive B (SPI flash)
+        JZ      SELD1           ; C=1 -> drive B (RAM disk)
 SELERR:
         LXI     H,0000H         ; error return: HL=0
         MVI     A,0FFH
         RET
 SELD0:
-        LXI     H,DPH           ; drive A disk parameter header (RAM disk)
+        LXI     H,DPH           ; drive A disk parameter header (SPI flash)
         RET
 SELD1:
-        LXI     H,DPHB          ; drive B disk parameter header (SPI flash)
+        LXI     H,DPHB          ; drive B disk parameter header (RAM disk)
         RET
 
 ; HOME: move to track 0, sector 0.
@@ -361,8 +363,8 @@ RAMPTR:
 READ:
         LDA     SELBL
         ORA     A
-        JNZ     READB           ; selected drive != 0 -> drive B (SPI flash)
-        ; ---- drive A: RAM disk path ----
+        JZ      READB           ; drive A (SELBL==0) -> SPI flash (boot drive)
+        ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR          ; set the disk data-pointer
         LHLD    DMA
@@ -385,8 +387,8 @@ READ1:
 WRITE:
         LDA     SELBL
         ORA     A
-        JNZ     WRITEB          ; selected drive != 0 -> drive B (SPI flash)
-        ; ---- drive A: RAM disk path ----
+        JZ      WRITEB          ; drive A (SELBL==0) -> SPI flash (boot drive)
+        ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR
         LHLD    DMA
@@ -446,16 +448,16 @@ RAMFILL1:
         RET
 
 ; ============================================================================
-;   DRIVE B:  SPI FLASH  (ISSI IS25LD040 as CP/M drive B:)
+;   DRIVE A:  SPI FLASH  (ISSI IS25LD040 as CP/M drive A:)
 ;
-;   Flash layout (MUST match diskutil's 'S' formatter and the drive B: DPB):
+;   Flash layout (MUST match diskutil's 'S' formatter and the drive A: DPB):
 ;       0x00000-0x01FFF  (8KB, tracks 0-1)   reserved system (erased 0xFF)
 ;       0x02000-0x7FFFF  (504KB, tracks 2-127) user data area = 126 blocks
 ;           Block 0  (0x2000-0x2FFF) directory (reserved via AL0=0x80); the
 ;                     first 2KB (0x2000-0x27FF) hold 64 x 32-byte entries
 ;           Blocks 1..125 (0x3000-0x7FFFF) file data (125 blocks = 500KB)
 ;
-;   Address formula (same as the drive A: CALC, but 24-bit -- the flash is
+;   Address formula (same as the drive B: RAM-disk CALC, but 24-bit -- the flash is
 ;   512KB and exceeds 16 bits):  flash_addr = TRK*0x1000 + SECN*0x80
 ;   (SPT=32, record=128).  The BDOS passes the absolute track (it already added
 ;   the DPB offset), so OFF is NOT re-added here.
@@ -514,7 +516,7 @@ FLAD0:  XRA     A
 FLADR:  STA     FBADDR
         RET
 
-; READB: read one 128-byte sector from the SPI flash (drive B:) into the DMA
+; READB: read one 128-byte sector from the SPI flash (drive A:) into the DMA
 ; buffer.  Returns A=0.  (A flash read is error-free.)
 READB:
         CALL    FLADDR          ; FBADDR = 24-bit record address
@@ -526,7 +528,7 @@ READB:
         MVI     A,00H           ; success
         RET
 
-; WRITEB: write one 128-byte sector to the SPI flash (drive B:) via a 4KB
+; WRITEB: write one 128-byte sector to the SPI flash (drive A:) via a 4KB
 ; read-modify-write.  Returns A=0.  Clobbers A,B,D,E,H,L.
 WRITEB:
         CALL    FLADDR          ; FBADDR = 24-bit record address
@@ -597,11 +599,11 @@ FILLV:  DS      1               ; scratch for RAMFILL
         DS      4               ; (padding/alignment reserved)
 
 ; ============================================================================
-;   DISK PARAMETER HEADER (DPH) for drive A
+;   DISK PARAMETER HEADER (DPH) for drive A (the SPI flash boot drive)
 ;   Byte layout consumed by the BDOS:
 ;     +0  XLT  (sector-translate vector address; 0 = none)
 ;     +2  scratch, +4 scratch, +6 scratch
-;     +8  DIRBUF, +10 DPB, +12 CSV, +14 ALV
+;     +8  DIRBUF, +10 DPBB, +12 CSVB, +14 ALVB
 ; ============================================================================
 DPH:
         DW      0000H           ; XLT: no sector translation
@@ -609,13 +611,13 @@ DPH:
         DW      0000H           ; scratch (curtrk)
         DW      0000H           ; scratch (currec)
         DW      DIRBUF          ; directory buffer (128 bytes)
-        DW      DPB             ; disk parameter block
-        DW      CSV             ; checksum vector
-        DW      ALV             ; allocation vector
+        DW      DPBB            ; disk parameter block (SPI flash 4K geometry)
+        DW      CSVB            ; checksum vector
+        DW      ALVB            ; allocation vector
 
 ; ============================================================================
 ;   DISK PARAMETER BLOCK (DPB)
-;   CP/M 2.2 geometry for the 64K RAM disk (drive A:):
+;   CP/M 2.2 geometry for the 64K RAM disk (drive B:, volatile scratch):
 ;     128-byte sectors, SPT=32, 14 user tracks + 2 system tracks = 16 tracks,
 ;     1K allocation blocks (BSH=3/BLM=7), DSM=55 (56 blocks = 56K user data),
 ;     DRM=63 (64 directory entries = 2 directory blocks), CKS=0 (fixed media),
@@ -648,10 +650,10 @@ ALV:    DS      8               ; allocation vector (56 blocks / 8 = 7 -> pad 8)
 DIRBUF: DS      128             ; directory buffer (one 128-byte directory record)
 
 ; ============================================================================
-;   DRIVE B: (SPI flash) DISK PARAMETER HEADER / BLOCK / VECTORS
+;   DRIVE A: (SPI flash) DISK PARAMETER HEADER / BLOCK / VECTORS
 ;   Geometry: 128-byte sectors, SPT=32, 4KB allocation (BSH=5/BLM=31), OFF=2
-;   (tracks 0-1 reserved for the future boot), directory = block 0 reserved via
-;   AL0=0x80, DSM=125 (126 blocks), DRM=63 (64 entries), CKS=0 (fixed media).
+;   (tracks 0-1 reserved for the CP/M boot image), directory = block 0 reserved
+;   via AL0=0x80, DSM=125 (126 blocks), DRM=63 (64 entries), CKS=0 (fixed media).
 ;   This MUST agree with diskutil's formatter (data at 0x2000).  The BDOS builds
 ;   the allocation vector itself on first login, so ALVB just needs the space.
 ; ============================================================================
@@ -661,9 +663,9 @@ DPHB:
         DW      0000H           ; scratch (curtrk)
         DW      0000H           ; scratch (currec)
         DW      DIRBUF          ; shared directory buffer (128 bytes)
-        DW      DPBB            ; disk parameter block
-        DW      CSVB            ; checksum vector
-        DW      ALVB            ; allocation vector
+        DW      DPB             ; disk parameter block (RAM disk 1K geometry)
+        DW      CSV             ; checksum vector
+        DW      ALV             ; allocation vector
 DPBB:
         DW      SPT             ; SPT  = 32   (sectors per track)
         DB      05H             ; BSH  = 5    (block shift -> 4KB blocks)

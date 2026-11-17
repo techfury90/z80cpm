@@ -17,6 +17,10 @@ module z80cpm_brevia2(
   input  [7:0]  sw,         // switches
   input         uart_rx,    // pin 110
   output        uart_tx,    // pin 109
+  output        spi_sclk,   // pin 13   (SST25VF020 flash SCK)
+  output        spi_csn,    // pin 11   (flash chip-select, active low)
+  output        spi_mosi,   // pin 15   (flash MOSI)
+  input         spi_miso,   // pin 16   (flash MISO)
   output [16:0] sram_addr,  // pins 119..141
   output        sram_cen,   // 142
   output        sram_oen,   // 143
@@ -175,6 +179,30 @@ module z80cpm_brevia2(
   uart_rx u_rx(.clk(clk), .rst_n(~rst), .rxd(uart_rx), .rx_data(uart_rx_data),
                .rx_avail(uart_rx_avail), .rx_consume(uart_rd));
 
+  // ---- SPI flash byte engine (on-board SST25VF020, M7 drive B:) ----
+  // Ports: 0x50 SPI_DATA (r/w byte, CPU wait-stretched), 0x51 SPI_CTL (bit0=CS#),
+  //        0x52 SPI_STAT (bit0=busy).  The byte engine stretches the CPU's I/O
+  //        wait so IN/OUT 0x50 return valid data with no software busy polling.
+  reg  spi_cs = 1'b1;          // CS# value latched from 0x51 bit0 (1 = deselected)
+  always @(posedge clk or posedge rst)
+    if (rst)                       spi_cs <= 1'b1;
+    else if (io_wr && (A[7:0] == 8'h51)) spi_cs <= cpu_dout[0];
+  wire spi_data_port = (A[7:0] == 8'h50);
+  wire spi_rd = io_rd && spi_data_port;
+  wire spi_wr = io_wr && spi_data_port;
+  wire [7:0] spi_dout;
+  wire       spi_busy, spi_wait;
+  spi_flash u_spi(.clk(clk), .rst(rst), .cs(spi_cs),
+                  .rd_stb(spi_rd), .wr_stb(spi_wr),
+                  .din(cpu_dout), .dout(spi_dout), .busy(spi_busy),
+                  .wait_req(spi_wait),
+                  .spi_sclk(spi_sclk), .spi_csn(spi_csn),
+                  .spi_mosi(spi_mosi), .spi_miso(spi_miso));
+  // Stretch the CPU wait while a slow SPI byte transfer is in progress so an
+  // IN 0x50 returns VALID received data (the CPU only samples di when wait_n
+  // is high, after the engine has latched dout).
+  wire cpu_wait_n = sram_wait & ~spi_wait;
+
   reg [7:0] io_rdata;
   always @(*) begin
     io_rdata = 8'h00;
@@ -182,6 +210,8 @@ module z80cpm_brevia2(
     else if (io_rd && (A[7:0] == 8'h81)) io_rdata = uart_rx_data;
     else if (io_rd && (A[7:0] == 8'h80)) io_rdata = {6'h00, uart_rx_avail, uart_tx_busy};
     else if (io_rd && (A[7:0] == 8'h20)) io_rdata = rd_dout;   // RAM disk data
+    else if (io_rd && (A[7:0] == 8'h50)) io_rdata = spi_dout;  // SPI data (read back)
+    else if (io_rd && (A[7:0] == 8'h52)) io_rdata = {6'h00, 1'b0, spi_busy};  // SPI status
   end
 
   // Data mux: ROM for 0x0000-0x0FFF (read), SRAM for 0x1000+, else I/O.
@@ -195,7 +225,7 @@ module z80cpm_brevia2(
   assign led[6:0] = ~led_reg[6:0];
 
   tv80n u_cpu(
-    .reset_n(~rst), .clk(clk), .wait_n(sram_wait), .int_n(vcc), .nmi_n(vcc), .busrq_n(vcc),
+    .reset_n(~rst), .clk(clk), .wait_n(cpu_wait_n), .int_n(vcc), .nmi_n(vcc), .busrq_n(vcc),
     .m1_n(m1_n), .mreq_n(mreq_n), .iorq_n(iorq_n), .rd_n(rd_n), .wr_n(wr_n),
     .rfsh_n(rfsh_n), .halt_n(), .busak_n(busak_n),
     .A(A), .di(bus_din), .dout(cpu_dout)

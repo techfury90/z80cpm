@@ -1,0 +1,221 @@
+                        ; flashtest.s -- read the SST25VF020 JEDEC ID and do a program/read/erase
+                        ; round trip through the Z80 bus, using the SPI byte-engine ports.
+                        ;
+                        ; RUN VIA GWMON-80:  L   (load hex)   then   G 1000
+                        ;
+                        ; The byte engine stretches the CPU wait during each 0x50 access, so IN/OUT 0x50
+                        ; are used back-to-back with no busy polling (each transfer completes within the
+                        ; access).  Ports: 0x50 SPI data, 0x51 SPI ctl (bit0 = CS#), 0x52 SPI status.
+                        ; Prints the JEDEC ID (first byte MUST be 0xBF) and PASS/FAIL for the
+                        ; program/read/erase round trip.
+   1000                         ORG 1000H
+   0050                 SFDATA  EQU 50H
+   0051                 SFCTL   EQU 51H
+                        
+   1000                 START:
+   1000   31 00 e0              LXI SP,0E000H
+   1003   21 33 11              LXI H,MSGBANNER
+   1006   cd f9 10              CALL PRTSTR
+                        
+                                ; ===== JEDEC ID (must return BF xx xx) =====
+   1009   3e 00                 MVI A,00H
+   100b   d3 51                 OUT SFCTL                 ; CS# select
+   100d   3e 9f                 MVI A,9FH
+   100f   d3 50                 OUT SFDATA                ; JEDEC ID opcode
+   1011   db 50                 IN  SFDATA                ; manufacturer
+   1013   4f                    MOV C,A
+   1014   db 50                 IN  SFDATA                ; device id lo
+   1016   57                    MOV D,A
+   1017   db 50                 IN  SFDATA                ; device id hi
+   1019   5f                    MOV E,A
+   101a   3e 01                 MVI A,01H
+   101c   d3 51                 OUT SFCTL                 ; CS# release
+   101e   21 4c 11              LXI H,MSGID
+   1021   cd f9 10              CALL PRTSTR
+   1024   79                    MOV A,C
+   1025   cd 1d 11              CALL PRTBYTE
+   1028   3e 20                 MVI A,' '
+   102a   cd 06 11              CALL COUT
+   102d   7a                    MOV A,D
+   102e   cd 1d 11              CALL PRTBYTE
+   1031   3e 20                 MVI A,' '
+   1033   cd 06 11              CALL COUT
+   1036   7b                    MOV A,E
+   1037   cd 1d 11              CALL PRTBYTE
+   103a   cd 12 11              CALL CRLF
+   103d   79                    MOV A,C
+   103e   fe bf                 CPI 0BFH
+   1040   c2 f2 10              JNZ FAIL
+                        
+                                ; ===== Byte Program pattern 0xAA at flash address 0x000000 =====
+   1043   3e 00                 MVI A,00H
+   1045   d3 51                 OUT SFCTL
+   1047   3e 06                 MVI A,06H
+   1049   d3 50                 OUT SFDATA                ; WREN
+   104b   3e 01                 MVI A,01H
+   104d   d3 51                 OUT SFCTL
+   104f   3e 00                 MVI A,00H
+   1051   d3 51                 OUT SFCTL
+   1053   3e 02                 MVI A,02H
+   1055   d3 50                 OUT SFDATA                ; byte program
+   1057   3e 00                 MVI A,00H
+   1059   d3 50                 OUT SFDATA                ; addr A23..A16
+   105b   3e 00                 MVI A,00H
+   105d   d3 50                 OUT SFDATA                ; addr A15..A8
+   105f   3e 00                 MVI A,00H
+   1061   d3 50                 OUT SFDATA                ; addr A7..A0
+   1063   3e aa                 MVI A,0AAH
+   1065   d3 50                 OUT SFDATA                ; data byte
+   1067   3e 01                 MVI A,01H
+   1069   d3 51                 OUT SFCTL
+                        
+                                ; read it back -> expect 0xAA
+   106b   3e 00                 MVI A,00H
+   106d   d3 51                 OUT SFCTL
+   106f   3e 03                 MVI A,03H
+   1071   d3 50                 OUT SFDATA                ; read
+   1073   3e 00                 MVI A,00H
+   1075   d3 50                 OUT SFDATA
+   1077   3e 00                 MVI A,00H
+   1079   d3 50                 OUT SFDATA
+   107b   3e 00                 MVI A,00H
+   107d   d3 50                 OUT SFDATA
+   107f   db 50                 IN  SFDATA
+   1081   4f                    MOV C,A
+   1082   3e 01                 MVI A,01H
+   1084   d3 51                 OUT SFCTL
+   1086   21 57 11              LXI H,MSGRD
+   1089   cd f9 10              CALL PRTSTR
+   108c   79                    MOV A,C
+   108d   cd 1d 11              CALL PRTBYTE
+   1090   cd 12 11              CALL CRLF
+   1093   79                    MOV A,C
+   1094   fe aa                 CPI 0AAH
+   1096   c2 f2 10              JNZ FAIL
+                        
+                                ; ===== Sector Erase the 4 KB sector at 0x000000 =====
+   1099   3e 00                 MVI A,00H
+   109b   d3 51                 OUT SFCTL
+   109d   3e 06                 MVI A,06H
+   109f   d3 50                 OUT SFDATA                ; WREN
+   10a1   3e 01                 MVI A,01H
+   10a3   d3 51                 OUT SFCTL
+   10a5   3e 00                 MVI A,00H
+   10a7   d3 51                 OUT SFCTL
+   10a9   3e 20                 MVI A,20H
+   10ab   d3 50                 OUT SFDATA                ; sector erase (4 KB)
+   10ad   3e 00                 MVI A,00H
+   10af   d3 50                 OUT SFDATA
+   10b1   3e 00                 MVI A,00H
+   10b3   d3 50                 OUT SFDATA
+   10b5   3e 00                 MVI A,00H
+   10b7   d3 50                 OUT SFDATA
+   10b9   3e 01                 MVI A,01H
+   10bb   d3 51                 OUT SFCTL
+                        
+                                ; read back -> expect 0xFF (erased)
+   10bd   3e 00                 MVI A,00H
+   10bf   d3 51                 OUT SFCTL
+   10c1   3e 03                 MVI A,03H
+   10c3   d3 50                 OUT SFDATA
+   10c5   3e 00                 MVI A,00H
+   10c7   d3 50                 OUT SFDATA
+   10c9   3e 00                 MVI A,00H
+   10cb   d3 50                 OUT SFDATA
+   10cd   3e 00                 MVI A,00H
+   10cf   d3 50                 OUT SFDATA
+   10d1   db 50                 IN  SFDATA
+   10d3   4f                    MOV C,A
+   10d4   3e 01                 MVI A,01H
+   10d6   d3 51                 OUT SFCTL
+   10d8   21 62 11              LXI H,MSGER
+   10db   cd f9 10              CALL PRTSTR
+   10de   79                    MOV A,C
+   10df   cd 1d 11              CALL PRTBYTE
+   10e2   cd 12 11              CALL CRLF
+   10e5   79                    MOV A,C
+   10e6   fe ff                 CPI 0FFH
+   10e8   c2 f2 10              JNZ FAIL
+                        
+   10eb   21 6d 11              LXI H,MSGPASS
+   10ee   cd f9 10              CALL PRTSTR
+   10f1   c9                    RET
+   10f2                 FAIL:
+   10f2   21 81 11              LXI H,MSGFAIL
+   10f5   cd f9 10              CALL PRTSTR
+   10f8   c9                    RET
+                        
+                        ; ---- helpers ----
+   10f9                 PRTSTR:
+   10f9   7e                    MOV A,M
+   10fa   b7                    ORA A
+   10fb   ca 05 11              JZ  PRTEND
+   10fe   cd 06 11              CALL COUT
+   1101   23                    INX H
+   1102   c3 f9 10              JMP PRTSTR
+   1105   c9            PRTEND: RET
+   1106                 COUT:
+   1106   f5                    PUSH PSW
+   1107                 COUT1:
+   1107   db 80                 IN  80H
+   1109   e6 01                 ANI 01H
+   110b   c2 07 11              JNZ COUT1
+   110e   f1                    POP PSW
+   110f   d3 81                 OUT 81H
+   1111   c9                    RET
+   1112                 CRLF:
+   1112   3e 0d                 MVI A,0DH
+   1114   cd 06 11              CALL COUT
+   1117   3e 0a                 MVI A,0AH
+   1119   cd 06 11              CALL COUT
+   111c   c9                    RET
+   111d                 PRTBYTE:
+   111d   f5                    PUSH PSW
+   111e   e6 f0                 ANI 0F0H
+   1120   0f                    RRC
+   1121   0f                    RRC
+   1122   0f                    RRC
+   1123   0f                    RRC
+   1124   cd 2a 11              CALL PRTH1
+   1127   f1                    POP PSW
+   1128   e6 0f                 ANI 0FH
+   112a                 PRTH1:
+   112a   c6 90                 ADI 90H
+   112c   27                    DAA
+   112d   ce 40                 ACI 40H
+   112f   27                    DAA
+   1130   c3 06 11              JMP COUT
+                        
+   1133   42 72 65 76   MSGBANNER: DB 'Brevia2 SPI flash test',0DH,0AH,0
+   1137   69 61 32 20   
+   113b   53 50 49 20   
+   113f   66 6c 61 73   
+   1143   68 20 74 65   
+   1147   73 74 0d 0a   
+   114b   00            
+   114c   4a 45 44 45   MSGID:     DB 'JEDEC ID: ',0
+   1150   43 20 49 44   
+   1154   3a 20 00      
+   1157   50 67 6d 20   MSGRD:     DB 'Pgm read: ',0
+   115b   72 65 61 64   
+   115f   3a 20 00      
+   1162   45 72 73 20   MSGER:     DB 'Ers read: ',0
+   1166   72 65 61 64   
+   116a   3a 20 00      
+   116d   0d 0a 46 4c   MSGPASS:   DB 0DH,0AH,'FLASH TEST PASS',0DH,0AH,0
+   1171   41 53 48 20   
+   1175   54 45 53 54   
+   1179   20 50 41 53   
+   117d   53 0d 0a 00   
+   1181   0d 0a 46 4c   MSGFAIL:   DB 0DH,0AH,'FLASH TEST FAIL',0DH,0AH,0
+   1185   41 53 48 20   
+   1189   54 45 53 54   
+   118d   20 46 41 49   
+   1191   4c 0d 0a 00   
+   1195                         END
+1106  COUT          1107  COUT1         1112  CRLF          10f2  FAIL      
+1133  MSGBANNER     1162  MSGER         1181  MSGFAIL       114c  MSGID     
+116d  MSGPASS       1157  MSGRD         111d  PRTBYTE       1105  PRTEND    
+112a  PRTH1         10f9  PRTSTR        0051  SFCTL         0050  SFDATA    
+1000  START         
+

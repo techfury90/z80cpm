@@ -28,6 +28,10 @@ UDATA   EQU     81H                     ; UART data (read=RX char, write=TX char
 RDDATA  EQU     20H                     ; RAM disk DATA (read/write, auto-increment)
 RDADRL  EQU     21H                     ; RAM disk ADDR low
 RDADRH  EQU     22H                     ; RAM disk ADDR high
+; ---- on-board SST25VF020 serial flash (SPI) ----
+SPI_DATA EQU    50H                     ; read = clock 1 byte in (returns in A), write = clock 1 byte out. MSB-first.
+SPI_CTL  EQU    51H                     ; write bit0 = CS#: 0 = select flash low, 1 = release high
+SPI_STAT EQU    52H                     ; read bit0 = transfer busy (1 while a byte is clocked; polling OPTIONAL)
 
 ; ---------------- CP/M drive A: disk layout (bank B) ----------------
 DIRBASE EQU     2000H                   ; directory area base (2K = 64 entries)
@@ -50,6 +54,8 @@ FCB     EQU     2100H                   ; 32-byte FCB (extent 0) in RAM
 FCB2    EQU     2120H                   ; 32-byte FCB (extent 1) in RAM
 RCNT_L  EQU     2160H                   ; total records received (16-bit, L then H)
 FNAME   EQU     2180H                   ; 12-byte user filename buffer (8.3)
+F_PAT   EQU     2200H                   ; 16-byte test-pattern buffer for the flash program/verify
+F_RD    EQU     2210H                   ; 16-byte flash read-back buffer for the raw dump/verify
 
 ; ============================================================================
         JMP     START
@@ -299,6 +305,16 @@ MENU:   LXI     H,MSGMENU
         JZ      DO_DUMP
         CPI     'M'
         JZ      DO_MDUMP
+        CPI     'I'
+        JZ      DO_ID
+        CPI     'P'
+        JZ      DO_PROGRAM
+        CPI     'R'
+        JZ      DO_READ
+        CPI     'E'
+        JZ      DO_ERASE
+        CPI     'S'
+        JZ      DO_FMTFLASH
         JMP     MENU
 
 ; ---------------- command: format ----------------
@@ -968,11 +984,288 @@ RH_DONE:
 RH_NEXT: JMP     RH1
 
 ; ============================================================================
+; --- SST25VF020 serial-flash routines (SPI) --------------------------------
+; Ports: SPI_DATA(0x50) read clocks a byte in / write clocks a byte out (MSB
+;        first); SPI_CTL(0x51) bit0 = CS# (0=select low, 1=release high);
+;        SPI_STAT(0x52) bit0 = transfer busy. The byte engine stretches the
+;        CPU wait state during every 0x50 access, so back-to-back 0x50
+;        accesses complete within the access -- a busy poll on 0x52 is OPTIONAL.
+; The flash is 256 KB (SST25VF020): 64 x 4KB sectors, 256-byte pages,
+; byte-granular program that only CLEARS 1->0. Restoring a bit to 1 requires
+; erasing its whole 4KB sector (to 0xFF) first, so ERASE-BEFORE-WRITE is
+; mandatory unless writing into known-erased 0xFF regions.
+; ============================================================================
+; ---------------- SPI physical helpers ----------------
+SPI_SEL: MVI     A,00H
+         OUT     SPI_CTL                 ; CS# low -> select the flash
+         RET
+SPI_REL: MVI     A,01H
+         OUT     SPI_CTL                 ; CS# high -> release the flash
+         RET
+
+; SPI_XMIT: clock the byte in A out to the flash; returned byte discarded.
+SPI_XMIT: OUT     SPI_DATA
+         RET
+
+; SPI_WAIT: poll RDSR until WIP (status bit0) clears. Re-selects the flash,
+; sends the RDSR opcode, and keeps reading the status while CS# is low.
+SPI_WAIT: CALL    SPI_SEL
+         MVI     A,05H
+         CALL    SPI_XMIT                ; RDSR opcode
+SPW:     IN      SPI_DATA                ; read status byte
+         ANI     01H                     ; WIP (bit0)?
+         JNZ     SPW                     ; still busy -> keep polling
+         CALL    SPI_REL
+         RET
+
+; SPI_PROGBYTE: program ONE byte (in A) at the address in HL (the A23-A16
+; address byte is taken as 0 -- this utility only uses the <=64K flash region).
+; Uses the per-byte 0x02 Byte Program; issues WREN first (required before every
+; program). Clobbers A and C only (spares B/D/E/H/L across the call).
+SPI_PROGBYTE:
+         MOV     C,A                     ; park the data byte
+         CALL    SPI_SEL
+         MVI     A,06H
+         CALL    SPI_XMIT                ; WREN
+         CALL    SPI_REL                 ; latch WREN (CS# must toggle)
+         CALL    SPI_SEL
+         MVI     A,02H
+         CALL    SPI_XMIT                ; Byte Program opcode
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A23-A16 = 0
+         MOV     A,H
+         CALL    SPI_XMIT                ; A15-A8
+         MOV     A,L
+         CALL    SPI_XMIT                ; A7-A0
+         MOV     A,C
+         CALL    SPI_XMIT                ; data byte -> flash programs it
+         CALL    SPI_REL
+         CALL    SPI_WAIT                ; wait for WIP to clear
+         RET
+
+; SPI_ERASE_SECT0: WREN + Sector Erase (0x20) of the 4KB sector at 0x000000
+; (the sector containing the test / flash-layout region). Then wait WIP.
+SPI_ERASE_SECT0:
+         CALL    SPI_SEL
+         MVI     A,06H
+         CALL    SPI_XMIT                ; WREN
+         CALL    SPI_REL
+         CALL    SPI_SEL
+         MVI     A,20H
+         CALL    SPI_XMIT                ; Sector Erase 4KB opcode
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A23-A16
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A15-A8
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A7-A0 -> sector 0
+         CALL    SPI_REL
+         CALL    SPI_WAIT
+         RET
+
+; ---------------- command: read JEDEC ID ----------------
+DO_ID:   LXI     H,MSGID
+         CALL    PRTSTR
+         CALL    SPI_SEL
+         MVI     A,09FH
+         CALL    SPI_XMIT                ; JEDEC ID opcode (0x9F)
+         IN      SPI_DATA                ; manufacturer id (MUST be 0xBF)
+         MOV     B,A
+         IN      SPI_DATA                ; device id byte 1
+         MOV     C,A
+         IN      SPI_DATA                ; device id byte 2
+         MOV     D,A
+         CALL    SPI_REL
+         LXI     H,MSGIDVAL
+         CALL    PRTSTR
+         MOV     A,B
+         CALL    PRTBYTE
+         MVI     A,' '
+         CALL    TXCHAR
+         MOV     A,C
+         CALL    PRTBYTE
+         MVI     A,' '
+         CALL    TXCHAR
+         MOV     A,D
+         CALL    PRTBYTE
+         CALL    CRLF
+         MVI     A,0BFH
+         CMP     B
+         JNZ     ID_FAIL
+         LXI     H,MSGPASS
+         CALL    PRTSTR
+         JMP     MENU
+ID_FAIL: LXI     H,MSGFAIL
+         CALL    PRTSTR
+         JMP     MENU
+
+; ---------------- command: program a test pattern ----------------
+DO_PROGRAM:
+         LXI     H,MSGPROG
+         CALL    PRTSTR
+         CALL    SPI_ERASE_SECT0         ; known-erased 4KB sector at 0x000000
+         ; build the 16-byte test pattern 00,01,...,0F into F_PAT
+         LXI     H,F_PAT
+         MVI     A,00H
+         MVI     B,16
+PGBLD:   MOV     M,A
+         INR     A
+         INX     H
+         DCR     B
+         JNZ     PGBLD
+         ; program the pattern at flash 0x000000
+         LXI     H,0000H                 ; target address (A23-A16 = 0)
+         LXI     D,F_PAT                 ; pattern source
+         MVI     B,16
+PGLOOP:  LDAX    D                       ; pattern byte
+         CALL    SPI_PROGBYTE
+         INX     H
+         INX     D
+         DCR     B
+         JNZ     PGLOOP
+         LXI     H,MSGPROGOK
+         CALL    PRTSTR
+         JMP     MENU
+
+; ---------------- command: raw read-back + dump + verify ----------------
+DO_READ:
+         LXI     H,MSGREAD
+         CALL    PRTSTR
+         ; read 16 bytes at flash 0x000000 into F_RD
+         CALL    SPI_SEL
+         MVI     A,03H
+         CALL    SPI_XMIT                ; Read opcode (0x03)
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A23-A16
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A15-A8
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A7-A0
+         LXI     H,F_RD
+         MVI     B,16
+RDLP:    IN      SPI_DATA                ; next byte the flash drives out
+         MOV     M,A
+         INX     H
+         DCR     B
+         JNZ     RDLP
+         CALL    SPI_REL
+         LXI     H,MSGDATA
+         CALL    PRTSTR
+         LXI     H,F_RD
+         MVI     B,16
+RDDMP:   MOV     A,M
+         CALL    PRTBYTE
+         MVI     A,' '
+         CALL    TXCHAR
+         INX     H
+         DCR     B
+         JNZ     RDDMP
+         CALL    CRLF
+         ; verify against F_PAT
+         LXI     H,F_RD
+         LXI     D,F_PAT
+         MVI     B,16
+RDCMP:   LDAX    D
+         CMP     M
+         JNZ     RD_FAIL
+         INX     H
+         INX     D
+         DCR     B
+         JNZ     RDCMP
+         LXI     H,MSGREADOK
+         CALL    PRTSTR
+         LXI     H,MSGPASS
+         CALL    PRTSTR
+         JMP     MENU
+RD_FAIL: LXI     H,MSGREADFAIL
+         CALL    PRTSTR
+         LXI     H,MSGFAIL
+         CALL    PRTSTR
+         JMP     MENU
+
+; ---------------- command: erase sector + verify ----------------
+DO_ERASE:
+         LXI     H,MSGERS
+         CALL    PRTSTR
+         CALL    SPI_ERASE_SECT0
+         ; read the 4KB sector (0x000000-0x000FFF) and confirm it is all 0xFF
+         CALL    SPI_SEL
+         MVI     A,03H
+         CALL    SPI_XMIT                ; Read opcode
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A23-A16
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A15-A8
+         MVI     A,00H
+         CALL    SPI_XMIT                ; A7-A0
+         LXI     B,1000H                 ; 4096 bytes
+ERCHK:   IN      SPI_DATA
+         CPI     0FFH
+         JNZ     ER_FAIL
+         DCX     B
+         MOV     A,B
+         ORA     C
+         JNZ     ERCHK
+         CALL    SPI_REL
+         LXI     H,MSGERROK
+         CALL    PRTSTR
+         LXI     H,MSGPASS
+         CALL    PRTSTR
+         JMP     MENU
+ER_FAIL: CALL    SPI_REL
+         LXI     H,MSGERFAIL
+         CALL    PRTSTR
+         LXI     H,MSGFAIL
+         CALL    PRTSTR
+         JMP     MENU
+
+; ---------------- command: format the flash as a CP/M data disk ----------------
+; Flash byte-layout (documented here so the later CBIOS drive B: work reuses it).
+;   Offset 0x0000 - 0x07FF : Directory area (2K = 64 CP/M directory entries of
+;                            32 bytes each), populated with 0xE5 (the CP/M
+;                            empty-directory-entry marker).
+;   Offset 0x0800 - 0x3FFFF: Data area (247.5K), left erased (0xFF).
+;   Blocks are 1K; records are 128 bytes. This mirrors the RAM-disk drive A:
+;   layout (DIRBASE=2000H, 1K blocks) scaled onto the 256KB flash, so the CBIOS
+;   can reuse the same directory/block arithmetic for drive B:.
+DO_FMTFLASH:
+         LXI     H,MSGFMTFL
+         CALL    PRTSTR
+         ; 1) erase the whole chip to 0xFF (clears the data area)
+         CALL    SPI_SEL
+         MVI     A,06H
+         CALL    SPI_XMIT                ; WREN
+         CALL    SPI_REL
+         CALL    SPI_SEL
+         MVI     A,60H
+         CALL    SPI_XMIT                ; Chip Erase opcode (0x60, no address)
+         CALL    SPI_REL
+         CALL    SPI_WAIT
+         ; 2) program 0xE5 across the 2K directory area (0x0000-0x07FF)
+         LXI     H,0000H                 ; directory area base
+         LXI     B,0800H                 ; 2048 bytes
+FMTL:    PUSH    B                       ; SPI_PROGBYTE clobbers C (the count low)
+         MVI     A,0E5H
+         CALL    SPI_PROGBYTE
+         POP     B
+         INX     H
+         DCX     B
+         MOV     A,B
+         ORA     C
+         JNZ     FMTL
+         LXI     H,MSGFMTFOK
+         CALL    PRTSTR
+         JMP     MENU
+
+; ============================================================================
 ; Messages
 ; ============================================================================
 MSGBANNER: DB 'Z80 Brevia2 RAM-disk utility',0DH,0AH,0
-MSGMENU:   DB 'F)ormat U)pload C)old-boot B)dump M)emdump H)elp > ',0
+MSGMENU:   DB 'F)mt U)pload C)oldboot B)dump M)memdump I)flashID P)rogram R)ead E)rase S)fmtflash H)elp > ',0
 MSGHELP:   DB 'F=format A:  U=xmodem receive  C=xmodem receive CP/M + cold boot',0DH,0AH,0
+           DB 'B=RAMdisk dump  M=CPU memdump',0DH,0AH,0
+           DB 'I=flash JEDEC ID  P=program test pattern  R=read-back+verify',0DH,0AH,0
+           DB 'E=erase sector 0  S=format SPI flash as CP/M data disk',0DH,0AH,0
 MSGFMT:    DB 'Formatting...',0DH,0AH,0
 MSGFMTOK:  DB 'Format OK.',0DH,0AH,0
 MSGPROMPT: DB 'Receive FILENAME (8.3): ',0
@@ -983,6 +1276,22 @@ MSGMD:     DB 'Dump 128 bytes of CPU RAM at hex addr: ',0
 MSGBCPM:   DB 'Receive CP/M image, then cold boot...',0DH,0AH,0
 MSGBCPMOK: DB 'CP/M image loaded - cold boot...',0DH,0AH,0
 MSGNOSPC:  DB 'No space - disk or directory full.',0DH,0AH,0
+; ---- SPI-flash command strings ----
+MSGID:     DB 'Reading flash JEDEC ID...',0DH,0AH,0
+MSGIDVAL:  DB 'ID: ',0
+MSGPROG:   DB 'Erasing sector 0, then programming test pattern @0x000000...',0DH,0AH,0
+MSGPROGOK: DB 'Programmed 16 bytes @0x000000.',0DH,0AH,0
+MSGREAD:   DB 'Reading back 16 bytes @0x000000:',0DH,0AH,0
+MSGDATA:   DB 'Data: ',0
+MSGREADOK: DB 'Read-back MATCHES programmed pattern.',0DH,0AH,0
+MSGREADFAIL: DB 'Read-back MISMATCH!',0DH,0AH,0
+MSGERS:    DB 'Erasing 4KB sector 0 @0x000000...',0DH,0AH,0
+MSGERROK:  DB 'Erase OK - sector reads all 0xFF.',0DH,0AH,0
+MSGERFAIL: DB 'Erase FAIL - sector not all 0xFF.',0DH,0AH,0
+MSGFMTFL:  DB 'Formatting SPI flash as CP/M data disk (dir=0x0000,data=0x0800)...',0DH,0AH,0
+MSGFMTFOK: DB 'Flash format OK.',0DH,0AH,0
+MSGPASS:   DB 'PASS',0DH,0AH,0
+MSGFAIL:   DB 'FAIL',0DH,0AH,0
 ; ---- DEBUG trace tags (remove once the upload path is confirmed) ----
 MSGT_BLK:  DB 'blk=',0
 MSGT_SLOT: DB 'slot=',0

@@ -70,10 +70,15 @@ SPI_ADDR: LDA     FBADDR+2
 ; ---------------- page program (0x02) ----------------
 ; SPI_PAGE: program a full 256-byte page from (HL) at the page-aligned FBADDR.
 ; FBADDR must be 256-byte aligned (the flash's page program wraps within a
-; page if it crosses the boundary).  Issues WREN, then the page-program
-; command and 256 data bytes in one CS#-low sequence.  Clobbers A, B, HL
-; (HL is advanced 256 bytes / left at HL+256).
+; page if it crosses the boundary).  Issues WREN (0x06, CS# toggled to latch it
+; -- REQUIRED before every program/erase on the IS25LD040), then the page-
+; program command and 256 data bytes in one CS#-low sequence.  Clobbers A, B,
+; HL (HL is advanced 256 bytes / left at HL+256).
 SPI_PAGE: CALL    SPI_SEL
+         MVI     A,06H                   ; WREN (mandatory before every program)
+         CALL    SPI_XMIT
+         CALL    SPI_REL                 ; latch WREN (CS# must toggle)
+         CALL    SPI_SEL
          MVI     A,02H                   ; Page Program opcode
          CALL    SPI_XMIT
          CALL    SPI_ADDR

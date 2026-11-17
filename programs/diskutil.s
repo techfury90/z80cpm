@@ -1247,17 +1247,31 @@ ER_FAIL: CALL    SPI_REL
 DO_FMTFLASH:
          LXI     H,MSGFMTFL
          CALL    PRTSTR
-         ; 1) erase the whole chip to 0xFF (clears data area and the reserved
-         ;    system area; the directory then gets 0xE5 programmed back)
-         CALL    SPI_SEL
-         MVI     A,06H
-         CALL    SPI_XMIT                ; WREN
-         CALL    SPI_REL
-         CALL    SPI_SEL
-         MVI     A,60H
-         CALL    SPI_XMIT                ; Chip Erase opcode (0x60, no address)
-         CALL    SPI_REL
-         CALL    SPI_WAIT
+         ; 1) erase the WHOLE chip to 0xFF by erasing each 4KB sector in a loop
+         ;    (128 x SECTOR_ER 0x20).  A single chip-erase (0x60) is a valid
+         ;    opcode but is a long operation during which (per the datasheet) every
+         ;    command except RDSR is ignored -- so a page program issued right
+         ;    after it could race and be dropped, leaving the dir 0xFF.  Sector
+         ;    erase is the primitive PROVEN reliable on this board (the CBIOS
+         ;    drive B: WRITEB uses it), so we erase the whole chip that way.
+         XRA     A
+         STA     FBADDR                  ; FBADDR = 0x000000
+         STA     FBADDR+1
+         STA     FBADDR+2
+         LXI     B,0080H                 ; 128 sectors x 4KB = 512KB
+FMTE:    PUSH    B
+         CALL    SPI_ERASE_SECT          ; erase the 4KB sector at FBADDR (WREN+0x20+WIP wait)
+         ; advance FBADDR by one 4KB sector (0x1000): FBADDR+1 += 0x10, carry -> +2
+         LDA     FBADDR+1
+         ADI     10H
+         STA     FBADDR+1
+         JNC     FMTE2
+         LDA     FBADDR+2
+         ADI     01H
+         STA     FBADDR+2
+FMTE2:   POP     B
+         DCR     B
+         JNZ     FMTE
          ; 2) fill the 256-byte page buffer with 0xE5 (the empty-directory mark)
          LXI     H,FMTBUF
          MVI     B,00H                   ; 256 bytes (wraps on DCR)

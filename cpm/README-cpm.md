@@ -2,8 +2,9 @@
 
 This directory contains a complete CP/M 2.2 system image plus its custom BIOS
 (CBIOS) for the Brevia2 board.  It boots to a CP/M `A>` prompt on the serial
-console, with the 64K I/O-mapped RAM disk presenting as drive A:.  `DIR`,
-`SAVE`, `TYPE`, `ERA`, `REN`, etc. operate against that RAM disk.
+console, with the 64K I/O-mapped RAM disk presenting as drive A: and the
+on-board ISSI IS25LD040 SPI flash (512 KB) presenting as drive B:.  `DIR`,
+`SAVE`, `TYPE`, `ERA`, `REN`, etc. operate against those disks.
 
 ## Files
 
@@ -20,7 +21,7 @@ console, with the 64K I/O-mapped RAM disk presenting as drive A:.  `DIR`,
 ## Loading and starting CP/M via GWMON-80
 
 1. Connect a terminal to the Brevia2 serial console (UART at ports 0x80/0x81),
-   **9600 baud, 8 data bits, no parity, 1 stop bit (8N1)**.
+   **115200 baud, 8 data bits, no parity, 1 stop bit (8N1)**.
 2. Reset the board and bring up the GWMON-80 monitor until its prompt appears.
 3. At the monitor prompt type **`L`** (lowercase `l` also works), then paste the
    entire contents of **`brevia2_cpm.hex`**.  The monitor echoes each Intel HEX
@@ -51,18 +52,44 @@ See `cbios.asm` for full comments.  Key points:
 - **Jump table** at 0xFA00 with the standard 17 CP/M 2.2 entries
   (BOOT, WBOOT, CONST, CONIN, CONOUT, LIST, PUNCH, READER, HOME, SELDSK,
   SETTRK, SETSEC, SETDMA, READ, WRITE, SECTRAN, LISTST).
-- **Console** (UART 0x80 status / 0x81 data, polled, 9600 8N1):
+- **Console** (UART 0x80 status / 0x81 data, polled, 115200 8N1; baud-agnostic
+  polled code):
   `CONST` returns 0xFF/0x00 on rx_avail (bit1); `CONIN` polls bit1 then reads
   0x81; `CONOUT` polls tx_busy (bit0) then writes 0x81.  `LIST`/`PUNCH`/`READER`
   map to the same console UART; `LISTST` always reports ready.
 - **RAM disk** (ports 0x20 DATA / 0x21 ADDR low / 0x22 ADDR high, auto-increment
-  on every 0x20 access) is drive A:.  `SELDSK` returns the DPH for drive A and
-  reports an error for every other drive.  `READ`/`WRITE` move exactly one
-  128-byte sector between the DMA buffer and the RAM disk.
-- **DPB geometry:** 128-byte sectors, SPT=32, 1K allocation blocks (BSH=3/BLM=7,
-  EXM=0), DSM=55 (56 blocks = 56K user data), DRM=63 (64 directory entries,
-  2 directory blocks), CKS=0 (fixed media), OFF=2 (tracks 0-1 reserved for the
-  system).  Only drive A: exists.
+  on every 0x20 access) is drive A:.  `SELDSK` returns the drive A DPH for C=0
+  and the drive B DPH for C=1; C>1 reports an error.  `READ`/`WRITE` dispatch on
+  the selected drive: drive A moves exactly one 128-byte sector between the DMA
+  buffer and the RAM disk, drive B goes through the SPI flash path (see below).
+- **DPB geometry (drive A):** 128-byte sectors, SPT=32, 1K allocation blocks
+  (BSH=3/BLM=7, EXM=0), DSM=55 (56 blocks = 56K user data), DRM=63 (64 directory
+  entries, 2 directory blocks), CKS=0 (fixed media), OFF=2 (tracks 0-1 reserved
+  for the system).  Only drive A: existed before drive B: was added.
+
+## Drive B: (on-board ISSI IS25LD040 SPI flash)
+
+The 512 KB SPI flash is presented as CP/M drive B:.  It is **persistent**
+(unlike the volatile RAM disk), so files saved to B: survive a warm/cold start.
+The shared SPI driver lives in `../spi.inc` (also included by `../programs/`
+`diskutil.s`) so the physical protocol cannot drift between diskutil and the
+CBIOS.
+
+- **Layout** (matches `diskutil`'s `S` formatter and the drive B DPB):
+  tracks 0-1 (0x0000-0x1FFF) are reserved for a future boot system (erased
+  0xFF); the user data area starts at 0x2000.  Block 0 (0x2000-0x2FFF) is the
+  directory (64 entries, first 2KB used); blocks 1-125 (0x3000-0x7FFFF) are
+  file data.
+- **DPB geometry (drive B):** 4KB allocation blocks (BSH=5/BLM=31, EXM=3),
+  DSM=125 (126 blocks), DRM=63 (64 directory entries), CKS=0, OFF=2.  One CP/M
+  block maps to exactly one 4KB flash erase sector.
+- **Erase-before-write / RMW:** the flash only erases at 4KB granularity and
+  programming can only clear bits (1→0), so every 128-byte WRITE performs a 4KB
+  read-modify-write into the `RMWBUF` buffer at 0xD000 (read the whole sector,
+  overlay the record, erase the sector, page-program it back).  This is
+  correctness-first and slow; a dirty-sector cache is a later optimization.
+  Drive B: `READ` and `WRITE` both use the 24-bit address formula
+  `addr = TRK*0x1000 + SECN*0x80` (the flash exceeds 16-bit addressing).
 
 ## Notes / assumptions
 

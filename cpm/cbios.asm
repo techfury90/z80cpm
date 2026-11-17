@@ -14,11 +14,18 @@
 ;
 ;   Hardware driven by this CBIOS (Brevia2 custom I/O map):
 ;       Serial console UART: 0x80 = status (bit0 tx_busy, bit1 rx_avail)
-;                             0x81 = TX data / RX data    (8N1 @ 9600)
+;                             0x81 = TX data / RX data    (8N1 @ 115200)
 ;       RAM disk (bank B of 128K SRAM, 64K bytes):
 ;                             0x20 = DATA (IN=read / OUT=write, AUTO-INCREMENT)
 ;                             0x21 = ADDR low byte (write)
 ;                             0x22 = ADDR high byte (write)
+;       SPI flash (ISSI IS25LD040, 512 KB -> CP/M drive B:):
+;                             0x50 = DATA (read clocks a byte in / write clocks
+;                                     a byte out, MSB first)
+;                             0x51 = CTL (bit0 = CS#: 0=select low, 1=release)
+;                             0x52 = STATUS (bit0 = transfer busy; poll OPTIONAL
+;                                     because the RTL byte engine stretches the
+;                                     CPU wait on every 0x50 access)
 ;       ROM banking:          OUT 0x30 with bit0=1 banks out the GWMON ROM.
 ;
 ;   The 64K RAM disk is treated as a single CP/M disk (drive A:).  Its first
@@ -48,6 +55,18 @@ SPT     EQU     32              ; sectors per track (from DPB)
 SYSCPP  EQU     0000H           ; RAM-disk byte offset of the stored CCP
 SYSBDS  EQU     0800H           ; RAM-disk byte offset of the stored BDOS
 DMA0    EQU     0080H           ; CP/M default DMA buffer
+;
+; ---- ISSI IS25LD040 SPI flash ports (drive B:) — same map as diskutil ---- 
+SPI_DATA EQU    50H             ; read clocks a byte in / write clocks a byte out (MSB first)
+SPI_CTL  EQU    51H             ; write bit0 = CS# (0=select low, 1=release high)
+SPI_STAT EQU    52H             ; read bit0 = transfer busy (poll OPTIONAL)
+;
+; ---- drive B: flash geometry (must match the DPB AND diskutil's formatter) ----
+RMWBUF  EQU     0D000H          ; 4KB read-modify-write buffer in the TPA (drive B: write).
+                                ;  Safe: touched only while a transient is suspended inside the
+                                ;  BDOS, and the transient/BDOS stack is high (~0xEBxx in the CCP or
+                                ;  at the TPA top), well above 0xDFFF.  A transient > ~50KB would
+                                ;  load over it.
 
 ;
 ; ============================================================================
@@ -229,17 +248,23 @@ LISTST:
 ; ============================================================================
 ; SELDSK: select drive given by register C.  Return HL = DPH address for the
 ; selected drive, or HL=0000 with A=0xFF if the drive is not present.
-; Only drive A (C=0) exists (the RAM disk); all other drives return an error.
+;   C=0 -> drive A (the RAM disk), C=1 -> drive B (the SPI flash).  C>1 -> error.
 SELDSK:
         MOV     A,C
         STA     SELBL           ; remember the selected drive number
         ORA     A
-        JNZ     SELERR          ; C != 0 -> not present
-        LXI     H,DPH           ; drive A disk parameter header
-        RET
+        JZ      SELD0           ; C=0 -> drive A
+        CPI     01H
+        JZ      SELD1           ; C=1 -> drive B (SPI flash)
 SELERR:
         LXI     H,0000H         ; error return: HL=0
         MVI     A,0FFH
+        RET
+SELD0:
+        LXI     H,DPH           ; drive A disk parameter header (RAM disk)
+        RET
+SELD1:
+        LXI     H,DPHB          ; drive B disk parameter header (SPI flash)
         RET
 
 ; HOME: move to track 0, sector 0.
@@ -329,6 +354,10 @@ RAMPTR:
 ;   Returns A=0 on success (RAM disk is error-free -> always 0).
 ; ============================================================================
 READ:
+        LDA     SELBL
+        ORA     A
+        JNZ     READB           ; selected drive != 0 -> drive B (SPI flash)
+        ; ---- drive A: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR          ; set the disk data-pointer
         LHLD    DMA
@@ -349,6 +378,10 @@ READ1:
 ;   Returns A=0 on success.
 ; ============================================================================
 WRITE:
+        LDA     SELBL
+        ORA     A
+        JNZ     WRITEB          ; selected drive != 0 -> drive B (SPI flash)
+        ; ---- drive A: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR
         LHLD    DMA
@@ -405,6 +438,139 @@ RAMFILL1:
         MOV     A,B
         ORA     C
         JNZ     RAMFILL1
+        RET
+
+; ============================================================================
+;   DRIVE B:  SPI FLASH  (ISSI IS25LD040 as CP/M drive B:)
+;
+;   Flash layout (MUST match diskutil's 'S' formatter and the drive B: DPB):
+;       0x00000-0x01FFF  (8KB, tracks 0-1)   reserved system (erased 0xFF)
+;       0x02000-0x7FFFF  (504KB, tracks 2-127) user data area = 126 blocks
+;           Block 0  (0x2000-0x2FFF) directory (reserved via AL0=0x80); the
+;                     first 2KB (0x2000-0x27FF) hold 64 x 32-byte entries
+;           Blocks 1..125 (0x3000-0x7FFFF) file data (125 blocks = 500KB)
+;
+;   Address formula (same as the drive A: CALC, but 24-bit -- the flash is
+;   512KB and exceeds 16 bits):  flash_addr = TRK*0x1000 + SECN*0x80
+;   (SPT=32, record=128).  The BDOS passes the absolute track (it already added
+;   the DPB offset), so OFF is NOT re-added here.
+;
+;   Erase-before-write is mandatory and the flash only erases at 4KB granularity
+;   (sector = 0x20 opcode), so one CP/M block maps to exactly one erase sector.
+;   A WRITE therefore does a 4KB read-modify-write: read the whole 4KB sector
+;   into RMWBUF, overlay the 128-byte record at its offset, erase the sector,
+;   then page-program it back (16 x 256B).  Correctness first; a dirty-sector
+;   cache is a later optimization.
+; ============================================================================
+
+; ---- shared SPI driver (physical primitives + 24-bit ops) ----
+        INCL    "spi.inc"
+
+; FLADDR: compute FBADDR = TRK*0x1000 + SECN*0x80, the 24-bit flash byte address
+; of the selected record, split (validated against 0x7FF80 for TRK=127,SEC=31):
+;     byte2 (A23-A16) = TRK >> 4
+;     byte1 (A15-A8)  = ((TRK & 0x0F) << 4) | (SECN >> 1)
+;     byte0 (A7-A0)   = (SECN & 1) << 7
+; (SECN*0x80 < 0x1000 so it never carries into the TRK*0x1000 field.)  Clobbers
+; A, B, C, D.
+FLADDR:
+        LDA     TRK
+        MOV     B,A             ; B = TRK
+        LDA     SECN
+        MOV     C,A             ; C = SECN
+        ; byte2 (A23-A16) = TRK >> 4
+        MOV     A,B
+        ANI     0F0H
+        RRC
+        RRC
+        RRC
+        RRC
+        STA     FBADDR+2
+        ; byte1 (A15-A8) = ((TRK & 0x0F) << 4) | (SECN >> 1)
+        MOV     A,B
+        ANI     0FH
+        RLC
+        RLC
+        RLC
+        RLC
+        MOV     D,A
+        MOV     A,C
+        RRC
+        ANI     7FH
+        ORA     D
+        STA     FBADDR+1
+        ; byte0 (A7-A0) = (SECN & 1) << 7
+        MOV     A,C
+        ANI     01H
+        JZ      FLAD0
+        MVI     A,80H
+        JMP     FLADR
+FLAD0:  XRA     A
+FLADR:  STA     FBADDR
+        RET
+
+; READB: read one 128-byte sector from the SPI flash (drive B:) into the DMA
+; buffer.  Returns A=0.  (A flash read is error-free.)
+READB:
+        CALL    FLADDR          ; FBADDR = 24-bit record address
+        LHLD    DMA
+        MOV     D,H
+        MOV     E,L             ; DE = DMA destination
+        LXI     B,80H           ; 128 bytes
+        CALL    SPI_READBUF
+        MVI     A,00H           ; success
+        RET
+
+; WRITEB: write one 128-byte sector to the SPI flash (drive B:) via a 4KB
+; read-modify-write.  Returns A=0.  Clobbers A,B,D,E,H,L.
+WRITEB:
+        CALL    FLADDR          ; FBADDR = 24-bit record address
+        ; ---- save the record's in-sector offset (FBADDR & 0xFFF) ----
+        LDA     FBADDR
+        STA     RECOFF          ; offset low byte
+        LDA     FBADDR+1
+        ANI     0FH
+        STA     RECOFF+1        ; offset high nibble (0..0x0F)
+        ; ---- set FBADDR to the enclosing 4KB sector base (clear low 12 bits) ----
+        LDA     FBADDR+1
+        ANI     0F0H
+        STA     FBADDR+1
+        XRA     A
+        STA     FBADDR          ; low byte of the sector base = 0
+        ; ---- read the whole 4KB sector into the RMW buffer ----
+        LXI     D,RMWBUF
+        LXI     B,1000H         ; 4096 bytes
+        CALL    SPI_READBUF
+        ; ---- overlay the 128-byte DMA record at the in-sector offset ----
+        LHLD    DMA
+        LXI     D,RMWBUF
+        LDA     RECOFF
+        ADD     E
+        MOV     E,A
+        LDA     RECOFF+1
+        ADC     D
+        MOV     D,A             ; DE = RMWBUF + offset
+        MVI     B,128
+WRCPY:  MOV     A,M
+        STAX    D
+        INX     H
+        INX     D
+        DCR     B
+        JNZ     WRCPY
+        ; ---- erase the 4KB sector (FBADDR = sector base) ----
+        CALL    SPI_ERASE_SECT
+        ; ---- program the whole 4KB sector back, 16 x 256B pages ----
+        LXI     H,RMWBUF
+        MVI     B,16            ; 16 pages
+WRPG:   PUSH    B
+        CALL    SPI_PAGE        ; programs 256 bytes from (HL), advances HL by 256
+        LDA     FBADDR+1
+        ADI     01H
+        STA     FBADDR+1        ; next page (low byte stays 00, high byte unchanged)
+        POP     B
+        DCR     B
+        JNZ     WRPG
+        MVI     A,00H           ; success
         RET
 
 ; ============================================================================
@@ -475,5 +641,37 @@ DPB:
 CSV:    DS      1               ; checksum vector (0 bytes needed since CKS=0)
 ALV:    DS      8               ; allocation vector (56 blocks / 8 = 7 -> pad 8)
 DIRBUF: DS      128             ; directory buffer (one 128-byte directory record)
+
+; ============================================================================
+;   DRIVE B: (SPI flash) DISK PARAMETER HEADER / BLOCK / VECTORS
+;   Geometry: 128-byte sectors, SPT=32, 4KB allocation (BSH=5/BLM=31), OFF=2
+;   (tracks 0-1 reserved for the future boot), directory = block 0 reserved via
+;   AL0=0x80, DSM=125 (126 blocks), DRM=63 (64 entries), CKS=0 (fixed media).
+;   This MUST agree with diskutil's formatter (data at 0x2000).  The BDOS builds
+;   the allocation vector itself on first login, so ALVB just needs the space.
+; ============================================================================
+DPHB:
+        DW      0000H           ; XLT: no sector translation
+        DW      0000H           ; scratch (cdrmax)
+        DW      0000H           ; scratch (curtrk)
+        DW      0000H           ; scratch (currec)
+        DW      DIRBUF          ; shared directory buffer (128 bytes)
+        DW      DPBB            ; disk parameter block
+        DW      CSVB            ; checksum vector
+        DW      ALVB            ; allocation vector
+DPBB:
+        DW      SPT             ; SPT  = 32   (sectors per track)
+        DB      05H             ; BSH  = 5    (block shift -> 4KB blocks)
+        DB      1FH             ; BLM  = 31   (block mask)
+        DB      03H             ; EXM  = 3    (extent mask, BLS=4096 & DSM<256)
+        DW      125             ; DSM  = 125  (max block number = 126 blocks)
+        DW      63              ; DRM  = 63   (max directory entry = 64 entries)
+        DB      80H             ; AL0  = 0x80 (reserve directory block 0, MSB-first)
+        DB      00H             ; AL1  = 0x00
+        DW      00H             ; CKS  = 0    (fixed media -> no checksum)
+        DW      02H             ; OFF  = 2    (reserve 2 system tracks)
+CSVB:   DS      1               ; checksum vector (0 bytes used since CKS=0)
+ALVB:   DS      16              ; allocation vector (DSM=125 -> (125/8)+1 = 16 bytes)
+RECOFF: DS      2               ; in-sector byte offset for the drive B: RMW
 
         END

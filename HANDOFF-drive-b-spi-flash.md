@@ -10,6 +10,35 @@ This document is the design handoff. Nothing here is implemented yet — the SPI
 driver, the formatter, and the CBIOS drive-select/read/write code all still need
 to be written/changed in the next phase.
 
+> **IMPLEMENTATION COMPLETE** (committed in the next phase, see git log).
+> drive B: is now implemented and verified:
+> - **`spi.inc`** (repo root) — shared 24-bit-capable SPI driver (SPI_SEL/REL/
+>   XMIT/WAIT, SPI_ADDR 24-bit send, SPI_PAGE, SPI_READBUF, SPI_ERASE_SECT)
+>   included by BOTH `programs/diskutil.s` and `cpm/cbios.asm` so the protocol
+>   cannot drift. diskutil's own SPI_SEL/REL/XMIT/WAIT were removed in favor of
+>   this shared include.
+> - **`programs/diskutil.s`** — `S` formatter rewritten: chip erase, then
+>   page-program 0xE5 across the directory block at **0x2000-0x27FF** (8 x
+>   256B pages; matches OFF=2), then **verifies** the directory reads all 0xE5
+>   AND the reserved system area 0x0000-0x1FFF reads all 0xFF.
+> - **`cpm/cbios.asm`** — SELECT/READ/WRITE dispatch on the selected drive;
+>   SELDSK returns the drive B DPH for C=1; drive B READ = 24-bit flash read of
+>   128 bytes; drive B WRITE = full 4KB read-modify-write into the RMW buffer at
+>   0xD000 (read sector, overlay record, erase sector, program 16 x 256B pages).
+>   New drive B DPH/DPB (BSH=5/BLM=31/EXM=3/DSM=125/DRM=63/AL0=0x80/OFF=2),
+>   ALVB (16 bytes), CSVB, RECOFF.  The FLADDR 24-bit address split was
+>   validated for all 4096 (track,sector) combinations; the RMW WRITEB/READB
+>   paths were simulated end-to-end (write/readback, same-sector multi-record,
+>   overwrite, max address 0x7FF80).  CBIOS now ends at 0xFE01 (fits).
+> - Stale "9600" baud comments in `cbios.asm` and `README-cpm.md` fixed to
+>   115200 (console code is baud-agnostic / polled).
+>
+> **Open questions, as resolved:** OFF=2 (reserve system tracks — chosen,
+> forward-compatible with the future boot); DRM=63 (64 entries — chosen, enough
+> to test); RMW-every-write (no dirty-sector cache — correct first, cache is a
+> later optimization); RMW buffer at 0xD000 (confirmed safe: the transient/BDOS
+> stack is high, ~0xEBxx, above 0xDFFF).
+
 ---
 
 ## 1. Confirmed facts (do not re-litigate)

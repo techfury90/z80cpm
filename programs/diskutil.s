@@ -28,7 +28,11 @@ UDATA   EQU     81H                     ; UART data (read=RX char, write=TX char
 RDDATA  EQU     20H                     ; RAM disk DATA (read/write, auto-increment)
 RDADRL  EQU     21H                     ; RAM disk ADDR low
 RDADRH  EQU     22H                     ; RAM disk ADDR high
-; ---- on-board ISSI IS25LP040E serial flash (SPI, 512 KB) ----
+; ---- on-board ISSI IS25LD040 serial flash (SPI, 512 KB) ----
+; JEDEC ID read = 7F 9D 7E (verified on silicon). 128 x 4KB sectors, 256-byte
+; program pages.  Program only clears bits 1->0; restoring a 1 requires a 4KB
+; sector erase first, so ERASE-BEFORE-WRITE is mandatory (see the layout note
+; on DO_FMTFLASH and the drive B: RMW design in cpm/cbios.asm).
 SPI_DATA EQU    50H                     ; read = clock 1 byte in (returns in A), write = clock 1 byte out. MSB-first.
 SPI_CTL  EQU    51H                     ; write bit0 = CS#: 0 = select flash low, 1 = release high
 SPI_STAT EQU    52H                     ; read bit0 = transfer busy (1 while a byte is clocked; polling OPTIONAL)
@@ -56,6 +60,15 @@ RCNT_L  EQU     2160H                   ; total records received (16-bit, L then
 FNAME   EQU     2180H                   ; 12-byte user filename buffer (8.3)
 F_PAT   EQU     2200H                   ; 16-byte test-pattern buffer for the flash program/verify
 F_RD    EQU     2210H                   ; 16-byte flash read-back buffer for the raw dump/verify
+FMTBUF  EQU     2300H                   ; 256-byte buffer (one flash page) filled with 0xE5 for the
+                                        ;  drive B: formatter; page-programmed 8x to write the 2K dir.
+; ---- drive B: flash layout (shared with the CBIOS DPB -- keep in lockstep) ----
+; Reserved system tracks 0-1 = 0x0000-0x1FFF (erased 0xFF, for the future boot).
+; Directory = block 0 at 0x2000-0x27FF (64 x 32-byte entries, filled 0xE5);
+; data blocks 1..125 start at 0x3000.
+FBDIR   EQU     2000H                   ; drive B: directory base (block 0)
+FBDIRZ  EQU     0800H                   ; directory size written (2K = 64 entries)
+FBSYS   EQU     2000H                   ; end of the reserved system area (0x0000-0x1FFF)
 
 ; ============================================================================
         JMP     START
@@ -995,28 +1008,17 @@ RH_NEXT: JMP     RH1
 ; erasing its whole 4KB sector (to 0xFF) first, so ERASE-BEFORE-WRITE is
 ; mandatory unless writing into known-erased 0xFF regions.
 ; ============================================================================
-; ---------------- SPI physical helpers ----------------
-SPI_SEL: MVI     A,00H
-         OUT     SPI_CTL                 ; CS# low -> select the flash
-         RET
-SPI_REL: MVI     A,01H
-         OUT     SPI_CTL                 ; CS# high -> release the flash
-         RET
+; ---------------- SPI physical helpers (SHARED with cbios) ----------------
+; The selection / transfer / WIP-wait primitives and the 24-bit page-program,
+; bulk-read and sector-erase operations are factored into spi.inc so diskutil
+; and the CBIOS drive B: driver can never diverge.  This must come AFTER the
+; SPI_DATA / SPI_CTL EQU's at the top of this file.
+        INCL    "spi.inc"
 
-; SPI_XMIT: clock the byte in A out to the flash; returned byte discarded.
-SPI_XMIT: OUT     SPI_DATA
-         RET
-
-; SPI_WAIT: poll RDSR until WIP (status bit0) clears. Re-selects the flash,
-; sends the RDSR opcode, and keeps reading the status while CS# is low.
-SPI_WAIT: CALL    SPI_SEL
-         MVI     A,05H
-         CALL    SPI_XMIT                ; RDSR opcode
-SPW:     IN      SPI_DATA                ; read status byte
-         ANI     01H                     ; WIP (bit0)?
-         JNZ     SPW                     ; still busy -> keep polling
-         CALL    SPI_REL
-         RET
+; SPI_PROGBYTE / SPI_ERASE_SECT0 below are diskutil-specific: they operate on
+; the <=64K test region (A23-A16 hard-coded 0) and are kept as the proven
+; harness for the I/P/R/E commands.  The shared spi.inc supplies the generic
+; 24-bit ops (SPI_PAGE / SPI_READBUF / SPI_ERASE_SECT) used for drive B:.
 
 ; SPI_PROGBYTE: program ONE byte (in A) at the address in HL (the A23-A16
 ; address byte is taken as 0 -- this utility only uses the <=64K flash region).
@@ -1232,19 +1234,21 @@ ER_FAIL: CALL    SPI_REL
          CALL    PRTSTR
          JMP     MENU
 
-; ---------------- command: format the flash as a CP/M data disk ----------------
-; Flash byte-layout (documented here so the later CBIOS drive B: work reuses it).
-;   Offset 0x0000 - 0x07FF : Directory area (2K = 64 CP/M directory entries of
-;                            32 bytes each), populated with 0xE5 (the CP/M
-;                            empty-directory-entry marker).
-;   Offset 0x0800 - 0x3FFFF: Data area (247.5K), left erased (0xFF).
-;   Blocks are 1K; records are 128 bytes. This mirrors the RAM-disk drive A:
-;   layout (DIRBASE=2000H, 1K blocks) scaled onto the 512KB flash, so the CBIOS
-;   can reuse the same directory/block arithmetic for drive B:.
+; ---------------- command: format the flash as a CP/M drive B: data disk ----
+; The flash will eventually be the CP/M boot drive A:, so the first two
+; "tracks" (0x0000-0x1FFF) are RESERVED as the future system area and stay
+; erased (0xFF) here.  The user data area starts at 0x2000:
+;   - Block 0 (0x2000-0x2FFF) = directory block (AL0=0x80 reserves it).  Only
+;     the first 2K (0x2000-0x27FF = 64 x 32-byte entries) is programmed with
+;     0xE5; the trailing 2K of the block stays erased.
+;   - Blocks 1..125 (0x3000-0x7FFFF) = file data (left erased 0xFF).
+; This mirrors the drive B: DPB in cpm/cbios.asm (BSH=5 -> 4K blocks, OFF=2).
+; THE CBIOS DPB AND THIS FORMATTER MUST AGREE ON THE 0x2000 DATA START.
 DO_FMTFLASH:
          LXI     H,MSGFMTFL
          CALL    PRTSTR
-         ; 1) erase the whole chip to 0xFF (clears the data area)
+         ; 1) erase the whole chip to 0xFF (clears data area and the reserved
+         ;    system area; the directory then gets 0xE5 programmed back)
          CALL    SPI_SEL
          MVI     A,06H
          CALL    SPI_XMIT                ; WREN
@@ -1254,21 +1258,81 @@ DO_FMTFLASH:
          CALL    SPI_XMIT                ; Chip Erase opcode (0x60, no address)
          CALL    SPI_REL
          CALL    SPI_WAIT
-         ; 2) program 0xE5 across the 2K directory area (0x0000-0x07FF)
-         LXI     H,0000H                 ; directory area base
-         LXI     B,0800H                 ; 2048 bytes
-FMTL:    PUSH    B                       ; SPI_PROGBYTE clobbers C (the count low)
-         MVI     A,0E5H
-         CALL    SPI_PROGBYTE
-         POP     B
+         ; 2) fill the 256-byte page buffer with 0xE5 (the empty-directory mark)
+         LXI     H,FMTBUF
+         MVI     B,00H                   ; 256 bytes (wraps on DCR)
+FMTF:    MVI     M,0E5H
          INX     H
-         DCX     B
-         MOV     A,B
-         ORA     C
-         JNZ     FMTL
+         DCR     B
+         JNZ     FMTF
+         ; 3) page-program 0xE5 across the directory block (0x2000-0x27FF)
+         XRA     A
+         STA     FBADDR                  ; FBADDR = 0x002000
+         MVI     A,20H
+         STA     FBADDR+1
+         XRA     A
+         STA     FBADDR+2
+         LXI     H,FMTBUF
+         MVI     B,08H                   ; 8 pages x 256 bytes = 2K directory
+FMTP:    PUSH    B
+         CALL    SPI_PAGE                ; programs 256 bytes, advances HL by 256
+         LDA     FBADDR+1
+         ADI     01H
+         STA     FBADDR+1                ; next page (mid byte += 1; low stays 00)
+         POP     B
+         DCR     B
+         JNZ     FMTP
+         ; 4) verify the directory region (0x2000-0x27FF) reads all 0xE5
+         MVI     D,0E5H
+         XRA     A
+         STA     FBADDR
+         MVI     A,20H
+         STA     FBADDR+1
+         XRA     A
+         STA     FBADDR+2
+         LXI     B,FBDIRZ                ; 2048 bytes
+         CALL    VFYEQ
+         ORA     A
+         JNZ     FMT_FAIL
+         ; 5) verify the reserved system area (0x0000-0x1FFF) reads all 0xFF
+         MVI     D,0FFH
+         XRA     A
+         STA     FBADDR
+         STA     FBADDR+1
+         STA     FBADDR+2
+         LXI     B,FBSYS                 ; 8192 bytes
+         CALL    VFYEQ
+         ORA     A
+         JNZ     FMT_FAIL
          LXI     H,MSGFMTFOK
          CALL    PRTSTR
          JMP     MENU
+FMT_FAIL:
+         LXI     H,MSGFMTFERR
+         CALL    PRTSTR
+         JMP     MENU
+
+; VFYEQ: read BC bytes from the flash at FBADDR and compare each to the byte
+; in D.  Returns A=00H if every byte equals D, else A=0FFH (CS# released in
+; both cases).  Clobbers A, B, C, D, HL.
+VFYEQ:   CALL    SPI_SEL
+         MVI     A,03H
+         CALL    SPI_XMIT                ; Read opcode
+         CALL    SPI_ADDR
+VFYQ:    IN      SPI_DATA
+         CMP     D
+         JNZ     VFYQ_FAIL
+         DCX     B
+         MOV     A,B
+         ORA     C
+         JNZ     VFYQ
+         CALL    SPI_REL
+         MVI     A,00H                   ; all bytes matched
+         RET
+VFYQ_FAIL:
+         CALL    SPI_REL
+         MVI     A,0FFH
+         RET
 
 ; ============================================================================
 ; Messages
@@ -1301,8 +1365,9 @@ MSGREADFAIL: DB 'Read-back MISMATCH!',0DH,0AH,0
 MSGERS:    DB 'Erasing 4KB sector 0 @0x000000...',0DH,0AH,0
 MSGERROK:  DB 'Erase OK - sector reads all 0xFF.',0DH,0AH,0
 MSGERFAIL: DB 'Erase FAIL - sector not all 0xFF.',0DH,0AH,0
-MSGFMTFL:  DB 'Formatting SPI flash as CP/M data disk (dir=0x0000,data=0x0800)...',0DH,0AH,0
-MSGFMTFOK: DB 'Flash format OK.',0DH,0AH,0
+MSGFMTFL:  DB 'Formatting SPI flash as CP/M drive B: (dir=0x2000, reserved sys=0x0000-0x1FFF)...',0DH,0AH,0
+MSGFMTFOK: DB 'Flash format OK - dir=0xE5 @0x2000, sys area 0xFF.',0DH,0AH,0
+MSGFMTFERR: DB 'Flash format VERIFY FAILED.',0DH,0AH,0
 MSGPASS:   DB 'PASS',0DH,0AH,0
 MSGFAIL:   DB 'FAIL',0DH,0AH,0
 ; ---- DEBUG trace tags (remove once the upload path is confirmed) ----

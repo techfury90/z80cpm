@@ -1,0 +1,98 @@
+                        ; DIAG.COM -- report CP/M current-drive / seldisk state on Brevia2
+                        ; 8080 assembly, assembled with the Glitch Works a85 8085 cross-assembler.
+                        ; Loads at 0x0100 (CP/M transient). Calls BDOS entry 0x0005.
+                        ; Prints:
+                        ;   CUR=  <func25 result>            current selected drive (0=A,1=B,...)
+                        ;   SFUN  <func25 after sel A>
+                        ;   SELB  <func25 after sel B>
+                        ;   FCB0  <drive byte at 0x005C>     what the CCP left in the default FCB
+   0100                         ORG     0100H
+   0100                 START:
+   0100   0e 19                 MVI     C,25
+   0102   cd 05 00              CALL    5
+   0105   47                    MOV     B,A
+   0106   21 8d 01              LXI     H,MSG_CUR
+   0109   cd 55 01              CALL    PSTR
+   010c   cd 6c 01              CALL    PRHEX
+   010f   cd 5d 01              CALL    CRLF
+                                ; select drive A (func14, E=0), then func25
+   0112   0e 0e                 MVI     C,14
+   0114   1e 00                 MVI     E,0
+   0116   cd 05 00              CALL    5
+   0119   0e 19                 MVI     C,25
+   011b   cd 05 00              CALL    5
+   011e   47                    MOV     B,A
+   011f   21 94 01              LXI     H,MSG_SELA
+   0122   cd 55 01              CALL    PSTR
+   0125   cd 6c 01              CALL    PRHEX
+   0128   cd 5d 01              CALL    CRLF
+                                ; select drive B (func14, E=1), then func25
+   012b   0e 0e                 MVI     C,14
+   012d   1e 01                 MVI     E,1
+   012f   cd 05 00              CALL    5
+   0132   0e 19                 MVI     C,25
+   0134   cd 05 00              CALL    5
+   0137   47                    MOV     B,A
+   0138   21 9a 01              LXI     H,MSG_SELB
+   013b   cd 55 01              CALL    PSTR
+   013e   cd 6c 01              CALL    PRHEX
+   0141   cd 5d 01              CALL    CRLF
+                                ; FCB drive byte at 0x005C
+   0144   3a 5c 00              LDA     005CH
+   0147   47                    MOV     B,A
+   0148   21 a0 01              LXI     H,MSG_FCB
+   014b   cd 55 01              CALL    PSTR
+   014e   cd 6c 01              CALL    PRHEX
+   0151   cd 5d 01              CALL    CRLF
+   0154   c9                    RET
+                        
+                        ; print $ terminated string at HL via BDOS func9
+   0155   54            PSTR:   MOV     D,H
+   0156   5d                    MOV     E,L
+   0157   0e 09                 MVI     C,9
+   0159   cd 05 00              CALL    5
+   015c   c9                    RET
+                        
+   015d   1e 0d         CRLF:   MVI     E,13
+   015f   0e 02                 MVI     C,2
+   0161   cd 05 00              CALL    5
+   0164   1e 0a                 MVI     E,10
+   0166   0e 02                 MVI     C,2
+   0168   cd 05 00              CALL    5
+   016b   c9                    RET
+                        
+                        ; print byte in B as two hex digits via BDOS func2
+   016c   78            PRHEX:  MOV     A,B
+   016d   e6 f0                 ANI     0F0H
+   016f   07                    RLC
+   0170   07                    RLC
+   0171   07                    RLC
+   0172   07                    RLC
+   0173   cd 7d 01              CALL    PRNIB
+   0176   78                    MOV     A,B
+   0177   e6 0f                 ANI     0FH
+   0179   cd 7d 01              CALL    PRNIB
+   017c   c9                    RET
+                        
+   017d   c6 30         PRNIB:  ADI     30H
+   017f   fe 3a                 CPI     3AH
+   0181   da 86 01              JC      PRNIB1
+   0184   c6 07                 ADI     7
+   0186   5f            PRNIB1: MOV     E,A
+   0187   0e 02                 MVI     C,2
+   0189   cd 05 00              CALL    5
+   018c   c9                    RET
+                        
+   018d   0d 0a 43 55   MSG_CUR: DB 13,10,'CUR=','$'
+   0191   52 3d 24      
+   0194   53 45 4c 41   MSG_SELA: DB 'SELA=','$'
+   0198   3d 24         
+   019a   53 45 4c 42   MSG_SELB: DB 'SELB=','$'
+   019e   3d 24         
+   01a0   46 43 42 30   MSG_FCB: DB 'FCB0=','$'
+   01a4   3d 24         
+   01a6                         END
+015d  CRLF          018d  MSG_CUR       01a0  MSG_FCB       0194  MSG_SELA  
+019a  MSG_SELB      016c  PRHEX         017d  PRNIB         0186  PRNIB1    
+0155  PSTR          0100  START         
+

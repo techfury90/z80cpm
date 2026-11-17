@@ -1265,17 +1265,20 @@ FMTF:    MVI     M,0E5H
          INX     H
          DCR     B
          JNZ     FMTF
-         ; 3) page-program 0xE5 across the directory block (0x2000-0x27FF)
+         ; 3) page-program 0xE5 across the directory block (0x2000-0x27FF).
+         ;    SPI_PAGE advances HL by 256, so re-point HL at the 0xE5 page buffer
+         ;    at the TOP of every iteration (FMTBUF is a single 256-byte page; all
+         ;    8 flash pages get the same 0xE5 contents).
          XRA     A
          STA     FBADDR                  ; FBADDR = 0x002000
          MVI     A,20H
          STA     FBADDR+1
          XRA     A
          STA     FBADDR+2
-         LXI     H,FMTBUF
          MVI     B,08H                   ; 8 pages x 256 bytes = 2K directory
-FMTP:    PUSH    B
-         CALL    SPI_PAGE                ; programs 256 bytes, advances HL by 256
+FMTP:    LXI     H,FMTBUF                ; reset source to the 0xE5 page (SPI_PAGE advances it)
+         PUSH    B
+         CALL    SPI_PAGE                ; programs 256 bytes
          LDA     FBADDR+1
          ADI     01H
          STA     FBADDR+1                ; next page (mid byte += 1; low stays 00)
@@ -1293,7 +1296,7 @@ FMTP:    PUSH    B
          LXI     B,FBDIRZ                ; 2048 bytes
          CALL    VFYEQ
          ORA     A
-         JNZ     FMT_FAIL
+         JNZ     FMT_DFAIL
          ; 5) verify the reserved system area (0x0000-0x1FFF) reads all 0xFF
          MVI     D,0FFH
          XRA     A
@@ -1303,14 +1306,48 @@ FMTP:    PUSH    B
          LXI     B,FBSYS                 ; 8192 bytes
          CALL    VFYEQ
          ORA     A
-         JNZ     FMT_FAIL
+         JNZ     FMT_SFAIL
          LXI     H,MSGFMTFOK
          CALL    PRTSTR
          JMP     MENU
-FMT_FAIL:
-         LXI     H,MSGFMTFERR
+; distinct failure handlers -- each dumps 16 bytes from the failing region so
+; the on-board test tells us whether the write missed (0xFF) or landed wrong.
+FMT_DFAIL:
+         LXI     H,MSGFTDIR
          CALL    PRTSTR
+         CALL    FMTDUMP
          JMP     MENU
+FMT_SFAIL:
+         LXI     H,MSGFTENS
+         CALL    PRTSTR
+         CALL    FMTDUMP
+         JMP     MENU
+
+; FMTDUMP: read 16 bytes from the flash at FBADDR into F_RD and print them as
+; hex + spaces + CRLF (diagnostic for the formatter verify).  Clobbers A,B,HL.
+FMTDUMP: CALL    SPI_SEL
+         MVI     A,03H
+         CALL    SPI_XMIT                ; Read opcode
+         CALL    SPI_ADDR
+         LXI     H,F_RD
+         MVI     B,16
+FDMP1:   IN      SPI_DATA
+         MOV     M,A
+         INX     H
+         DCR     B
+         JNZ     FDMP1
+         CALL    SPI_REL
+         LXI     H,F_RD
+         MVI     B,16
+FDMP2:   MOV     A,M
+         CALL    PRTBYTE
+         MVI     A,' '
+         CALL    TXCHAR
+         INX     H
+         DCR     B
+         JNZ     FDMP2
+         CALL    CRLF
+         RET
 
 ; VFYEQ: read BC bytes from the flash at FBADDR and compare each to the byte
 ; in D.  Returns A=00H if every byte equals D, else A=0FFH (CS# released in
@@ -1367,7 +1404,8 @@ MSGERROK:  DB 'Erase OK - sector reads all 0xFF.',0DH,0AH,0
 MSGERFAIL: DB 'Erase FAIL - sector not all 0xFF.',0DH,0AH,0
 MSGFMTFL:  DB 'Formatting SPI flash as CP/M drive B: (dir=0x2000, reserved sys=0x0000-0x1FFF)...',0DH,0AH,0
 MSGFMTFOK: DB 'Flash format OK - dir=0xE5 @0x2000, sys area 0xFF.',0DH,0AH,0
-MSGFMTFERR: DB 'Flash format VERIFY FAILED.',0DH,0AH,0
+MSGFTDIR:  DB 'Dir verify FAILED @0x2000, bytes: ',0
+MSGFTENS:  DB 'Sys verify FAILED @0x0000 (not 0xFF), bytes: ',0
 MSGPASS:   DB 'PASS',0DH,0AH,0
 MSGFAIL:   DB 'FAIL',0DH,0AH,0
 ; ---- DEBUG trace tags (remove once the upload path is confirmed) ----

@@ -68,7 +68,9 @@ FMTBUF  EQU     2300H                   ; 256-byte buffer (one flash page) fille
 ; data blocks 1..125 start at 0x3000.
 FBDIR   EQU     2000H                   ; drive B: directory base (block 0)
 FBDIRZ  EQU     0800H                   ; directory size written (2K = 64 entries)
-FBSYS   EQU     2000H                   ; end of the reserved system area (0x0000-0x1FFF)
+FBSYS   EQU     2000H                   ; end of the reserved system area (0x0000-0x1FFF); dir base
+CPMIMG  EQU     0000H                   ; flash offset of the stored CP/M boot image
+CPMIMGLEN EQU  1A00H                    ; bytes of the boot image (128-pad of the 6656-B .bin)
 
 ; ============================================================================
         JMP     START
@@ -897,6 +899,9 @@ BCP_EOT: MVI     A,XM_ACK
         CALL    CRLF
         LXI     H,MSGBCPMOK
         CALL    PRTSTR
+        CALL    DO_FLASH_BURN           ; persist the image to the SPI flash too
+        LXI     H,MSGFLASHOK
+        CALL    PRTSTR
         JMP     0E600H                  ; CBIOS cold boot -> enters CCP (A>)
 
 BCPADDR: DS     2                        ; machine-RAM load address for the boot image
@@ -905,6 +910,7 @@ TWOF:    DS     1               ; !=0 -> two-extent file (extents 0 AND 1 slots)
 FNEED:   DS     1               ; slots needed by FINDFREE (1 = single, 2 = two-extent)
 NBMAX:   DS     1               ; scratch: highest data block seen during NEXTBLK
 BLKNO:   DS     1               ; first free data block for the file being written
+
 
 ; ============================================================================
 ; DO_DUMP -- dump 256 bytes from the RAM disk at a hex address, as hex (16/line).
@@ -1012,6 +1018,49 @@ RH_NEXT: JMP     RH1
 ; and the CBIOS drive B: driver can never diverge.  This must come AFTER the
 ; SPI_DATA / SPI_CTL EQU's at the top of this file.
         INCL    "spi.inc"
+
+; ============================================================================
+; DO_FLASH_BURN -- persist the CP/M boot image (already received into machine
+;   RAM at 0xD000 by DO_BOOTCPM, CPMIMGLEN bytes) to the SPI flash system area
+;   (flash 0x0000) so the GWMON 'b' command can boot CP/M from the flash on the
+;   next power-up.  Erases ONLY the 2 reserved system sectors (0x0000-0x1FFF),
+;   leaving the drive-B user area (dir at 0x2000) untouched.  Clobbers A,B,D,E,
+;   H,L and FBADDR.  MUST be after the spi.inc INCL (a85 resolves included-file
+;   symbols only once they have been included).
+; ============================================================================
+DO_FLASH_BURN:
+        ; erase system sectors 0x00000 and 0x01000 (the 8KB reserved area)
+        LXI     H,0
+        SHLD    FBADDR
+        XRA     A
+        STA     FBADDR+2
+        CALL    SPI_ERASE_SECT
+        LXI     H,1000H
+        SHLD    FBADDR
+        XRA     A
+        STA     FBADDR+2
+        CALL    SPI_ERASE_SECT
+        ; program the image: 26 pages x 256 B = 0x1A00 B from 0xD000 to flash 0x0000
+        LXI     H,0D000H
+        SHLD    BURNSRC
+        LXI     H,0
+        SHLD    FBADDR
+        XRA     A
+        STA     FBADDR+2
+        MVI     B,26                    ; 26 pages
+BURN_LOOP:
+        PUSH    B
+        LHLD    BURNSRC
+        CALL    SPI_PAGE                ; programs 256 B from (HL) at FBADDR, HL+=256
+        SHLD    BURNSRC                 ; record the advanced source pointer
+        LXI     H,FBADDR+1
+        INR     M                       ; next 256B page target (pages advance by 0x100)
+        POP     B
+        DCR     B
+        JNZ     BURN_LOOP
+        RET
+BURNSRC: DS      2                       ; source pointer for the page-program loop
+MSGFLASHOK: DB 'SPI flash boot image written.',0DH,0AH,0
 
 ; SPI_PROGBYTE / SPI_ERASE_SECT0 below are diskutil-specific: they operate on
 ; the <=64K test region (A23-A16 hard-coded 0) and are kept as the proven

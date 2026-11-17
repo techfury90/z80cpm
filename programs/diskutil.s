@@ -694,7 +694,7 @@ SETALLO2:
         MOV     B,A
         LXI     H,FCB2+16
         LDA     BLKNO
-        ADI     16H                     ; extent 1 starts at BLKNO + 16
+        ADI     10H                     ; extent 1 starts at BLKNO + 16 (10H), NOT 16H(22)
 SA21:   MOV     M,A
         INX     H
         INR     A

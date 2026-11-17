@@ -694,7 +694,7 @@
    13f8   47                    MOV     B,A
    13f9   21 30 21              LXI     H,FCB2+16
    13fc   3a 3c 15              LDA     BLKNO
-   13ff   c6 16                 ADI     16H                     ; extent 1 starts at BLKNO + 16
+   13ff   c6 10                 ADI     10H                     ; extent 1 starts at BLKNO + 16 (10H), NOT 16H(22)
    1401   77            SA21:   MOV     M,A
    1402   23                    INX     H
    1403   3c                    INR     A

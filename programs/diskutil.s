@@ -135,7 +135,13 @@ RDSETA: MOV     A,L
 ; ============================================================================
 ; START
 ; ============================================================================
-START:  LXI     SP,0F000H               ; stack high in bank A (clear of code/buffers)
+START:  LXI     SP,0E000H               ; stack in the TPA, BELOW the BDOS/CCP (0xE400+)
+                                        ; 0xF000 sat INSIDE the BDOS (0xEC00-0xFFFF), so
+                                        ;  diskutil's CALL/PUSH frames clobbered CP/M's
+                                        ;  in-RAM image; cold boot then ran the corrupted
+                                        ;  code. The CBIOS itself uses 0xDC00 for the same
+                                        ;  reason. TPA is 0x0100-0xE3FF; 0xE000 grows down
+                                        ;  into free space clear of code/buffers (0x1000+).
         LXI     H,MSGBANNER
         CALL    PRTSTR
 MENU:   LXI     H,MSGMENU

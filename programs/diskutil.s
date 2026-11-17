@@ -133,6 +133,121 @@ RDSETA: MOV     A,L
         RET
 
 ; ============================================================================
+; FINDFREE -- scan the directory (64 slots) for a run of `FNEED` consecutive
+;   EMPTY (0xE5) slots. Set FNEED=1 for a single-extent file, FNEED=2 for a
+;   two-extent file (extents 0 and 1 occupy two ADJACENT slots).
+;   Returns: A = slot index of the run start, carry CLEAR if found; carry SET
+;            if the directory has no such run (full).
+; ============================================================================
+FINDFREE:
+        MVI     B,64            ; slots to examine
+        MVI     C,00H           ; candidate run-start index
+FF_LOOP:
+        LDA     FNEED
+        MOV     D,A             ; D = number of consecutive empties still needed
+        MOV     E,C             ; E = running slot index
+        ; remaining slots must be >= FNEED
+        MOV     A,B
+        CMP     D
+        JC      FF_FULL         ; not enough slots left for a full run
+FF_RUN:
+        ; check slot E is empty
+        MOV     A,E
+        MOV     L,A
+        MVI     H,00H
+        MVI     A,05H
+FF_SHL: DAD     H
+        DCR     A
+        JNZ     FF_SHL          ; HL = E*32
+        LXI     D,DIRBASE
+        DAD     D               ; HL = DIRBASE + E*32
+        CALL    RDSETA
+        IN      RDDATA          ; byte 0 (0xE5 = empty)
+        CPI     0E5H
+        JNZ     FF_ADV          ; slot E occupied -> try next run start
+        INR     E
+        DCR     D
+        JNZ     FF_RUN          ; continue the run
+        ; found a run of FNEED consecutive empties starting at C
+        MOV     A,C
+        ORA     A               ; clear carry
+        RET
+FF_ADV:
+        INR     C               ; advance run start
+        DCR     B
+        JNZ     FF_LOOP
+FF_FULL:
+        STC
+        RET
+
+; ============================================================================
+; NEXTBLK -- find the first FREE data block for a new file, scanning every
+;   non-empty directory entry's allocation map for the highest block in use.
+;   Returns: A = next free block number, carry CLEAR if one exists;
+;            carry SET if the data area is full.
+;   Data blocks run from 2 (block N at 0x2000 + N*1024); DSM=55 (blocks 2-55).
+; ============================================================================
+NEXTBLK:
+        MVI     A,01H           ; start "highest used" just below block 2
+        STA     NBMAX
+        LXI     H,DIRBASE       ; scan base
+        MVI     B,64            ; 64 slots
+        MVI     C,00H           ; slot index
+NB_LOOP:
+        MOV     A,C
+        MOV     L,A
+        MVI     H,00H
+        MVI     D,05H
+NB_SHL: DAD     H
+        DCR     D
+        JNZ     NB_SHL          ; HL = slot*32
+        LXI     D,DIRBASE
+        DAD     D
+        CALL    RDSETA
+        IN      RDDATA          ; byte 0 = user number
+        CPI     0E5H
+        JZ      NB_NEXT         ; empty slot -> no blocks to scan
+        ; non-empty: read its 16 allocation bytes and track the max block
+        LXI     H,DIRBASE
+        DAD     D               ; HL = DIRBASE (already have D=DIRBASE from DAD)
+        MOV     A,C
+        MOV     L,A
+        MVI     H,00H
+        MVI     D,05H
+NB_SHL2: DAD     H
+        DCR     D
+        JNZ     NB_SHL2
+        LXI     D,DIRBASE+16    ; +16 -> start of allocation map
+        DAD     D
+        CALL    RDSETA
+        MVI     D,16            ; read 16 allocation bytes
+NB_MAP: IN      RDDATA
+        ORA     A
+        JZ      NB_MAPC         ; block 0 = unallocated (means no block) -> skip
+        MOV     E,A             ; E = this block number
+        LDA     NBMAX
+        CMP     E
+        JNC     NB_MAPC         ; NBMAX >= this -> no change
+        MOV     A,E
+        STA     NBMAX           ; NBMAX = this block
+NB_MAPC: DCR     D
+        JNZ     NB_MAP
+NB_NEXT:
+        INR     C
+        DCR     B
+        JNZ     NB_LOOP
+        ; next free block = NBMAX + 1
+        LDA     NBMAX
+        ADI     01H
+        CPI     56              ; block 56 would be past DSM=55
+        JNC     NB_FULL
+        ORA     A               ; clear carry (block number in A, < 56)
+        RET
+NB_FULL:
+        STC
+        RET
+
+; ============================================================================
 ; START
 ; ============================================================================
 START:  LXI     SP,0E000H               ; stack in the TPA, BELOW the BDOS/CCP (0xE400+)
@@ -190,6 +305,13 @@ DO_UPLOAD:
         LXI     H,MSGPROMPT
         CALL    PRTSTR
         CALL    READNAME                ; read "name.ext" into FNAME (echoed)
+        ; ---- allocate the first free data block NOW so WRITEBLK (during the
+        ;      receive, before the FCB is written) appends after existing
+        ;      files instead of overwriting block 2. The directory slot is
+        ;      allocated later in WRITEFCB, after the extent count is known.
+        CALL    NEXTBLK                 ; A = first free data block (carry set = full)
+        JC      UP_NOSPC
+        STA     BLKNO
         LXI     H,0000H
         SHLD    RCNT_L                  ; init record counter
         LXI     H,MSGRECV
@@ -216,6 +338,11 @@ UPLOOP: CALL    GETBLK                  ; A=TO(timeout),01 good,FF bad,00 EOT,02
 UP_NAK: MVI     A,XM_NAK
         CALL    TXCHAR
         JMP     UPLOOP
+; disk full (no free data block or no free directory slot) -> report and bail
+UP_NOSPC:
+        LXI     H,MSGNOSPC
+        CALL    PRTSTR
+        JMP     MENU
 
 UP_EOT: MVI     A,XM_ACK
         CALL    TXCHAR
@@ -359,8 +486,9 @@ GT_BAD: MVI     A,0FFH
 
 ; ============================================================================
 ; WRITEBLK -- write the 128 good bytes in XMBUF to the RAM disk at the current
-;   file position. Position = DBLOCK0 + RCNT_L*128. (Blocks contiguous; block #
-;   = RCNT/8 + 2.)
+;   file position. Position = 0x2000 + BLKNO*1024 + RCNT_L*128. BLKNO is the
+;   first free data block found by NEXTBLOCK at upload start, so a second
+;   upload appends after existing files instead of overwriting block 2.
 ; ============================================================================
 WRITEBLK:
         LHLD    RCNT_L
@@ -375,9 +503,19 @@ WBLK_SHL:
         RAL
         MOV     D,A
         DCR     B
-        JNZ     WBLK_SHL
-        LXI     H,DBLOCK0
-        DAD     D
+        JNZ     WBLK_SHL        ; DE = RCNT_L*128
+        PUSH    D               ; save RCNT_L*128
+        LDA     BLKNO
+        MOV     L,A
+        MVI     H,00H
+        MVI     B,10            ; *1024 (2^10) -> HL = BLKNO*1024
+WBLK_B: DAD     H
+        DCR     B
+        JNZ     WBLK_B
+        LXI     D,2000H         ; data-area base (blocks are at 0x2000 + N*1024)
+        DAD     D               ; HL = 0x2000 + BLKNO*1024
+        POP     D               ; DE = RCNT_L*128
+        DAD     D               ; HL += RCNT_L*128
         CALL    RDSETA
         LXI     H,XMBUF
         MVI     C,128
@@ -393,7 +531,10 @@ WBLK:   MOV     A,M
 
 ; ============================================================================
 ; WRITEFCB -- write the FCB directory entry/entries for the received file.
-;   Single extent (<=16K) -> one slot; >16K -> two slots (extents 0 and 1).
+;   BLKNO (first free data block) and FSLOT (first free dir slot) were chosen
+;   by NEXTBLK/FINDFREE at the START of the upload. Single extent (<=16K) ->
+;   one slot; >16K -> two slots (extents 0 and 1). All data blocks run
+;   contiguously from BLKNO, so a second upload never overwrites the first.
 ; ============================================================================
 WRITEFCB:
         CALL    BUILD_FCB               ; builds FCB (and FCB2 copy) with name/ext
@@ -405,6 +546,11 @@ WRITEFCB:
         CPI     129
         JNC     WFC_TWO
         ; ---- single extent (<=16K) ----
+        MVI     A,01H
+        STA     FNEED                   ; need 1 consecutive slot
+        CALL    FINDFREE                ; A = free slot (carry set = dir full)
+        JC      UP_NOSPC
+        STA     FSLOT
         MVI     A,00H
         STA     FCB+12                  ; EX=0
         STA     FCB+13                  ; S1=0
@@ -412,11 +558,16 @@ WRITEFCB:
         LHLD    RCNT_L
         MOV     A,L
         STA     FCB+15                  ; RC = records
-        CALL    SETALLO                 ; fill FCB+16..31 (blocks from 2)
+        CALL    SETALLO                 ; fill FCB+16..31 (blocks from BLKNO)
         CALL    WDIRFCB
         RET
 
 WFC_TWO:
+        MVI     A,02H
+        STA     FNEED                   ; need 2 consecutive slots
+        CALL    FINDFREE                ; A = free slot run start
+        JC      UP_NOSPC
+        STA     FSLOT
         MVI     A,00H
         STA     FCB+12
         STA     FCB+13
@@ -439,8 +590,18 @@ WFC_TWO:
         STA     FCB2+13                 ; S1=0
         STA     FCB2+14                 ; S2=0
         CALL    SETALLO2
-        CALL    WDIRFCB
-        LXI     H,DIRBASE+32
+        CALL    WDIRFCB                 ; extent 0 at slot FSLOT
+        ; extent 1 at slot FSLOT+1
+        LDA     FSLOT
+        INR     A
+        MOV     L,A
+        MVI     H,00H
+        MVI     D,05H
+WFC2S:  DAD     H
+        DCR     D
+        JNZ     WFC2S                   ; HL = (FSLOT+1)*32
+        LXI     D,DIRBASE
+        DAD     D
         CALL    RDSETA
         LXI     H,FCB2
         MVI     C,32
@@ -451,7 +612,16 @@ WFC2B:  MOV     A,M
         JNZ     WFC2B
         RET
 
-WDIRFCB: LXI     H,DIRBASE
+WDIRFCB:
+        LDA     FSLOT
+        MOV     L,A
+        MVI     H,00H
+        MVI     D,05H
+WDFS:   DAD     H
+        DCR     D
+        JNZ     WDFS                    ; HL = FSLOT*32
+        LXI     D,DIRBASE
+        DAD     D
         CALL    RDSETA
         LXI     H,FCB
         MVI     C,32
@@ -473,7 +643,7 @@ SETALLO:
         ANI     1FH
         MOV     B,A
         LXI     H,FCB+16
-        MVI     A,02H
+        LDA     BLKNO                   ; first free data block
 SA1:    MOV     M,A
         INX     H
         INR     A
@@ -492,7 +662,8 @@ SETALLO2:
         ANI     1FH
         MOV     B,A
         LXI     H,FCB2+16
-        MVI     A,12H                   ; extent 1 starts at block 18 (2 + 16)
+        LDA     BLKNO
+        ADI     16H                     ; extent 1 starts at BLKNO + 16
 SA21:   MOV     M,A
         INX     H
         INR     A
@@ -681,6 +852,11 @@ XS_END: LXI     H,MSGDLDONE
 SEND_RC: DS     1
 XS_BLK:  DS     1
 XS_ADDR: DS     2
+FSLOT:   DS     1               ; directory slot index for the file being written
+TWOF:    DS     1               ; !=0 -> two-extent file (extents 0 AND 1 slots)
+FNEED:   DS     1               ; slots needed by FINDFREE (1 = single, 2 = two-extent)
+NBMAX:   DS     1               ; scratch: highest data block seen during NEXTBLK
+BLKNO:   DS     1               ; first free data block for the file being written
 
 ; ============================================================================
 ; DO_DUMP -- dump 256 bytes from the RAM disk at a hex address, as hex (16/line).
@@ -785,5 +961,6 @@ MSGDUMP:   DB 'Dump 256 bytes at hex addr: ',0
 MSGMD:     DB 'Dump 128 bytes of CPU RAM at hex addr: ',0
 MSGDL:     DB 'Sending (xmodem)...',0DH,0AH,0
 MSGDLDONE: DB 'Send complete.',0DH,0AH,0
+MSGNOSPC:  DB 'No space - disk or directory full.',0DH,0AH,0
 
         END

@@ -52,7 +52,7 @@ XM_NAK  EQU     15H
 XM_CAN  EQU     18H
 XM_TO   EQU     0FEH                    ; internal: RX timeout marker
 
-; ---------------- Workspace (bank A SRAM, well below the CCP at 0xE400) ----------------
+; ---------------- Workspace (bank A SRAM, well below the CCP at 0xD000) ----------------
 XMBUF   EQU     2000H                   ; 128-byte XMODEM block buffer
 FCB     EQU     2100H                   ; 32-byte FCB (extent 0) in RAM
 FCB2    EQU     2120H                   ; 32-byte FCB (extent 1) in RAM
@@ -293,13 +293,11 @@ NB_FULL:
 ; ============================================================================
 ; START
 ; ============================================================================
-START:  LXI     SP,0E000H               ; stack in the TPA, BELOW the BDOS/CCP (0xE400+)
-                                        ; 0xF000 sat INSIDE the BDOS (0xEC00-0xFFFF), so
-                                        ;  diskutil's CALL/PUSH frames clobbered CP/M's
-                                        ;  in-RAM image; cold boot then ran the corrupted
-                                        ;  code. The CBIOS itself uses 0xDC00 for the same
-                                        ;  reason. TPA is 0x0100-0xE3FF; 0xE000 grows down
-                                        ;  into free space clear of code/buffers (0x1000+).
+START:  LXI     SP,0FE00H               ; stack ABOVE the CP/M image the 'C' command loads
+                                        ;  (image now spans 0xD000-~0xEA00 after the system was
+                                        ;  moved down; 0xFE00 is above it and just below GWMON's
+                                        ;  reserved 0xFF00, so the cold-boot load can't clobber
+                                        ;  the active stack. Old 0xE000 sat inside the image.)
         LXI     H,MSGBANNER
         CALL    PRTSTR
 MENU:   LXI     H,MSGMENU
@@ -851,8 +849,8 @@ BF_C:   MOV     A,M
 
 ; ============================================================================
 ; DO_BOOTCPM -- receive the CP/M system image (CCP+BDOS+CBIOS, the combined
-;   brevia2_cpm binary) via XMODEM into MACHINE RAM at 0xE400, then cold-boot
-;   CP/M by jumping to the CBIOS cold-boot entry (0xFA00). The CBIOS persists
+;   brevia2_cpm binary) via XMODEM into MACHINE RAM at 0xD000, then cold-boot
+;   CP/M by jumping to the CBIOS cold-boot entry (0xE600). The CBIOS persists
 ;   CCP/BDOS to the RAM-disk system tracks and enters the CCP, so we reuse the
 ;   proven boot path instead of duplicating it.
 ;   Transfers into bank A via XMBUF, then copies each block to machine RAM.
@@ -860,7 +858,7 @@ BF_C:   MOV     A,M
 DO_BOOTCPM:
         LXI     H,MSGBCPM
         CALL    PRTSTR
-        LXI     H,0E400H                ; load CCP at 0xE400 (image is contiguous)
+        LXI     H,0D000H                ; load CCP at 0xD000 (image is contiguous)
         SHLD    BCPADDR
         LXI     H,MSGRECV
         CALL    PRTSTR
@@ -899,7 +897,7 @@ BCP_EOT: MVI     A,XM_ACK
         CALL    CRLF
         LXI     H,MSGBCPMOK
         CALL    PRTSTR
-        JMP     0FA00H                  ; CBIOS cold boot -> enters CCP (A>)
+        JMP     0E600H                  ; CBIOS cold boot -> enters CCP (A>)
 
 BCPADDR: DS     2                        ; machine-RAM load address for the boot image
 FSLOT:   DS     1               ; directory slot index for the file being written

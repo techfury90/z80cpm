@@ -2,15 +2,20 @@
 ;   CBIOS (Custom BIOS) for CP/M 2.2 on the LatticeXP2 Brevia2 (TV80 Z80 core)
 ; ============================================================================
 ;   Assembled with a85 (8080/8085 cross-assembler). 8080-only instructions are
-;   used throughout; ORG is fixed at 0xFA00 (BIOS base) so the image is loaded
-;   exactly at 0xFA00 by the GWMON-80 'L' command and entered with 'G FA00'.
+;   used throughout; ORG is fixed at 0xE600 (BIOS base) so the image is loaded
+;   exactly at 0xE600 by the GWMON-80 'L' command and entered with 'G E600'.
 ;
 ;   Memory map after the GWMON monitor ROM is banked out (OUT 0x30,1):
 ;       0x0000-0x00FF  page zero   (0x0000 = JP WBOOT, 0x0005 = JP BDOS entry)
-;       0x0100-0xE3FF  TPA
-;       0xE400-0xEBFF  CCP  (already loaded by the combined HEX)
-;       0xEC00-0xF9FF  BDOS (already loaded by the combined HEX)
-;       0xFA00-0xFFFF  THIS CBIOS
+;       0x0100-0xCFFF  TPA
+;       0xD000-0xD7FF  CCP  (already loaded by the combined HEX)
+;       0xD800-0xE5FF  BDOS (already loaded by the combined HEX)
+;       0xE600-0xEFFF  THIS CBIOS
+;       0xEF00-0xFEFF  drive B: 4KB RMW buffer (ABOVE the whole CP/M system, so
+;                     no transient program can ever load over it)
+;       0xFF00-0xFFFF  reserved for GWMON (its stack / banked-out area; CP/M
+;                     must stay strictly below 0xFF00 so the monitor cannot
+;                     clobber a running system image -- do not use this region).
 ;
 ;   Hardware driven by this CBIOS (Brevia2 custom I/O map):
 ;       Serial console UART: 0x80 = status (bit0 tx_busy, bit1 rx_avail)
@@ -42,15 +47,15 @@
 ;   in the track value passed by the BDOS).
 ; ============================================================================
 
-        ORG     0FA00H
+        ORG     0E600H
 
 ; ---- constants ------------------------------------------------------------
-BIOS    EQU     0FA00H          ; BIOS base (jump table origin)
-CCP     EQU     0E400H          ; CCP origin
-; (WBOOT is the label of the warm-boot routine, which lands at BIOS+3 = 0xFA03.
+BIOS    EQU     0E600H          ; BIOS base (jump table origin)
+CCP     EQU     0D000H          ; CCP origin
+; (WBOOT is the label of the warm-boot routine, which lands at BIOS+3 = 0xE603.
 ;  It is *not* declared with EQU here to avoid a duplicate-symbol error.)
-BDOSL   EQU     0EC00H          ; BDOS origin
-BDOSENT EQU     0EC06H          ; BDOS entry point (page-zero 0x0005 vector)
+BDOSL   EQU     0D800H          ; BDOS origin
+BDOSENT EQU     0D806H          ; BDOS entry point (page-zero 0x0005 vector)
 SPT     EQU     32              ; sectors per track (from DPB)
 SYSCPP  EQU     0000H           ; RAM-disk byte offset of the stored CCP
 SYSBDS  EQU     0800H           ; RAM-disk byte offset of the stored BDOS
@@ -62,15 +67,15 @@ SPI_CTL  EQU    51H             ; write bit0 = CS# (0=select low, 1=release high
 SPI_STAT EQU    52H             ; read bit0 = transfer busy (poll OPTIONAL)
 ;
 ; ---- drive B: flash geometry (must match the DPB AND diskutil's formatter) ----
-RMWBUF  EQU     0D000H          ; 4KB read-modify-write buffer in the TPA (drive B: write).
-                                ;  Safe: touched only while a transient is suspended inside the
-                                ;  BDOS, and the transient/BDOS stack is high (~0xEBxx in the CCP or
-                                ;  at the TPA top), well above 0xDFFF.  A transient > ~50KB would
-                                ;  load over it.
+RMWBUF  EQU     0EF00H          ; 4KB read-modify-write buffer ABOVE the CP/M system
+                                ;  (0xEF00-0xFEFF, just below GWMON's reserved 0xFF00).
+                                ;  It is above the CCP/BDOS/CBIOS, so no transient program
+                                ;  (bounded by the CCP at 0xD000) can ever load over it --
+                                ;  this is the whole point of moving the system down.
 
 ;
 ; ============================================================================
-;   BIOS JUMP TABLE (17 entries, each JP)  -- MUST be first, at 0xFA00
+;   BIOS JUMP TABLE (17 entries, each JP)  -- MUST be first, at 0xE600
 ; ============================================================================
         JMP     BOOT            ; 0  BIOS+0   cold start
         JMP     WBOOT           ; 1  BIOS+3   warm start
@@ -91,12 +96,12 @@ RMWBUF  EQU     0D000H          ; 4KB read-modify-write buffer in the TPA (drive
         JMP     SECTRAN         ; 16 BIOS+48  sector translate (identity)
 
 ; ============================================================================
-;   COLD BOOT  (entry at 0xFA00 via 'G FA00')
+;   COLD BOOT  (entry at 0xE600 via 'G E600')
 ; ============================================================================
 BOOT:
-        LXI     SP,0DC00H       ; establish a stack in the TPA (below CCP@E400);
-                                ; 0xF000 would sit INSIDE the BDOS (EC00-F9FF) and
-                                ;  the boot's stack use would clobber the BDOS code.
+        LXI     SP,0CE00H       ; establish a stack in the TPA (below CCP@D000);
+                                ; it must sit BELOW the system (D000+) so the boot's
+                                ;  stack use cannot clobber CCP/BDOS/CBIOS code.
         MVI     A,01H
         OUT     30H             ; bank OUT the GWMON monitor ROM
 ;
@@ -133,10 +138,10 @@ BOOT:
 ;   WARM BOOT  (0x0000 jumps here)
 ; ============================================================================
 WBOOT:
-        LXI     SP,0DC00H
+        LXI     SP,0CE00H
         MVI     A,01H
         OUT     30H             ; bank OUT the GWMON monitor ROM (same as cold boot:
-                                ;  'G FA03' from the monitor after a reset must swap
+                                ;  'G E603' from the monitor after a reset must swap
                                 ;  the ROM out too, else page-zero/CCP reads hit ROM)
 ;
 ; ---- reload CCP and BDOS from the RAM disk SYSTEM tracks --------------------
@@ -158,13 +163,13 @@ WBOOT:
 
 ; ============================================================================
 ;   PAGE-ZERO VECTOR SETUP
-;   0x0000 = JP WBOOT (0xFA03), 0x0003 = IOBYTE, 0x0005 = JP BDOSENT (0xEC06)
+;   0x0000 = JP WBOOT (0xE603), 0x0003 = IOBYTE, 0x0005 = JP BDOSENT (0xD806)
 ; ============================================================================
 SETVEC:
         LXI     H,0000H
         MVI     M,0C3H          ; JP
         INX     H
-        MVI     M,LOW(BIOS)+3   ; 0x0000 = JP 0xFA03 (the WBOOT table entry)
+        MVI     M,LOW(BIOS)+3   ; 0x0000 = JP 0xE603 (the WBOOT table entry)
         INX     H
         MVI     M,HIGH(BIOS)
         LXI     H,0003H

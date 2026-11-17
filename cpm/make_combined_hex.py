@@ -2,10 +2,10 @@
 """Combine the DR CP/M 2.2 CCP, BDOS and the assembled CBIOS into one Intel HEX
 file for the GWMON-80 'L' command.
 
-The resulting image is laid out at the standard CP/M 2.2 64K addresses:
-    0xE400  CCP   (2048 bytes)
-    0xEC00  BDOS  (3584 bytes)
-    0xFA00  CBIOS (assembled cbios.hex)
+The resulting image is laid out at the CP/M 2.2 64K addresses:
+    0xD000  CCP   (2048 bytes)
+    0xD800  BDOS  (3584 bytes)
+    0xE600  CBIOS (assembled cbios.hex)
 and is emitted as well-formed Intel HEX records in ascending address order.
 """
 import sys, os
@@ -71,13 +71,13 @@ def write_hex(path, data, recsize=16):
     print("wrote %d bytes across %d records to %s" % (len(data), len(lines)-1, path))
 
 base = os.path.dirname(os.path.abspath(__file__))
-ccp = bin_to_dict(os.path.join(base, "cpm22", "ccp.bin"), 0xE400)
-bdos = bin_to_dict(os.path.join(base, "cpm22", "bdos.bin"), 0xEC00)
+ccp = bin_to_dict(os.path.join(base, "cpm22", "ccp.bin"), 0xD000)
+bdos = bin_to_dict(os.path.join(base, "cpm22", "bdos.bin"), 0xD800)
 cbios = parse_intel_hex(os.path.join(base, "cbios.hex"))
 
 # basic sanity checks
 cmin, cmax = min(cbios), max(cbios)
-assert cmin == 0xFA00, "CBIOS does not start at 0xFA00"
+assert cmin == 0xE600, "CBIOS does not start at 0xE600"
 assert cmax < 0x10000, "CBIOS runs past 0xFFFF"
 assert max(ccp) + 1 == min(bdos), "gap between CCP and BDOS"
 assert max(bdos) + 1 == min(cbios), "gap between BDOS and CBIOS"

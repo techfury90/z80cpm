@@ -2,7 +2,7 @@
 module boot_rom(input [15:0] addr_in, output [7:0] dout);
   assign dout = (addr_in==16'h0000)?8'hC3 :
                 (addr_in==16'h0001)?8'h00 :
-                (addr_in==16'h0002)?8'hFA : 8'h00;   // JMP 0xFA00
+                (addr_in==16'h0002)?8'hE6 : 8'h00;   // JMP 0xE600
 endmodule
 
 module tb_cpm;
@@ -56,10 +56,10 @@ module tb_cpm;
   end
 
   always @(posedge u_dut.clk) begin
-    if (u_dut.u_cpu.i_tv80_core.PC >= 16'hE400 && u_dut.u_cpu.i_tv80_core.PC < 16'hEFFF) reached_ccp = 1;
+    if (u_dut.u_cpu.i_tv80_core.PC >= 16'hD000 && u_dut.u_cpu.i_tv80_core.PC < 16'hEFFF) reached_ccp = 1;
     if (u_dut.u_cpu.i_tv80_core.PC == 16'hE785) reached_a = 1;
     fp <= u_dut.u_cpu.i_tv80_core.PC;
-    if (!done && reached_ccp && u_dut.u_cpu.i_tv80_core.PC >= 16'h0100 && u_dut.u_cpu.i_tv80_core.PC < 16'hE400) begin
+    if (!done && reached_ccp && u_dut.u_cpu.i_tv80_core.PC >= 16'h0100 && u_dut.u_cpu.i_tv80_core.PC < 16'hD000) begin
       $display("=== CRASH into TPA at PC=%04x SP=%04x ===", u_dut.u_cpu.i_tv80_core.PC, u_dut.u_cpu.i_tv80_core.SP);
       done <= 1;
     end

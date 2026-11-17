@@ -1,13 +1,13 @@
 `timescale 1ns/1ps
-// Sim-boot CP/M 2.2. Stub boot ROM = JMP 0xFA00 (the CBIOS cold start). The
-// combined CP/M image (CCP@0xE400, BDOS@0xEC00, CBIOS@0xFA00) is preloaded into
+// Sim-boot CP/M 2.2. Stub boot ROM = JMP 0xE600 (the CBIOS cold start). The
+// combined CP/M image (CCP@0xD000, BDOS@0xD800, CBIOS@0xE600) is preloaded into
 // the machine SRAM (bank A); the RAM disk (bank B) starts empty and gets
 // formatted by the CBIOS cold boot. We capture the serial console and look for
 // the CP/M banner + "A>" prompt.
 module boot_rom(input [15:0] addr_in, output [7:0] dout);
   assign dout = (addr_in==16'h0000)?8'hC3 :
                 (addr_in==16'h0001)?8'h00 :
-                (addr_in==16'h0002)?8'hFA : 8'h00;   // JMP 0xFA00
+                (addr_in==16'h0002)?8'hE6 : 8'h00;   // JMP 0xE600
 endmodule
 
 module tb_cpm;
@@ -64,18 +64,18 @@ module tb_cpm;
   reg reached_ccp = 0; reg reached_a = 0; reg [15:0] fp = 0;
   reg [7:0] rdmem[0:15]; integer rdi = 0;
   always @(posedge u_dut.clk) begin
-    if (u_dut.u_cpu.i_tv80_core.PC >= 16'hE400 && u_dut.u_cpu.i_tv80_core.PC < 16'hEFFF) reached_ccp = 1;
-    if (u_dut.u_cpu.i_tv80_core.PC == 16'hE785) reached_a = 1;
+    if (u_dut.u_cpu.i_tv80_core.PC >= 16'hD000 && u_dut.u_cpu.i_tv80_core.PC < 16'hDBFF) reached_ccp = 1;
+    if (u_dut.u_cpu.i_tv80_core.PC == 16'hD385) reached_a = 1;
     fp <= u_dut.u_cpu.i_tv80_core.PC;
-    if (u_dut.u_cpu.i_tv80_core.PC == 16'hFB6B && rdi == 0) begin   // end of READ
+    if (u_dut.u_cpu.i_tv80_core.PC == 16'hE76B && rdi == 0) begin   // end of READ
       for (i = 0; i < 16; i = i + 1) rdmem[i] = u_sram.mem[16'h0080 + i];
       rdi = 1;
     end
   end
   reg [15:0] cseq[0:499]; integer csi = 0; reg [15:0] clast = 16'hFFFF;
   always @(posedge u_dut.clk) begin
-    // trace the CCP/BDOS region (exclude the CBIOS at 0xFA00+)
-    if (u_dut.u_cpu.i_tv80_core.PC >= 16'hE400 && u_dut.u_cpu.i_tv80_core.PC < 16'hFA00
+    // trace the CCP/BDOS region (exclude the CBIOS at 0xE600+)
+    if (u_dut.u_cpu.i_tv80_core.PC >= 16'hD000 && u_dut.u_cpu.i_tv80_core.PC < 16'hE600
         && u_dut.u_cpu.i_tv80_core.PC != clast && csi < 500) begin
       cseq[csi] = u_dut.u_cpu.i_tv80_core.PC; csi = csi + 1; clast = u_dut.u_cpu.i_tv80_core.PC;
     end

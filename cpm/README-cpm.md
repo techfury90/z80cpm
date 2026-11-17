@@ -11,9 +11,9 @@ on-board ISSI IS25LD040 SPI flash (512 KB) presenting as drive B:.  `DIR`,
 | File | Description |
 |------|-------------|
 | `cbios.asm` | 8080 CBIOS source (assembled with the a85 cross-assembler). |
-| `cbios.hex` | The assembled CBIOS object (loaded at 0xFA00). |
-| `cpm22/ccp.bin` | DR CP/M 2.2 CCP binary (already built; loaded at 0xE400). |
-| `cpm22/bdos.bin` | DR CP/M 2.2 BDOS binary (already built; loaded at 0xEC00). |
+| `cbios.hex` | The assembled CBIOS object (loaded at 0xE600). |
+| `cpm22/ccp.bin` | DR CP/M 2.2 CCP binary (already built; loaded at 0xD000). |
+| `cpm22/bdos.bin` | DR CP/M 2.2 BDOS binary (already built; loaded at 0xD800). |
 | `brevia2_cpm.hex` | **The combined system image** (CCP + BDOS + CBIOS) in one Intel HEX file. **This is what you upload.** |
 | `make_combined_hex.py` | Script used to build `brevia2_cpm.hex` from the three components. |
 | `cbios.prn` | a85 listing of the CBIOS (for reference). |
@@ -27,7 +27,7 @@ on-board ISSI IS25LD040 SPI flash (512 KB) presenting as drive B:.  `DIR`,
    entire contents of **`brevia2_cpm.hex`**.  The monitor echoes each Intel HEX
    record and stores it at its address.  On a bad checksum it prints a "CSERR"
    error; a clean load returns you to the monitor prompt.
-4. At the monitor prompt type **`G FA00`** and press Enter.
+4. At the monitor prompt type **`G E600`** and press Enter.
 
 That is it.  The CBIOS cold-boot routine runs: it banks out the monitor ROM,
 writes the CCP and BDOS onto the RAM disk's system tracks, formats the RAM disk
@@ -49,7 +49,7 @@ empty disk), then `SAVE 1 TEST.COM` after loading a program, etc.
 
 See `cbios.asm` for full comments.  Key points:
 
-- **Jump table** at 0xFA00 with the standard 17 CP/M 2.2 entries
+- **Jump table** at 0xE600 with the standard 17 CP/M 2.2 entries
   (BOOT, WBOOT, CONST, CONIN, CONOUT, LIST, PUNCH, READER, HOME, SELDSK,
   SETTRK, SETSEC, SETDMA, READ, WRITE, SECTRAN, LISTST).
 - **Console** (UART 0x80 status / 0x81 data, polled, 115200 8N1; baud-agnostic
@@ -85,11 +85,14 @@ CBIOS.
   block maps to exactly one 4KB flash erase sector.
 - **Erase-before-write / RMW:** the flash only erases at 4KB granularity and
   programming can only clear bits (1→0), so every 128-byte WRITE performs a 4KB
-  read-modify-write into the `RMWBUF` buffer at 0xD000 (read the whole sector,
-  overlay the record, erase the sector, page-program it back).  This is
-  correctness-first and slow; a dirty-sector cache is a later optimization.
-  Drive B: `READ` and `WRITE` both use the 24-bit address formula
-  `addr = TRK*0x1000 + SECN*0x80` (the flash exceeds 16-bit addressing).
+  read-modify-write into the `RMWBUF` buffer at 0xEF00-0xFEFF (read the whole
+  sector, overlay the record, erase the sector, page-program it back).  The
+  buffer sits **above the whole CP/M system** (CCP@0xD000, BDOS@0xD800,
+  CBIOS@0xE600), so no transient program can ever load over it -- this is why
+  the system was moved down from 0xE400.  A dirty-sector cache is a later
+  optimization.  Drive B: `READ` and `WRITE` both use the 24-bit address
+  formula `addr = TRK*0x1000 + SECN*0x80` (the flash exceeds 16-bit
+  addressing).
 
 ## Notes / assumptions
 

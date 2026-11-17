@@ -52,7 +52,7 @@
    0018                 XM_CAN  EQU     18H
    00fe                 XM_TO   EQU     0FEH                    ; internal: RX timeout marker
                         
-                        ; ---------------- Workspace (bank A SRAM, well below the CCP at 0xE400) ----------------
+                        ; ---------------- Workspace (bank A SRAM, well below the CCP at 0xD000) ----------------
    2000                 XMBUF   EQU     2000H                   ; 128-byte XMODEM block buffer
    2100                 FCB     EQU     2100H                   ; 32-byte FCB (extent 0) in RAM
    2120                 FCB2    EQU     2120H                   ; 32-byte FCB (extent 1) in RAM
@@ -293,13 +293,11 @@
                         ; ============================================================================
                         ; START
                         ; ============================================================================
-   111d   31 00 e0      START:  LXI     SP,0E000H               ; stack in the TPA, BELOW the BDOS/CCP (0xE400+)
-                                                                ; 0xF000 sat INSIDE the BDOS (0xEC00-0xFFFF), so
-                                                                ;  diskutil's CALL/PUSH frames clobbered CP/M's
-                                                                ;  in-RAM image; cold boot then ran the corrupted
-                                                                ;  code. The CBIOS itself uses 0xDC00 for the same
-                                                                ;  reason. TPA is 0x0100-0xE3FF; 0xE000 grows down
-                                                                ;  into free space clear of code/buffers (0x1000+).
+   111d   31 00 fe      START:  LXI     SP,0FE00H               ; stack ABOVE the CP/M image the 'C' command loads
+                                                                ;  (image now spans 0xD000-~0xEA00 after the system was
+                                                                ;  moved down; 0xFE00 is above it and just below GWMON's
+                                                                ;  reserved 0xFF00, so the cold-boot load can't clobber
+                                                                ;  the active stack. Old 0xE000 sat inside the image.)
    1120   21 34 19              LXI     H,MSGBANNER
    1123   cd 58 10              CALL    PRTSTR
    1126   21 53 19      MENU:   LXI     H,MSGMENU
@@ -851,8 +849,8 @@
                         
                         ; ============================================================================
                         ; DO_BOOTCPM -- receive the CP/M system image (CCP+BDOS+CBIOS, the combined
-                        ;   brevia2_cpm binary) via XMODEM into MACHINE RAM at 0xE400, then cold-boot
-                        ;   CP/M by jumping to the CBIOS cold-boot entry (0xFA00). The CBIOS persists
+                        ;   brevia2_cpm binary) via XMODEM into MACHINE RAM at 0xD000, then cold-boot
+                        ;   CP/M by jumping to the CBIOS cold-boot entry (0xE600). The CBIOS persists
                         ;   CCP/BDOS to the RAM-disk system tracks and enters the CCP, so we reuse the
                         ;   proven boot path instead of duplicating it.
                         ;   Transfers into bank A via XMBUF, then copies each block to machine RAM.
@@ -860,7 +858,7 @@
    14e8                 DO_BOOTCPM:
    14e8   21 38 1b              LXI     H,MSGBCPM
    14eb   cd 58 10              CALL    PRTSTR
-   14ee   21 00 e4              LXI     H,0E400H                ; load CCP at 0xE400 (image is contiguous)
+   14ee   21 00 d0              LXI     H,0D000H                ; load CCP at 0xD000 (image is contiguous)
    14f1   22 4f 15              SHLD    BCPADDR
    14f4   21 c0 1a              LXI     H,MSGRECV
    14f7   cd 58 10              CALL    PRTSTR
@@ -899,7 +897,7 @@
    1543   cd 39 10              CALL    CRLF
    1546   21 60 1b              LXI     H,MSGBCPMOK
    1549   cd 58 10              CALL    PRTSTR
-   154c   c3 00 fa              JMP     0FA00H                  ; CBIOS cold boot -> enters CCP (A>)
+   154c   c3 00 e6              JMP     0E600H                  ; CBIOS cold boot -> enters CCP (A>)
                         
    154f                 BCPADDR: DS     2                        ; machine-RAM load address for the boot image
    1551                 FSLOT:   DS     1               ; directory slot index for the file being written

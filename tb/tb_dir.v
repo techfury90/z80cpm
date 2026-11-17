@@ -7,7 +7,7 @@
 module boot_rom(input [15:0] addr_in, output [7:0] dout);
   assign dout = (addr_in==16'h0000)?8'hC3 :
                 (addr_in==16'h0001)?8'h00 :
-                (addr_in==16'h0002)?8'hFA : 8'h00;   // JMP 0xFA00
+                (addr_in==16'h0002)?8'hE6 : 8'h00;   // JMP 0xE600
 endmodule
 
 module tb_dir;

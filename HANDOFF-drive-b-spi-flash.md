@@ -24,20 +24,23 @@ to be written/changed in the next phase.
 > - **`cpm/cbios.asm`** — SELECT/READ/WRITE dispatch on the selected drive;
 >   SELDSK returns the drive B DPH for C=1; drive B READ = 24-bit flash read of
 >   128 bytes; drive B WRITE = full 4KB read-modify-write into the RMW buffer at
->   0xD000 (read sector, overlay record, erase sector, program 16 x 256B pages).
+>   0xEF00-0xFEFF, ABOVE the whole system (read sector, overlay record, erase
+>   sector, program 16 x 256B pages).
 >   New drive B DPH/DPB (BSH=5/BLM=31/EXM=3/DSM=125/DRM=63/AL0=0x80/OFF=2),
 >   ALVB (16 bytes), CSVB, RECOFF.  The FLADDR 24-bit address split was
 >   validated for all 4096 (track,sector) combinations; the RMW WRITEB/READB
 >   paths were simulated end-to-end (write/readback, same-sector multi-record,
->   overwrite, max address 0x7FF80).  CBIOS now ends at 0xFE01 (fits).
+>   overwrite, max address 0x7FF80).  the whole system was MOVED DOWN (CCP 0xE400->0xD000, CBIOS 0xFA00->0xE600) so the
+>   RMW buffer at 0xEF00-0xFEFF sits ABOVE it and no transient can load over it;
+>   CBIOS now ends at 0xEA0C (fits, below GWMON's reserved 0xFF00).
 > - Stale "9600" baud comments in `cbios.asm` and `README-cpm.md` fixed to
 >   115200 (console code is baud-agnostic / polled).
 >
 > **Open questions, as resolved:** OFF=2 (reserve system tracks — chosen,
 > forward-compatible with the future boot); DRM=63 (64 entries — chosen, enough
 > to test); RMW-every-write (no dirty-sector cache — correct first, cache is a
-> later optimization); RMW buffer at 0xD000 (confirmed safe: the transient/BDOS
-> stack is high, ~0xEBxx, above 0xDFFF).
+> later optimization); RMW buffer placed at 0xEF00-0xFEFF, above the whole moved-down system
+>   (CCP=0xD000), so transients (bounded by the CCP) can never load over it.)
 
 ---
 
@@ -182,11 +185,12 @@ CP/M data disk. A future optimization is to skip the read when the target block 
 known erased (e.g., a fresh format), or to cache which sectors are already correct —
 **not** needed for this phase.
 
-**RMW buffer location:** the CBIOS region (`0xFA00-0xFFFF`, 1.5 KB) is too small
-for a 4 KB buffer. Recommend a dedicated fixed buffer in the TPA, e.g.
-`0xD000-0xDFFF`. It is only touched while a transient program is suspended inside
-BDOS, so it is safe unless a transient >~50 KB loads over it. (Pick a fixed
-address and reference it from the CBIOS; do not let the linker move it.)
+**RMW buffer location:** **was** to be in the TPA, but the whole CP/M system was
+later moved DOWN (CCP@0xD000, BDOS@0xD800, CBIOS@0xE600) so the 4KB RMW buffer
+lives ABOVE it at `0xEF00-0xFEFF` (just below GWMON's reserved 0xFF00). Because
+it is above the CCP, no transient program can ever load over it — this is the
+whole reason for the relocation (a TPA-resident buffer at 0xD000 was clobbered by
+memory-hungry transients like ED.COM during a drive-B write).
 
 ### 2.6 Good to know (pitfalls)
 
@@ -259,8 +263,9 @@ option is lowercase `-o` (the CBIOS README warns it is `-o`, not `-O`).
   wastes nothing but is a larger directory.
 - **RMW on every write vs a dirty-sector cache**: RMW-every-write is correct but
   slow. A cache is a later optimization, not needed for this phase.
-- **Where the 4 KB RMW buffer lives** (recommend `0xD000` in the TPA). Confirm it
-  doesn't collide with the transient programs you intend to run.
+- **Where the 4 KB RMW buffer lives** — **RESOLVED**: moved the whole CP/M system
+  down (CCP@0xD000) and placed the buffer at `0xEF00-0xFEFF`, above the system and
+  below GWMON's reserved 0xFF00, so no transient can ever collide with it.
 
 ---
 *Prepared by Whale-Chan, after the SPI-flash read-path issues (over-clock + IS25LD040

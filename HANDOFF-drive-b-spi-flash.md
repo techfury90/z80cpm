@@ -1,5 +1,13 @@
 # Handoff — Add the SPI flash as CP/M drive B: (native 4K allocation)
 
+> **SUPERSEDED (2026-11-17):** The SPI flash is now **drive A:** (the persistent
+> boot drive) and the RAM disk is **drive B:** — the A:/B: swap + SPI-flash boot
+> are implemented (see `cpm/README-cpm.md` and the cpm-brevia2 skill). Keep the
+> **flash geometry** below (native 4K allocation, OFF=2, data at 0x2000) — it is
+> unchanged; only the drive LETTER changed. The flash system area 0x0000-0x1FFF
+> now holds the CP/M boot image provisioned by diskutil `C` / booted by GWMON `b`.
+> This doc remains the authoritative reference for the SPI-flash geometry.
+
 **Task for the next worker:** Add the on-board ISSI IS25LD040 SPI flash as CP/M
 **drive B:**. The 64K RAM disk stays as drive A: for now; the flash will
 eventually become the boot drive A: (this is why the layout below reserves system

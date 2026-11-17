@@ -1,4 +1,4 @@
-r`timescale 1ns/1ps
+`timescale 1ns/1ps
 // uart_rx -- simple 8N1 receiver, hardened: the async rxd is 2-flop synchronized
 // (rxd_s0/rxd_s1) before sampling to kill metastability, per Lattice rxcver.v.
 module uart_rx(

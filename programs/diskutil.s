@@ -101,6 +101,25 @@ CRLF:   MVI     A,0DH
         CALL    TXCHAR
         RET
 
+; PRTDBG: print a NUL-terminated tag string at HL, then the byte in A as two
+; hex digits, then a space. For on-board trace of the upload/FCB path.
+; PRTSTR advances/clobbers HL, so the value byte is parked in C; PRTBYTE uses
+; A (and itself calls TXCHAR). No registers are preserved beyond C/B/..., so
+; callers must not rely on B/C/D/E/H/L across a PRTDBG call (use it standalone).
+PRTDBG: MOV     C,A             ; park the value byte
+        PUSH    B
+        PUSH    D
+        PUSH    H
+        CALL    PRTSTR          ; HL -> tag string (PRTSTR clobbers HL)
+        POP     H
+        POP     D
+        POP     B
+        MOV     A,C
+        CALL    PRTBYTE         ; value byte as 2 hex
+        MVI     A,' '
+        CALL    TXCHAR
+        RET
+
 ; PRTSTR: print NUL-terminated string at HL.
 PRTSTR: MOV     A,M
         ORA     A
@@ -151,7 +170,11 @@ FF_LOOP:
         CMP     D
         JC      FF_FULL         ; not enough slots left for a full run
 FF_RUN:
-        ; check slot E is empty
+        ; check slot E is empty. PUSH D/E because LXI D,DIRBASE below clobbers
+        ; both, and D (remaining count) and E (running slot) are live across the
+        ; slot read. Without the push, D silently becomes 0x20 (DIRBASE hi) and E
+        ; resets each iteration, corrupting the run-scan.
+        PUSH    D
         MOV     A,E
         MOV     L,A
         MVI     H,00H
@@ -163,6 +186,7 @@ FF_SHL: DAD     H
         DAD     D               ; HL = DIRBASE + E*32
         CALL    RDSETA
         IN      RDDATA          ; byte 0 (0xE5 = empty)
+        POP     D               ; restore D (count), E (running slot)
         CPI     0E5H
         JNZ     FF_ADV          ; slot E occupied -> try next run start
         INR     E
@@ -312,6 +336,8 @@ DO_UPLOAD:
         CALL    NEXTBLK                 ; A = first free data block (carry set = full)
         JC      UP_NOSPC
         STA     BLKNO
+        LXI     H,MSGT_BLK              ; DEBUG: trace the picked block
+        CALL    PRTDBG                  ; value was already in A (BLKNO)
         LXI     H,0000H
         SHLD    RCNT_L                  ; init record counter
         LXI     H,MSGRECV
@@ -551,6 +577,11 @@ WRITEFCB:
         CALL    FINDFREE                ; A = free slot (carry set = dir full)
         JC      UP_NOSPC
         STA     FSLOT
+        LXI     H,MSGT_SLOT             ; DEBUG: trace the picked slot
+        CALL    PRTDBG                  ; value in A = FSLOT
+        LDA     FCB+15
+        LXI     H,MSGT_RC               ; DEBUG: trace RC
+        CALL    PRTDBG
         MVI     A,00H
         STA     FCB+12                  ; EX=0
         STA     FCB+13                  ; S1=0
@@ -684,8 +715,17 @@ RN1:    CALL    RXCHAR
         JZ      RN_BS
         CPI     7FH                     ; DEL backspace
         JZ      RN_BS
+        ; coerce lowercase a-z to A-Z so the name always matches CP/M's
+        ; uppercase convention (else files with lowercase names are stored but
+        ; DIR/save lookups that uppercase won't find them)
+        CPI     'a'
+        JC      RN_STORE
+        CPI     'z'+1
+        JNC     RN_STORE
+        SUI     20H                     ; 'a'->'A'
+RN_STORE:
         MOV     M,A
-        CALL    TXCHAR                  ; ECHO the char
+        CALL    TXCHAR                  ; ECHO the (upper-cased) char
         INX     H
         DCR     B
         JNZ     RN1
@@ -962,5 +1002,9 @@ MSGMD:     DB 'Dump 128 bytes of CPU RAM at hex addr: ',0
 MSGDL:     DB 'Sending (xmodem)...',0DH,0AH,0
 MSGDLDONE: DB 'Send complete.',0DH,0AH,0
 MSGNOSPC:  DB 'No space - disk or directory full.',0DH,0AH,0
+; ---- DEBUG trace tags (remove once the upload path is confirmed) ----
+MSGT_BLK:  DB 'blk=',0
+MSGT_SLOT: DB 'slot=',0
+MSGT_RC:   DB 'rc=',0
 
         END

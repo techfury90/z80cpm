@@ -1,4 +1,4 @@
-`timescale 1ns/1ps
+r`timescale 1ns/1ps
 // uart_rx -- simple 8N1 receiver, hardened: the async rxd is 2-flop synchronized
 // (rxd_s0/rxd_s1) before sampling to kill metastability, per Lattice rxcver.v.
 module uart_rx(
@@ -9,7 +9,7 @@ module uart_rx(
   output reg    rx_avail,
   input         rx_consume
 );
-  localparam [11:0] BAUD_DIV = 2604;  // 25 MHz / 9600
+  localparam [11:0] BAUD_DIV = 1302;  // 25 MHz / 9600
 
   reg          rx_state;
   reg [15:0]    k     = 0;

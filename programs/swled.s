@@ -85,23 +85,25 @@ SB2:
 CMD_L:
         LXI     H,MSG_LED
         CALL    PSTR
-        MVI     B,01H           ; start pattern
+        MVI     A,01H
+        STA     LEDPAT          ; walking pattern stashed in RAM (BDOS clobbers regs, not memory)
 LPL:
-        MOV     A,B
-        OUT     LEDSW           ; drive LEDs
-        CALL    DELAY           ; poll console status for a key (non-blocking)
+        LDA     LEDPAT
+        OUT     LEDSW           ; active-high: single bit = one LED
+        CALL    DELAY           ; non-blocking func11 poll; returns A=1 if a key is pending
         ORA     A
         JNZ     LQKEY           ; key ready -> stop
-        MOV     A,B
+        LDA     LEDPAT          ; advance the pattern (survives the BDOS call: it's in RAM)
         ADD     A
-        MOV     B,A
+        STA     LEDPAT
         JNZ     LPL
-        MVI     B,01H           ; wrapped past 0x80 -> restart
+        MVI     A,01H
+        STA     LEDPAT          ; wrapped past 0x80 -> restart at bit0
         JMP     LPL
 LQKEY:
-        CALL    CIN             ; consume the key that stopped the test (func11 buffered it)
+        CALL    CIN             ; consume the stop key (func11 buffered it; func1 reads kbchar)
         MVI     A,00H
-        OUT     LEDSW           ; LEDs are active-HIGH to the Z80: 00H = all off
+        OUT     LEDSW           ; LEDs off (active-high)
         CALL    CRLF
         JMP     MAINLOOP
 
@@ -185,15 +187,16 @@ CRLF:
 ; DELAY -- burn ~200ms while polling the console for a key.
 ;  Returns A=0 if no key (timeout), A=key if one arrived.
 DELAY:
-        LXI     H,3000          ; outer loop count
+        LXI     H,3000
+        SHLD    DELCNT          ; loop counter in RAM (func11 clobbers H/L on the CALL 5)
 DL1:
-        MVI     C,11            ; func 11: get console status -- NON-BLOCKING, returns 0 or 1.
-                                ; (func6 E=0FFh falls into coninf and can block, which stuck the
-                                ;  pattern at one LED; func11's conbrk returns 0 immediately if no char.)
+        MVI     C,11            ; func 11: console status -- non-blocking
         CALL    5
         ORA     A
-        JNZ     DLYKEY          ; A=1 if a key is ready -> report it
+        JNZ     DLYKEY          ; 1 = key pending -> report it
+        LHLD    DELCNT          ; reload counter (survives the BDOS call: it's in RAM)
         DCX     H
+        SHLD    DELCNT
         MOV     A,H
         ORA     L
         JNZ     DL1
@@ -360,6 +363,8 @@ MSBF:   DS      1
 CNT:    DS      1
 DIGCNT: DS      1
 SWVAL:  DS      1
+LEDPAT: DS      1
+DELCNT: DS      2
 MSW:    DS      2
 SECW:   DS      4
         END

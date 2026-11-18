@@ -99,8 +99,8 @@ LPL:
         MVI     B,01H           ; wrapped past 0x80 -> restart
         JMP     LPL
 LPQUIT:
-        MVI     A,0FFH
-        OUT     LEDSW           ; LEDs off (active-low)
+        MVI     A,00H
+        OUT     LEDSW           ; LEDs are active-HIGH to the Z80: 00H = all off (0FFH would light them all)
         CALL    CRLF
         JMP     MAINLOOP
 

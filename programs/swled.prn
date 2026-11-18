@@ -99,8 +99,8 @@
    0190   06 01                 MVI     B,01H           ; wrapped past 0x80 -> restart
    0192   c3 80 01              JMP     LPL
    0195                 LPQUIT:
-   0195   3e ff                 MVI     A,0FFH
-   0197   d3 40                 OUT     LEDSW           ; LEDs off (active-low)
+   0195   3e 00                 MVI     A,00H
+   0197   d3 40                 OUT     LEDSW           ; LEDs are active-HIGH to the Z80: 00H = all off (0FFH would light them all)
    0199   cd 18 02              CALL    CRLF
    019c   c3 06 01              JMP     MAINLOOP
                         

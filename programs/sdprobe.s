@@ -203,6 +203,9 @@ AFTER_BLK:
 ;            response), RBUF = raw CMD0 response bytes, ACMDIT = ACMD41 poll
 ;            count, ACMDR1 = final ACMD41 result.
 SDINIT:
+        XRA     A
+        STA     ACMDIT          ; defaults so the no-card diagnostic shows 00/00
+        STA     ACMDR1
         MVI     A,03H           ; bit0=1 (CS high), bit1=1 (slow)
         OUT     SDCTL
         MVI     B,10            ; 10 byte-writes = 80 power-up clocks (CS# high)
@@ -248,6 +251,16 @@ SDI_ST1:
         STA     CMDR1
         CPI     01H             ; must be in idle state to continue
         JNZ     SDI_FAIL
+        ; --- CMD8 (SEND_IF_COND): REQUIRED before ACMD41 on SDHC/SDXC cards.
+        ;     R1 = 01h (SD v2, and the AA check pattern echoes) or 05h
+        ;     (illegal command = old SDSC v1, which is fine).  Consume the
+        ;     4-byte R7 payload so the card is ready for the ACMD41 sequence.
+        LXI     H,CMD8
+        CALL    SD_SEND6        ; A = R1 (01h or 05h)
+        IN      SDDAT           ; R7 payload (4 bytes), consume
+        IN      SDDAT
+        IN      SDDAT
+        IN      SDDAT
         ; --- poll CMD55+ACMD41 until the card leaves idle.  Card init is
         ;     time-based, so we wait a real delay between attempts (CS# stays
         ;     selected on the slow clock; the data-read routines switch to the

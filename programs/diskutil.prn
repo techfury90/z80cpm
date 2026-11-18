@@ -1172,14 +1172,18 @@
    169b   af                    XRA     A
    169c   32 87 16              STA     FBADDR+2
    169f   cd 68 16              CALL    SPI_ERASE_SECT
-                                ; program the image: 26 pages x 256 B = 0x1A00 B from 0xD000 to flash 0x0000
+                                ; program the image: 29 pages x 256 B = 0x1D00 B from 0xD000 to flash 0x0000
+                                ; (MUST equal CPMIMGLEN -- at 26 pages the last 0x300 bytes of the CBIOS,
+                                ;  0xEA00-0xECFF, were never burned, so a power-up flash boot ran a
+                                ;  truncated CBIOS with the SPI primitives and drive-A code reading back
+                                ;  as erased 0xFF.  Keep this count in step with CPMIMGLEN.)
    16a2   21 00 d0              LXI     H,0D000H
    16a5   22 c8 16              SHLD    BURNSRC
    16a8   21 00 00              LXI     H,0
    16ab   22 85 16              SHLD    FBADDR
    16ae   af                    XRA     A
    16af   32 87 16              STA     FBADDR+2
-   16b2   06 1a                 MVI     B,26                    ; 26 pages
+   16b2   06 1d                 MVI     B,29                    ; 29 pages = 0x1D00 B = CPMIMGLEN
    16b4                 BURN_LOOP:
    16b4   c5                    PUSH    B
    16b5   2a c8 16              LHLD    BURNSRC

@@ -89,18 +89,19 @@ CMD_L:
 LPL:
         MOV     A,B
         OUT     LEDSW           ; drive LEDs
-        CALL    DELAY           ; ~200ms, polling for a key
+        CALL    DELAY           ; poll console status for a key (non-blocking)
         ORA     A
-        JNZ     LPQUIT          ; key pressed -> stop
+        JNZ     LQKEY           ; key ready -> stop
         MOV     A,B
         ADD     A
         MOV     B,A
         JNZ     LPL
         MVI     B,01H           ; wrapped past 0x80 -> restart
         JMP     LPL
-LPQUIT:
+LQKEY:
+        CALL    CIN             ; consume the key that stopped the test (func11 buffered it)
         MVI     A,00H
-        OUT     LEDSW           ; LEDs are active-HIGH to the Z80: 00H = all off (0FFH would light them all)
+        OUT     LEDSW           ; LEDs are active-HIGH to the Z80: 00H = all off
         CALL    CRLF
         JMP     MAINLOOP
 
@@ -186,12 +187,12 @@ CRLF:
 DELAY:
         LXI     H,3000          ; outer loop count
 DL1:
-        MVI     C,6
-        MVI     E,0FFH          ; func6 input mode (E=0FFh = dirinp). E=0FEh is STATUS and
-                                ; always returns 0 on this BDOS build, so the poll would hang.
-        CALL    5               ; returns the char in A, or 0 if none ready (non-blocking)
+        MVI     C,11            ; func 11: get console status -- NON-BLOCKING, returns 0 or 1.
+                                ; (func6 E=0FFh falls into coninf and can block, which stuck the
+                                ;  pattern at one LED; func11's conbrk returns 0 immediately if no char.)
+        CALL    5
         ORA     A
-        JNZ     DLYKEY
+        JNZ     DLYKEY          ; A=1 if a key is ready -> report it
         DCX     H
         MOV     A,H
         ORA     L

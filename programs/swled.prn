@@ -14,13 +14,13 @@
    0100                         ORG     0100H
                         
    0100                 START:
-   0100   21 20 03              LXI     H,BANNER
-   0103   cd 04 02              CALL    PSTR
+   0100   21 21 03              LXI     H,BANNER
+   0103   cd 07 02              CALL    PSTR
                         
    0106                 MAINLOOP:
    0106   1e 3e                 MVI     E,'>'
-   0108   cd 0c 02              CALL    CPUTC
-   010b   cd 12 02              CALL    CIN
+   0108   cd 0f 02              CALL    CPUTC
+   010b   cd 15 02              CALL    CIN
                                 ; A = command char (echoed by func 1)
                                 ; fold lower-case a-z to upper so input is case-insensitive
    010e   fe 61                 CPI     'a'
@@ -34,33 +34,33 @@
    011f   fe 4c                 CPI     'L'
    0121   ca 78 01              JZ      CMD_L
    0124   fe 54                 CPI     'T'
-   0126   ca 9f 01              JZ      CMD_T
+   0126   ca a2 01              JZ      CMD_T
    0129   fe 3f                 CPI     '?'
    012b   ca 3d 01              JZ      CMD_HELP
    012e   fe 51                 CPI     'Q'
    0130   ca 3c 01              JZ      CMD_QUIT
                                 ; unknown
-   0133   21 a7 03              LXI     H,MSG_UNK
-   0136   cd 04 02              CALL    PSTR
+   0133   21 a8 03              LXI     H,MSG_UNK
+   0136   cd 07 02              CALL    PSTR
    0139   c3 06 01              JMP     MAINLOOP
                         
    013c                 CMD_QUIT:
    013c   c9                    RET
                         
    013d                 CMD_HELP:
-   013d   21 20 03              LXI     H,BANNER
-   0140   cd 04 02              CALL    PSTR
-   0143   cd 18 02              CALL    CRLF
+   013d   21 21 03              LXI     H,BANNER
+   0140   cd 07 02              CALL    PSTR
+   0143   cd 1b 02              CALL    CRLF
    0146   c3 06 01              JMP     MAINLOOP
                         
                         ; ---------------- S: show switches + mirror to LEDs ----------------
    0149                 CMD_S:
    0149   db 40                 IN      LEDSW           ; read switches (active-low: 1=open, 0=pressed)
-   014b   32 b0 03              STA     SWVAL           ; stash in memory -- BDOS func9 clobbers B, keep it out of a reg
+   014b   32 b1 03              STA     SWVAL           ; stash in memory -- BDOS func9 clobbers B, keep it out of a reg
    014e   d3 40                 OUT     LEDSW           ; mirror switch bank to the LED bank
-   0150   21 73 03              LXI     H,MSG_SW
-   0153   cd 04 02              CALL    PSTR
-   0156   3a b0 03              LDA     SWVAL           ; reload the TRUE switch value
+   0150   21 74 03              LXI     H,MSG_SW
+   0153   cd 07 02              CALL    PSTR
+   0156   3a b1 03              LDA     SWVAL           ; reload the TRUE switch value
    0159   47                    MOV     B,A
    015a   16 08                 MVI     D,8             ; print 8 bits, MSB first
    015c                 SBL:
@@ -73,270 +73,271 @@
    0167                 SB2:
    0167   d5                    PUSH    D
    0168   f5                    PUSH    PSW             ; preserve A (rotating bit pattern) across the BDOS call
-   0169   cd 0c 02              CALL    CPUTC           ; CPUTC clobbers A (func 2 returns 0)
+   0169   cd 0f 02              CALL    CPUTC           ; CPUTC clobbers A (func 2 returns 0)
    016c   f1                    POP     PSW
    016d   d1                    POP     D
    016e   15                    DCR     D
    016f   c2 5c 01              JNZ     SBL
-   0172   cd 18 02              CALL    CRLF
+   0172   cd 1b 02              CALL    CRLF
    0175   c3 06 01              JMP     MAINLOOP
                         
                         ; ---------------- L: LED walking pattern ----------------
    0178                 CMD_L:
-   0178   21 7d 03              LXI     H,MSG_LED
-   017b   cd 04 02              CALL    PSTR
+   0178   21 7e 03              LXI     H,MSG_LED
+   017b   cd 07 02              CALL    PSTR
    017e   06 01                 MVI     B,01H           ; start pattern
    0180                 LPL:
    0180   78                    MOV     A,B
    0181   d3 40                 OUT     LEDSW           ; drive LEDs
-   0183   cd 23 02              CALL    DELAY           ; ~200ms, polling for a key
+   0183   cd 26 02              CALL    DELAY           ; poll console status for a key (non-blocking)
    0186   b7                    ORA     A
-   0187   c2 95 01              JNZ     LPQUIT          ; key pressed -> stop
+   0187   c2 95 01              JNZ     LQKEY           ; key ready -> stop
    018a   78                    MOV     A,B
    018b   87                    ADD     A
    018c   47                    MOV     B,A
    018d   c2 80 01              JNZ     LPL
    0190   06 01                 MVI     B,01H           ; wrapped past 0x80 -> restart
    0192   c3 80 01              JMP     LPL
-   0195                 LPQUIT:
-   0195   3e 00                 MVI     A,00H
-   0197   d3 40                 OUT     LEDSW           ; LEDs are active-HIGH to the Z80: 00H = all off (0FFH would light them all)
-   0199   cd 18 02              CALL    CRLF
-   019c   c3 06 01              JMP     MAINLOOP
+   0195                 LQKEY:
+   0195   cd 15 02              CALL    CIN             ; consume the key that stopped the test (func11 buffered it)
+   0198   3e 00                 MVI     A,00H
+   019a   d3 40                 OUT     LEDSW           ; LEDs are active-HIGH to the Z80: 00H = all off
+   019c   cd 1b 02              CALL    CRLF
+   019f   c3 06 01              JMP     MAINLOOP
                         
                         ; ---------------- T: fabric uptime clock ----------------
-   019f                 CMD_T:
-   019f   d3 41                 OUT     CLKL            ; latch the counter
-   01a1   db 42                 IN      CLK0
-   01a3   6f                    MOV     L,A
-   01a4   db 43                 IN      CLK1
-   01a6   67                    MOV     H,A
-   01a7   db 44                 IN      CLK2
-   01a9   5f                    MOV     E,A
-   01aa   db 45                 IN      CLK3
-   01ac   57                    MOV     D,A             ; DE:HL = ms (32-bit)
-   01ad   01 e8 03              LXI     B,1000
-   01b0   cd 3a 02              CALL    DIV32           ; DE:HL = secs, RMDR = msec remainder
+   01a2                 CMD_T:
+   01a2   d3 41                 OUT     CLKL            ; latch the counter
+   01a4   db 42                 IN      CLK0
+   01a6   6f                    MOV     L,A
+   01a7   db 43                 IN      CLK1
+   01a9   67                    MOV     H,A
+   01aa   db 44                 IN      CLK2
+   01ac   5f                    MOV     E,A
+   01ad   db 45                 IN      CLK3
+   01af   57                    MOV     D,A             ; DE:HL = ms (32-bit)
+   01b0   01 e8 03              LXI     B,1000
+   01b3   cd 3b 02              CALL    DIV32           ; DE:HL = secs, RMDR = msec remainder
                                 ; save msec remainder
-   01b3   3a ab 03              LDA     RMDR
-   01b6   32 b1 03              STA     MSW
-   01b9   3a ac 03              LDA     RMDR+1
-   01bc   32 b2 03              STA     MSW+1
+   01b6   3a ac 03              LDA     RMDR
+   01b9   32 b2 03              STA     MSW
+   01bc   3a ad 03              LDA     RMDR+1
+   01bf   32 b3 03              STA     MSW+1
                                 ; save secs (DE:HL) into SECW (32-bit)
-   01bf   7d                    MOV     A,L
-   01c0   32 b3 03              STA     SECW
-   01c3   7c                    MOV     A,H
-   01c4   32 b4 03              STA     SECW+1
-   01c7   7b                    MOV     A,E
-   01c8   32 b5 03              STA     SECW+2
-   01cb   7a                    MOV     A,D
-   01cc   32 b6 03              STA     SECW+3
-   01cf   21 9a 03              LXI     H,MSG_UPT
-   01d2   cd 04 02              CALL    PSTR
+   01c2   7d                    MOV     A,L
+   01c3   32 b4 03              STA     SECW
+   01c6   7c                    MOV     A,H
+   01c7   32 b5 03              STA     SECW+1
+   01ca   7b                    MOV     A,E
+   01cb   32 b6 03              STA     SECW+2
+   01ce   7a                    MOV     A,D
+   01cf   32 b7 03              STA     SECW+3
+   01d2   21 9b 03              LXI     H,MSG_UPT
+   01d5   cd 07 02              CALL    PSTR
                                 ; reload secs into DE:HL and print as decimal
-   01d5   3a b3 03              LDA     SECW
-   01d8   6f                    MOV     L,A
-   01d9   3a b4 03              LDA     SECW+1
-   01dc   67                    MOV     H,A
-   01dd   3a b5 03              LDA     SECW+2
-   01e0   5f                    MOV     E,A
-   01e1   3a b6 03              LDA     SECW+3
-   01e4   57                    MOV     D,A
-   01e5   cd a6 02              CALL    PRDEC32
-   01e8   1e 2e                 MVI     E,'.'
-   01ea   cd 0c 02              CALL    CPUTC
+   01d8   3a b4 03              LDA     SECW
+   01db   6f                    MOV     L,A
+   01dc   3a b5 03              LDA     SECW+1
+   01df   67                    MOV     H,A
+   01e0   3a b6 03              LDA     SECW+2
+   01e3   5f                    MOV     E,A
+   01e4   3a b7 03              LDA     SECW+3
+   01e7   57                    MOV     D,A
+   01e8   cd a7 02              CALL    PRDEC32
+   01eb   1e 2e                 MVI     E,'.'
+   01ed   cd 0f 02              CALL    CPUTC
                                 ; print msec remainder, 3 zero-padded digits
-   01ed   3a b1 03              LDA     MSW
-   01f0   6f                    MOV     L,A
-   01f1   3a b2 03              LDA     MSW+1
-   01f4   67                    MOV     H,A
-   01f5   cd ec 02              CALL    PR3
-   01f8   21 a4 03              LXI     H,MSG_S
-   01fb   cd 04 02              CALL    PSTR
-   01fe   cd 18 02              CALL    CRLF
-   0201   c3 06 01              JMP     MAINLOOP
+   01f0   3a b2 03              LDA     MSW
+   01f3   6f                    MOV     L,A
+   01f4   3a b3 03              LDA     MSW+1
+   01f7   67                    MOV     H,A
+   01f8   cd ed 02              CALL    PR3
+   01fb   21 a5 03              LXI     H,MSG_S
+   01fe   cd 07 02              CALL    PSTR
+   0201   cd 1b 02              CALL    CRLF
+   0204   c3 06 01              JMP     MAINLOOP
                         
                         ; ---------------- low-level routines ----------------
-   0204                 PSTR:
-   0204   54                    MOV     D,H
-   0205   5d                    MOV     E,L
-   0206   0e 09                 MVI     C,9
-   0208   cd 05 00              CALL    5
-   020b   c9                    RET
+   0207                 PSTR:
+   0207   54                    MOV     D,H
+   0208   5d                    MOV     E,L
+   0209   0e 09                 MVI     C,9
+   020b   cd 05 00              CALL    5
+   020e   c9                    RET
                         
-   020c                 CPUTC:
-   020c   0e 02                 MVI     C,2
-   020e   cd 05 00              CALL    5
-   0211   c9                    RET
+   020f                 CPUTC:
+   020f   0e 02                 MVI     C,2
+   0211   cd 05 00              CALL    5
+   0214   c9                    RET
                         
-   0212                 CIN:
-   0212   0e 01                 MVI     C,1
-   0214   cd 05 00              CALL    5
-   0217   c9                    RET
+   0215                 CIN:
+   0215   0e 01                 MVI     C,1
+   0217   cd 05 00              CALL    5
+   021a   c9                    RET
                         
-   0218                 CRLF:
-   0218   1e 0d                 MVI     E,13
-   021a   cd 0c 02              CALL    CPUTC
-   021d   1e 0a                 MVI     E,10
-   021f   cd 0c 02              CALL    CPUTC
-   0222   c9                    RET
+   021b                 CRLF:
+   021b   1e 0d                 MVI     E,13
+   021d   cd 0f 02              CALL    CPUTC
+   0220   1e 0a                 MVI     E,10
+   0222   cd 0f 02              CALL    CPUTC
+   0225   c9                    RET
                         
                         ; DELAY -- burn ~200ms while polling the console for a key.
                         ;  Returns A=0 if no key (timeout), A=key if one arrived.
-   0223                 DELAY:
-   0223   21 b8 0b              LXI     H,3000          ; outer loop count
-   0226                 DL1:
-   0226   0e 06                 MVI     C,6
-   0228   1e ff                 MVI     E,0FFH          ; func6 input mode (E=0FFh = dirinp). E=0FEh is STATUS and
-                                                        ; always returns 0 on this BDOS build, so the poll would hang.
-   022a   cd 05 00              CALL    5               ; returns the char in A, or 0 if none ready (non-blocking)
-   022d   b7                    ORA     A
-   022e   c2 39 02              JNZ     DLYKEY
-   0231   2b                    DCX     H
-   0232   7c                    MOV     A,H
-   0233   b5                    ORA     L
-   0234   c2 26 02              JNZ     DL1
-   0237   3e 00                 MVI     A,0
-   0239                 DLYKEY:
-   0239   c9                    RET
+   0226                 DELAY:
+   0226   21 b8 0b              LXI     H,3000          ; outer loop count
+   0229                 DL1:
+   0229   0e 0b                 MVI     C,11            ; func 11: get console status -- NON-BLOCKING, returns 0 or 1.
+                                                        ; (func6 E=0FFh falls into coninf and can block, which stuck the
+                                                        ;  pattern at one LED; func11's conbrk returns 0 immediately if no char.)
+   022b   cd 05 00              CALL    5
+   022e   b7                    ORA     A
+   022f   c2 3a 02              JNZ     DLYKEY          ; A=1 if a key is ready -> report it
+   0232   2b                    DCX     H
+   0233   7c                    MOV     A,H
+   0234   b5                    ORA     L
+   0235   c2 29 02              JNZ     DL1
+   0238   3e 00                 MVI     A,0
+   023a                 DLYKEY:
+   023a   c9                    RET
                         
                         ; DIV32 -- unsigned 32/16 restore division.
                         ;   in : DE:HL = 32-bit dividend ; BC = 16-bit divisor
                         ;   out: DE:HL = 32-bit quotient ; RMDR = 16-bit remainder
                         ;   Uses memory RMDR/MSBF/CNT.
-   023a                 DIV32:
-   023a   af                    XRA     A
-   023b   32 ab 03              STA     RMDR
-   023e   32 ac 03              STA     RMDR+1
-   0241   32 ad 03              STA     MSBF
-   0244   3e 20                 MVI     A,32
-   0246   32 ae 03              STA     CNT
-   0249                 D32L:
+   023b                 DIV32:
+   023b   af                    XRA     A
+   023c   32 ac 03              STA     RMDR
+   023f   32 ad 03              STA     RMDR+1
+   0242   32 ae 03              STA     MSBF
+   0245   3e 20                 MVI     A,32
+   0247   32 af 03              STA     CNT
+   024a                 D32L:
                                 ; shift DE:HL left 1; MSB -> CY
-   0249   7d                    MOV     A,L
-   024a   87                    ADD     A
-   024b   6f                    MOV     L,A
-   024c   7c                    MOV     A,H
-   024d   17                    RAL
-   024e   67                    MOV     H,A
-   024f   7b                    MOV     A,E
-   0250   17                    RAL
-   0251   5f                    MOV     E,A
-   0252   7a                    MOV     A,D
-   0253   17                    RAL
-   0254   57                    MOV     D,A
-   0255   3e 00                 MVI     A,0
-   0257   17                    RAL                     ; A = captured MSB (0 or 1)
-   0258   32 ad 03              STA     MSBF
+   024a   7d                    MOV     A,L
+   024b   87                    ADD     A
+   024c   6f                    MOV     L,A
+   024d   7c                    MOV     A,H
+   024e   17                    RAL
+   024f   67                    MOV     H,A
+   0250   7b                    MOV     A,E
+   0251   17                    RAL
+   0252   5f                    MOV     E,A
+   0253   7a                    MOV     A,D
+   0254   17                    RAL
+   0255   57                    MOV     D,A
+   0256   3e 00                 MVI     A,0
+   0258   17                    RAL                     ; A = captured MSB (0 or 1)
+   0259   32 ae 03              STA     MSBF
                                 ; RMDR = (RMDR << 1) | MSBF
-   025b   3a ab 03              LDA     RMDR
-   025e   87                    ADD     A
-   025f   32 ab 03              STA     RMDR
-   0262   3a ac 03              LDA     RMDR+1
-   0265   17                    RAL
-   0266   32 ac 03              STA     RMDR+1
-   0269   3a ad 03              LDA     MSBF
-   026c   b7                    ORA     A
-   026d   ca 78 02              JZ      D32NOMS
-   0270   3a ab 03              LDA     RMDR
-   0273   f6 01                 ORI     1
-   0275   32 ab 03              STA     RMDR
-   0278                 D32NOMS:
+   025c   3a ac 03              LDA     RMDR
+   025f   87                    ADD     A
+   0260   32 ac 03              STA     RMDR
+   0263   3a ad 03              LDA     RMDR+1
+   0266   17                    RAL
+   0267   32 ad 03              STA     RMDR+1
+   026a   3a ae 03              LDA     MSBF
+   026d   b7                    ORA     A
+   026e   ca 79 02              JZ      D32NOMS
+   0271   3a ac 03              LDA     RMDR
+   0274   f6 01                 ORI     1
+   0276   32 ac 03              STA     RMDR
+   0279                 D32NOMS:
                                 ; if RMDR >= (BC) then RMDR -= BC, set quotient bit0
-   0278   3a ac 03              LDA     RMDR+1
-   027b   b8                    CMP     B
-   027c   da 9b 02              JC      D32SKIP
-   027f   c2 89 02              JNZ     D32SUB
-   0282   3a ab 03              LDA     RMDR
-   0285   b9                    CMP     C
-   0286   da 9b 02              JC      D32SKIP
-   0289                 D32SUB:
-   0289   3a ab 03              LDA     RMDR
-   028c   91                    SUB     C
-   028d   32 ab 03              STA     RMDR
-   0290   3a ac 03              LDA     RMDR+1
-   0293   98                    SBB     B
-   0294   32 ac 03              STA     RMDR+1
-   0297   7d                    MOV     A,L
-   0298   f6 01                 ORI     1
-   029a   6f                    MOV     L,A
-   029b                 D32SKIP:
-   029b   3a ae 03              LDA     CNT
-   029e   3d                    DCR     A
-   029f   32 ae 03              STA     CNT
-   02a2   c2 49 02              JNZ     D32L
-   02a5   c9                    RET
+   0279   3a ad 03              LDA     RMDR+1
+   027c   b8                    CMP     B
+   027d   da 9c 02              JC      D32SKIP
+   0280   c2 8a 02              JNZ     D32SUB
+   0283   3a ac 03              LDA     RMDR
+   0286   b9                    CMP     C
+   0287   da 9c 02              JC      D32SKIP
+   028a                 D32SUB:
+   028a   3a ac 03              LDA     RMDR
+   028d   91                    SUB     C
+   028e   32 ac 03              STA     RMDR
+   0291   3a ad 03              LDA     RMDR+1
+   0294   98                    SBB     B
+   0295   32 ad 03              STA     RMDR+1
+   0298   7d                    MOV     A,L
+   0299   f6 01                 ORI     1
+   029b   6f                    MOV     L,A
+   029c                 D32SKIP:
+   029c   3a af 03              LDA     CNT
+   029f   3d                    DCR     A
+   02a0   32 af 03              STA     CNT
+   02a3   c2 4a 02              JNZ     D32L
+   02a6   c9                    RET
                         
                         ; PRDEC32 -- print the 32-bit value in DE:HL as unsigned decimal (no padding).
-   02a6                 PRDEC32:
-   02a6   7a                    MOV     A,D
-   02a7   b3                    ORA     E
-   02a8   b4                    ORA     H
-   02a9   b5                    ORA     L
-   02aa   c2 b3 02              JNZ     PRDECL
-   02ad   1e 30                 MVI     E,'0'
-   02af   cd 0c 02              CALL    CPUTC
-   02b2   c9                    RET
-   02b3                 PRDECL:
-   02b3   3e 00                 MVI     A,0
-   02b5   32 af 03              STA     DIGCNT
-   02b8                 PRDEC_GO:
-   02b8   7a                    MOV     A,D
-   02b9   b3                    ORA     E
-   02ba   b4                    ORA     H
-   02bb   b5                    ORA     L
-   02bc   ca d5 02              JZ      PRDEC_PRT
+   02a7                 PRDEC32:
+   02a7   7a                    MOV     A,D
+   02a8   b3                    ORA     E
+   02a9   b4                    ORA     H
+   02aa   b5                    ORA     L
+   02ab   c2 b4 02              JNZ     PRDECL
+   02ae   1e 30                 MVI     E,'0'
+   02b0   cd 0f 02              CALL    CPUTC
+   02b3   c9                    RET
+   02b4                 PRDECL:
+   02b4   3e 00                 MVI     A,0
+   02b6   32 b0 03              STA     DIGCNT
+   02b9                 PRDEC_GO:
+   02b9   7a                    MOV     A,D
+   02ba   b3                    ORA     E
+   02bb   b4                    ORA     H
+   02bc   b5                    ORA     L
+   02bd   ca d6 02              JZ      PRDEC_PRT
                                 ; divide DE:HL by 10
-   02bf   01 0a 00              LXI     B,10
-   02c2   cd 3a 02              CALL    DIV32
-   02c5   3a ab 03              LDA     RMDR
-   02c8   c6 30                 ADI     '0'
-   02ca   f5                    PUSH    PSW
-   02cb   3a af 03              LDA     DIGCNT
-   02ce   3c                    INR     A
-   02cf   32 af 03              STA     DIGCNT
-   02d2   c3 b8 02              JMP     PRDEC_GO
-   02d5                 PRDEC_PRT:
-   02d5   3a af 03              LDA     DIGCNT
-   02d8   b7                    ORA     A
-   02d9   ca eb 02              JZ      PRDEC_DONE
-   02dc   f1                    POP     PSW
-   02dd   5f                    MOV     E,A
-   02de   cd 0c 02              CALL    CPUTC
-   02e1   3a af 03              LDA     DIGCNT
-   02e4   3d                    DCR     A
-   02e5   32 af 03              STA     DIGCNT
-   02e8   c3 d5 02              JMP     PRDEC_PRT
-   02eb                 PRDEC_DONE:
-   02eb   c9                    RET
+   02c0   01 0a 00              LXI     B,10
+   02c3   cd 3b 02              CALL    DIV32
+   02c6   3a ac 03              LDA     RMDR
+   02c9   c6 30                 ADI     '0'
+   02cb   f5                    PUSH    PSW
+   02cc   3a b0 03              LDA     DIGCNT
+   02cf   3c                    INR     A
+   02d0   32 b0 03              STA     DIGCNT
+   02d3   c3 b9 02              JMP     PRDEC_GO
+   02d6                 PRDEC_PRT:
+   02d6   3a b0 03              LDA     DIGCNT
+   02d9   b7                    ORA     A
+   02da   ca ec 02              JZ      PRDEC_DONE
+   02dd   f1                    POP     PSW
+   02de   5f                    MOV     E,A
+   02df   cd 0f 02              CALL    CPUTC
+   02e2   3a b0 03              LDA     DIGCNT
+   02e5   3d                    DCR     A
+   02e6   32 b0 03              STA     DIGCNT
+   02e9   c3 d6 02              JMP     PRDEC_PRT
+   02ec                 PRDEC_DONE:
+   02ec   c9                    RET
                         
                         ; PR3 -- print the 16-bit value in HL (0..999) as exactly 3 zero-padded digits.
-   02ec                 PR3:
-   02ec   3e 03                 MVI     A,3
-   02ee   32 af 03              STA     DIGCNT
-   02f1                 PR3_DIV:
-   02f1   16 00                 MVI     D,0
-   02f3   1e 00                 MVI     E,0
-   02f5   01 0a 00              LXI     B,10
-   02f8   cd 3a 02              CALL    DIV32
-   02fb   3a ab 03              LDA     RMDR
-   02fe   c6 30                 ADI     '0'
-   0300   f5                    PUSH    PSW
-   0301   3a af 03              LDA     DIGCNT
-   0304   3d                    DCR     A
-   0305   32 af 03              STA     DIGCNT
-   0308   c2 f1 02              JNZ     PR3_DIV
-   030b   3e 03                 MVI     A,3
-   030d   32 af 03              STA     DIGCNT
-   0310                 PR3_PRT:
-   0310   f1                    POP     PSW
-   0311   5f                    MOV     E,A
-   0312   cd 0c 02              CALL    CPUTC
-   0315   3a af 03              LDA     DIGCNT
-   0318   3d                    DCR     A
-   0319   32 af 03              STA     DIGCNT
-   031c   c2 10 03              JNZ     PR3_PRT
-   031f   c9                    RET
+   02ed                 PR3:
+   02ed   3e 03                 MVI     A,3
+   02ef   32 b0 03              STA     DIGCNT
+   02f2                 PR3_DIV:
+   02f2   16 00                 MVI     D,0
+   02f4   1e 00                 MVI     E,0
+   02f6   01 0a 00              LXI     B,10
+   02f9   cd 3b 02              CALL    DIV32
+   02fc   3a ac 03              LDA     RMDR
+   02ff   c6 30                 ADI     '0'
+   0301   f5                    PUSH    PSW
+   0302   3a b0 03              LDA     DIGCNT
+   0305   3d                    DCR     A
+   0306   32 b0 03              STA     DIGCNT
+   0309   c2 f2 02              JNZ     PR3_DIV
+   030c   3e 03                 MVI     A,3
+   030e   32 b0 03              STA     DIGCNT
+   0311                 PR3_PRT:
+   0311   f1                    POP     PSW
+   0312   5f                    MOV     E,A
+   0313   cd 0f 02              CALL    CPUTC
+   0316   3a b0 03              LDA     DIGCNT
+   0319   3d                    DCR     A
+   031a   32 b0 03              STA     DIGCNT
+   031d   c2 11 03              JNZ     PR3_PRT
+   0320   c9                    RET
                         
                         ; ---------------- data ----------------
    0040                 LEDSW   EQU     40H
@@ -346,64 +347,64 @@
    0044                 CLK2    EQU     44H
    0045                 CLK3    EQU     45H
                         
-   0320                 BANNER:
-   0320   53 57 4c 45           DB      'SWLED v1.0 - Brevia2 switches/LEDs/clock',13,10,'S=switches L=led T=clock ?=help Q=quit',13,10,'$'
-   0324   44 20 76 31   
-   0328   2e 30 20 2d   
-   032c   20 42 72 65   
-   0330   76 69 61 32   
-   0334   20 73 77 69   
-   0338   74 63 68 65   
-   033c   73 2f 4c 45   
-   0340   44 73 2f 63   
-   0344   6c 6f 63 6b   
-   0348   0d 0a 53 3d   
-   034c   73 77 69 74   
-   0350   63 68 65 73   
-   0354   20 4c 3d 6c   
-   0358   65 64 20 54   
-   035c   3d 63 6c 6f   
-   0360   63 6b 20 3f   
-   0364   3d 68 65 6c   
-   0368   70 20 51 3d   
-   036c   71 75 69 74   
-   0370   0d 0a 24      
-   0373   53 57 49 54   MSG_SW: DB      'SWITCHES=','$'
-   0377   43 48 45 53   
-   037b   3d 24         
-   037d   4c 45 44 20   MSG_LED: DB     'LED test - any key to stop',13,10,'$'
-   0381   74 65 73 74   
-   0385   20 2d 20 61   
-   0389   6e 79 20 6b   
-   038d   65 79 20 74   
-   0391   6f 20 73 74   
-   0395   6f 70 0d 0a   
-   0399   24            
-   039a   0d 0a 55 50   MSG_UPT: DB     13,10,'UPTIME ','$'
-   039e   54 49 4d 45   
-   03a2   20 24         
-   03a4   20 73 24      MSG_S:  DB      ' s','$'
-   03a7   0d 0a 3f 24   MSG_UNK: DB     13,10,'?','$'
+   0321                 BANNER:
+   0321   53 57 4c 45           DB      'SWLED v1.0 - Brevia2 switches/LEDs/clock',13,10,'S=switches L=led T=clock ?=help Q=quit',13,10,'$'
+   0325   44 20 76 31   
+   0329   2e 30 20 2d   
+   032d   20 42 72 65   
+   0331   76 69 61 32   
+   0335   20 73 77 69   
+   0339   74 63 68 65   
+   033d   73 2f 4c 45   
+   0341   44 73 2f 63   
+   0345   6c 6f 63 6b   
+   0349   0d 0a 53 3d   
+   034d   73 77 69 74   
+   0351   63 68 65 73   
+   0355   20 4c 3d 6c   
+   0359   65 64 20 54   
+   035d   3d 63 6c 6f   
+   0361   63 6b 20 3f   
+   0365   3d 68 65 6c   
+   0369   70 20 51 3d   
+   036d   71 75 69 74   
+   0371   0d 0a 24      
+   0374   53 57 49 54   MSG_SW: DB      'SWITCHES=','$'
+   0378   43 48 45 53   
+   037c   3d 24         
+   037e   4c 45 44 20   MSG_LED: DB     'LED test - any key to stop',13,10,'$'
+   0382   74 65 73 74   
+   0386   20 2d 20 61   
+   038a   6e 79 20 6b   
+   038e   65 79 20 74   
+   0392   6f 20 73 74   
+   0396   6f 70 0d 0a   
+   039a   24            
+   039b   0d 0a 55 50   MSG_UPT: DB     13,10,'UPTIME ','$'
+   039f   54 49 4d 45   
+   03a3   20 24         
+   03a5   20 73 24      MSG_S:  DB      ' s','$'
+   03a8   0d 0a 3f 24   MSG_UNK: DB     13,10,'?','$'
                         
-   03ab                 RMDR:   DS      2
-   03ad                 MSBF:   DS      1
-   03ae                 CNT:    DS      1
-   03af                 DIGCNT: DS      1
-   03b0                 SWVAL:  DS      1
-   03b1                 MSW:    DS      2
-   03b3                 SECW:   DS      4
-   03b7                         END
-0320  BANNER        0212  CIN           0042  CLK0          0043  CLK1      
+   03ac                 RMDR:   DS      2
+   03ae                 MSBF:   DS      1
+   03af                 CNT:    DS      1
+   03b0                 DIGCNT: DS      1
+   03b1                 SWVAL:  DS      1
+   03b2                 MSW:    DS      2
+   03b4                 SECW:   DS      4
+   03b8                         END
+0321  BANNER        0215  CIN           0042  CLK0          0043  CLK1      
 0044  CLK2          0045  CLK3          0041  CLKL          013d  CMD_HELP  
-0178  CMD_L         013c  CMD_QUIT      0149  CMD_S         019f  CMD_T     
-03ae  CNT           020c  CPUTC         0218  CRLF          0249  D32L      
-0278  D32NOMS       029b  D32SKIP       0289  D32SUB        0223  DELAY     
-03af  DIGCNT        023a  DIV32         0226  DL1           0239  DLYKEY    
-0040  LEDSW         0180  LPL           0195  LPQUIT        011a  MAIN3     
-0106  MAINLOOP      03ad  MSBF          037d  MSG_LED       03a4  MSG_S     
-0373  MSG_SW        03a7  MSG_UNK       039a  MSG_UPT       03b1  MSW       
-02ec  PR3           02f1  PR3_DIV       0310  PR3_PRT       02a6  PRDEC32   
-02b3  PRDECL        02eb  PRDEC_DONE    02b8  PRDEC_GO      02d5  PRDEC_PRT 
-0204  PSTR          03ab  RMDR          0165  SB1           0167  SB2       
-015c  SBL           03b3  SECW          0100  START         03b0  SWVAL     
+0178  CMD_L         013c  CMD_QUIT      0149  CMD_S         01a2  CMD_T     
+03af  CNT           020f  CPUTC         021b  CRLF          024a  D32L      
+0279  D32NOMS       029c  D32SKIP       028a  D32SUB        0226  DELAY     
+03b0  DIGCNT        023b  DIV32         0229  DL1           023a  DLYKEY    
+0040  LEDSW         0180  LPL           0195  LQKEY         011a  MAIN3     
+0106  MAINLOOP      03ae  MSBF          037e  MSG_LED       03a5  MSG_S     
+0374  MSG_SW        03a8  MSG_UNK       039b  MSG_UPT       03b2  MSW       
+02ed  PR3           02f2  PR3_DIV       0311  PR3_PRT       02a7  PRDEC32   
+02b4  PRDECL        02ec  PRDEC_DONE    02b9  PRDEC_GO      02d6  PRDEC_PRT 
+0207  PSTR          03ac  RMDR          0165  SB1           0167  SB2       
+015c  SBL           03b4  SECW          0100  START         03b1  SWVAL     
 

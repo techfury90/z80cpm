@@ -9,6 +9,8 @@
 //   0x1000-0xFFFF : external SRAM bank A (stack / data)
 // I/O:
 //   0x40 = LED latch (write, active-low board LEDs) / switch read
+//   0x41 = clock latch (write) -- snapshots the 32-bit uptime counter
+//   0x42-0x45 = clock value (read) -- latched ms, LSB first (0x42=ms[7:0])
 //   0x80 = console status (bit0 tx_busy, bit1 rx_avail), 0x81 = TX/RX data
 module z80cpm_brevia2(
   input         clk_in,     // 50 MHz (pin 21)
@@ -165,6 +167,28 @@ module z80cpm_brevia2(
     else if (io_wr && (A[7:0] == 8'h40)) led_reg <= cpu_dout;
   end
 
+  // ---- Fabric clock: free-running 1 ms (1 kHz) 32-bit uptime counter, readable
+  //      by CP/M. Port 0x41 (write) LATCHES the counter into 4 bytes; ports
+  //      0x42..0x45 (read) return those bytes LSB-first so a program sees a
+  //      consistent snapshot (no tearing across the 4 reads). The tick is
+  //      clk/25000 = 1 kHz derived from the 25 MHz system clock; ck_ms wraps at
+  //      ~49.7 days. This is an uptime clock only (no battery-backed RTC).
+  reg [14:0] ck_div = 15'd0;         // 0..24999
+  reg [31:0] ck_ms  = 32'd0;         // uptime in milliseconds
+  reg [7:0]  ck_l0 = 8'h00, ck_l1 = 8'h00, ck_l2 = 8'h00, ck_l3 = 8'h00;
+  always @(posedge clk or posedge rst) begin
+    if (rst) begin ck_div <= 15'd0; ck_ms <= 32'd0; end
+    else if (ck_div == 15'd24999) begin ck_div <= 15'd0; ck_ms <= ck_ms + 1'b1; end
+    else    ck_div <= ck_div + 1'b1;
+  end
+  always @(posedge clk or posedge rst) begin
+    if (rst) begin ck_l0 <= 8'h00; ck_l1 <= 8'h00; ck_l2 <= 8'h00; ck_l3 <= 8'h00; end
+    else if (io_wr && (A[7:0] == 8'h41)) begin
+      ck_l0 <= ck_ms[7:0];   ck_l1 <= ck_ms[15:8];
+      ck_l2 <= ck_ms[23:16]; ck_l3 <= ck_ms[31:24];
+    end
+  end
+
   // Console UART.
   wire        uart_wr = io_wr && (A[7:0] == 8'h81);
   wire        uart_rd = io_rd && (A[7:0] == 8'h81);
@@ -205,6 +229,10 @@ module z80cpm_brevia2(
     if (io_rd && (A[7:0] == 8'h40)) io_rdata = sw;
     else if (io_rd && (A[7:0] == 8'h81)) io_rdata = uart_rx_data;
     else if (io_rd && (A[7:0] == 8'h80)) io_rdata = {6'h00, uart_rx_avail, uart_tx_busy};
+    else if (io_rd && (A[7:0] == 8'h42)) io_rdata = ck_l0;   // clock byte 0 (ms low)
+    else if (io_rd && (A[7:0] == 8'h43)) io_rdata = ck_l1;
+    else if (io_rd && (A[7:0] == 8'h44)) io_rdata = ck_l2;
+    else if (io_rd && (A[7:0] == 8'h45)) io_rdata = ck_l3;   // clock byte 3 (ms high)
     else if (io_rd && (A[7:0] == 8'h20)) io_rdata = rd_dout;   // RAM disk data
     else if (io_rd && (A[7:0] == 8'h50)) io_rdata = spi_dout;  // SPI data (read back)
     else if (io_rd && (A[7:0] == 8'h52)) io_rdata = {6'h00, 1'b0, spi_busy};  // SPI status

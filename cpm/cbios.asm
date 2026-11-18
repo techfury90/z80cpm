@@ -470,15 +470,22 @@ SDMAP_H0:
         MVI     A,00H
 SDMAP_H1:
         STA     SDOFF+1
-        ; SDOFF_lo = (record & 3) << 7   [*128, anded 0xFF]
+        ; SDOFF_lo = ((record & 3) << 7) & 0xFF   [*128]
+        ; NOTE: RAL (rotate through carry), NOT RLC.  RLC is CIRCULAR, so bit 7
+        ; wraps back into bit 0: (record&3)=2 gave 0x01 instead of 0x00 and
+        ; (record&3)=3 gave 0x81 instead of 0x80, i.e. records 2 and 3 of every
+        ; 512-byte sector were deblocked ONE BYTE HIGH.  CP/M still round-tripped
+        ; (READ used the same offset) but the on-card sector was shifted, so the
+        ; directory/data written to the SD was silently corrupt.
+        XRA     A               ; clear CY (and A)
         MOV     A,B
-        RLC                     ; *2
-        RLC                     ; *4
-        RLC                     ; *8
-        RLC                     ; *16
-        RLC                     ; *32
-        RLC                     ; *64
-        RLC                     ; *128
+        RAL                     ; *2
+        RAL                     ; *4
+        RAL                     ; *8
+        RAL                     ; *16
+        RAL                     ; *32
+        RAL                     ; *64
+        RAL                     ; *128
         STA     SDOFF
         ; SSEC = record >> 2 (16-bit logical right shift)
         XRA     A               ; A=0, CY=0
@@ -658,14 +665,24 @@ SDWB1:
         MVI     A,0FFH          ; 2 CRC bytes (CRC disabled)
         OUT     SD_DATA
         OUT     SD_DATA
-        IN      SD_DATA         ; data response (0x05 = accepted)
-        MVI     B,0FFH
-SDWB2:
-        IN      SD_DATA         ; wait for the card to finish programming
-        ANI     01H             ; MISO low = busy
-        JNZ     SDWB_DONE
+        ; read the data-response token: the card clocks 0xFF for a few bytes
+        ; first, then 0bxxx00101 (0x05) = data accepted.
+        MVI     B,16
+SDWB_RSP:
+        IN      SD_DATA
+        CPI     0FFH
+        JNZ     SDWB_GOT
         DCR     B
-        JNZ     SDWB2
+        JNZ     SDWB_RSP
+SDWB_GOT:
+        ANI     1FH             ; response bits 0-4; 0x05 = accepted
+        CPI     05H
+        JNZ     SDWB_ERR        ; CRC error / write rejected / no response
+        ; wait for the card to finish programming BEFORE releasing CS so the
+        ; very next command is not issued into a busy card
+        CALL    SD_READY
+        ORA     A
+        JNZ     SDWB_ERR
 SDWB_DONE:
         MVI     A,01H
         OUT     SD_CTL          ; release CS
@@ -677,9 +694,43 @@ SDWB_ERR:
         MVI     A,0FFH
         RET
 
+; SD_READY: wait until the card is NOT busy (MISO high, reads 0xFF) before a
+;   command is issued.  A card that is still programming a block drives MISO
+;   LOW, so bytes read as 0x00 -- and SD_SEND6's R1 read would accept that 0x00
+;   as "R1 = OK" and drop the command on the floor, leaving the card's data
+;   stream desynced.  That is what turned every write after the first into
+;   "Bad Sector".  Timeout ~260k port reads (~0.4 s at 25 MHz), which covers the
+;   SD spec's 250 ms worst-case block-programming time.
+;   Returns A=0 ready / A=0FFh + CY on timeout.  Clobbers A,B,C.  Preserves D,H,L.
+SD_READY:
+        PUSH    D
+        MVI     D,04H           ; 4 x 65536 port reads
+SDRDY0:
+        LXI     B,0000H
+SDRDY1:
+        IN      SD_DATA         ; 0xFF = idle, 0x00 = still programming
+        CPI     0FFH
+        JZ      SDRDY_OK
+        DCX     B
+        MOV     A,B
+        ORA     C
+        JNZ     SDRDY1
+        DCR     D
+        JNZ     SDRDY0
+        POP     D
+        STC
+        RET
+SDRDY_OK:
+        POP     D
+        XRA     A               ; A=0, clear CY
+        RET
+
 ; SD_SEND6: transmit the 6-byte command at (HL), then read the R1 status byte.
 ;   Returns A = R1 (0FFh if no valid response after 16 bytes of clocking).
 SD_SEND6:
+        PUSH    H
+        CALL    SD_READY        ; never issue a command into a busy card
+        POP     H
         MVI     B,6
 SD6_TX:
         MOV     A,M

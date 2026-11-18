@@ -480,8 +480,40 @@ SDI_OK:
         MVI     A,00H
         RET
 
+; SD_READY: clock 0FFh until the card is NOT busy (MISO high).  A card still
+;   programming drives MISO LOW (reads 00h); issuing a command then makes
+;   SD_SEND6 accept that 00h as "R1 = OK" and drop the command, desyncing the
+;   stream -- the cause of a write that silently no-ops and of 'F' needing a
+;   second pass.  Timeout ~260k reads (~0.4 s at 25 MHz).
+;   Returns A=0 ready / A=0FFh + CY on timeout.  Clobbers A,B,C.  Preserves D,H,L.
+SD_READY:
+        PUSH    D
+        MVI     D,04H
+SDRDY0:
+        LXI     B,0000H
+SDRDY1:
+        IN      SDDAT
+        CPI     0FFH
+        JZ      SDRDY_OK
+        DCX     B
+        MOV     A,B
+        ORA     C
+        JNZ     SDRDY1
+        DCR     D
+        JNZ     SDRDY0
+        POP     D
+        STC
+        RET
+SDRDY_OK:
+        POP     D
+        XRA     A
+        RET
+
 ; SD_SEND6: send 6-byte command at (HL), read R1.  A = R1 (0FFh = none).
 SD_SEND6:
+        PUSH    H
+        CALL    SD_READY        ; never issue a command into a busy card
+        POP     H
         MVI     B,6
 SD6_TX:
         MOV     A,M
@@ -618,15 +650,23 @@ SWB_LP:
         MVI     A,0FFH          ; 2 CRC bytes (CRC off)
         OUT     SDDAT
         OUT     SDDAT
-        IN      SDDAT           ; data response (0x05 = OK)
-        ; wait for the card not busy (read until it stops driving low)
-        MVI     B,0FFH
-SWB_BUSY:
+        ; data-response token: 0FFh filler first, then 0bxxx00101 (05h) = OK
+        MVI     B,16
+SWB_RSP:
         IN      SDDAT
-        ANI     01H             ; busy = MISO low (0x00) while programming
-        JNZ     SWB_DONE
+        CPI     0FFH
+        JNZ     SWB_GOT
         DCR     B
-        JNZ     SWB_BUSY
+        JNZ     SWB_RSP
+SWB_GOT:
+        ANI     1FH             ; response bits 0-4; 05h = accepted
+        CPI     05H
+        JNZ     SWB_ERR         ; CRC error / write rejected / no response
+        ; wait for the card to finish programming BEFORE releasing CS, so the
+        ; next command is not issued into a busy card
+        CALL    SD_READY
+        ORA     A
+        JNZ     SWB_ERR
 SWB_DONE:
         MVI     A,01H
         OUT     SDCTL           ; release CS

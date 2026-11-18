@@ -19,8 +19,11 @@ bdos_calls=[]
 RETS=[]
 
 class SDCard:
+    BUSY_BYTES = int(__import__('os').environ.get('SD_BUSY','8000'))      # read clocks the card stays busy after a write
     def __init__(self):
         self.cs = 1
+        self.busy = 0
+        self.data_resp_pending = False
         self.tx = []                 # command bytes accumulated while selected
         self.resp = collections.deque()
         self.acmd = 0
@@ -40,6 +43,9 @@ class SDCard:
         self.blocks[n] = bytearray(data)
 
     def out(self, byte):
+        if self.busy:            # card ignores everything while programming
+            self.busy -= 1
+            return
         # handle the write data phase (token/data/crc) first
         if self.write_state == 'token':
             self.tx = []             # drop any stray command accumulation
@@ -60,7 +66,8 @@ class SDCard:
             if self.write_crc == 2:
                 self._store(self.write_blk, self.write_buf)
                 self.write_state = None
-                self.resp.append(0x05)   # data response OK
+                self.resp.append(0x05)   # data response OK (clocked before busy)
+                self.data_resp_pending = True
             return
         # otherwise accumulate a command (only while selected)
         if self.cs == 0:
@@ -95,7 +102,16 @@ class SDCard:
             self.resp.append(0x00)
 
     def read(self):
-        return self.resp.popleft() if self.resp else 0xFF
+        if self.busy:
+            self.busy -= 1
+            return 0x00              # MISO low while programming
+        if self.resp:
+            b = self.resp.popleft()
+            if self.data_resp_pending and b == 0x05:
+                self.data_resp_pending = False
+                self.busy = self.BUSY_BYTES
+            return b
+        return 0xFF
 
 SD = SDCard()
 
@@ -230,11 +246,14 @@ def bdos():
         stdout.extend(s); B=0; H=0; L=0
 
 # ---------------- interpreter loop ----------------
+PC_HOOK = None   # optional per-step sampler (set from test harnesses)
+
 def run(max_steps=2_000_000):
     global A,B,C,D,E,H,L,SP,PC,S,Z,AC,P,CY
     steps=0
     while steps<max_steps:
         steps+=1
+        if PC_HOOK is not None: PC_HOOK(PC)
         op=fetch()
         if op==0x76: break
         if 0x40<=op<=0x7F:
@@ -264,7 +283,7 @@ def run(max_steps=2_000_000):
         elif op==0x17: rol(True)
         elif op==0x1F: ror(True)
         elif op in (0x09,0x19,0x29,0x39):
-            rp=(op>>3)&7; ov=reg_pair(2)+reg_pair(rp); CY=1 if ov>0xFFFF else 0; set_reg_pair(2,ov)
+            rp=(op>>4)&3; ov=reg_pair(2)+reg_pair(rp); CY=1 if ov>0xFFFF else 0; set_reg_pair(2,ov)
         elif op==0x3A: A=read8(read16(PC)); PC+=2
         elif op==0x32: write8(read16(PC),A); PC+=2
         elif op==0x2A: set_reg_pair(2, read16(read16(PC))); PC+=2
@@ -323,7 +342,7 @@ def load(path, base=0x100):
 
 def main():
     global SP, PC
-    load('programs/sdtool.com', 0x100)
+    load(sys.argv[1] if len(sys.argv)>1 else 'programs/sdtool.com', 0x100)
     MEM[0xFC00]=0x76
     MEM[0xDFFF]=0xFC; MEM[0xDFFE]=0x00
     SP=0xDFFE; PC=0x0100

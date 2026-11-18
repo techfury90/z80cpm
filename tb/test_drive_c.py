@@ -15,7 +15,17 @@ import cpmsys_sim as S
 
 BUSY     = int(sys.argv[1]) if len(sys.argv)>1 else 3000
 MAXSTEPS = int(sys.argv[2]) if len(sys.argv)>2 else 40_000_000
+DROP     = float(sys.argv[3]) if len(sys.argv)>3 else 0.0  # >1: every Nth, <1: fraction
+TRI      = (len(sys.argv)>4 and sys.argv[4]=='tri')
+IMAGE    = sys.argv[5] if len(sys.argv)>5 else 'cpm/brevia2_cpm.bin'
 S.SD.BUSY_BYTES = BUSY
+S.SD.DROP_EVERY = DROP if DROP>1 else 0
+S.SD.DROP_PCT = DROP if DROP<1 else 0.0
+S.SD.TRISTATE_BUSY = TRI
+S.SD.FLAKY_BUSY = (len(sys.argv)>4 and sys.argv[4]=='flaky')
+print("image: %s"%IMAGE)
+print("card model: busy=%d clocks, drop every %s command, busy MISO %s"
+      %(BUSY, DROP or '-', 'flaky' if (len(sys.argv)>4 and sys.argv[4]=='flaky') else ('floats-high' if TRI else 'low')))
 
 SELBL=S.V('SELBL'); TRK=S.V('TRK'); SECN=S.V('SECN'); DMA=S.V('DMA')
 
@@ -23,7 +33,7 @@ FILES=[('PIP.COM','cpm/cpm22-from-source/nosrc/MAC/PIP.COM',2),
        ('ED1.COM','cpm/ED1.COM',6)]
 
 # ---------------- drive A: flash image with a CP/M directory ----------------
-img=open('cpm/brevia2_cpm.bin','rb').read()
+img=open(IMAGE,'rb').read()
 S.FL.mem[0:len(img)]=img                          # tracks 0-1 = boot image
 S.FL.mem[0x2000:0x3000]=b'\xE5'*0x1000             # dir = blocks 0-1 (4K)
 slot=0; blk_ok=True
@@ -47,7 +57,7 @@ for blk in range(1,9):
     S.SD.blocks[blk]=bytearray(b'\xE5'*512)
 
 # ---------------- boot ----------------
-S.load_bin('cpm/brevia2_cpm.bin',0xD000)
+S.load_bin(IMAGE,0xD000)
 S.PC=0xE600; S.SP=0xCDF0
 S.run(max_steps=3_000_000, until=lambda: 0xD000 <= S.PC < 0xD800)
 print("boot console: %r"%''.join(chr(c) for c in S.stdout))
@@ -91,4 +101,5 @@ for name,path,base in FILES:
           %(name, "byte-exact" if same else "MISMATCH",
             (" (read err %s)"%str(rerr)) if rerr else "", "byte-exact" if hsame else "CORRUPT"))
     allok = allok and same and hsame
+print("=== commands dropped by the card: %d of %d"%(S.SD.dropped, S.SD.cmds_seen))
 print("=== RESULT:", "PASS" if (allok and not err) else "FAIL")

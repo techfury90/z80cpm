@@ -389,7 +389,7 @@ READ:
         ORA     A
         JZ      READB           ; drive A (SELBL==0) -> SPI flash (boot drive)
         CPI     02H
-        JZ      READS           ; drive C (SELBL==2) -> SD card
+        JZ      READC           ; drive C (SELBL==2) -> SD card (with retry)
         ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR          ; set the disk data-pointer
@@ -415,7 +415,7 @@ WRITE:
         ORA     A
         JZ      WRITEB          ; drive A (SELBL==0) -> SPI flash (boot drive)
         CPI     02H
-        JZ      WRITES          ; drive C (SELBL==2) -> SD card
+        JZ      WRITEC          ; drive C (SELBL==2) -> SD card (with retry)
         ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR
@@ -511,6 +511,58 @@ SDMAP_H1:
         STA     BLKN+2
         MOV     A,L
         STA     BLKN+3
+        RET
+
+; ---- drive C: retry wrappers -------------------------------------------------
+; An SD transaction can fail TRANSIENTLY: a command issued while the card is
+; still internally busy is silently dropped (the MISO read then looks like
+; R1=OK or 0FFh), a response can be lost, or the boot-time handshake can fail
+; and leave drive C dead for the whole session.  A CP/M BIOS must not turn
+; those into a hard "Bad Sector" on the first try: retry the WHOLE operation up
+; to SDTRIES times, re-initialising the card between attempts.
+SDTRIES EQU     06H          ; attempts; each retry also WAITS before re-init
+READC:
+        MVI     A,SDTRIES
+        STA     SDTRY
+READC1:
+        CALL    READS
+        ORA     A
+        JZ      SDOP_OK
+        CALL    SD_RECOVER
+        ORA     A
+        JZ      READC1
+        RET                     ; out of tries -> A = 0FFh (real failure)
+WRITEC:
+        MVI     A,SDTRIES
+        STA     SDTRY
+WRITEC1:
+        CALL    WRITES
+        ORA     A
+        JZ      SDOP_OK
+        CALL    SD_RECOVER
+        ORA     A
+        JZ      WRITEC1
+        RET
+SDOP_OK:
+        XRA     A
+        RET
+; SD_RECOVER: another attempt allowed -> release CS, re-init the card, return
+;   A=0.  Out of tries -> release CS and return A=0FFh.  Clobbers A,BC,DE,HL.
+SD_RECOVER:
+        LDA     SDTRY
+        DCR     A
+        STA     SDTRY
+        JZ      SDRC_NO
+        MVI     A,01H
+        OUT     SD_CTL          ; release CS, give the card time to finish its
+        CALL    SD_DELAY        ; internal programming, then re-handshake
+        CALL    SD_INIT
+        XRA     A
+        RET
+SDRC_NO:
+        MVI     A,01H           ; release CS and report the failure
+        OUT     SD_CTL
+        MVI     A,0FFH
         RET
 
 ; READS: read one 128-byte CP/M record from the SD into the DMA buffer.
@@ -1149,5 +1201,6 @@ ALVC:   DS      32              ; allocation vector (DSM=251 -> 32 bytes)
 SDOFF:  DS      2               ; in-sector byte offset for the SD deblock
 BLKN:   DS      4               ; SD block number (32-bit, MSB first); SD block = SDPLBA + record/4
 SDCMDB: DS      6               ; SD command buffer (opcode + 4-byte arg + CRC)
+SDTRY:  DS      1               ; drive C: retry counter (READC/WRITEC)
 
         END

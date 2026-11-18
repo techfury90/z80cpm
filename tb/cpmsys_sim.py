@@ -21,11 +21,19 @@ steps=0
 
 # ------------------------------------------------------------------ models
 class SDCard:
-    BUSY_BYTES = 0     # read clocks the card stays busy (0x00 on MISO) after a write
+    BUSY_BYTES = 0     # EMULATED INSTRUCTIONS the card stays busy after a write
+                       # (time-based, like real hardware -- NOT per byte clocked)
+    DROP_EVERY = 0     # fault injection: silently ignore every Nth command
+    DROP_PCT = 0.0     # fault injection: drop this fraction of commands (random)
+    TRISTATE_BUSY = False  # busy reads 0xFF instead of 0x00 (MISO floats high)
+    FLAKY_BUSY = False     # busy reads a random mix of 0x00/0xFF (floating MISO)
+    _rng = 12345
     def __init__(self):
         self.cs = 1
-        self.busy = 0
+        self.busy_until = 0
         self.data_resp_pending = False
+        self.cmds_seen = 0
+        self.dropped = 0
         self.tx = []
         self.resp = collections.deque()
         self.acmd = 0
@@ -38,13 +46,27 @@ class SDCard:
         self.writes = []          # log of (blk, data) for forensics
         self.cid = bytes([0x40,0x53,0x44,0x42,0x52,0x45,0x56,0x31,0x04,
                           0x53,0x7F,0x80,0x0A,0x05,0x63,0x01])
+    def cs_edge(self, cs):
+        # A real card starts each transaction with a fresh command frame, aborts
+        # any half-received data block when CS# moves, and keeps nothing queued
+        # across transactions -- model all three, otherwise a dropped command
+        # leaves junk responses that make recovery look impossible.
+        if self.cs and not cs:
+            self.tx = []
+            self.resp.clear()
+            self.write_state = None
+        elif (not self.cs) and cs:
+            self.tx = []
+            self.write_state = None
+        self.cs = cs
     def _block(self,n): return self.blocks.get(n, bytearray([0xFF]*512))
     def _store(self,n,d):
         self.blocks[n]=bytearray(d)
         self.writes.append((n, bytes(d)))
+    def busy_now(self):
+        return steps < self.busy_until
     def out(self,b):
-        if self.busy:            # the card ignores everything (incl. commands) while programming
-            self.busy -= 1
+        if self.busy_now():      # ignores everything (incl. commands) while programming
             return
         if self.write_state=='token':
             self.tx=[]
@@ -70,6 +92,15 @@ class SDCard:
             if len(self.tx)==6:
                 self.process(self.tx[0]&0x3F,self.tx); self.tx=[]
     def process(self,cmd,tx):
+        if self.DROP_EVERY or self.DROP_PCT:
+            self.cmds_seen += 1
+            drop = (self.DROP_EVERY and self.cmds_seen % self.DROP_EVERY == 0)
+            if self.DROP_PCT:
+                self._rng = (self._rng * 1103515245 + 12345) & 0x7FFFFFFF
+                drop = drop or ((self._rng / 0x7FFFFFFF) < self.DROP_PCT)
+            if drop:
+                self.dropped += 1
+                return               # command silently ignored: no response at all
         blk=(tx[1]<<24)|(tx[2]<<16)|(tx[3]<<8)|tx[4]
         if cmd==0: self.resp.append(0x01)
         elif cmd==8: self.resp.append(0x01); self.resp.extend([0,0,1,0xAA])
@@ -86,14 +117,16 @@ class SDCard:
             self.resp.append(0x00); self.write_state='token'; self.write_blk=blk
         else: self.resp.append(0x00)
     def read(self):
-        if self.busy:
-            self.busy -= 1
-            return 0x00              # MISO held low while programming
+        if self.busy_now():
+            if self.FLAKY_BUSY:
+                self._rng = (self._rng * 1103515245 + 12345) & 0x7FFFFFFF
+                return 0xFF if (self._rng >> 16) & 1 else 0x00
+            return 0xFF if self.TRISTATE_BUSY else 0x00   # busy: low, or floats high
         if self.resp:
             b=self.resp.popleft()
             if self.data_resp_pending and b==0x05:
                 self.data_resp_pending=False
-                self.busy=self.BUSY_BYTES   # programming starts after the token
+                self.busy_until = steps + self.BUSY_BYTES   # programming starts after the token
             return b
         return 0xFF
 
@@ -187,7 +220,7 @@ def out_port(port,val):
     elif port==0x51: FL.sel(val&1)
     elif port==0x52: pass
     elif port==0x53: SD.out(val)
-    elif port==0x54: SD.cs = 1 if (val&1) else 0
+    elif port==0x54: SD.cs_edge(1 if (val&1) else 0)
     elif port==0x81: stdout.append(val)
     elif port==0x30: rom_banked=val&1
     # 0x40 sw / 0x41-0x45 ignore
@@ -409,7 +442,8 @@ def symtab(path='cpm/cbios.prn'):
         m=lab.match(line)
         if m: d[m.group(2)]=int(m.group(1),16)
     return d
-SYM=symtab()
+import os
+SYM=symtab(os.environ.get('CBPRN','cpm/cbios.prn'))
 def V(name):
     if name not in SYM: raise KeyError("no symbol %s in cbios.prn"%name)
     return SYM[name]

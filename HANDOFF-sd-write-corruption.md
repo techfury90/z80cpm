@@ -1,3 +1,41 @@
+
+## UPDATE (retry layer) — the failure is intermittent: retry, don't poll harder
+
+On the board `dir c:` failed **intermittently** even with the ready-wait. Cause:
+a card that is still programming may hold MISO low **or let it float**, and a
+floating MISO reads back as `0FFh` -- identical to idle. No amount of readiness
+polling can rule out a command landing in that window; it is dropped silently.
+
+Implemented (commit c32bc63 + 356b181):
+- `READC`/`WRITEC` wrap the whole drive-C op, up to **6 attempts**.
+- Between attempts `SD_RECOVER` releases CS, waits **`SD_RDLY` ~10 ms**, then
+  re-runs the full `SD_INIT` handshake (this also heals an init that failed at
+  boot -- BOOT ignores SD_INIT's return, so one bad handshake used to kill drive
+  C for the session). `SD_DELAY` (1.6 ms) was too short; a 20k-instruction busy
+  window outlived the entire retry budget.
+- Scratch vars `SDCMDB`/`SDTRY` now sit at 0xED1A/0xED20 (above CPMIMGLEN, in
+  the unused gap below RMWBUF). Image ends 0xECF2; ~13 bytes of code headroom
+  left, so trim rather than grow.
+
+Current fingerprint (`d e806 e815`): `3E 06 32 20 ED CD 4D E8 B7 CA 2E E8 CD 30 E8 B7`
+
+Simulator results (`tb/test_drive_c.py <busy_instr> <steps> <drop> <mode>`), card
+busy is now TIME-based and drops are random:
+
+| image | busy | faults | result |
+|---|---|---|---|
+| pre-retry c38c8124 | 3000 | 10% drops + flaky MISO | FAIL (4/61 dropped kills it) |
+| **7b30a3e8** | 3000 | 10% drops + flaky MISO | PASS (87/1020 dropped, byte-exact) |
+| **7b30a3e8** | 20000 | 10% drops + flaky MISO | PASS (97/1035 dropped, byte-exact) |
+| **7b30a3e8** | 3000 | none | PASS |
+
+Model-fidelity lessons that cost time: busy must be time-based (a per-clock-byte
+counter can never drain once the driver stops clocking), a periodic drop
+injector is pathological (retry emits exactly N-1 commands -> same command
+dropped forever), and CS# edges must abort the data phase or junk responses leak
+across transactions.
+
+---
 # HANDOFF — SD drive C: WRITE path corruption — **RESOLVED** (sim-verified)
 
 Two independent defects in the WRITE path. Both were reproduced deterministically

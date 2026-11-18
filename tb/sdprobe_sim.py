@@ -206,15 +206,16 @@ def bdos():
         A = 0
     elif func==2:
         stdout.append(chr(E)); A = 0
+        B = 0; H = 0; L = 0          # real BDOS func 2 clobbers B and HL
     elif func==6:
         if E==0xFF: A = 0
         elif E==0xFE: A = 0
-        else: stdout.append(chr(E)); A=0
+        else: stdout.append(chr(E)); A=0; B=0; H=0; L=0
     elif func==9:
         p=(D<<8)|E; s=[]
         while read8(p)!=0x24:
             s.append(chr(read8(p))); p=(p+1)&0xFFFF
-        stdout.extend(s); B=0
+        stdout.extend(s); B=0; H=0; L=0
     # func 1/2/6/9 only used here
 
 # ---------------- interpreter loop ----------------

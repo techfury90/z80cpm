@@ -41,9 +41,13 @@ START:
         MVI     B,8
 SD_DIAG:
         MOV     A,M
+        PUSH    H
+        PUSH    B               ; BDOS func2 clobbers B/HL -- save loop state
         CALL    PRHEX2
         MVI     E,' '
         CALL    CPUTC
+        POP     B
+        POP     H
         INX     H
         DCR     B
         JNZ     SD_DIAG
@@ -113,7 +117,11 @@ CID_OK:
         MVI     B,5
 CID_NM:
         MOV     E,M
+        PUSH    H
+        PUSH    B               ; BDOS func2 clobbers B/HL -- save loop state
         CALL    CPUTC
+        POP     B
+        POP     H
         INX     H
         DCR     B
         JNZ     CID_NM
@@ -164,9 +172,13 @@ BLK_OK:
         MVI     B,8             ; 4 LBA bytes + 4 size bytes
 MBR_LP:
         MOV     A,M
+        PUSH    H
+        PUSH    B               ; BDOS func2 clobbers B/HL -- save loop state
         CALL    PRHEX2
         MVI     E,' '
         CALL    CPUTC
+        POP     B
+        POP     H
         INX     H
         DCR     B
         JNZ     MBR_LP

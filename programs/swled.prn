@@ -187,8 +187,9 @@
    0223   21 b8 0b              LXI     H,3000          ; outer loop count
    0226                 DL1:
    0226   0e 06                 MVI     C,6
-   0228   1e fe                 MVI     E,0FEH
-   022a   cd 05 00              CALL    5               ; func6 E=0xFE: poll input, A=0 or key
+   0228   1e ff                 MVI     E,0FFH          ; func6 input mode (E=0FFh = dirinp). E=0FEh is STATUS and
+                                                        ; always returns 0 on this BDOS build, so the poll would hang.
+   022a   cd 05 00              CALL    5               ; returns the char in A, or 0 if none ready (non-blocking)
    022d   b7                    ORA     A
    022e   c2 39 02              JNZ     DLYKEY
    0231   2b                    DCX     H

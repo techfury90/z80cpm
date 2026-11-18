@@ -187,8 +187,9 @@ DELAY:
         LXI     H,3000          ; outer loop count
 DL1:
         MVI     C,6
-        MVI     E,0FEH
-        CALL    5               ; func6 E=0xFE: poll input, A=0 or key
+        MVI     E,0FFH          ; func6 input mode (E=0FFh = dirinp). E=0FEh is STATUS and
+                                ; always returns 0 on this BDOS build, so the poll would hang.
+        CALL    5               ; returns the char in A, or 0 if none ready (non-blocking)
         ORA     A
         JNZ     DLYKEY
         DCX     H

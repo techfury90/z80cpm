@@ -555,7 +555,7 @@ SD_RECOVER:
         JZ      SDRC_NO
         MVI     A,01H
         OUT     SD_CTL          ; release CS, give the card time to finish its
-        CALL    SD_DELAY        ; internal programming, then re-handshake
+        CALL    SD_RDLY         ; internal programming (~10 ms), then re-handshake
         CALL    SD_INIT
         XRA     A
         RET
@@ -870,6 +870,18 @@ SDDL:
         MOV     A,H
         ORA     L
         JNZ     SDDL
+        RET
+
+; SD_RDLY: ~10 ms recovery delay (65536 iterations).  Used BETWEEN drive-C retry
+;   attempts so a card that is still programming a block has time to finish --
+;   SD_DELAY (~1.6 ms) is far too short for that.
+SD_RDLY:
+        LXI     B,0000H
+SRDL1:
+        DCX     B
+        MOV     A,B
+        ORA     C
+        JNZ     SRDL1
         RET
 
 SDCMD0: DB      40H,00H,00H,00H,00H,95H

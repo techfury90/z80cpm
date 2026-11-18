@@ -124,11 +124,11 @@
    e63d   21 00 00              LXI     H,SYSCPP        ; disk byte 0 (system track 0)
    e640   11 00 d0              LXI     D,CCP           ; source = CCP image
    e643   01 00 08              LXI     B,2048          ; 2048 bytes
-   e646   cd 34 ea              CALL    RAMWR
+   e646   cd 3e ea              CALL    RAMWR
    e649   21 00 08              LXI     H,SYSBDS        ; disk byte 0x0800 (system track 0/1)
    e64c   11 00 d8              LXI     D,BDOSL         ; source = BDOS image
    e64f   01 00 0e              LXI     B,3584          ; 3584 bytes
-   e652   cd 34 ea              CALL    RAMWR
+   e652   cd 3e ea              CALL    RAMWR
                         ;
                         ; ---- the user DATA area is NOT formatted here --------------------------------
                         ; The diskutil formats the disk explicitly. The cold boot leaves the directory
@@ -137,7 +137,7 @@
                         ; 0x2000: a boot-format'd disk yields a clean NO FILE from DIR.
                         ;
                         ; ---- output the sign-on banner ---------------------------------------------
-   e655   21 95 eb              LXI     H,BANNER
+   e655   21 9f eb              LXI     H,BANNER
    e658   cd de e6              CALL    PRTSTR
                         ;
                         ; ---- initialize the SD card (drive C:) so it is ready if logged in ----------
@@ -145,7 +145,7 @@
                         ;
                         ; ---- initialize the default DMA address and jump to the CCP -----------------
    e65e   21 80 00              LXI     H,DMA0
-   e661   22 c9 eb              SHLD    DMA
+   e661   22 d3 eb              SHLD    DMA
    e664   01 00 00              LXI     B,0000H         ; drive A (low nibble), user 0 (high nibble)
    e667   c3 00 d0              JMP     CCP             ; the CCP sets up its own stack and prints "A>"
                         
@@ -163,11 +163,11 @@
    e671   21 00 00              LXI     H,SYSCPP
    e674   11 00 d0              LXI     D,CCP
    e677   01 00 08              LXI     B,2048
-   e67a   cd 42 ea              CALL    RAMRD
+   e67a   cd 4c ea              CALL    RAMRD
    e67d   21 00 08              LXI     H,SYSBDS
    e680   11 00 d8              LXI     D,BDOSL
    e683   01 00 0e              LXI     B,3584
-   e686   cd 42 ea              CALL    RAMRD
+   e686   cd 4c ea              CALL    RAMRD
                         ;
                         ; ---- restore page-zero vectors (a transient program may have clobbered them) -
    e689   cd 92 e6              CALL    SETVEC
@@ -272,7 +272,7 @@
                         ;   C>1 -> error.
    e6f7                 SELDSK:
    e6f7   79                    MOV     A,C
-   e6f8   32 c6 eb              STA     SELBL           ; remember the selected drive number
+   e6f8   32 d0 eb              STA     SELBL           ; remember the selected drive number
    e6fb   b7                    ORA     A
    e6fc   ca 14 e7              JZ      SELD0           ; C=0 -> drive A
    e6ff   fe 01                 CPI     01H
@@ -286,43 +286,43 @@
    e711   3e ff                 MVI     A,0FFH
    e713   c9                    RET
    e714                 SELD0:
-   e714   21 d0 eb              LXI     H,DPH           ; drive A disk parameter header (SPI flash)
+   e714   21 da eb              LXI     H,DPH           ; drive A disk parameter header (SPI flash)
    e717   c9                    RET
    e718                 SELD1:
-   e718   21 78 ec              LXI     H,DPHB          ; drive B disk parameter header (RAM disk)
+   e718   21 82 ec              LXI     H,DPHB          ; drive B disk parameter header (RAM disk)
    e71b   c9                    RET
    e71c                 SELD2:
-   e71c   21 ba ec              LXI     H,DPHC          ; drive C disk parameter header (SD card)
+   e71c   21 c4 ec              LXI     H,DPHC          ; drive C disk parameter header (SD card)
    e71f   c9                    RET
    e720                 SELD3:
-   e720   21 ca ec              LXI     H,DPHD          ; drive D disk parameter header (SD partition 2, future)
+   e720   21 d4 ec              LXI     H,DPHD          ; drive D disk parameter header (SD partition 2, future)
    e723   c9                    RET
                         
                         ; HOME: move to track 0, sector 0.
    e724                 HOME:
    e724   3e 00                 MVI     A,00H
-   e726   32 c7 eb              STA     TRK
-   e729   32 c8 eb              STA     SECN
+   e726   32 d1 eb              STA     TRK
+   e729   32 d2 eb              STA     SECN
    e72c   c9                    RET
                         
                         ; SETTRK: set the current track (register C).
    e72d                 SETTRK:
    e72d   79                    MOV     A,C
-   e72e   32 c7 eb              STA     TRK
+   e72e   32 d1 eb              STA     TRK
    e731   c9                    RET
                         
                         ; SETSEC: set the current sector (register C).
    e732                 SETSEC:
    e732   79                    MOV     A,C
-   e733   32 c8 eb              STA     SECN
+   e733   32 d2 eb              STA     SECN
    e736   c9                    RET
                         
                         ; SETDMA: set the DMA buffer address (registers B,C).
    e737                 SETDMA:
    e737   79                    MOV     A,C
-   e738   32 c9 eb              STA     DMA
+   e738   32 d3 eb              STA     DMA
    e73b   78                    MOV     A,B
-   e73c   32 ca eb              STA     DMA+1
+   e73c   32 d4 eb              STA     DMA+1
    e73f   c9                    RET
                         
                         ; SECTRAN: sector translate = identity.  The requested sector (BC) is returned
@@ -340,7 +340,7 @@
                         ;   re-added here.
                         ; ============================================================================
    e743                 CALC:
-   e743   3a c7 eb              LDA     TRK
+   e743   3a d1 eb              LDA     TRK
    e746   6f                    MOV     L,A
    e747   26 00                 MVI     H,00H           ; HL = TRK
    e749   29                    DAD     H               ; *2
@@ -357,7 +357,7 @@
    e754   29                    DAD     H               ; *4096  -> HL = TRK*4096
    e755   44                    MOV     B,H
    e756   4d                    MOV     C,L             ; BC = TRK*4096
-   e757   3a c8 eb              LDA     SECN
+   e757   3a d2 eb              LDA     SECN
    e75a   6f                    MOV     L,A
    e75b   26 00                 MVI     H,00H           ; HL = SECN
    e75d   29                    DAD     H               ; *2
@@ -385,15 +385,15 @@
                         ;   Returns A=0 on success (RAM disk is error-free -> always 0).
                         ; ============================================================================
    e76d                 READ:
-   e76d   3a c6 eb              LDA     SELBL
+   e76d   3a d0 eb              LDA     SELBL
    e770   b7                    ORA     A
-   e771   ca 28 eb              JZ      READB           ; drive A (SELBL==0) -> SPI flash (boot drive)
+   e771   ca 32 eb              JZ      READB           ; drive A (SELBL==0) -> SPI flash (boot drive)
    e774   fe 02                 CPI     02H
    e776   ca 06 e8              JZ      READC           ; drive C (SELBL==2) -> SD card (with retry)
                                 ; ---- drive B: RAM disk path ----
    e779   cd 43 e7              CALL    CALC            ; HL = RAM-disk byte address
    e77c   cd 66 e7              CALL    RAMPTR          ; set the disk data-pointer
-   e77f   2a c9 eb              LHLD    DMA
+   e77f   2a d3 eb              LHLD    DMA
    e782   54                    MOV     D,H
    e783   5d                    MOV     E,L             ; DE = DMA destination
    e784   06 80                 MVI     B,128
@@ -411,15 +411,15 @@
                         ;   Returns A=0 on success.
                         ; ============================================================================
    e791                 WRITE:
-   e791   3a c6 eb              LDA     SELBL
+   e791   3a d0 eb              LDA     SELBL
    e794   b7                    ORA     A
-   e795   ca 39 eb              JZ      WRITEB          ; drive A (SELBL==0) -> SPI flash (boot drive)
+   e795   ca 43 eb              JZ      WRITEB          ; drive A (SELBL==0) -> SPI flash (boot drive)
    e798   fe 02                 CPI     02H
    e79a   ca 1a e8              JZ      WRITEC          ; drive C (SELBL==2) -> SD card (with retry)
                                 ; ---- drive B: RAM disk path ----
    e79d   cd 43 e7              CALL    CALC            ; HL = RAM-disk byte address
    e7a0   cd 66 e7              CALL    RAMPTR
-   e7a3   2a c9 eb              LHLD    DMA
+   e7a3   2a d3 eb              LHLD    DMA
    e7a6   54                    MOV     D,H
    e7a7   5d                    MOV     E,L             ; DE = DMA source
    e7a8   06 80                 MVI     B,128
@@ -446,7 +446,7 @@
                         ;   the in-sector byte offset (SDOFF, 16-bit) for the current 128-byte record.
                         ;   record = TRK*SPT + SECN = TRK*32 + SECN.
    e7b5                 SDMAP:
-   e7b5   3a c7 eb              LDA     TRK
+   e7b5   3a d1 eb              LDA     TRK
    e7b8   6f                    MOV     L,A
    e7b9   26 00                 MVI     H,00H
    e7bb   29                    DAD     H               ; *2
@@ -454,7 +454,7 @@
    e7bd   29                    DAD     H               ; *8
    e7be   29                    DAD     H               ; *16
    e7bf   29                    DAD     H               ; *32  -> HL = TRK*32
-   e7c0   3a c8 eb              LDA     SECN
+   e7c0   3a d2 eb              LDA     SECN
    e7c3   5f                    MOV     E,A
    e7c4   16 00                 MVI     D,00H
    e7c6   19                    DAD     D               ; HL = record
@@ -469,7 +469,7 @@
    e7d5                 SDMAP_H0:
    e7d5   3e 00                 MVI     A,00H
    e7d7                 SDMAP_H1:
-   e7d7   32 0b ed              STA     SDOFF+1
+   e7d7   32 15 ed              STA     SDOFF+1
                                 ; SDOFF_lo = ((record & 3) << 7) & 0xFF   [*128]
                                 ; NOTE: RAL (rotate through carry), NOT RLC.  RLC is CIRCULAR, so bit 7
                                 ; wraps back into bit 0: (record&3)=2 gave 0x01 instead of 0x00 and
@@ -486,7 +486,7 @@
    e7e0   17                    RAL                     ; *32
    e7e1   17                    RAL                     ; *64
    e7e2   17                    RAL                     ; *128
-   e7e3   32 0a ed              STA     SDOFF
+   e7e3   32 14 ed              STA     SDOFF
                                 ; SSEC = record >> 2 (16-bit logical right shift)
    e7e6   af                    XRA     A               ; A=0, CY=0
    e7e7   7c                    MOV     A,H
@@ -505,12 +505,12 @@
                                 ; BLKN = SDPLBA + SSEC  (SDPLBA=1)
    e7f4   23                    INX     H
    e7f5   3e 00                 MVI     A,00H
-   e7f7   32 0c ed              STA     BLKN+0
-   e7fa   32 0d ed              STA     BLKN+1
+   e7f7   32 16 ed              STA     BLKN+0
+   e7fa   32 17 ed              STA     BLKN+1
    e7fd   7c                    MOV     A,H
-   e7fe   32 0e ed              STA     BLKN+2
+   e7fe   32 18 ed              STA     BLKN+2
    e801   7d                    MOV     A,L
-   e802   32 0f ed              STA     BLKN+3
+   e802   32 19 ed              STA     BLKN+3
    e805   c9                    RET
                         
                         ; ---- drive C: retry wrappers -------------------------------------------------
@@ -523,7 +523,7 @@
    0006                 SDTRIES EQU     06H          ; attempts; each retry also WAITS before re-init
    e806                 READC:
    e806   3e 06                 MVI     A,SDTRIES
-   e808   32 16 ed              STA     SDTRY
+   e808   32 20 ed              STA     SDTRY
    e80b                 READC1:
    e80b   cd 4d e8              CALL    READS
    e80e   b7                    ORA     A
@@ -534,7 +534,7 @@
    e819   c9                    RET                     ; out of tries -> A = 0FFh (real failure)
    e81a                 WRITEC:
    e81a   3e 06                 MVI     A,SDTRIES
-   e81c   32 16 ed              STA     SDTRY
+   e81c   32 20 ed              STA     SDTRY
    e81f                 WRITEC1:
    e81f   cd 7a e8              CALL    WRITES
    e822   b7                    ORA     A
@@ -549,13 +549,13 @@
                         ; SD_RECOVER: another attempt allowed -> release CS, re-init the card, return
                         ;   A=0.  Out of tries -> release CS and return A=0FFh.  Clobbers A,BC,DE,HL.
    e830                 SD_RECOVER:
-   e830   3a 16 ed              LDA     SDTRY
+   e830   3a 20 ed              LDA     SDTRY
    e833   3d                    DCR     A
-   e834   32 16 ed              STA     SDTRY
+   e834   32 20 ed              STA     SDTRY
    e837   ca 46 e8              JZ      SDRC_NO
    e83a   3e 01                 MVI     A,01H
    e83c   d3 54                 OUT     SD_CTL          ; release CS, give the card time to finish its
-   e83e   cd 12 ea              CALL    SD_DELAY        ; internal programming, then re-handshake
+   e83e   cd 1c ea              CALL    SD_RDLY         ; internal programming (~10 ms), then re-handshake
    e841   cd c7 e9              CALL    SD_INIT
    e844   af                    XRA     A
    e845   c9                    RET
@@ -574,14 +574,14 @@
    e856   b7                    ORA     A
    e857   c2 79 e8              JNZ     READS_ERR
                                 ; copy RMWBUF+SDOFF (128 bytes) to the DMA buffer
-   e85a   2a c9 eb              LHLD    DMA
+   e85a   2a d3 eb              LHLD    DMA
    e85d   54                    MOV     D,H
    e85e   5d                    MOV     E,L             ; DE = DMA destination
    e85f   21 00 ef              LXI     H,RMWBUF
-   e862   3a 0a ed              LDA     SDOFF
+   e862   3a 14 ed              LDA     SDOFF
    e865   85                    ADD     L
    e866   6f                    MOV     L,A
-   e867   3a 0b ed              LDA     SDOFF+1
+   e867   3a 15 ed              LDA     SDOFF+1
    e86a   8c                    ADC     H
    e86b   67                    MOV     H,A             ; HL = RMWBUF + SDOFF
    e86c   06 80                 MVI     B,128
@@ -607,14 +607,14 @@
    e883   b7                    ORA     A
    e884   c2 b0 e8              JNZ     WRITES_ERR
                                 ; overlay the 128-byte DMA record at RMWBUF+SDOFF
-   e887   2a c9 eb              LHLD    DMA
+   e887   2a d3 eb              LHLD    DMA
    e88a   54                    MOV     D,H
    e88b   5d                    MOV     E,L             ; DE = DMA source
    e88c   21 00 ef              LXI     H,RMWBUF
-   e88f   3a 0a ed              LDA     SDOFF
+   e88f   3a 14 ed              LDA     SDOFF
    e892   85                    ADD     L
    e893   6f                    MOV     L,A
-   e894   3a 0b ed              LDA     SDOFF+1
+   e894   3a 15 ed              LDA     SDOFF+1
    e897   8c                    ADC     H
    e898   67                    MOV     H,A             ; HL = RMWBUF + SDOFF (in-buffer destination)
    e899   06 80                 MVI     B,128
@@ -640,19 +640,19 @@
    e8b1   3e 00                 MVI     A,00H
    e8b3   d3 54                 OUT     SD_CTL          ; select the SD card (CS low), fast
    e8b5   3e 51                 MVI     A,51H           ; CMD17 (read single block)
-   e8b7   32 10 ed              STA     SDCMDB
-   e8ba   3a 0c ed              LDA     BLKN+0
-   e8bd   32 11 ed              STA     SDCMDB+1
-   e8c0   3a 0d ed              LDA     BLKN+1
-   e8c3   32 12 ed              STA     SDCMDB+2
-   e8c6   3a 0e ed              LDA     BLKN+2
-   e8c9   32 13 ed              STA     SDCMDB+3
-   e8cc   3a 0f ed              LDA     BLKN+3
-   e8cf   32 14 ed              STA     SDCMDB+4
+   e8b7   32 1a ed              STA     SDCMDB
+   e8ba   3a 16 ed              LDA     BLKN+0
+   e8bd   32 1b ed              STA     SDCMDB+1
+   e8c0   3a 17 ed              LDA     BLKN+1
+   e8c3   32 1c ed              STA     SDCMDB+2
+   e8c6   3a 18 ed              LDA     BLKN+2
+   e8c9   32 1d ed              STA     SDCMDB+3
+   e8cc   3a 19 ed              LDA     BLKN+3
+   e8cf   32 1e ed              STA     SDCMDB+4
    e8d2   3e ff                 MVI     A,0FFH
-   e8d4   32 15 ed              STA     SDCMDB+5
+   e8d4   32 1f ed              STA     SDCMDB+5
    e8d7   e5                    PUSH    H
-   e8d8   21 10 ed              LXI     H,SDCMDB
+   e8d8   21 1a ed              LXI     H,SDCMDB
    e8db   cd 99 e9              CALL    SD_SEND6        ; A = R1 (should be 00)
    e8de   e1                    POP     H               ; restore the destination buffer
    e8df   fe 00                 CPI     00H
@@ -686,19 +686,19 @@
    e909   3e 00                 MVI     A,00H
    e90b   d3 54                 OUT     SD_CTL          ; select the SD card, fast
    e90d   3e 58                 MVI     A,58H           ; CMD24 (write single block)
-   e90f   32 10 ed              STA     SDCMDB
-   e912   3a 0c ed              LDA     BLKN+0
-   e915   32 11 ed              STA     SDCMDB+1
-   e918   3a 0d ed              LDA     BLKN+1
-   e91b   32 12 ed              STA     SDCMDB+2
-   e91e   3a 0e ed              LDA     BLKN+2
-   e921   32 13 ed              STA     SDCMDB+3
-   e924   3a 0f ed              LDA     BLKN+3
-   e927   32 14 ed              STA     SDCMDB+4
+   e90f   32 1a ed              STA     SDCMDB
+   e912   3a 16 ed              LDA     BLKN+0
+   e915   32 1b ed              STA     SDCMDB+1
+   e918   3a 17 ed              LDA     BLKN+1
+   e91b   32 1c ed              STA     SDCMDB+2
+   e91e   3a 18 ed              LDA     BLKN+2
+   e921   32 1d ed              STA     SDCMDB+3
+   e924   3a 19 ed              LDA     BLKN+3
+   e927   32 1e ed              STA     SDCMDB+4
    e92a   3e ff                 MVI     A,0FFH
-   e92c   32 15 ed              STA     SDCMDB+5
+   e92c   32 1f ed              STA     SDCMDB+5
    e92f   e5                    PUSH    H
-   e930   21 10 ed              LXI     H,SDCMDB
+   e930   21 1a ed              LXI     H,SDCMDB
    e933   cd 99 e9              CALL    SD_SEND6        ; A = R1 (should be 00)
    e936   e1                    POP     H               ; restore the source buffer
    e937   fe 00                 CPI     00H
@@ -832,12 +832,12 @@
    e9d5   3e 02                 MVI     A,02H           ; select the card (CS low), slow clock
    e9d7   d3 54                 OUT     SD_CTL
                                 ; CMD0 + read R1
-   e9d9   21 1c ea              LXI     H,SDCMD0
+   e9d9   21 26 ea              LXI     H,SDCMD0
    e9dc   cd 99 e9              CALL    SD_SEND6        ; A = R1 (01h = idle, or 0FFh if no response)
    e9df   fe 01                 CPI     01H
    e9e1   c2 0c ea              JNZ     SDI_FAIL
                                 ; CMD8 (SEND_IF_COND) - required before ACMD41 on SDHC/SDXC
-   e9e4   21 22 ea              LXI     H,SDCMD8
+   e9e4   21 2c ea              LXI     H,SDCMD8
    e9e7   cd 99 e9              CALL    SD_SEND6
    e9ea   db 53                 IN      SD_DATA         ; consume the 4-byte R7 payload
    e9ec   db 53                 IN      SD_DATA
@@ -846,9 +846,9 @@
                                 ; CMD55 + ACMD41 poll until the card leaves idle
    e9f2   16 c8                 MVI     D,200
    e9f4                 SDI_RDY:
-   e9f4   21 28 ea              LXI     H,SDCMD55
+   e9f4   21 32 ea              LXI     H,SDCMD55
    e9f7   cd 99 e9              CALL    SD_SEND6
-   e9fa   21 2e ea              LXI     H,SDACMD
+   e9fa   21 38 ea              LXI     H,SDACMD
    e9fd   cd 99 e9              CALL    SD_SEND6        ; A = R1
    ea00   fe 00                 CPI     00H
    ea02   ca 0f ea              JZ      SDI_OK
@@ -872,57 +872,69 @@
    ea18   c2 15 ea              JNZ     SDDL
    ea1b   c9                    RET
                         
-   ea1c   40 00 00 00   SDCMD0: DB      40H,00H,00H,00H,00H,95H
-   ea20   00 95         
-   ea22   48 00 00 01   SDCMD8: DB      48H,00H,00H,01H,0AAH,87H
-   ea26   aa 87         
-   ea28   77 00 00 00   SDCMD55: DB     77H,00H,00H,00H,00H,65H
-   ea2c   00 65         
-   ea2e   69 40 00 00   SDACMD: DB      69H,40H,00H,00H,00H,77H   ; HCS bit -> SDHC/SDXC
-   ea32   00 77         
+                        ; SD_RDLY: ~10 ms recovery delay (65536 iterations).  Used BETWEEN drive-C retry
+                        ;   attempts so a card that is still programming a block has time to finish --
+                        ;   SD_DELAY (~1.6 ms) is far too short for that.
+   ea1c                 SD_RDLY:
+   ea1c   01 00 00              LXI     B,0000H
+   ea1f                 SRDL1:
+   ea1f   0b                    DCX     B
+   ea20   78                    MOV     A,B
+   ea21   b1                    ORA     C
+   ea22   c2 1f ea              JNZ     SRDL1
+   ea25   c9                    RET
+                        
+   ea26   40 00 00 00   SDCMD0: DB      40H,00H,00H,00H,00H,95H
+   ea2a   00 95         
+   ea2c   48 00 00 01   SDCMD8: DB      48H,00H,00H,01H,0AAH,87H
+   ea30   aa 87         
+   ea32   77 00 00 00   SDCMD55: DB     77H,00H,00H,00H,00H,65H
+   ea36   00 65         
+   ea38   69 40 00 00   SDACMD: DB      69H,40H,00H,00H,00H,77H   ; HCS bit -> SDHC/SDXC
+   ea3c   00 77         
                         
                         ; ============================================================================
                         ;   RAM-DISK BLOCK COPY / FILL HELPERS (used by BOOT/WBOOT)
                         ; ============================================================================
                         ; RAMWR: write BC bytes from (DE) to the RAM disk starting at disk byte addr HL.
-   ea34                 RAMWR:
-   ea34   cd 66 e7              CALL    RAMPTR
-   ea37                 RAMWR1:
-   ea37   1a                    LDAX    D
-   ea38   d3 20                 OUT     20H
-   ea3a   13                    INX     D
-   ea3b   0b                    DCX     B
-   ea3c   78                    MOV     A,B
-   ea3d   b1                    ORA     C
-   ea3e   c2 37 ea              JNZ     RAMWR1
-   ea41   c9                    RET
+   ea3e                 RAMWR:
+   ea3e   cd 66 e7              CALL    RAMPTR
+   ea41                 RAMWR1:
+   ea41   1a                    LDAX    D
+   ea42   d3 20                 OUT     20H
+   ea44   13                    INX     D
+   ea45   0b                    DCX     B
+   ea46   78                    MOV     A,B
+   ea47   b1                    ORA     C
+   ea48   c2 41 ea              JNZ     RAMWR1
+   ea4b   c9                    RET
                         
                         ; RAMRD: read BC bytes from the RAM disk at disk byte addr HL into (DE).
-   ea42                 RAMRD:
-   ea42   cd 66 e7              CALL    RAMPTR
-   ea45                 RAMRD1:
-   ea45   db 20                 IN      20H
-   ea47   12                    STAX    D
-   ea48   13                    INX     D
-   ea49   0b                    DCX     B
-   ea4a   78                    MOV     A,B
-   ea4b   b1                    ORA     C
-   ea4c   c2 45 ea              JNZ     RAMRD1
-   ea4f   c9                    RET
+   ea4c                 RAMRD:
+   ea4c   cd 66 e7              CALL    RAMPTR
+   ea4f                 RAMRD1:
+   ea4f   db 20                 IN      20H
+   ea51   12                    STAX    D
+   ea52   13                    INX     D
+   ea53   0b                    DCX     B
+   ea54   78                    MOV     A,B
+   ea55   b1                    ORA     C
+   ea56   c2 4f ea              JNZ     RAMRD1
+   ea59   c9                    RET
                         
                         ; RAMFILL: fill BC bytes on the RAM disk starting at disk byte addr HL with
                         ; the value in A.
-   ea50                 RAMFILL:
-   ea50   32 cb eb              STA     FILLV
-   ea53   cd 66 e7              CALL    RAMPTR
-   ea56                 RAMFILL1:
-   ea56   3a cb eb              LDA     FILLV
-   ea59   d3 20                 OUT     20H
-   ea5b   0b                    DCX     B
-   ea5c   78                    MOV     A,B
-   ea5d   b1                    ORA     C
-   ea5e   c2 56 ea              JNZ     RAMFILL1
-   ea61   c9                    RET
+   ea5a                 RAMFILL:
+   ea5a   32 d5 eb              STA     FILLV
+   ea5d   cd 66 e7              CALL    RAMPTR
+   ea60                 RAMFILL1:
+   ea60   3a d5 eb              LDA     FILLV
+   ea63   d3 20                 OUT     20H
+   ea65   0b                    DCX     B
+   ea66   78                    MOV     A,B
+   ea67   b1                    ORA     C
+   ea68   c2 60 ea              JNZ     RAMFILL1
+   ea6b   c9                    RET
                         
                         ; ============================================================================
                         ;   DRIVE A:  SPI FLASH  (ISSI IS25LD040 as CP/M drive A:)
@@ -983,42 +995,42 @@
                         
                         ; ---------------- CS# and byte transfer primitives ----------------
                         ; SPI_SEL: pull CS# low (select the flash).  Clobbers A.
-   ea62   3e 00         SPI_SEL: MVI     A,00H
-   ea64   d3 51                  OUT     SPI_CTL
-   ea66   c9                     RET
+   ea6c   3e 00         SPI_SEL: MVI     A,00H
+   ea6e   d3 51                  OUT     SPI_CTL
+   ea70   c9                     RET
                         
                         ; SPI_REL: release CS# high (deselect the flash).  Clobbers A.
-   ea67   3e 01         SPI_REL: MVI     A,01H
-   ea69   d3 51                  OUT     SPI_CTL
-   ea6b   c9                     RET
+   ea71   3e 01         SPI_REL: MVI     A,01H
+   ea73   d3 51                  OUT     SPI_CTL
+   ea75   c9                     RET
                         
                         ; SPI_XMIT: clock the byte in A out to the flash; the byte returned is
                         ; discarded.  A is unchanged (OUT does not modify A).  No other regs touched.
-   ea6c   d3 50         SPI_XMIT: OUT     SPI_DATA
-   ea6e   c9                     RET
+   ea76   d3 50         SPI_XMIT: OUT     SPI_DATA
+   ea78   c9                     RET
                         
                         ; SPI_WAIT: poll the RDSR (0x05) status until WIP (bit0) clears.  Re-selects
                         ; the flash and keeps CS# low across the status reads.  Clobbers A.
-   ea6f   cd 62 ea      SPI_WAIT: CALL    SPI_SEL
-   ea72   3e 05                  MVI     A,05H
-   ea74   cd 6c ea               CALL    SPI_XMIT                ; RDSR opcode
-   ea77   db 50         SPW:     IN      SPI_DATA                ; read status byte
-   ea79   e6 01                  ANI     01H                     ; WIP (bit0) still busy?
-   ea7b   c2 77 ea               JNZ     SPW                     ; loop until the flash is idle
-   ea7e   cd 67 ea               CALL    SPI_REL
-   ea81   c9                     RET
+   ea79   cd 6c ea      SPI_WAIT: CALL    SPI_SEL
+   ea7c   3e 05                  MVI     A,05H
+   ea7e   cd 76 ea               CALL    SPI_XMIT                ; RDSR opcode
+   ea81   db 50         SPW:     IN      SPI_DATA                ; read status byte
+   ea83   e6 01                  ANI     01H                     ; WIP (bit0) still busy?
+   ea85   c2 81 ea               JNZ     SPW                     ; loop until the flash is idle
+   ea88   cd 71 ea               CALL    SPI_REL
+   ea8b   c9                     RET
                         
                         ; ---------------- 24-bit address send ----------------
                         ; SPI_ADDR: send the three FBADDR bytes as the command address (A23-A16,
                         ; A15-A8, A7-A0, MSB first).  Must be called with CS# already selected.
                         ; Clobbers A.
-   ea82   3a f5 ea      SPI_ADDR: LDA     FBADDR+2
-   ea85   cd 6c ea               CALL    SPI_XMIT                ; A23-A16
-   ea88   3a f4 ea               LDA     FBADDR+1
-   ea8b   cd 6c ea               CALL    SPI_XMIT                ; A15-A8
-   ea8e   3a f3 ea               LDA     FBADDR
-   ea91   cd 6c ea               CALL    SPI_XMIT                ; A7-A0
-   ea94   c9                     RET
+   ea8c   3a ff ea      SPI_ADDR: LDA     FBADDR+2
+   ea8f   cd 76 ea               CALL    SPI_XMIT                ; A23-A16
+   ea92   3a fe ea               LDA     FBADDR+1
+   ea95   cd 76 ea               CALL    SPI_XMIT                ; A15-A8
+   ea98   3a fd ea               LDA     FBADDR
+   ea9b   cd 76 ea               CALL    SPI_XMIT                ; A7-A0
+   ea9e   c9                     RET
                         
                         ; ---------------- page program (0x02) ----------------
                         ; SPI_PAGE: program a full 256-byte page from (HL) at the page-aligned FBADDR.
@@ -1027,61 +1039,61 @@
                         ; -- REQUIRED before every program/erase on the IS25LD040), then the page-
                         ; program command and 256 data bytes in one CS#-low sequence.  Clobbers A, B,
                         ; HL (HL is advanced 256 bytes / left at HL+256).
-   ea95   cd 62 ea      SPI_PAGE: CALL    SPI_SEL
-   ea98   3e 06                  MVI     A,06H                   ; WREN (mandatory before every program)
-   ea9a   cd 6c ea               CALL    SPI_XMIT
-   ea9d   cd 67 ea               CALL    SPI_REL                 ; latch WREN (CS# must toggle)
-   eaa0   cd 62 ea               CALL    SPI_SEL
-   eaa3   3e 02                  MVI     A,02H                   ; Page Program opcode
-   eaa5   cd 6c ea               CALL    SPI_XMIT
-   eaa8   cd 82 ea               CALL    SPI_ADDR
-   eaab   06 00                  MVI     B,00H                   ; 256 bytes (0 wraps to 256 on DCR)
-   eaad   7e            SPG1:    MOV     A,M
-   eaae   cd 6c ea               CALL    SPI_XMIT
-   eab1   23                     INX     H
-   eab2   05                     DCR     B
-   eab3   c2 ad ea               JNZ     SPG1
-   eab6   cd 67 ea               CALL    SPI_REL
-   eab9   cd 6f ea               CALL    SPI_WAIT                ; wait for the program to settle
-   eabc   c9                     RET
+   ea9f   cd 6c ea      SPI_PAGE: CALL    SPI_SEL
+   eaa2   3e 06                  MVI     A,06H                   ; WREN (mandatory before every program)
+   eaa4   cd 76 ea               CALL    SPI_XMIT
+   eaa7   cd 71 ea               CALL    SPI_REL                 ; latch WREN (CS# must toggle)
+   eaaa   cd 6c ea               CALL    SPI_SEL
+   eaad   3e 02                  MVI     A,02H                   ; Page Program opcode
+   eaaf   cd 76 ea               CALL    SPI_XMIT
+   eab2   cd 8c ea               CALL    SPI_ADDR
+   eab5   06 00                  MVI     B,00H                   ; 256 bytes (0 wraps to 256 on DCR)
+   eab7   7e            SPG1:    MOV     A,M
+   eab8   cd 76 ea               CALL    SPI_XMIT
+   eabb   23                     INX     H
+   eabc   05                     DCR     B
+   eabd   c2 b7 ea               JNZ     SPG1
+   eac0   cd 71 ea               CALL    SPI_REL
+   eac3   cd 79 ea               CALL    SPI_WAIT                ; wait for the program to settle
+   eac6   c9                     RET
                         
                         ; ---------------- bulk read (0x03) ----------------
                         ; SPI_READBUF: read BC bytes from FBADDR into (DE), keeping CS# low across the
                         ; whole burst (this is the same pattern the proven diskutil DO_READ uses for
                         ; 16 bytes, extended to an arbitrary count).  Clobbers A, B, C, D, E (BC runs
                         ; down to 0, DE advances past the last byte read).
-   eabd   cd 62 ea      SPI_READBUF: CALL    SPI_SEL
-   eac0   3e 03                  MVI     A,03H                   ; Read opcode
-   eac2   cd 6c ea               CALL    SPI_XMIT
-   eac5   cd 82 ea               CALL    SPI_ADDR
-   eac8   db 50         SRDB:    IN      SPI_DATA                ; next byte the flash clocks out
-   eaca   12                     STAX    D
-   eacb   13                     INX     D
-   eacc   0b                     DCX     B
-   eacd   78                     MOV     A,B
-   eace   b1                     ORA     C
-   eacf   c2 c8 ea               JNZ     SRDB
-   ead2   cd 67 ea               CALL    SPI_REL
-   ead5   c9                     RET
+   eac7   cd 6c ea      SPI_READBUF: CALL    SPI_SEL
+   eaca   3e 03                  MVI     A,03H                   ; Read opcode
+   eacc   cd 76 ea               CALL    SPI_XMIT
+   eacf   cd 8c ea               CALL    SPI_ADDR
+   ead2   db 50         SRDB:    IN      SPI_DATA                ; next byte the flash clocks out
+   ead4   12                     STAX    D
+   ead5   13                     INX     D
+   ead6   0b                     DCX     B
+   ead7   78                     MOV     A,B
+   ead8   b1                     ORA     C
+   ead9   c2 d2 ea               JNZ     SRDB
+   eadc   cd 71 ea               CALL    SPI_REL
+   eadf   c9                     RET
                         
                         ; ---------------- 4KB sector erase (0x20) ----------------
                         ; SPI_ERASE_SECT: erase the 4KB sector containing FBADDR.  FBADDR must be
                         ; pre-set to the sector base (the low 12 bits clear) so only that one sector
                         ; is erased.  Issues WREN, then the sector-erase command.  Clobbers A.
-   ead6   cd 62 ea      SPI_ERASE_SECT: CALL    SPI_SEL
-   ead9   3e 06                  MVI     A,06H                   ; WREN (required before every program)
-   eadb   cd 6c ea               CALL    SPI_XMIT
-   eade   cd 67 ea               CALL    SPI_REL                 ; latch WREN
-   eae1   cd 62 ea               CALL    SPI_SEL
-   eae4   3e 20                  MVI     A,20H                   ; Sector Erase (4KB) opcode
-   eae6   cd 6c ea               CALL    SPI_XMIT
-   eae9   cd 82 ea               CALL    SPI_ADDR
-   eaec   cd 67 ea               CALL    SPI_REL
-   eaef   cd 6f ea               CALL    SPI_WAIT                ; wait for the erase to finish
-   eaf2   c9                     RET
+   eae0   cd 6c ea      SPI_ERASE_SECT: CALL    SPI_SEL
+   eae3   3e 06                  MVI     A,06H                   ; WREN (required before every program)
+   eae5   cd 76 ea               CALL    SPI_XMIT
+   eae8   cd 71 ea               CALL    SPI_REL                 ; latch WREN
+   eaeb   cd 6c ea               CALL    SPI_SEL
+   eaee   3e 20                  MVI     A,20H                   ; Sector Erase (4KB) opcode
+   eaf0   cd 76 ea               CALL    SPI_XMIT
+   eaf3   cd 8c ea               CALL    SPI_ADDR
+   eaf6   cd 71 ea               CALL    SPI_REL
+   eaf9   cd 79 ea               CALL    SPI_WAIT                ; wait for the erase to finish
+   eafc   c9                     RET
                         
                         ; ---------------- FBADDR: the 24-bit address block ----------------
-   eaf3                 FBADDR:  DS      3                       ; A7-A0, A15-A8, A23-A16
+   eafd                 FBADDR:  DS      3                       ; A7-A0, A15-A8, A23-A16
                         
                         
                         ; FLADDR: compute FBADDR = TRK*0x1000 + SECN*0x80, the 24-bit flash byte address
@@ -1091,134 +1103,134 @@
                         ;     byte0 (A7-A0)   = (SECN & 1) << 7
                         ; (SECN*0x80 < 0x1000 so it never carries into the TRK*0x1000 field.)  Clobbers
                         ; A, B, C, D.
-   eaf6                 FLADDR:
-   eaf6   3a c7 eb              LDA     TRK
-   eaf9   47                    MOV     B,A             ; B = TRK
-   eafa   3a c8 eb              LDA     SECN
-   eafd   4f                    MOV     C,A             ; C = SECN
+   eb00                 FLADDR:
+   eb00   3a d1 eb              LDA     TRK
+   eb03   47                    MOV     B,A             ; B = TRK
+   eb04   3a d2 eb              LDA     SECN
+   eb07   4f                    MOV     C,A             ; C = SECN
                                 ; byte2 (A23-A16) = TRK >> 4
-   eafe   78                    MOV     A,B
-   eaff   e6 f0                 ANI     0F0H
-   eb01   0f                    RRC
-   eb02   0f                    RRC
-   eb03   0f                    RRC
-   eb04   0f                    RRC
-   eb05   32 f5 ea              STA     FBADDR+2
-                                ; byte1 (A15-A8) = ((TRK & 0x0F) << 4) | (SECN >> 1)
    eb08   78                    MOV     A,B
-   eb09   e6 0f                 ANI     0FH
-   eb0b   07                    RLC
-   eb0c   07                    RLC
-   eb0d   07                    RLC
-   eb0e   07                    RLC
-   eb0f   57                    MOV     D,A
-   eb10   79                    MOV     A,C
-   eb11   0f                    RRC
-   eb12   e6 7f                 ANI     7FH
-   eb14   b2                    ORA     D
-   eb15   32 f4 ea              STA     FBADDR+1
+   eb09   e6 f0                 ANI     0F0H
+   eb0b   0f                    RRC
+   eb0c   0f                    RRC
+   eb0d   0f                    RRC
+   eb0e   0f                    RRC
+   eb0f   32 ff ea              STA     FBADDR+2
+                                ; byte1 (A15-A8) = ((TRK & 0x0F) << 4) | (SECN >> 1)
+   eb12   78                    MOV     A,B
+   eb13   e6 0f                 ANI     0FH
+   eb15   07                    RLC
+   eb16   07                    RLC
+   eb17   07                    RLC
+   eb18   07                    RLC
+   eb19   57                    MOV     D,A
+   eb1a   79                    MOV     A,C
+   eb1b   0f                    RRC
+   eb1c   e6 7f                 ANI     7FH
+   eb1e   b2                    ORA     D
+   eb1f   32 fe ea              STA     FBADDR+1
                                 ; byte0 (A7-A0) = (SECN & 1) << 7
-   eb18   79                    MOV     A,C
-   eb19   e6 01                 ANI     01H
-   eb1b   ca 23 eb              JZ      FLAD0
-   eb1e   3e 80                 MVI     A,80H
-   eb20   c3 24 eb              JMP     FLADR
-   eb23   af            FLAD0:  XRA     A
-   eb24   32 f3 ea      FLADR:  STA     FBADDR
-   eb27   c9                    RET
+   eb22   79                    MOV     A,C
+   eb23   e6 01                 ANI     01H
+   eb25   ca 2d eb              JZ      FLAD0
+   eb28   3e 80                 MVI     A,80H
+   eb2a   c3 2e eb              JMP     FLADR
+   eb2d   af            FLAD0:  XRA     A
+   eb2e   32 fd ea      FLADR:  STA     FBADDR
+   eb31   c9                    RET
                         
                         ; READB: read one 128-byte sector from the SPI flash (drive A:) into the DMA
                         ; buffer.  Returns A=0.  (A flash read is error-free.)
-   eb28                 READB:
-   eb28   cd f6 ea              CALL    FLADDR          ; FBADDR = 24-bit record address
-   eb2b   2a c9 eb              LHLD    DMA
-   eb2e   54                    MOV     D,H
-   eb2f   5d                    MOV     E,L             ; DE = DMA destination
-   eb30   01 80 00              LXI     B,80H           ; 128 bytes
-   eb33   cd bd ea              CALL    SPI_READBUF
-   eb36   3e 00                 MVI     A,00H           ; success
-   eb38   c9                    RET
+   eb32                 READB:
+   eb32   cd 00 eb              CALL    FLADDR          ; FBADDR = 24-bit record address
+   eb35   2a d3 eb              LHLD    DMA
+   eb38   54                    MOV     D,H
+   eb39   5d                    MOV     E,L             ; DE = DMA destination
+   eb3a   01 80 00              LXI     B,80H           ; 128 bytes
+   eb3d   cd c7 ea              CALL    SPI_READBUF
+   eb40   3e 00                 MVI     A,00H           ; success
+   eb42   c9                    RET
                         
                         ; WRITEB: write one 128-byte sector to the SPI flash (drive A:) via a 4KB
                         ; read-modify-write.  Returns A=0.  Clobbers A,B,D,E,H,L.
-   eb39                 WRITEB:
-   eb39   cd f6 ea              CALL    FLADDR          ; FBADDR = 24-bit record address
+   eb43                 WRITEB:
+   eb43   cd 00 eb              CALL    FLADDR          ; FBADDR = 24-bit record address
                                 ; ---- save the record's in-sector offset (FBADDR & 0xFFF) ----
-   eb3c   3a f3 ea              LDA     FBADDR
-   eb3f   32 b8 ec              STA     RECOFF          ; offset low byte
-   eb42   3a f4 ea              LDA     FBADDR+1
-   eb45   e6 0f                 ANI     0FH
-   eb47   32 b9 ec              STA     RECOFF+1        ; offset high nibble (0..0x0F)
+   eb46   3a fd ea              LDA     FBADDR
+   eb49   32 c2 ec              STA     RECOFF          ; offset low byte
+   eb4c   3a fe ea              LDA     FBADDR+1
+   eb4f   e6 0f                 ANI     0FH
+   eb51   32 c3 ec              STA     RECOFF+1        ; offset high nibble (0..0x0F)
                                 ; ---- set FBADDR to the enclosing 4KB sector base (clear low 12 bits) ----
-   eb4a   3a f4 ea              LDA     FBADDR+1
-   eb4d   e6 f0                 ANI     0F0H
-   eb4f   32 f4 ea              STA     FBADDR+1
-   eb52   af                    XRA     A
-   eb53   32 f3 ea              STA     FBADDR          ; low byte of the sector base = 0
+   eb54   3a fe ea              LDA     FBADDR+1
+   eb57   e6 f0                 ANI     0F0H
+   eb59   32 fe ea              STA     FBADDR+1
+   eb5c   af                    XRA     A
+   eb5d   32 fd ea              STA     FBADDR          ; low byte of the sector base = 0
                                 ; ---- read the whole 4KB sector into the RMW buffer ----
-   eb56   11 00 ef              LXI     D,RMWBUF
-   eb59   01 00 10              LXI     B,1000H         ; 4096 bytes
-   eb5c   cd bd ea              CALL    SPI_READBUF
+   eb60   11 00 ef              LXI     D,RMWBUF
+   eb63   01 00 10              LXI     B,1000H         ; 4096 bytes
+   eb66   cd c7 ea              CALL    SPI_READBUF
                                 ; ---- overlay the 128-byte DMA record at the in-sector offset ----
-   eb5f   2a c9 eb              LHLD    DMA
-   eb62   11 00 ef              LXI     D,RMWBUF
-   eb65   3a b8 ec              LDA     RECOFF
-   eb68   83                    ADD     E
-   eb69   5f                    MOV     E,A
-   eb6a   3a b9 ec              LDA     RECOFF+1
-   eb6d   8a                    ADC     D
-   eb6e   57                    MOV     D,A             ; DE = RMWBUF + offset
-   eb6f   06 80                 MVI     B,128
-   eb71   7e            WRCPY:  MOV     A,M
-   eb72   12                    STAX    D
-   eb73   23                    INX     H
-   eb74   13                    INX     D
-   eb75   05                    DCR     B
-   eb76   c2 71 eb              JNZ     WRCPY
+   eb69   2a d3 eb              LHLD    DMA
+   eb6c   11 00 ef              LXI     D,RMWBUF
+   eb6f   3a c2 ec              LDA     RECOFF
+   eb72   83                    ADD     E
+   eb73   5f                    MOV     E,A
+   eb74   3a c3 ec              LDA     RECOFF+1
+   eb77   8a                    ADC     D
+   eb78   57                    MOV     D,A             ; DE = RMWBUF + offset
+   eb79   06 80                 MVI     B,128
+   eb7b   7e            WRCPY:  MOV     A,M
+   eb7c   12                    STAX    D
+   eb7d   23                    INX     H
+   eb7e   13                    INX     D
+   eb7f   05                    DCR     B
+   eb80   c2 7b eb              JNZ     WRCPY
                                 ; ---- erase the 4KB sector (FBADDR = sector base) ----
-   eb79   cd d6 ea              CALL    SPI_ERASE_SECT
+   eb83   cd e0 ea              CALL    SPI_ERASE_SECT
                                 ; ---- program the whole 4KB sector back, 16 x 256B pages ----
-   eb7c   21 00 ef              LXI     H,RMWBUF
-   eb7f   06 10                 MVI     B,16            ; 16 pages
-   eb81   c5            WRPG:   PUSH    B
-   eb82   cd 95 ea              CALL    SPI_PAGE        ; programs 256 bytes from (HL), advances HL by 256
-   eb85   3a f4 ea              LDA     FBADDR+1
-   eb88   c6 01                 ADI     01H
-   eb8a   32 f4 ea              STA     FBADDR+1        ; next page (low byte stays 00, high byte unchanged)
-   eb8d   c1                    POP     B
-   eb8e   05                    DCR     B
-   eb8f   c2 81 eb              JNZ     WRPG
-   eb92   3e 00                 MVI     A,00H           ; success
-   eb94   c9                    RET
+   eb86   21 00 ef              LXI     H,RMWBUF
+   eb89   06 10                 MVI     B,16            ; 16 pages
+   eb8b   c5            WRPG:   PUSH    B
+   eb8c   cd 9f ea              CALL    SPI_PAGE        ; programs 256 bytes from (HL), advances HL by 256
+   eb8f   3a fe ea              LDA     FBADDR+1
+   eb92   c6 01                 ADI     01H
+   eb94   32 fe ea              STA     FBADDR+1        ; next page (low byte stays 00, high byte unchanged)
+   eb97   c1                    POP     B
+   eb98   05                    DCR     B
+   eb99   c2 8b eb              JNZ     WRPG
+   eb9c   3e 00                 MVI     A,00H           ; success
+   eb9e   c9                    RET
                         
                         ; ============================================================================
                         ;   SIGN-ON BANNER
                         ; ============================================================================
-   eb95                 BANNER:
-   eb95   0d 0a                 DB      0DH,0AH                          ; blank line before the banner
-   eb97   43 50 2f 4d           DB      'CP/M 2.2 on Brevia2',0DH,0AH
-   eb9b   20 32 2e 32   
-   eb9f   20 6f 6e 20   
-   eba3   42 72 65 76   
-   eba7   69 61 32 0d   
-   ebab   0a            
-   ebac   43 50 2f 4d           DB      'CP/M port by Whale-Chan',0DH,0AH,0
-   ebb0   20 70 6f 72   
-   ebb4   74 20 62 79   
-   ebb8   20 57 68 61   
-   ebbc   6c 65 2d 43   
-   ebc0   68 61 6e 0d   
-   ebc4   0a 00         
+   eb9f                 BANNER:
+   eb9f   0d 0a                 DB      0DH,0AH                          ; blank line before the banner
+   eba1   43 50 2f 4d           DB      'CP/M 2.2 on Brevia2',0DH,0AH
+   eba5   20 32 2e 32   
+   eba9   20 6f 6e 20   
+   ebad   42 72 65 76   
+   ebb1   69 61 32 0d   
+   ebb5   0a            
+   ebb6   43 50 2f 4d           DB      'CP/M port by Whale-Chan',0DH,0AH,0
+   ebba   20 70 6f 72   
+   ebbe   74 20 62 79   
+   ebc2   20 57 68 61   
+   ebc6   6c 65 2d 43   
+   ebca   68 61 6e 0d   
+   ebce   0a 00         
                         
                         ; ============================================================================
                         ;   CBIOS VARIABLES
                         ; ============================================================================
-   ebc6                 SELBL:  DS      1               ; last selected drive
-   ebc7                 TRK:    DS      1               ; current (absolute) track
-   ebc8                 SECN:   DS      1               ; current sector
-   ebc9                 DMA:    DS      2               ; current DMA address
-   ebcb                 FILLV:  DS      1               ; scratch for RAMFILL
-   ebcc                         DS      4               ; (padding/alignment reserved)
+   ebd0                 SELBL:  DS      1               ; last selected drive
+   ebd1                 TRK:    DS      1               ; current (absolute) track
+   ebd2                 SECN:   DS      1               ; current sector
+   ebd3                 DMA:    DS      2               ; current DMA address
+   ebd5                 FILLV:  DS      1               ; scratch for RAMFILL
+   ebd6                         DS      4               ; (padding/alignment reserved)
                         
                         ; ============================================================================
                         ;   DISK PARAMETER HEADER (DPH) for drive A (the SPI flash boot drive)
@@ -1227,15 +1239,15 @@
                         ;     +2  scratch, +4 scratch, +6 scratch
                         ;     +8  DIRBUF, +10 DPBB, +12 CSVB, +14 ALVB
                         ; ============================================================================
-   ebd0                 DPH:
-   ebd0   00 00                 DW      0000H           ; XLT: no sector translation
-   ebd2   00 00                 DW      0000H           ; scratch (cdrmax)
-   ebd4   00 00                 DW      0000H           ; scratch (curtrk)
-   ebd6   00 00                 DW      0000H           ; scratch (currec)
-   ebd8   f8 eb                 DW      DIRBUF          ; directory buffer (128 bytes)
-   ebda   88 ec                 DW      DPBB            ; disk parameter block (SPI flash 2K geometry)
-   ebdc   97 ec                 DW      CSVB            ; checksum vector
-   ebde   98 ec                 DW      ALVB            ; allocation vector
+   ebda                 DPH:
+   ebda   00 00                 DW      0000H           ; XLT: no sector translation
+   ebdc   00 00                 DW      0000H           ; scratch (cdrmax)
+   ebde   00 00                 DW      0000H           ; scratch (curtrk)
+   ebe0   00 00                 DW      0000H           ; scratch (currec)
+   ebe2   02 ec                 DW      DIRBUF          ; directory buffer (128 bytes)
+   ebe4   92 ec                 DW      DPBB            ; disk parameter block (SPI flash 2K geometry)
+   ebe6   a1 ec                 DW      CSVB            ; checksum vector
+   ebe8   a2 ec                 DW      ALVB            ; allocation vector
                         
                         ; ============================================================================
                         ;   DISK PARAMETER BLOCK (DPB)
@@ -1252,24 +1264,24 @@
                         ;   0 and 1, so AL0=0xC0 / AL1=0x00.  (AL0=0x00/AL1=0xC0 would reserve blocks
                         ;   8-9 and leave the real directory at block 0 unprotected, breaking SAVE.)
                         ; ============================================================================
-   ebe0                 DPB:
-   ebe0   20 00                 DW      SPT             ; SPT  = 32   (sectors per track)
-   ebe2   03                    DB      03H             ; BSH  = 3    (block shift  -> 1K blocks)
-   ebe3   07                    DB      07H             ; BLM  = 7    (block mask)
-   ebe4   00                    DB      00H             ; EXM  = 0
-   ebe5   37 00                 DW      55              ; DSM  = 55   (max block number = 56 blocks)
-   ebe7   3f 00                 DW      63              ; DRM  = 63   (max directory entry = 64 entries)
-   ebe9   c0                    DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1)
-   ebea   00                    DB      00H             ; AL1  = 0x00
-   ebeb   00 00                 DW      00H             ; CKS  = 0    (fixed media -> no checksum)
-   ebed   02 00                 DW      02H             ; OFF  = 2    (reserve 2 system tracks)
+   ebea                 DPB:
+   ebea   20 00                 DW      SPT             ; SPT  = 32   (sectors per track)
+   ebec   03                    DB      03H             ; BSH  = 3    (block shift  -> 1K blocks)
+   ebed   07                    DB      07H             ; BLM  = 7    (block mask)
+   ebee   00                    DB      00H             ; EXM  = 0
+   ebef   37 00                 DW      55              ; DSM  = 55   (max block number = 56 blocks)
+   ebf1   3f 00                 DW      63              ; DRM  = 63   (max directory entry = 64 entries)
+   ebf3   c0                    DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1)
+   ebf4   00                    DB      00H             ; AL1  = 0x00
+   ebf5   00 00                 DW      00H             ; CKS  = 0    (fixed media -> no checksum)
+   ebf7   02 00                 DW      02H             ; OFF  = 2    (reserve 2 system tracks)
                         
                         ; ============================================================================
                         ;   CBIOS BUFFERS / VECTORS
                         ; ============================================================================
-   ebef                 CSV:    DS      1               ; checksum vector (0 bytes needed since CKS=0)
-   ebf0                 ALV:    DS      8               ; allocation vector (56 blocks / 8 = 7 -> pad 8)
-   ebf8                 DIRBUF: DS      128             ; directory buffer (one 128-byte directory record)
+   ebf9                 CSV:    DS      1               ; checksum vector (0 bytes needed since CKS=0)
+   ebfa                 ALV:    DS      8               ; allocation vector (56 blocks / 8 = 7 -> pad 8)
+   ec02                 DIRBUF: DS      128             ; directory buffer (one 128-byte directory record)
                         
                         ; ============================================================================
                         ;   DRIVE A: (SPI flash) DISK PARAMETER HEADER / BLOCK / VECTORS
@@ -1282,29 +1294,29 @@
                         ;   This MUST agree with diskutil's formatter (data at 0x3000).  The BDOS builds
                         ;   the allocation vector itself on first login, so ALVB just needs the space.
                         ; ============================================================================
-   ec78                 DPHB:
-   ec78   00 00                 DW      0000H           ; XLT: no sector translation
-   ec7a   00 00                 DW      0000H           ; scratch (cdrmax)
-   ec7c   00 00                 DW      0000H           ; scratch (curtrk)
-   ec7e   00 00                 DW      0000H           ; scratch (currec)
-   ec80   f8 eb                 DW      DIRBUF          ; shared directory buffer (128 bytes)
-   ec82   e0 eb                 DW      DPB             ; disk parameter block (RAM disk 1K geometry)
-   ec84   ef eb                 DW      CSV             ; checksum vector
-   ec86   f0 eb                 DW      ALV             ; allocation vector
-   ec88                 DPBB:
-   ec88   20 00                 DW      SPT             ; SPT  = 32   (sectors per track)
-   ec8a   04                    DB      04H             ; BSH  = 4    (block shift -> 2KB blocks)
-   ec8b   0f                    DB      0FH             ; BLM  = 15   (block mask)
-   ec8c   01                    DB      01H             ; EXM  = 1    (extent mask, BLS=2048 & DSM<256)
-   ec8d   fb 00                 DW      251             ; DSM  = 251  (max block number = 252 blocks)
-   ec8f   7f 00                 DW      127             ; DRM  = 127  (max directory entry = 128 entries)
-   ec91   c0                    DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first)
-   ec92   00                    DB      00H             ; AL1  = 0x00
-   ec93   00 00                 DW      00H             ; CKS  = 0    (fixed media -> no checksum)
-   ec95   02 00                 DW      02H             ; OFF  = 2    (reserve 2 system tracks)
-   ec97                 CSVB:   DS      1               ; checksum vector (0 bytes used since CKS=0)
-   ec98                 ALVB:   DS      32              ; allocation vector (DSM=251 -> (251/8)+1 = 32 bytes)
-   ecb8                 RECOFF: DS      2               ; in-sector byte offset for the drive B: RMW
+   ec82                 DPHB:
+   ec82   00 00                 DW      0000H           ; XLT: no sector translation
+   ec84   00 00                 DW      0000H           ; scratch (cdrmax)
+   ec86   00 00                 DW      0000H           ; scratch (curtrk)
+   ec88   00 00                 DW      0000H           ; scratch (currec)
+   ec8a   02 ec                 DW      DIRBUF          ; shared directory buffer (128 bytes)
+   ec8c   ea eb                 DW      DPB             ; disk parameter block (RAM disk 1K geometry)
+   ec8e   f9 eb                 DW      CSV             ; checksum vector
+   ec90   fa eb                 DW      ALV             ; allocation vector
+   ec92                 DPBB:
+   ec92   20 00                 DW      SPT             ; SPT  = 32   (sectors per track)
+   ec94   04                    DB      04H             ; BSH  = 4    (block shift -> 2KB blocks)
+   ec95   0f                    DB      0FH             ; BLM  = 15   (block mask)
+   ec96   01                    DB      01H             ; EXM  = 1    (extent mask, BLS=2048 & DSM<256)
+   ec97   fb 00                 DW      251             ; DSM  = 251  (max block number = 252 blocks)
+   ec99   7f 00                 DW      127             ; DRM  = 127  (max directory entry = 128 entries)
+   ec9b   c0                    DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first)
+   ec9c   00                    DB      00H             ; AL1  = 0x00
+   ec9d   00 00                 DW      00H             ; CKS  = 0    (fixed media -> no checksum)
+   ec9f   02 00                 DW      02H             ; OFF  = 2    (reserve 2 system tracks)
+   eca1                 CSVB:   DS      1               ; checksum vector (0 bytes used since CKS=0)
+   eca2                 ALVB:   DS      32              ; allocation vector (DSM=251 -> (251/8)+1 = 32 bytes)
+   ecc2                 RECOFF: DS      2               ; in-sector byte offset for the drive B: RMW
                         
                         ; ============================================================================
                         ;   DRIVE C / D: (SD card) DISK PARAMETER HEADER / BLOCK / VECTORS
@@ -1314,78 +1326,78 @@
                         ;   OFF=0 (data partition, NO system tracks -- the directory is at the partition
                         ;   start, exactly where sdtool formatted it).  Drive C and D both point here for
                         ;   now (D is reserved for a future SD partition 2).
-   ecba                 DPHC:
-   ecba   00 00                 DW      0000H           ; XLT: no sector translation
-   ecbc   00 00                 DW      0000H           ; scratch (cdrmax)
-   ecbe   00 00                 DW      0000H           ; scratch (curtrk)
-   ecc0   00 00                 DW      0000H           ; scratch (currec)
-   ecc2   f8 eb                 DW      DIRBUF          ; shared directory buffer (128 bytes)
-   ecc4   da ec                 DW      DPBC            ; disk parameter block (SD 2K geometry)
-   ecc6   e9 ec                 DW      CSVC            ; checksum vector
-   ecc8   ea ec                 DW      ALVC            ; allocation vector
-   ecca                 DPHD:
-   ecca   00 00                 DW      0000H
-   eccc   00 00                 DW      0000H
-   ecce   00 00                 DW      0000H
-   ecd0   00 00                 DW      0000H
-   ecd2   f8 eb                 DW      DIRBUF
-   ecd4   da ec                 DW      DPBC            ; (future: SD partition 2 DPB; shared DPBC for now)
-   ecd6   e9 ec                 DW      CSVC
-   ecd8   ea ec                 DW      ALVC
-   ecda                 DPBC:
-   ecda   20 00                 DW      SPT             ; SPT  = 32   (sectors per track)
-   ecdc   04                    DB      04H             ; BSH  = 4    (block shift  -> 2KB blocks)
-   ecdd   0f                    DB      0FH             ; BLM  = 15   (block mask)
-   ecde   01                    DB      01H             ; EXM  = 1
-   ecdf   fb 00                 DW      251             ; DSM  = 251  (max block number = 252 blocks)
-   ece1   7f 00                 DW      127             ; DRM  = 127  (max directory entry = 128 entries)
-   ece3   c0                    DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first)
-   ece4   00                    DB      00H             ; AL1  = 0x00
-   ece5   00 00                 DW      00H             ; CKS  = 0    (fixed media -> no checksum)
-   ece7   00 00                 DW      00H             ; OFF  = 0    (data partition, no system tracks)
-   ece9                 CSVC:   DS      1               ; checksum vector (0 bytes used since CKS=0)
-   ecea                 ALVC:   DS      32              ; allocation vector (DSM=251 -> 32 bytes)
-   ed0a                 SDOFF:  DS      2               ; in-sector byte offset for the SD deblock
-   ed0c                 BLKN:   DS      4               ; SD block number (32-bit, MSB first); SD block = SDPLBA + record/4
-   ed10                 SDCMDB: DS      6               ; SD command buffer (opcode + 4-byte arg + CRC)
-   ed16                 SDTRY:  DS      1               ; drive C: retry counter (READC/WRITEC)
+   ecc4                 DPHC:
+   ecc4   00 00                 DW      0000H           ; XLT: no sector translation
+   ecc6   00 00                 DW      0000H           ; scratch (cdrmax)
+   ecc8   00 00                 DW      0000H           ; scratch (curtrk)
+   ecca   00 00                 DW      0000H           ; scratch (currec)
+   eccc   02 ec                 DW      DIRBUF          ; shared directory buffer (128 bytes)
+   ecce   e4 ec                 DW      DPBC            ; disk parameter block (SD 2K geometry)
+   ecd0   f3 ec                 DW      CSVC            ; checksum vector
+   ecd2   f4 ec                 DW      ALVC            ; allocation vector
+   ecd4                 DPHD:
+   ecd4   00 00                 DW      0000H
+   ecd6   00 00                 DW      0000H
+   ecd8   00 00                 DW      0000H
+   ecda   00 00                 DW      0000H
+   ecdc   02 ec                 DW      DIRBUF
+   ecde   e4 ec                 DW      DPBC            ; (future: SD partition 2 DPB; shared DPBC for now)
+   ece0   f3 ec                 DW      CSVC
+   ece2   f4 ec                 DW      ALVC
+   ece4                 DPBC:
+   ece4   20 00                 DW      SPT             ; SPT  = 32   (sectors per track)
+   ece6   04                    DB      04H             ; BSH  = 4    (block shift  -> 2KB blocks)
+   ece7   0f                    DB      0FH             ; BLM  = 15   (block mask)
+   ece8   01                    DB      01H             ; EXM  = 1
+   ece9   fb 00                 DW      251             ; DSM  = 251  (max block number = 252 blocks)
+   eceb   7f 00                 DW      127             ; DRM  = 127  (max directory entry = 128 entries)
+   eced   c0                    DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first)
+   ecee   00                    DB      00H             ; AL1  = 0x00
+   ecef   00 00                 DW      00H             ; CKS  = 0    (fixed media -> no checksum)
+   ecf1   00 00                 DW      00H             ; OFF  = 0    (data partition, no system tracks)
+   ecf3                 CSVC:   DS      1               ; checksum vector (0 bytes used since CKS=0)
+   ecf4                 ALVC:   DS      32              ; allocation vector (DSM=251 -> 32 bytes)
+   ed14                 SDOFF:  DS      2               ; in-sector byte offset for the SD deblock
+   ed16                 BLKN:   DS      4               ; SD block number (32-bit, MSB first); SD block = SDPLBA + record/4
+   ed1a                 SDCMDB: DS      6               ; SD command buffer (opcode + 4-byte arg + CRC)
+   ed20                 SDTRY:  DS      1               ; drive C: retry counter (READC/WRITEC)
                         
-   ed17                         END
-ebf0  ALV           ec98  ALVB          ecea  ALVC          eb95  BANNER    
-d806  BDOSENT       d800  BDOSL         e600  BIOS          ed0c  BLKN      
+   ed21                         END
+ebfa  ALV           eca2  ALVB          ecf4  ALVC          eb9f  BANNER    
+d806  BDOSENT       d800  BDOSL         e600  BIOS          ed16  BLKN      
 e633  BOOT          e743  CALC          d000  CCP           e6bd  CONIN     
-e6c7  CONOUT        e6b1  CONST         e6bc  CONST2        ebef  CSV       
-ec97  CSVB          ece9  CSVC          ebf8  DIRBUF        ebc9  DMA       
-0080  DMA0          ebe0  DPB           ec88  DPBB          ecda  DPBC      
-ebd0  DPH           ec78  DPHB          ecba  DPHC          ecca  DPHD      
-eaf3  FBADDR        ebcb  FILLV         eb23  FLAD0         eaf6  FLADDR    
-eb24  FLADR         e724  HOME          e6eb  LIST          e6f4  LISTST    
+e6c7  CONOUT        e6b1  CONST         e6bc  CONST2        ebf9  CSV       
+eca1  CSVB          ecf3  CSVC          ec02  DIRBUF        ebd3  DMA       
+0080  DMA0          ebea  DPB           ec92  DPBB          ece4  DPBC      
+ebda  DPH           ec82  DPHB          ecc4  DPHC          ecd4  DPHD      
+eafd  FBADDR        ebd5  FILLV         eb2d  FLAD0         eb00  FLADDR    
+eb2e  FLADR         e724  HOME          e6eb  LIST          e6f4  LISTST    
 e6ea  PRTEND        e6de  PRTSTR        e6ee  PUNCH         e6d2  PUTC      
-e6d3  PUTC1         ea50  RAMFILL       ea56  RAMFILL1      e766  RAMPTR    
-ea42  RAMRD         ea45  RAMRD1        ea34  RAMWR         ea37  RAMWR1    
-e76d  READ          e786  READ1         eb28  READB         e806  READC     
+e6d3  PUTC1         ea5a  RAMFILL       ea60  RAMFILL1      e766  RAMPTR    
+ea4c  RAMRD         ea4f  RAMRD1        ea3e  RAMWR         ea41  RAMWR1    
+e76d  READ          e786  READ1         eb32  READB         e806  READC     
 e80b  READC1        e6f1  READER        e84d  READS         e86e  READS1    
-e879  READS_ERR     ecb8  RECOFF        ef00  RMWBUF        e9b5  SD6_DONE  
-e9aa  SD6_RX        e9a0  SD6_TX        ea2e  SDACMD        ea1c  SDCMD0    
-ea28  SDCMD55       ea22  SDCMD8        ed10  SDCMDB        ea15  SDDL      
+e879  READS_ERR     ecc2  RECOFF        ef00  RMWBUF        e9b5  SD6_DONE  
+e9aa  SD6_RX        e9a0  SD6_TX        ea38  SDACMD        ea26  SDCMD0    
+ea32  SDCMD55       ea2c  SDCMD8        ed1a  SDCMDB        ea15  SDDL      
 e9cd  SDI_CK        ea0c  SDI_FAIL      ea0f  SDI_OK        e9f4  SDI_RDY   
-e7b5  SDMAP         e7d5  SDMAP_H0      e7d7  SDMAP_H1      ed0a  SDOFF     
+e7b5  SDMAP         e7d5  SDMAP_H0      e7d7  SDMAP_H1      ed14  SDOFF     
 e82e  SDOP_OK       0001  SDPLBA        e8ed  SDRB1         e902  SDRB_ERR  
 e846  SDRC_NO       e97f  SDRDY0        e982  SDRDY1        e996  SDRDY_OK  
-0006  SDTRIES       ed16  SDTRY         e943  SDWB1         e96e  SDWB_DONE 
+0006  SDTRIES       ed20  SDTRY         e943  SDWB1         e96e  SDWB_DONE 
 e975  SDWB_ERR      e960  SDWB_GOT      e955  SDWB_RSP      0054  SD_CTL    
-0053  SD_DATA       ea12  SD_DELAY      e9c7  SD_INIT       e8b1  SD_READBLK
-e97c  SD_READY      e830  SD_RECOVER    e999  SD_SEND6      0055  SD_STAT   
-e9b6  SD_WAITTKN    e909  SD_WRITEBLK    e9b8  SD_WT         e9c5  SD_WT_OK  
-ebc8  SECN          e740  SECTRAN       ebc6  SELBL         e714  SELD0     
-e718  SELD1         e71c  SELD2         e720  SELD3         e6f7  SELDSK    
-e70e  SELERR        e737  SETDMA        e732  SETSEC        e72d  SETTRK    
-e692  SETVEC        eaad  SPG1          ea82  SPI_ADDR      0051  SPI_CTL   
-0050  SPI_DATA      ead6  SPI_ERASE_SECT    ea95  SPI_PAGE      eabd  SPI_READBUF
-ea67  SPI_REL       ea62  SPI_SEL       0052  SPI_STAT      ea6f  SPI_WAIT  
-ea6c  SPI_XMIT      0020  SPT           ea77  SPW           eac8  SRDB      
-0800  SYSBDS        0000  SYSCPP        ebc7  TRK           e66a  WBOOT     
-eb71  WRCPY         e791  WRITE         e7aa  WRITE1        eb39  WRITEB    
-e81a  WRITEC        e81f  WRITEC1       e87a  WRITES        e89b  WRITES1   
-e8b0  WRITES_ERR    eb81  WRPG          
+0053  SD_DATA       ea12  SD_DELAY      e9c7  SD_INIT       ea1c  SD_RDLY   
+e8b1  SD_READBLK    e97c  SD_READY      e830  SD_RECOVER    e999  SD_SEND6  
+0055  SD_STAT       e9b6  SD_WAITTKN    e909  SD_WRITEBLK    e9b8  SD_WT     
+e9c5  SD_WT_OK      ebd2  SECN          e740  SECTRAN       ebd0  SELBL     
+e714  SELD0         e718  SELD1         e71c  SELD2         e720  SELD3     
+e6f7  SELDSK        e70e  SELERR        e737  SETDMA        e732  SETSEC    
+e72d  SETTRK        e692  SETVEC        eab7  SPG1          ea8c  SPI_ADDR  
+0051  SPI_CTL       0050  SPI_DATA      eae0  SPI_ERASE_SECT    ea9f  SPI_PAGE  
+eac7  SPI_READBUF    ea71  SPI_REL       ea6c  SPI_SEL       0052  SPI_STAT  
+ea79  SPI_WAIT      ea76  SPI_XMIT      0020  SPT           ea81  SPW       
+ead2  SRDB          ea1f  SRDL1         0800  SYSBDS        0000  SYSCPP    
+ebd1  TRK           e66a  WBOOT         eb7b  WRCPY         e791  WRITE     
+e7aa  WRITE1        eb43  WRITEB        e81a  WRITEC        e81f  WRITEC1   
+e87a  WRITES        e89b  WRITES1       e8b0  WRITES_ERR    eb8b  WRPG      
 

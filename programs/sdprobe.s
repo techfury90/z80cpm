@@ -30,8 +30,46 @@ START:
         CALL    SDINIT          ; A = 0 if init OK (CMD0 idle + ACMD41 ready), 0FFh if not
         ORA     A
         JZ      INI_OK
+        ; ---- failure: report detailed diagnostics ----
         LXI     H,MSG_NOCARD
         CALL    PSTR
+        CALL    CRLF
+        ; raw CMD0 response bytes
+        LXI     H,MSG_CMD0R
+        CALL    PSTR
+        LXI     H,RBUF
+        MVI     B,8
+SD_DIAG:
+        MOV     A,M
+        CALL    PRHEX2
+        MVI     E,' '
+        CALL    CPUTC
+        INX     H
+        DCR     B
+        JNZ     SD_DIAG
+        CALL    CRLF
+        ; interpreted R1
+        LXI     H,MSG_R1
+        CALL    PSTR
+        LDA     CMDR1
+        CALL    PRHEX2
+        CALL    CRLF
+        LDA     CMDR1
+        CPI     0FFH            ; no response at all?
+        JNZ     SD_DIAG2
+        LXI     H,MSG_NORESP
+        CALL    PSTR
+        CALL    CRLF
+SD_DIAG2:
+        ; ACMD41 poll count + result
+        LXI     H,MSG_ACMD
+        CALL    PSTR
+        LDA     ACMDIT
+        CALL    PRHEX2          ; poll count (hex)
+        LXI     H,MSG_ACMDR
+        CALL    PSTR
+        LDA     ACMDR1
+        CALL    PRHEX2
         CALL    CRLF
         RET
 INI_OK:
@@ -147,41 +185,85 @@ AFTER_BLK:
 
 ; ================= SD card driver subroutines =================
 
-; SDINIT: full SPI-mode initialization.  Returns A = R1 of CMD0 (01h = idle).
-;   CS# high + slow clock, 10x 0xFF = 80 power-up clocks, then CMD0.
+; SDINIT: full SPI-mode initialization.
+;   Success: A = 0  (CMDR1 = 01h idle, card ready).
+;   Failure: A = 0FFh, with diagnostics: CMDR1 = CMD0 R1 (or 0FFh if no
+;            response), RBUF = raw CMD0 response bytes, ACMDIT = ACMD41 poll
+;            count, ACMDR1 = final ACMD41 result.
 SDINIT:
         MVI     A,03H           ; bit0=1 (CS high), bit1=1 (slow)
         OUT     SDCTL
-        MVI     B,10            ; 10 byte-writes = 80 clock pulses
+        MVI     B,10            ; 10 byte-writes = 80 power-up clocks (CS# high)
 SDI_CK:
         MVI     A,0FFH
         OUT     SDDAT
         DCR     B
         JNZ     SDI_CK
-        MVI     A,02H           ; select card (CS low), stay slow
+        MVI     A,02H           ; select card (CS low), stay on slow clock
         OUT     SDCTL
+        ; --- send CMD0, then capture the raw response bytes ---
         LXI     H,CMD0
-        CALL    SD_SEND6        ; A = R1 (01h = idle)
+        MVI     B,6
+SDI_TX:
+        MOV     A,M
+        OUT     SDDAT
+        INX     H
+        DCR     B
+        JNZ     SDI_TX
+        LXI     H,RBUF
+        MVI     B,8
+SDI_RX:
+        IN      SDDAT
+        MOV     M,A
+        INX     H
+        DCR     B
+        JNZ     SDI_RX
+        ; find the first byte that is not 0FFh = R1
+        LXI     H,RBUF
+        MVI     B,8
+SDI_FR1:
+        MOV     A,M
+        CPI     0FFH
+        JNZ     SDI_HAVE
+        INX     H
+        DCR     B
+        JNZ     SDI_FR1
+        MVI     A,0FFH          ; no valid response at all
+        JMP     SDI_ST1
+SDI_HAVE:
+        MOV     A,M
+SDI_ST1:
         STA     CMDR1
-        CPI     01H             ; must be in idle state to proceed
+        CPI     01H             ; must be in idle state to continue
         JNZ     SDI_FAIL
-        ; poll CMD55+ACMD41 until out of idle
-        MVI     D,40            ; max 40 iterations
-SDI_READY:
+        ; --- poll CMD55+ACMD41 until the card leaves idle.  Card init is
+        ;     time-based, so we wait a real delay between attempts (CS# stays
+        ;     selected on the slow clock; the data-read routines switch to the
+        ;     fast clock once the card is ready). ---
+        MVI     D,200           ; up to 200 attempts
+        XRA     A
+        STA     ACMDIT
+SDI_RDY:
         LXI     H,CMD55
         CALL    SD_SEND6
         LXI     H,ACMD41
         CALL    SD_SEND6        ; A = R1
+        STA     ACMDR1
         CPI     00H
         JZ      SDI_OK
+        LDA     ACMDIT
+        INR     A
+        STA     ACMDIT
+        CALL    DELAYMS         ; ~3ms pause before the next attempt
         DCR     D
-        JNZ     SDI_READY
+        JNZ     SDI_RDY
 SDI_FAIL:
         MVI     A,0FFH
         RET
 SDI_OK:
         MVI     A,00H
         RET
+
 
 ; SD_SEND6: transmit the 6-byte command at (HL), then read the R1 status byte.
 ;   Assumes the card is already selected (CS low).  Returns A = R1 (0FFh = no
@@ -202,6 +284,17 @@ SD6_RX:
         DCR     B
         JNZ     SD6_RX
 SD6_DONE:
+        RET
+
+; DELAYMS - approximate ~3ms busy-wait (uses HL only; used between SD init
+;   polls because SD card initialization is time-based, not clock-based).
+DELAYMS:
+        LXI     H,2000
+DLMS:
+        DCX     H
+        MOV     A,H
+        ORA     L
+        JNZ     DLMS
         RET
 
 ; SD_WAITTKN: clock until the card sends the 0FEh data-start token.
@@ -366,6 +459,11 @@ CMD17:  DB      51H,00H,00H,00H,00H,0FFH  ; read single block (block 0)
 BANNER: DB      'SDPROBE v0.1 - Brevia2 SD card probe',13,10,'$'
 MSG_INI: DB      'INIT: CMD0 ok R1=','$'
 MSG_NOCARD: DB  13,10,'NO CARD / init failed','$'
+MSG_CMD0R: DB  13,10,'CMD0 raw resp: ','$'
+MSG_R1:  DB  'R1=','$'
+MSG_NORESP: DB ' (no response - check wiring/power, or the module may be dead)','$'
+MSG_ACMD: DB  13,10,'ACMD41 polls=','$'
+MSG_ACMDR: DB  ' result=','$'
 MSG_SDHC: DB    13,10,'TYPE: SDHC/SDXC (block addressing)','$'
 MSG_SDSC: DB    13,10,'TYPE: SDSC (byte addressing)','$'
 MSG_CID: DB     13,10,'CID: ID=','$'
@@ -378,6 +476,9 @@ MSG_DONE: DB    13,10,'DONE','$'
 
 HEXV:   DS      1
 CMDR1:  DS      1
+RBUF:   DS      8
+ACMDIT: DS      1
+ACMDR1: DS      1
 CIDBUF: DS      16
 DBUF:   DS      512
         END

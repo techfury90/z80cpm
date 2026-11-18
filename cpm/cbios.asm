@@ -73,6 +73,17 @@ RMWBUF  EQU     0EF00H          ; 4KB read-modify-write buffer ABOVE the CP/M sy
                                 ;  It is above the CCP/BDOS/CBIOS, so no transient program
                                 ;  (bounded by the CCP at 0xD000) can ever load over it --
                                 ;  this is the whole point of moving the system down.
+; ---- SD card (drive C:) dedicated SPI port, pins 31/32/35/36 ----
+SD_DATA EQU     53H             ; read clocks a byte in / write clocks a byte out (MSB first)
+SD_CTL  EQU     54H             ; write bit0 = CS# (0=select low, 1=release high);
+                                ;        bit1 = slow clock (1 = ~390 kHz for card init)
+SD_STAT EQU     55H             ; read bit0 = transfer busy (poll OPTIONAL; the engine
+                                ;        wait-stretches the CPU so no polling is needed)
+SDPLBA  EQU     1               ; SD partition LBA start (from the sdtool-created MBR, LBA=1).
+                                ; Drive C: is a 2K-block single-DM CP/M drive (DPBC below);
+                                ; the deblock buffer ALIASES the RMWBUF region (drive A flash
+                                ; writes and drive C SD accesses NEVER happen at the same time
+                                ; -- the BDOS drives one disk at a time).
 
 ;
 ; ============================================================================
@@ -128,6 +139,9 @@ BOOT:
 ; ---- output the sign-on banner ---------------------------------------------
         LXI     H,BANNER
         CALL    PRTSTR
+;
+; ---- initialize the SD card (drive C:) so it is ready if logged in ----------
+        CALL    SD_INIT
 ;
 ; ---- initialize the default DMA address and jump to the CCP -----------------
         LXI     H,DMA0
@@ -263,6 +277,10 @@ SELDSK:
         JZ      SELD0           ; C=0 -> drive A
         CPI     01H
         JZ      SELD1           ; C=1 -> drive B (RAM disk)
+        CPI     02H
+        JZ      SELD2           ; C=2 -> drive C (SD card)
+        CPI     03H
+        JZ      SELD3           ; C=3 -> drive D (future; reserved)
 SELERR:
         LXI     H,0000H         ; error return: HL=0
         MVI     A,0FFH
@@ -272,6 +290,12 @@ SELD0:
         RET
 SELD1:
         LXI     H,DPHB          ; drive B disk parameter header (RAM disk)
+        RET
+SELD2:
+        LXI     H,DPHC          ; drive C disk parameter header (SD card)
+        RET
+SELD3:
+        LXI     H,DPHD          ; drive D disk parameter header (SD partition 2, future)
         RET
 
 ; HOME: move to track 0, sector 0.
@@ -364,6 +388,8 @@ READ:
         LDA     SELBL
         ORA     A
         JZ      READB           ; drive A (SELBL==0) -> SPI flash (boot drive)
+        CPI     02H
+        JZ      READS           ; drive C (SELBL==2) -> SD card
         ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR          ; set the disk data-pointer
@@ -388,6 +414,8 @@ WRITE:
         LDA     SELBL
         ORA     A
         JZ      WRITEB          ; drive A (SELBL==0) -> SPI flash (boot drive)
+        CPI     02H
+        JZ      WRITES          ; drive C (SELBL==2) -> SD card
         ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR
@@ -403,6 +431,348 @@ WRITE1:
         JNZ     WRITE1
         MVI     A,00H           ; success
         RET
+
+; ============================================================================
+;   SD CARD (drive C:) DRIVER + DEBLOCKING
+;   The SD is a 2K-block single-DM CP/M drive (DPBC, same geometry family as the
+;   flash drive A but OFF=0 because it is a data partition).  The BDOS operates
+;   on 128-byte records; the SD only transfers 512-byte sectors, so the CBIOS
+;   deblocks: record r -> SD sector (SDPLBA + r/4) at byte offset (r%4)*128.
+;   The 512-byte sector buffer ALIASES the RMWBUF region (0xEF00): drive A flash
+;   writes and drive C SD accesses never occur at the same time (the BDOS drives
+;   one disk at a time), so the two can safely share that 4KB area.
+; ============================================================================
+; SDMAP: from TRK/SECN compute the SD block number (BLKN, 32-bit, MSB first) and
+;   the in-sector byte offset (SDOFF, 16-bit) for the current 128-byte record.
+;   record = TRK*SPT + SECN = TRK*32 + SECN.
+SDMAP:
+        LDA     TRK
+        MOV     L,A
+        MVI     H,00H
+        DAD     H               ; *2
+        DAD     H               ; *4
+        DAD     H               ; *8
+        DAD     H               ; *16
+        DAD     H               ; *32  -> HL = TRK*32
+        LDA     SECN
+        MOV     E,A
+        MVI     D,00H
+        DAD     D               ; HL = record
+        ; SDOFF_hi = (record & 3) >> 1   [0,0,1,1]
+        MOV     A,L
+        ANI     03H
+        MOV     B,A
+        ANI     02H
+        JZ      SDMAP_H0
+        MVI     A,01H
+        JMP     SDMAP_H1
+SDMAP_H0:
+        MVI     A,00H
+SDMAP_H1:
+        STA     SDOFF+1
+        ; SDOFF_lo = (record & 3) << 7   [*128, anded 0xFF]
+        MOV     A,B
+        RLC                     ; *2
+        RLC                     ; *4
+        RLC                     ; *8
+        RLC                     ; *16
+        RLC                     ; *32
+        RLC                     ; *64
+        RLC                     ; *128
+        STA     SDOFF
+        ; SSEC = record >> 2 (16-bit logical right shift)
+        XRA     A               ; A=0, CY=0
+        MOV     A,H
+        RAR
+        MOV     H,A
+        MOV     A,L
+        RAR
+        MOV     L,A
+        XRA     A
+        MOV     A,H
+        RAR
+        MOV     H,A
+        MOV     A,L
+        RAR
+        MOV     L,A             ; HL = record >> 2 = SSEC
+        ; BLKN = SDPLBA + SSEC  (SDPLBA=1)
+        INX     H
+        MVI     A,00H
+        STA     BLKN+0
+        STA     BLKN+1
+        MOV     A,H
+        STA     BLKN+2
+        MOV     A,L
+        STA     BLKN+3
+        RET
+
+; READS: read one 128-byte CP/M record from the SD into the DMA buffer.
+;   Returns A=0 on success, 0FFh on error.
+READS:
+        CALL    SDMAP
+        LXI     H,RMWBUF        ; deblock sector buffer (aliases the RMWBUF region)
+        CALL    SD_READBLK      ; read the 512-byte SD sector into RMWBUF
+        ORA     A
+        JNZ     READS_ERR
+        ; copy RMWBUF+SDOFF (128 bytes) to the DMA buffer
+        LHLD    DMA
+        MOV     D,H
+        MOV     E,L             ; DE = DMA destination
+        LXI     H,RMWBUF
+        LDA     SDOFF
+        ADD     L
+        MOV     L,A
+        LDA     SDOFF+1
+        ADC     H
+        MOV     H,A             ; HL = RMWBUF + SDOFF
+        MVI     B,128
+READS1:
+        MOV     A,M
+        STAX    D
+        INX     H
+        INX     D
+        DCR     B
+        JNZ     READS1
+        MVI     A,00H           ; success
+        RET
+READS_ERR:
+        RET                     ; A = 0FFh (disk read error)
+
+; WRITES: write one 128-byte CP/M record from the DMA buffer to the SD
+;   (read-modify-write of the containing 512-byte sector).
+;   Returns A=0 on success, 0FFh on error.
+WRITES:
+        CALL    SDMAP
+        LXI     H,RMWBUF
+        CALL    SD_READBLK      ; read the sector first (RMW)
+        ORA     A
+        JNZ     WRITES_ERR
+        ; overlay the 128-byte DMA record at RMWBUF+SDOFF
+        LHLD    DMA
+        MOV     D,H
+        MOV     E,L             ; DE = DMA source
+        LXI     H,RMWBUF
+        LDA     SDOFF
+        ADD     L
+        MOV     L,A
+        LDA     SDOFF+1
+        ADC     H
+        MOV     H,A             ; HL = RMWBUF + SDOFF (in-buffer destination)
+        MVI     B,128
+WRITES1:
+        LDAX    D
+        MOV     M,A
+        INX     H
+        INX     D
+        DCR     B
+        JNZ     WRITES1
+        LXI     H,RMWBUF
+        CALL    SD_WRITEBLK     ; write the modified 512-byte sector back
+        ORA     A
+        JNZ     WRITES_ERR
+        MVI     A,00H           ; success
+        RET
+WRITES_ERR:
+        RET                     ; A = 0FFh (disk write error)
+
+; SD_READBLK: read the 512-byte SD block BLKN (MSB first) into (HL).
+;   A = 0 ok / 0FFh err.  Preserves HL (the destination buffer).
+SD_READBLK:
+        MVI     A,00H
+        OUT     SD_CTL          ; select the SD card (CS low), fast
+        MVI     A,51H           ; CMD17 (read single block)
+        STA     SDCMDB
+        LDA     BLKN+0
+        STA     SDCMDB+1
+        LDA     BLKN+1
+        STA     SDCMDB+2
+        LDA     BLKN+2
+        STA     SDCMDB+3
+        LDA     BLKN+3
+        STA     SDCMDB+4
+        MVI     A,0FFH
+        STA     SDCMDB+5
+        PUSH    H
+        LXI     H,SDCMDB
+        CALL    SD_SEND6        ; A = R1 (should be 00)
+        POP     H               ; restore the destination buffer
+        CPI     00H
+        JNZ     SDRB_ERR
+        CALL    SD_WAITTKN      ; wait for the 0FEh data-start token
+        JC      SDRB_ERR
+        LXI     B,512
+SDRB1:
+        IN      SD_DATA
+        MOV     M,A
+        INX     H
+        DCX     B
+        MOV     A,B
+        ORA     C
+        JNZ     SDRB1
+        IN      SD_DATA         ; 2 CRC bytes
+        IN      SD_DATA
+        MVI     A,01H
+        OUT     SD_CTL          ; release CS
+        MVI     A,00H
+        RET
+SDRB_ERR:
+        MVI     A,01H
+        OUT     SD_CTL          ; release CS
+        MVI     A,0FFH
+        RET
+
+; SD_WRITEBLK: write the 512 bytes at (HL) to the SD block BLKN.
+;   A = 0 ok / 0FFh err.  Preserves HL (the source buffer).
+SD_WRITEBLK:
+        MVI     A,00H
+        OUT     SD_CTL          ; select the SD card, fast
+        MVI     A,58H           ; CMD24 (write single block)
+        STA     SDCMDB
+        LDA     BLKN+0
+        STA     SDCMDB+1
+        LDA     BLKN+1
+        STA     SDCMDB+2
+        LDA     BLKN+2
+        STA     SDCMDB+3
+        LDA     BLKN+3
+        STA     SDCMDB+4
+        MVI     A,0FFH
+        STA     SDCMDB+5
+        PUSH    H
+        LXI     H,SDCMDB
+        CALL    SD_SEND6        ; A = R1 (should be 00)
+        POP     H               ; restore the source buffer
+        CPI     00H
+        JNZ     SDWB_ERR
+        MVI     A,0FEH          ; data start token
+        OUT     SD_DATA
+        LXI     B,512
+SDWB1:
+        MOV     A,M
+        OUT     SD_DATA
+        INX     H
+        DCX     B
+        MOV     A,B
+        ORA     C
+        JNZ     SDWB1
+        MVI     A,0FFH          ; 2 CRC bytes (CRC disabled)
+        OUT     SD_DATA
+        OUT     SD_DATA
+        IN      SD_DATA         ; data response (0x05 = accepted)
+        MVI     B,0FFH
+SDWB2:
+        IN      SD_DATA         ; wait for the card to finish programming
+        ANI     01H             ; MISO low = busy
+        JNZ     SDWB_DONE
+        DCR     B
+        JNZ     SDWB2
+SDWB_DONE:
+        MVI     A,01H
+        OUT     SD_CTL          ; release CS
+        MVI     A,00H
+        RET
+SDWB_ERR:
+        MVI     A,01H
+        OUT     SD_CTL          ; release CS
+        MVI     A,0FFH
+        RET
+
+; SD_SEND6: transmit the 6-byte command at (HL), then read the R1 status byte.
+;   Returns A = R1 (0FFh if no valid response after 16 bytes of clocking).
+SD_SEND6:
+        MVI     B,6
+SD6_TX:
+        MOV     A,M
+        OUT     SD_DATA
+        INX     H
+        DCR     B
+        JNZ     SD6_TX
+        MVI     B,16
+SD6_RX:
+        IN      SD_DATA
+        CPI     0FFH
+        JNZ     SD6_DONE
+        DCR     B
+        JNZ     SD6_RX
+SD6_DONE:
+        RET
+
+; SD_WAITTKN: clock until the card sends the 0FEh data-start token.
+;   Returns CY=0 + A=0FEh on success, CY=1 if 255 bytes pass with no token.
+SD_WAITTKN:
+        MVI     B,0FFH
+SD_WT:
+        IN      SD_DATA
+        CPI     0FEH
+        JZ      SD_WT_OK
+        DCR     B
+        JNZ     SD_WT
+        STC
+        RET
+SD_WT_OK:
+        ORA     A               ; clear CY
+        RET
+
+; SD_INIT: full SPI-mode initialization of the SD card.  Called from BOOT so a
+;   logged-in drive C is ready.  A = 0 on success (card entering SPI mode and
+;   initializing), 0FFh if no card / init failed (drive C reads will then error).
+;   This is the same handshake as sdprobe/sdtool (CMD0 -> CMD8 -> CMD55/ACMD41).
+SD_INIT:
+        MVI     A,03H           ; CS high + slow clock
+        OUT     SD_CTL
+        MVI     B,10            ; 10 x 0xFF = 80 power-up clocks
+SDI_CK:
+        MVI     A,0FFH
+        OUT     SD_DATA
+        DCR     B
+        JNZ     SDI_CK
+        MVI     A,02H           ; select the card (CS low), slow clock
+        OUT     SD_CTL
+        ; CMD0 + read R1
+        LXI     H,SDCMD0
+        CALL    SD_SEND6        ; A = R1 (01h = idle, or 0FFh if no response)
+        CPI     01H
+        JNZ     SDI_FAIL
+        ; CMD8 (SEND_IF_COND) - required before ACMD41 on SDHC/SDXC
+        LXI     H,SDCMD8
+        CALL    SD_SEND6
+        IN      SD_DATA         ; consume the 4-byte R7 payload
+        IN      SD_DATA
+        IN      SD_DATA
+        IN      SD_DATA
+        ; CMD55 + ACMD41 poll until the card leaves idle
+        MVI     D,200
+SDI_RDY:
+        LXI     H,SDCMD55
+        CALL    SD_SEND6
+        LXI     H,SDACMD
+        CALL    SD_SEND6        ; A = R1
+        CPI     00H
+        JZ      SDI_OK
+        CALL    SD_DELAY        ; ~3ms between attempts (card init is time-based)
+        DCR     D
+        JNZ     SDI_RDY
+SDI_FAIL:
+        MVI     A,0FFH
+        RET
+SDI_OK:
+        MVI     A,00H
+        RET
+
+; SD_DELAY: approximate ~3ms busy-wait (HL only; for SD init polling).
+SD_DELAY:
+        LXI     H,2000
+SDDL:
+        DCX     H
+        MOV     A,H
+        ORA     L
+        JNZ     SDDL
+        RET
+
+SDCMD0: DB      40H,00H,00H,00H,00H,95H
+SDCMD8: DB      48H,00H,00H,01H,0AAH,87H
+SDCMD55: DB     77H,00H,00H,00H,00H,65H
+SDACMD: DB      69H,40H,00H,00H,00H,77H   ; HCS bit -> SDHC/SDXC
 
 ; ============================================================================
 ;   RAM-DISK BLOCK COPY / FILL HELPERS (used by BOOT/WBOOT)
@@ -685,5 +1055,48 @@ DPBB:
 CSVB:   DS      1               ; checksum vector (0 bytes used since CKS=0)
 ALVB:   DS      32              ; allocation vector (DSM=251 -> (251/8)+1 = 32 bytes)
 RECOFF: DS      2               ; in-sector byte offset for the drive B: RMW
+
+; ============================================================================
+;   DRIVE C / D: (SD card) DISK PARAMETER HEADER / BLOCK / VECTORS
+;   Geometry (matches sdtool/sdprobe and the flash family): 128-byte sectors,
+;   SPT=32, 2KB allocation blocks (BSH=4/BLM=15), DRM=127 (128 dir entries),
+;   AL0=0xC0 (reserve directory blocks 0-1), CKS=0, DSM=251 (single-DM),
+;   OFF=0 (data partition, NO system tracks -- the directory is at the partition
+;   start, exactly where sdtool formatted it).  Drive C and D both point here for
+;   now (D is reserved for a future SD partition 2).
+DPHC:
+        DW      0000H           ; XLT: no sector translation
+        DW      0000H           ; scratch (cdrmax)
+        DW      0000H           ; scratch (curtrk)
+        DW      0000H           ; scratch (currec)
+        DW      DIRBUF          ; shared directory buffer (128 bytes)
+        DW      DPBC            ; disk parameter block (SD 2K geometry)
+        DW      CSVC            ; checksum vector
+        DW      ALVC            ; allocation vector
+DPHD:
+        DW      0000H
+        DW      0000H
+        DW      0000H
+        DW      0000H
+        DW      DIRBUF
+        DW      DPBC            ; (future: SD partition 2 DPB; shared DPBC for now)
+        DW      CSVC
+        DW      ALVC
+DPBC:
+        DW      SPT             ; SPT  = 32   (sectors per track)
+        DB      04H             ; BSH  = 4    (block shift  -> 2KB blocks)
+        DB      0FH             ; BLM  = 15   (block mask)
+        DB      01H             ; EXM  = 1
+        DW      251             ; DSM  = 251  (max block number = 252 blocks)
+        DW      127             ; DRM  = 127  (max directory entry = 128 entries)
+        DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first)
+        DB      00H             ; AL1  = 0x00
+        DW      00H             ; CKS  = 0    (fixed media -> no checksum)
+        DW      00H             ; OFF  = 0    (data partition, no system tracks)
+CSVC:   DS      1               ; checksum vector (0 bytes used since CKS=0)
+ALVC:   DS      32              ; allocation vector (DSM=251 -> 32 bytes)
+SDOFF:  DS      2               ; in-sector byte offset for the SD deblock
+BLKN:   DS      4               ; SD block number (32-bit, MSB first); SD block = SDPLBA + record/4
+SDCMDB: DS      6               ; SD command buffer (opcode + 4-byte arg + CRC)
 
         END

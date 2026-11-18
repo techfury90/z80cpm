@@ -107,6 +107,12 @@ write_hex(os.path.join(base, "brevia2_cpm.hex"), full)
 # machine RAM from 0xE400, then cold-boots CP/M. No address header; the fixed
 # CP/M layout defines where each block goes.
 bin_bytes = bytes(full[a] for a in range(lo, hi + 1))
+# Pad the raw .bin to a FIXED CPMIMGLEN so the diskutil 'C' XMODEM receive length
+# always matches (it loads exactly CPMIMGLEN bytes from 0xD000).  MUST agree
+# with CPMIMGLEN in programs/diskutil.s and gwmon/smbrevia.asm.  The padding
+# bytes load into the CBIOS variable/RAM area beyond the image (below RMWBUF).
+CPMIMGLEN = 0x1D00
+bin_bytes = bin_bytes.ljust(CPMIMGLEN, b'\x00')[:CPMIMGLEN]
 with open(os.path.join(base, "brevia2_cpm.bin"), "wb") as fh:
     fh.write(bin_bytes)
 print("wrote brevia2_cpm.bin: %d bytes from 0x%04X to 0x%04X"

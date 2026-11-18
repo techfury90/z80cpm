@@ -70,7 +70,7 @@ FBDIR   EQU     2000H                   ; drive A: flash directory base (block 0
 FBDIRZ  EQU     1000H                   ; directory size written (4K = 128 entries)
 FBSYS   EQU     2000H                   ; end of the reserved system area (0x0000-0x1FFF); dir base
 CPMIMG  EQU     0000H                   ; flash offset of the stored CP/M boot image
-CPMIMGLEN EQU  1A00H                    ; bytes of the boot image (128-pad of the 6656-B .bin)
+CPMIMGLEN EQU  1D00H                    ; bytes of the boot image (padded to 0x1D00; must match gwmon/smbrevia.asm)
 
 ; ============================================================================
         JMP     START

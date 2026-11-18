@@ -1,0 +1,1951 @@
+                        ; ============================================================================
+                        ; diskutil.s -- standalone RAM-disk maintenance utility for the Brevia2 Z80.
+                        ;
+                        ; Runs entirely OUTSIDE of CP/M. Loaded via GWMON-80 'L', run via 'G 1000'.
+                        ; Uses the console UART (0x80 status / 0x81 data) for BOTH the menu and the
+                        ; XMODEM file transfer, and the RAM-disk controller (0x20 DATA auto-inc,
+                        ; 0x21 ADDR lo, 0x22 ADDR hi) for the CP/M disk layout in bank B.
+                        ;
+                        ; Commands:
+                        ;   F  -- format drive A: (write 0xE5 to the 2K directory area)
+                        ;   U  -- XMODEM upload (checksum mode): receive a file from the host PC and
+                        ;         write it to the RAM disk as a CP/M file (multi-extent for >16K).
+                        ;   D  -- XMODEM download: send a file from the RAM disk to the host PC.
+                        ;   H  -- help
+                        ;
+                        ; XMODEM receive retries the initiating NAK with a ~1.5s timeout each cycle,
+                        ; so the host (Tera Term / minicom) picks it up even if it starts the transfer
+                        ; AFTER we began waiting. Supports checksum blocks (SOH) and CRC blocks (STX).
+                        ;
+                        ; Assembled with the Glitch Works a85 8085 cross-assembler (same as cbios.asm).
+                        ; ============================================================================
+                        
+   1000                         ORG     1000H
+                        
+                        ; ---------------- Processor I/O ports ----------------
+   0080                 USTAT   EQU     80H                     ; UART status (bit0 tx_busy, bit1 rx_avail)
+   0081                 UDATA   EQU     81H                     ; UART data (read=RX char, write=TX char)
+   0020                 RDDATA  EQU     20H                     ; RAM disk DATA (read/write, auto-increment)
+   0021                 RDADRL  EQU     21H                     ; RAM disk ADDR low
+   0022                 RDADRH  EQU     22H                     ; RAM disk ADDR high
+                        ; ---- on-board ISSI IS25LD040 serial flash (SPI, 512 KB) ----
+                        ; JEDEC ID read = 7F 9D 7E (verified on silicon). 128 x 4KB sectors, 256-byte
+                        ; program pages.  Program only clears bits 1->0; restoring a 1 requires a 4KB
+                        ; sector erase first, so ERASE-BEFORE-WRITE is mandatory (see the layout note
+                        ; on DO_FMTFLASH and the drive B: RMW design in cpm/cbios.asm).
+   0050                 SPI_DATA EQU    50H                     ; read = clock 1 byte in (returns in A), write = clock 1 byte out. MSB-first.
+   0051                 SPI_CTL  EQU    51H                     ; write bit0 = CS#: 0 = select flash low, 1 = release high
+   0052                 SPI_STAT EQU    52H                     ; read bit0 = transfer busy (1 while a byte is clocked; polling OPTIONAL)
+                        
+                        ; ---------------- CP/M drive A: disk layout (bank B) ----------------
+   2000                 DIRBASE EQU     2000H                   ; directory area base (2K = 64 entries)
+   2800                 DBLOCK0 EQU     2800H                   ; first USER data block (block 2) base
+   0400                 BLKSZ   EQU     1024                    ; block size (1K)
+   0080                 RECSZ   EQU     128                     ; CP/M record size
+                        
+                        ; ---------------- XMODEM control bytes ----------------
+   0001                 XM_SOH  EQU     01H
+   0002                 XM_STX  EQU     02H
+   0004                 XM_EOT  EQU     04H
+   0006                 XM_ACK  EQU     06H
+   0015                 XM_NAK  EQU     15H
+   0018                 XM_CAN  EQU     18H
+   00fe                 XM_TO   EQU     0FEH                    ; internal: RX timeout marker
+                        
+                        ; ---------------- Workspace (bank A SRAM, well below the CCP at 0xD000) ----------------
+   2000                 XMBUF   EQU     2000H                   ; 128-byte XMODEM block buffer
+   2100                 FCB     EQU     2100H                   ; 32-byte FCB (extent 0) in RAM
+   2120                 FCB2    EQU     2120H                   ; 32-byte FCB (extent 1) in RAM
+   2160                 RCNT_L  EQU     2160H                   ; total records received (16-bit, L then H)
+   2180                 FNAME   EQU     2180H                   ; 12-byte user filename buffer (8.3)
+   2200                 F_PAT   EQU     2200H                   ; 16-byte test-pattern buffer for the flash program/verify
+   2210                 F_RD    EQU     2210H                   ; 16-byte flash read-back buffer for the raw dump/verify
+   2300                 FMTBUF  EQU     2300H                   ; 256-byte buffer (one flash page) filled with 0xE5 for the
+                                                                ;  drive A: flash formatter; page-programmed 16x to write the 4K dir.
+                        ; ---- drive B: flash layout (shared with the CBIOS DPB -- keep in lockstep) ----
+                        ; Reserved system tracks 0-1 = 0x0000-0x1FFF (erased 0xFF, for the future boot).
+                        ; Directory = blocks 0-1 at 0x2000-0x2FFF (128 x 32-byte entries, filled 0xE5);
+                        ; data blocks 2..251 start at 0x3000.
+   2000                 FBDIR   EQU     2000H                   ; drive A: flash directory base (block 0)
+   1000                 FBDIRZ  EQU     1000H                   ; directory size written (4K = 128 entries)
+   2000                 FBSYS   EQU     2000H                   ; end of the reserved system area (0x0000-0x1FFF); dir base
+   0000                 CPMIMG  EQU     0000H                   ; flash offset of the stored CP/M boot image
+   1d00                 CPMIMGLEN EQU  1D00H                    ; bytes of the boot image (padded to 0x1D00; must match gwmon/smbrevia.asm)
+                        
+                        ; ============================================================================
+   1000   c3 1d 11              JMP     START
+                        
+                        ; ---------------- UART primitives ----------------
+                        ; TXCHAR: output char in A; poll tx_busy(bit0) low.
+   1003   f5            TXCHAR: PUSH    PSW
+   1004   db 80         TXCH1:  IN      USTAT
+   1006   e6 01                 ANI     01H
+   1008   c2 04 10              JNZ     TXCH1
+   100b   f1                    POP     PSW
+   100c   d3 81                 OUT     UDATA
+   100e   c9                    RET
+                        
+                        ; RXCHAR: block until a char, return it in A.
+   100f   db 80         RXCHAR: IN      USTAT
+   1011   e6 02                 ANI     02H
+   1013   ca 0f 10              JZ      RXCHAR
+   1016   db 81                 IN      UDATA
+   1018   c9                    RET
+                        
+                        ; RXCHAR_T: receive a char with a ~1.5s timeout.
+                        ;   Returns: carry CLEAR + A=char if a char arrived; carry SET if timeout.
+   1019                 RXCHAR_T:
+   1019   06 b0                 MVI     B,0B0H                  ; outer count
+   101b   0e b0         RT_L2:  MVI     C,0B0H                  ; mid count
+   101d   16 b0         RT_L1:  MVI     D,0B0H                  ; inner count
+   101f   db 80         RT_L0:  IN      USTAT
+   1021   e6 02                 ANI     02H
+   1023   c2 34 10              JNZ     RT_HAVE
+   1026   15                    DCR     D
+   1027   c2 1f 10              JNZ     RT_L0
+   102a   0d                    DCR     C
+   102b   c2 1d 10              JNZ     RT_L1
+   102e   05                    DCR     B
+   102f   c2 1b 10              JNZ     RT_L2
+   1032   37                    STC                             ; timeout
+   1033   c9                    RET
+   1034                 RT_HAVE:
+   1034   db 81                 IN      UDATA                   ; char
+   1036   37                    STC
+   1037   3f                    CMC                             ; carry clear (char read)
+   1038   c9                    RET
+                        
+                        ; CRLF: send CR + LF.
+   1039   3e 0d         CRLF:   MVI     A,0DH
+   103b   cd 03 10              CALL    TXCHAR
+   103e   3e 0a                 MVI     A,0AH
+   1040   cd 03 10              CALL    TXCHAR
+   1043   c9                    RET
+                        
+                        ; PRTDBG: print a NUL-terminated tag string at HL, then the byte in A as two
+                        ; hex digits, then a space. For on-board trace of the upload/FCB path.
+                        ; PRTSTR advances/clobbers HL, so the value byte is parked in C; PRTBYTE uses
+                        ; A (and itself calls TXCHAR). No registers are preserved beyond C/B/..., so
+                        ; callers must not rely on B/C/D/E/H/L across a PRTDBG call (use it standalone).
+   1044   4f            PRTDBG: MOV     C,A             ; park the value byte
+   1045   c5                    PUSH    B
+   1046   d5                    PUSH    D
+   1047   e5                    PUSH    H
+   1048   cd 58 10              CALL    PRTSTR          ; HL -> tag string (PRTSTR clobbers HL)
+   104b   e1                    POP     H
+   104c   d1                    POP     D
+   104d   c1                    POP     B
+   104e   79                    MOV     A,C
+   104f   cd 62 10              CALL    PRTBYTE         ; value byte as 2 hex
+   1052   3e 20                 MVI     A,' '
+   1054   cd 03 10              CALL    TXCHAR
+   1057   c9                    RET
+                        
+                        ; PRTSTR: print NUL-terminated string at HL.
+   1058   7e            PRTSTR: MOV     A,M
+   1059   b7                    ORA     A
+   105a   c8                    RZ
+   105b   cd 03 10              CALL    TXCHAR
+   105e   23                    INX     H
+   105f   c3 58 10              JMP     PRTSTR
+                        
+                        ; PRTBYTE: print A as two hex digits.
+   1062   f5            PRTBYTE: PUSH    PSW
+   1063   e6 f0                 ANI     0F0H
+   1065   0f                    RRC
+   1066   0f                    RRC
+   1067   0f                    RRC
+   1068   0f                    RRC
+   1069   cd 6f 10              CALL    PRTH1
+   106c   f1                    POP     PSW
+   106d   e6 0f                 ANI     0FH
+   106f   c6 90         PRTH1:  ADI     90H
+   1071   27                    DAA
+   1072   ce 40                 ACI     40H                     ; add carry (ACI) so 0xA-0xF print A-F
+   1074   27                    DAA
+   1075   c3 03 10              JMP     TXCHAR
+                        
+                        ; ---------------- RAM-disk primitives (bank B) ----------------
+   1078   7d            RDSETA: MOV     A,L
+   1079   d3 21                 OUT     RDADRL
+   107b   7c                    MOV     A,H
+   107c   d3 22                 OUT     RDADRH
+   107e   c9                    RET
+                        
+                        ; ============================================================================
+                        ; FINDFREE -- scan the directory (64 slots) for a run of `FNEED` consecutive
+                        ;   EMPTY (0xE5) slots. Set FNEED=1 for a single-extent file, FNEED=2 for a
+                        ;   two-extent file (extents 0 and 1 occupy two ADJACENT slots).
+                        ;   Returns: A = slot index of the run start, carry CLEAR if found; carry SET
+                        ;            if the directory has no such run (full).
+                        ; ============================================================================
+   107f                 FINDFREE:
+   107f   06 40                 MVI     B,64            ; slots to examine
+   1081   0e 00                 MVI     C,00H           ; candidate run-start index
+   1083                 FF_LOOP:
+   1083   3a 5c 15              LDA     FNEED
+   1086   57                    MOV     D,A             ; D = number of consecutive empties still needed
+   1087   59                    MOV     E,C             ; E = running slot index
+                                ; remaining slots must be >= FNEED
+   1088   78                    MOV     A,B
+   1089   ba                    CMP     D
+   108a   da b5 10              JC      FF_FULL         ; not enough slots left for a full run
+   108d                 FF_RUN:
+                                ; check slot E is empty. PUSH D/E because LXI D,DIRBASE below clobbers
+                                ; both, and D (remaining count) and E (running slot) are live across the
+                                ; slot read. Without the push, D silently becomes 0x20 (DIRBASE hi) and E
+                                ; resets each iteration, corrupting the run-scan.
+   108d   d5                    PUSH    D
+   108e   7b                    MOV     A,E
+   108f   6f                    MOV     L,A
+   1090   26 00                 MVI     H,00H
+   1092   3e 05                 MVI     A,05H
+   1094   29            FF_SHL: DAD     H
+   1095   3d                    DCR     A
+   1096   c2 94 10              JNZ     FF_SHL          ; HL = E*32
+   1099   11 00 20              LXI     D,DIRBASE
+   109c   19                    DAD     D               ; HL = DIRBASE + E*32
+   109d   cd 78 10              CALL    RDSETA
+   10a0   db 20                 IN      RDDATA          ; byte 0 (0xE5 = empty)
+   10a2   d1                    POP     D               ; restore D (count), E (running slot)
+   10a3   fe e5                 CPI     0E5H
+   10a5   c2 b0 10              JNZ     FF_ADV          ; slot E occupied -> try next run start
+   10a8   1c                    INR     E
+   10a9   15                    DCR     D
+   10aa   c2 8d 10              JNZ     FF_RUN          ; continue the run
+                                ; found a run of FNEED consecutive empties starting at C
+   10ad   79                    MOV     A,C
+   10ae   b7                    ORA     A               ; clear carry
+   10af   c9                    RET
+   10b0                 FF_ADV:
+   10b0   0c                    INR     C               ; advance run start
+   10b1   05                    DCR     B
+   10b2   c2 83 10              JNZ     FF_LOOP
+   10b5                 FF_FULL:
+   10b5   37                    STC
+   10b6   c9                    RET
+                        
+                        ; ============================================================================
+                        ; NEXTBLK -- find the first FREE data block for a new file, scanning every
+                        ;   non-empty directory entry's allocation map for the highest block in use.
+                        ;   Returns: A = next free block number, carry CLEAR if one exists;
+                        ;            carry SET if the data area is full.
+                        ;   Data blocks run from 2 (block N at 0x2000 + N*1024); DSM=55 (blocks 2-55).
+                        ; ============================================================================
+   10b7                 NEXTBLK:
+   10b7   3e 01                 MVI     A,01H           ; start "highest used" just below block 2
+   10b9   32 5d 15              STA     NBMAX
+   10bc   21 00 20              LXI     H,DIRBASE       ; scan base
+   10bf   06 40                 MVI     B,64            ; 64 slots
+   10c1   0e 00                 MVI     C,00H           ; slot index
+   10c3                 NB_LOOP:
+   10c3   79                    MOV     A,C
+   10c4   6f                    MOV     L,A
+   10c5   26 00                 MVI     H,00H
+   10c7   16 05                 MVI     D,05H
+   10c9   29            NB_SHL: DAD     H
+   10ca   15                    DCR     D
+   10cb   c2 c9 10              JNZ     NB_SHL          ; HL = slot*32
+   10ce   11 00 20              LXI     D,DIRBASE
+   10d1   19                    DAD     D
+   10d2   cd 78 10              CALL    RDSETA
+   10d5   db 20                 IN      RDDATA          ; byte 0 = user number
+   10d7   fe e5                 CPI     0E5H
+   10d9   ca 0a 11              JZ      NB_NEXT         ; empty slot -> no blocks to scan
+                                ; non-empty: read its 16 allocation bytes and track the max block
+   10dc   21 00 20              LXI     H,DIRBASE
+   10df   19                    DAD     D               ; HL = DIRBASE (already have D=DIRBASE from DAD)
+   10e0   79                    MOV     A,C
+   10e1   6f                    MOV     L,A
+   10e2   26 00                 MVI     H,00H
+   10e4   16 05                 MVI     D,05H
+   10e6   29            NB_SHL2: DAD     H
+   10e7   15                    DCR     D
+   10e8   c2 e6 10              JNZ     NB_SHL2
+   10eb   11 10 20              LXI     D,DIRBASE+16    ; +16 -> start of allocation map
+   10ee   19                    DAD     D
+   10ef   cd 78 10              CALL    RDSETA
+   10f2   16 10                 MVI     D,16            ; read 16 allocation bytes
+   10f4   db 20         NB_MAP: IN      RDDATA
+   10f6   b7                    ORA     A
+   10f7   ca 06 11              JZ      NB_MAPC         ; block 0 = unallocated (means no block) -> skip
+   10fa   5f                    MOV     E,A             ; E = this block number
+   10fb   3a 5d 15              LDA     NBMAX
+   10fe   bb                    CMP     E
+   10ff   d2 06 11              JNC     NB_MAPC         ; NBMAX >= this -> no change
+   1102   7b                    MOV     A,E
+   1103   32 5d 15              STA     NBMAX           ; NBMAX = this block
+   1106   15            NB_MAPC: DCR     D
+   1107   c2 f4 10              JNZ     NB_MAP
+   110a                 NB_NEXT:
+   110a   0c                    INR     C
+   110b   05                    DCR     B
+   110c   c2 c3 10              JNZ     NB_LOOP
+                                ; next free block = NBMAX + 1
+   110f   3a 5d 15              LDA     NBMAX
+   1112   c6 01                 ADI     01H
+   1114   fe 38                 CPI     56              ; block 56 would be past DSM=55
+   1116   d2 1b 11              JNC     NB_FULL
+   1119   b7                    ORA     A               ; clear carry (block number in A, < 56)
+   111a   c9                    RET
+   111b                 NB_FULL:
+   111b   37                    STC
+   111c   c9                    RET
+                        
+                        ; ============================================================================
+                        ; START
+                        ; ============================================================================
+   111d   31 00 fe      START:  LXI     SP,0FE00H               ; stack ABOVE the CP/M image the 'C' command loads
+                                                                ;  (image now spans 0xD000-~0xEA00 after the system was
+                                                                ;  moved down; 0xFE00 is above it and just below GWMON's
+                                                                ;  reserved 0xFF00, so the cold-boot load can't clobber
+                                                                ;  the active stack. Old 0xE000 sat inside the image.)
+   1120   21 9f 19              LXI     H,MSGBANNER
+   1123   cd 58 10              CALL    PRTSTR
+   1126   21 be 19      MENU:   LXI     H,MSGMENU
+   1129   cd 58 10              CALL    PRTSTR
+   112c   cd 0f 10              CALL    RXCHAR                  ; wait for a command char
+   112f   e6 df                 ANI     0DFH                    ; force uppercase (accept lowercase)
+   1131   fe 46                 CPI     'F'
+   1133   ca 6b 11              JZ      DO_FMT
+   1136   fe 55                 CPI     'U'
+   1138   ca 97 11              JZ      DO_UPLOAD
+   113b   fe 43                 CPI     'C'
+   113d   ca e8 14              JZ      DO_BOOTCPM
+   1140   fe 48                 CPI     'H'
+   1142   ca 8e 11              JZ      DO_HELP
+   1145   fe 42                 CPI     'B'
+   1147   ca 5f 15              JZ      DO_DUMP
+   114a   fe 4d                 CPI     'M'
+   114c   ca 87 15              JZ      DO_MDUMP
+   114f   fe 49                 CPI     'I'
+   1151   ca 3f 17              JZ      DO_ID
+   1154   fe 50                 CPI     'P'
+   1156   ca 9c 17              JZ      DO_PROGRAM
+   1159   fe 52                 CPI     'R'
+   115b   ca ce 17              JZ      DO_READ
+   115e   fe 45                 CPI     'E'
+   1160   ca 48 18              JZ      DO_ERASE
+   1163   fe 53                 CPI     'S'
+   1165   ca 9c 18              JZ      DO_FMTFLASH
+   1168   c3 26 11              JMP     MENU
+                        
+                        ; ---------------- command: format ----------------
+   116b   21 f5 1a      DO_FMT: LXI     H,MSGFMT
+   116e   cd 58 10              CALL    PRTSTR
+   1171   21 00 00              LXI     H,0000H                 ; start at byte 0 of the RAM disk
+   1174   cd 78 10              CALL    RDSETA
+   1177   01 00 00              LXI     B,65536                 ; erase the ENTIRE 64K bank-B RAM disk
+   117a   16 e5                 MVI     D,0E5H                  ; keep the fill value in D (A is clobbered below)
+   117c   7a            FMTW:   MOV     A,D
+   117d   d3 20                 OUT     RDDATA                  ; write 0xE5 (auto-increment)
+   117f   0b                    DCX     B
+   1180   78                    MOV     A,B
+   1181   b1                    ORA     C
+   1182   c2 7c 11              JNZ     FMTW
+   1185   21 05 1b              LXI     H,MSGFMTOK
+   1188   cd 58 10              CALL    PRTSTR
+   118b   c3 26 11              JMP     MENU
+                        
+   118e   21 1a 1a      DO_HELP: LXI     H,MSGHELP
+   1191   cd 58 10              CALL    PRTSTR
+   1194   c3 26 11              JMP     MENU
+                        
+                        ; ============================================================================
+                        ; DO_UPLOAD -- XMODEM (checksum/CRC) receive a file, write it as a CP/M file.
+                        ; ============================================================================
+   1197                 DO_UPLOAD:
+   1197   21 12 1b              LXI     H,MSGPROMPT
+   119a   cd 58 10              CALL    PRTSTR
+   119d   cd 22 14              CALL    READNAME                ; read "name.ext" into FNAME (echoed)
+                                ; ---- allocate the first free data block NOW so WRITEBLK (during the
+                                ;      receive, before the FCB is written) appends after existing
+                                ;      files instead of overwriting block 2. The directory slot is
+                                ;      allocated later in WRITEFCB, after the extent count is known.
+   11a0   cd b7 10              CALL    NEXTBLK                 ; A = first free data block (carry set = full)
+   11a3   da ef 11              JC      UP_NOSPC
+   11a6   32 5e 15              STA     BLKNO
+   11a9   21 50 1e              LXI     H,MSGT_BLK              ; DEBUG: trace the picked block
+   11ac   cd 44 10              CALL    PRTDBG                  ; value was already in A (BLKNO)
+   11af   21 00 00              LXI     H,0000H
+   11b2   22 60 21              SHLD    RCNT_L                  ; init record counter
+   11b5   21 2b 1b              LXI     H,MSGRECV
+   11b8   cd 58 10              CALL    PRTSTR
+   11bb   3e 15                 MVI     A,XM_NAK                ; kick off with a checksum NAK
+   11bd   cd 03 10              CALL    TXCHAR
+                        
+   11c0   cd 1a 12      UPLOOP: CALL    GETBLK                  ; A=TO(timeout),01 good,FF bad,00 EOT,02 CAN
+   11c3   fe fe                 CPI     XM_TO
+   11c5   ca e7 11              JZ      UP_NAK                  ; timeout -> resend NAK, keep waiting
+   11c8   fe 02                 CPI     02H
+   11ca   ca e7 11              JZ      UP_NAK                  ; CAN
+   11cd   fe 00                 CPI     00H
+   11cf   ca f8 11              JZ      UP_EOT
+   11d2   fe ff                 CPI     0FFH
+   11d4   ca e7 11              JZ      UP_NAK                  ; bad block -> NAK
+                                ; good block -> write it to the disk
+   11d7   cd de 12              CALL    WRITEBLK
+   11da   3e 06                 MVI     A,XM_ACK
+   11dc   cd 03 10              CALL    TXCHAR
+   11df   3e 2e                 MVI     A,'.'
+   11e1   cd 03 10              CALL    TXCHAR
+   11e4   c3 c0 11              JMP     UPLOOP
+   11e7   3e 15         UP_NAK: MVI     A,XM_NAK
+   11e9   cd 03 10              CALL    TXCHAR
+   11ec   c3 c0 11              JMP     UPLOOP
+                        ; disk full (no free data block or no free directory slot) -> report and bail
+   11ef                 UP_NOSPC:
+   11ef   21 ee 1b              LXI     H,MSGNOSPC
+   11f2   cd 58 10              CALL    PRTSTR
+   11f5   c3 26 11              JMP     MENU
+                        
+   11f8   3e 06         UP_EOT: MVI     A,XM_ACK
+   11fa   cd 03 10              CALL    TXCHAR
+   11fd   cd 39 10              CALL    CRLF
+   1200   cd 1b 13              CALL    WRITEFCB                ; write directory entries
+   1203   21 43 1b              LXI     H,MSGDONE
+   1206   cd 58 10              CALL    PRTSTR
+   1209   2a 60 21              LHLD    RCNT_L
+   120c   7c                    MOV     A,H
+   120d   cd 62 10              CALL    PRTBYTE
+   1210   7d                    MOV     A,L
+   1211   cd 62 10              CALL    PRTBYTE
+   1214   cd 39 10              CALL    CRLF
+   1217   c3 26 11              JMP     MENU
+                        
+                        ; ============================================================================
+                        ; GETBLK -- receive one XMODEM block into XMBUF.
+                        ; Returns A: XM_TO(timeout), 00=EOT, 01=good, FF=bad, 02=CAN.
+                        ; (First byte uses the timed read so we can retry the NAK on timeout; the rest
+                        ;  of the block uses blocking reads because the host sends them back-to-back.)
+                        ; ============================================================================
+   121a   cd 19 10      GETBLK: CALL    RXCHAR_T
+   121d   da 37 12              JC      GT_TIMEOUT              ; carry set = timeout
+   1220   fe 04                 CPI     XM_EOT
+   1222   ca 3a 12              JZ      GT_EOT
+   1225   fe 18                 CPI     XM_CAN
+   1227   ca 3c 12              JZ      GT_CAN
+   122a   fe 01                 CPI     XM_SOH
+   122c   ca 3f 12              JZ      GT_SOH
+   122f   fe 02                 CPI     XM_STX
+   1231   ca 68 12              JZ      GT_STX
+   1234   c3 1a 12              JMP     GETBLK                  ; stray byte (e.g. 'rx name'), ignore
+                        
+   1237                 GT_TIMEOUT:
+   1237   3e fe                 MVI     A,XM_TO
+   1239   c9                    RET
+   123a   af            GT_EOT: XRA     A
+   123b   c9                    RET
+   123c   3e 02         GT_CAN: MVI     A,02H
+   123e   c9                    RET
+                        
+                        ; ---- SOH: checksum block (blkno, ~blkno, 128 data, 1-byte checksum) ----
+   123f   cd 0f 10      GT_SOH: CALL    RXCHAR
+   1242   47                    MOV     B,A                     ; blkno
+   1243   cd 0f 10              CALL    RXCHAR
+   1246   a8                    XRA     B                       ; ~blkno ^ blkno
+   1247   fe ff                 CPI     0FFH
+   1249   c2 db 12              JNZ     GT_BAD
+   124c   21 00 20              LXI     H,XMBUF
+   124f   1e 00                 MVI     E,00H
+   1251   0e 80                 MVI     C,128
+   1253   cd 0f 10      GT_LP:  CALL    RXCHAR
+   1256   77                    MOV     M,A
+   1257   83                    ADD     E
+   1258   5f                    MOV     E,A
+   1259   23                    INX     H
+   125a   0d                    DCR     C
+   125b   c2 53 12              JNZ     GT_LP
+   125e   cd 0f 10              CALL    RXCHAR                  ; checksum byte
+   1261   bb                    CMP     E
+   1262   c2 db 12              JNZ     GT_BAD
+   1265   3e 01                 MVI     A,01H
+   1267   c9                    RET
+                        
+                        ; ---- STX: CRC block (blkno, ~blkno, 128 data, 2-byte CRC-16) ----
+   1268   cd 0f 10      GT_STX: CALL    RXCHAR
+   126b   47                    MOV     B,A                     ; blkno
+   126c   cd 0f 10              CALL    RXCHAR
+   126f   a8                    XRA     B
+   1270   fe ff                 CPI     0FFH
+   1272   c2 db 12              JNZ     GT_BAD
+   1275   21 00 20              LXI     H,XMBUF
+   1278   0e 80                 MVI     C,128
+   127a   cd 0f 10      GT_LP2: CALL    RXCHAR
+   127d   77                    MOV     M,A
+   127e   23                    INX     H
+   127f   0d                    DCR     C
+   1280   c2 7a 12              JNZ     GT_LP2
+                                ; compute CRC-16 XMODEM over XMBUF -> D: E (D high, E low)
+   1283   21 00 20              LXI     H,XMBUF
+   1286   11 00 00              LXI     D,0000H                 ; crc = 0
+   1289   0e 80                 MVI     C,128
+   128b   7e            GT_CRC: MOV     A,M
+   128c   47                    MOV     B,A
+   128d   7a                    MOV     A,D
+   128e   a8                    XRA     B                       ; crc_hi ^= byte
+   128f   57                    MOV     D,A
+   1290   06 08                 MVI     B,08H
+   1292   7a            GTCB:   MOV     A,D
+   1293   e6 80                 ANI     80H                     ; crc & 0x8000 ?
+   1295   ca b3 12              JZ      GTCS
+   1298   a7                    ANA     A                       ; clear carry
+   1299   7b                    MOV     A,E
+   129a   17                    RAL                             ; E = E<<1 (carry = old E bit7)
+   129b   5f                    MOV     E,A
+   129c   7a                    MOV     A,D
+   129d   17                    RAL                             ; D = D<<1 | old E bit7
+   129e   57                    MOV     D,A
+   129f   7a                    MOV     A,D
+   12a0   ee 10                 XRI     10H                     ; crc ^= 0x1021 (hi)
+   12a2   57                    MOV     D,A
+   12a3   7b                    MOV     A,E
+   12a4   ee 21                 XRI     21H                     ; crc ^= 0x1021 (lo)
+   12a6   5f                    MOV     E,A
+   12a7   05                    DCR     B
+   12a8   c2 92 12              JNZ     GTCB
+   12ab   23                    INX     H
+   12ac   0d                    DCR     C
+   12ad   c2 8b 12              JNZ     GT_CRC
+   12b0   c3 c3 12              JMP     GT_CHK
+   12b3   a7            GTCS:   ANA     A                       ; clear carry
+   12b4   7b                    MOV     A,E
+   12b5   17                    RAL
+   12b6   5f                    MOV     E,A
+   12b7   7a                    MOV     A,D
+   12b8   17                    RAL
+   12b9   57                    MOV     D,A
+   12ba   05                    DCR     B
+   12bb   c2 92 12              JNZ     GTCB
+   12be   23                    INX     H
+   12bf   0d                    DCR     C
+   12c0   c2 8b 12              JNZ     GT_CRC
+   12c3                 GT_CHK:
+   12c3   23                    INX     H
+   12c4   0d                    DCR     C
+   12c5   c2 8b 12              JNZ     GT_CRC
+                                ; read 2 CRC bytes (high, low), compare
+   12c8   cd 0f 10              CALL    RXCHAR
+   12cb   47                    MOV     B,A                     ; received crc hi
+   12cc   cd 0f 10              CALL    RXCHAR
+   12cf   bb                    CMP     E                       ; compare low
+   12d0   c2 db 12              JNZ     GT_BAD
+   12d3   78                    MOV     A,B
+   12d4   ba                    CMP     D                       ; compare high
+   12d5   c2 db 12              JNZ     GT_BAD
+   12d8   3e 01                 MVI     A,01H
+   12da   c9                    RET
+                        
+   12db   3e ff         GT_BAD: MVI     A,0FFH
+   12dd   c9                    RET
+                        
+                        ; ============================================================================
+                        ; WRITEBLK -- write the 128 good bytes in XMBUF to the RAM disk at the current
+                        ;   file position. Position = 0x2000 + BLKNO*1024 + RCNT_L*128. BLKNO is the
+                        ;   first free data block found by NEXTBLOCK at upload start, so a second
+                        ;   upload appends after existing files instead of overwriting block 2.
+                        ; ============================================================================
+   12de                 WRITEBLK:
+   12de   2a 60 21              LHLD    RCNT_L
+   12e1   54                    MOV     D,H
+   12e2   5d                    MOV     E,L
+   12e3   06 07                 MVI     B,07H
+   12e5                 WBLK_SHL:
+   12e5   7b                    MOV     A,E
+   12e6   87                    ADD     A
+   12e7   5f                    MOV     E,A
+   12e8   7a                    MOV     A,D
+   12e9   17                    RAL
+   12ea   57                    MOV     D,A
+   12eb   05                    DCR     B
+   12ec   c2 e5 12              JNZ     WBLK_SHL        ; DE = RCNT_L*128
+   12ef   d5                    PUSH    D               ; save RCNT_L*128
+   12f0   3a 5e 15              LDA     BLKNO
+   12f3   6f                    MOV     L,A
+   12f4   26 00                 MVI     H,00H
+   12f6   06 0a                 MVI     B,10            ; *1024 (2^10) -> HL = BLKNO*1024
+   12f8   29            WBLK_B: DAD     H
+   12f9   05                    DCR     B
+   12fa   c2 f8 12              JNZ     WBLK_B
+   12fd   11 00 20              LXI     D,2000H         ; data-area base (blocks are at 0x2000 + N*1024)
+   1300   19                    DAD     D               ; HL = 0x2000 + BLKNO*1024
+   1301   d1                    POP     D               ; DE = RCNT_L*128
+   1302   19                    DAD     D               ; HL += RCNT_L*128
+   1303   cd 78 10              CALL    RDSETA
+   1306   21 00 20              LXI     H,XMBUF
+   1309   0e 80                 MVI     C,128
+   130b   7e            WBLK:   MOV     A,M
+   130c   d3 20                 OUT     RDDATA
+   130e   23                    INX     H
+   130f   0d                    DCR     C
+   1310   c2 0b 13              JNZ     WBLK
+   1313   2a 60 21              LHLD    RCNT_L
+   1316   23                    INX     H
+   1317   22 60 21              SHLD    RCNT_L
+   131a   c9                    RET
+                        
+                        ; ============================================================================
+                        ; WRITEFCB -- write the FCB directory entry/entries for the received file.
+                        ;   BLKNO (first free data block) and FSLOT (first free dir slot) were chosen
+                        ;   by NEXTBLK/FINDFREE at the START of the upload. Single extent (<=16K) ->
+                        ;   one slot; >16K -> two slots (extents 0 and 1). All data blocks run
+                        ;   contiguously from BLKNO, so a second upload never overwrites the first.
+                        ; ============================================================================
+   131b                 WRITEFCB:
+   131b   cd 72 14              CALL    BUILD_FCB               ; builds FCB (and FCB2 copy) with name/ext
+   131e   2a 60 21              LHLD    RCNT_L
+   1321   7c                    MOV     A,H
+   1322   b7                    ORA     A
+   1323   c2 62 13              JNZ     WFC_TWO
+   1326   7d                    MOV     A,L
+   1327   fe 81                 CPI     129
+   1329   d2 62 13              JNC     WFC_TWO
+                                ; ---- single extent (<=16K) ----
+   132c   3e 01                 MVI     A,01H
+   132e   32 5c 15              STA     FNEED                   ; need 1 consecutive slot
+   1331   cd 7f 10              CALL    FINDFREE                ; A = free slot (carry set = dir full)
+   1334   da ef 11              JC      UP_NOSPC
+   1337   32 5a 15              STA     FSLOT
+   133a   21 55 1e              LXI     H,MSGT_SLOT             ; DEBUG: trace the picked slot
+   133d   cd 44 10              CALL    PRTDBG                  ; value in A = FSLOT
+   1340   3a 0f 21              LDA     FCB+15
+   1343   21 5b 1e              LXI     H,MSGT_RC               ; DEBUG: trace RC
+   1346   cd 44 10              CALL    PRTDBG
+   1349   3e 00                 MVI     A,00H
+   134b   32 0c 21              STA     FCB+12                  ; EX=0
+   134e   32 0d 21              STA     FCB+13                  ; S1=0
+   1351   32 0e 21              STA     FCB+14                  ; S2=0
+   1354   2a 60 21              LHLD    RCNT_L
+   1357   7d                    MOV     A,L
+   1358   32 0f 21              STA     FCB+15                  ; RC = records
+   135b   cd ea 13              CALL    SETALLO                 ; fill FCB+16..31 (blocks from BLKNO)
+   135e   cd c8 13              CALL    WDIRFCB
+   1361   c9                    RET
+                        
+   1362                 WFC_TWO:
+   1362   3e 02                 MVI     A,02H
+   1364   32 5c 15              STA     FNEED                   ; need 2 consecutive slots
+   1367   cd 7f 10              CALL    FINDFREE                ; A = free slot run start
+   136a   da ef 11              JC      UP_NOSPC
+   136d   32 5a 15              STA     FSLOT
+   1370   3e 00                 MVI     A,00H
+   1372   32 0c 21              STA     FCB+12
+   1375   32 0d 21              STA     FCB+13
+   1378   32 0e 21              STA     FCB+14
+   137b   3e 80                 MVI     A,128
+   137d   32 0f 21              STA     FCB+15
+   1380   cd ea 13              CALL    SETALLO
+   1383   2a 60 21              LHLD    RCNT_L
+   1386   7d                    MOV     A,L
+   1387   d6 80                 SUI     128
+   1389   6f                    MOV     L,A
+   138a   7c                    MOV     A,H
+   138b   de 00                 SBI     00H
+   138d   67                    MOV     H,A
+   138e   7d                    MOV     A,L
+   138f   32 2f 21              STA     FCB2+15                 ; RC extent 1
+   1392   3e 01                 MVI     A,01H
+   1394   32 2c 21              STA     FCB2+12                 ; EX=1
+   1397   3e 00                 MVI     A,00H
+   1399   32 2d 21              STA     FCB2+13                 ; S1=0
+   139c   32 2e 21              STA     FCB2+14                 ; S2=0
+   139f   cd 05 14              CALL    SETALLO2
+   13a2   cd c8 13              CALL    WDIRFCB                 ; extent 0 at slot FSLOT
+                                ; extent 1 at slot FSLOT+1
+   13a5   3a 5a 15              LDA     FSLOT
+   13a8   3c                    INR     A
+   13a9   6f                    MOV     L,A
+   13aa   26 00                 MVI     H,00H
+   13ac   16 05                 MVI     D,05H
+   13ae   29            WFC2S:  DAD     H
+   13af   15                    DCR     D
+   13b0   c2 ae 13              JNZ     WFC2S                   ; HL = (FSLOT+1)*32
+   13b3   11 00 20              LXI     D,DIRBASE
+   13b6   19                    DAD     D
+   13b7   cd 78 10              CALL    RDSETA
+   13ba   21 20 21              LXI     H,FCB2
+   13bd   0e 20                 MVI     C,32
+   13bf   7e            WFC2B:  MOV     A,M
+   13c0   d3 20                 OUT     RDDATA
+   13c2   23                    INX     H
+   13c3   0d                    DCR     C
+   13c4   c2 bf 13              JNZ     WFC2B
+   13c7   c9                    RET
+                        
+   13c8                 WDIRFCB:
+   13c8   3a 5a 15              LDA     FSLOT
+   13cb   6f                    MOV     L,A
+   13cc   26 00                 MVI     H,00H
+   13ce   16 05                 MVI     D,05H
+   13d0   29            WDFS:   DAD     H
+   13d1   15                    DCR     D
+   13d2   c2 d0 13              JNZ     WDFS                    ; HL = FSLOT*32
+   13d5   11 00 20              LXI     D,DIRBASE
+   13d8   19                    DAD     D
+   13d9   cd 78 10              CALL    RDSETA
+   13dc   21 00 21              LXI     H,FCB
+   13df   0e 20                 MVI     C,32
+   13e1   7e            WDF:    MOV     A,M
+   13e2   d3 20                 OUT     RDDATA
+   13e4   23                    INX     H
+   13e5   0d                    DCR     C
+   13e6   c2 e1 13              JNZ     WDF
+   13e9   c9                    RET
+                        
+   13ea                 SETALLO:
+   13ea   3a 0f 21              LDA     FCB+15
+   13ed   b7                    ORA     A
+   13ee   c8                    RZ                              ; RC=0 -> no blocks to allocate
+   13ef   c6 07                 ADI     07H
+   13f1   0f                    RRC
+   13f2   0f                    RRC
+   13f3   0f                    RRC
+   13f4   e6 1f                 ANI     1FH
+   13f6   47                    MOV     B,A
+   13f7   21 10 21              LXI     H,FCB+16
+   13fa   3a 5e 15              LDA     BLKNO                   ; first free data block
+   13fd   77            SA1:    MOV     M,A
+   13fe   23                    INX     H
+   13ff   3c                    INR     A
+   1400   05                    DCR     B
+   1401   c2 fd 13              JNZ     SA1
+   1404   c9                    RET
+                        
+   1405                 SETALLO2:
+   1405   3a 2f 21              LDA     FCB2+15
+   1408   b7                    ORA     A
+   1409   c8                    RZ                              ; RC=0 -> no blocks to allocate
+   140a   c6 07                 ADI     07H
+   140c   0f                    RRC
+   140d   0f                    RRC
+   140e   0f                    RRC
+   140f   e6 1f                 ANI     1FH
+   1411   47                    MOV     B,A
+   1412   21 30 21              LXI     H,FCB2+16
+   1415   3a 5e 15              LDA     BLKNO
+   1418   c6 10                 ADI     10H                     ; extent 1 starts at BLKNO + 16 (10H), NOT 16H(22)
+   141a   77            SA21:   MOV     M,A
+   141b   23                    INX     H
+   141c   3c                    INR     A
+   141d   05                    DCR     B
+   141e   c2 1a 14              JNZ     SA21
+   1421   c9                    RET
+                        
+                        ; ============================================================================
+                        ; READNAME -- read "name.ext" (max 9 chars) from console into FNAME, echoing.
+                        ; ============================================================================
+   1422                 READNAME:
+   1422   21 80 21              LXI     H,FNAME
+   1425   06 0c                 MVI     B,12
+   1427   cd 0f 10      RN1:    CALL    RXCHAR
+   142a   fe 0d                 CPI     0DH
+   142c   ca 6b 14              JZ      RN_DONE
+   142f   fe 08                 CPI     08H                     ; ^H backspace
+   1431   ca 51 14              JZ      RN_BS
+   1434   fe 7f                 CPI     7FH                     ; DEL backspace
+   1436   ca 51 14              JZ      RN_BS
+                                ; coerce lowercase a-z to A-Z so the name always matches CP/M's
+                                ; uppercase convention (else files with lowercase names are stored but
+                                ; DIR/save lookups that uppercase won't find them)
+   1439   fe 61                 CPI     'a'
+   143b   da 45 14              JC      RN_STORE
+   143e   fe 7b                 CPI     'z'+1
+   1440   d2 45 14              JNC     RN_STORE
+   1443   d6 20                 SUI     20H                     ; 'a'->'A'
+   1445                 RN_STORE:
+   1445   77                    MOV     M,A
+   1446   cd 03 10              CALL    TXCHAR                  ; ECHO the (upper-cased) char
+   1449   23                    INX     H
+   144a   05                    DCR     B
+   144b   c2 27 14              JNZ     RN1
+   144e   c3 6b 14              JMP     RN_DONE
+   1451                 RN_BS:  ; backspace: erase from the screen and back the buffer up (if possible)
+   1451   3e 08                 MVI     A,08H
+   1453   cd 03 10              CALL    TXCHAR
+   1456   3e 20                 MVI     A,20H
+   1458   cd 03 10              CALL    TXCHAR
+   145b   3e 08                 MVI     A,08H
+   145d   cd 03 10              CALL    TXCHAR
+   1460   78                    MOV     A,B
+   1461   fe 09                 CPI     9
+   1463   ca 27 14              JZ      RN1                     ; buffer full, at start -> nothing to back up
+   1466   2b                    DCX     H
+   1467   04                    INR     B
+   1468   c3 27 14              JMP     RN1
+   146b   3e 00         RN_DONE: MVI     A,00H
+   146d   77                    MOV     M,A                     ; NUL terminate
+   146e   cd 39 10              CALL    CRLF
+   1471   c9                    RET
+                        
+                        ; ============================================================================
+                        ; BUILD_FCB -- parse FNAME into the 32-byte FCB (and copy into FCB2).
+                        ; ============================================================================
+   1472                 BUILD_FCB:
+   1472   21 00 21              LXI     H,FCB
+   1475   06 40                 MVI     B,64                    ; zero both FCBs (2 x 32)
+   1477   3e 00         BF_Z:   MVI     A,00H
+   1479   77                    MOV     M,A
+   147a   23                    INX     H
+   147b   05                    DCR     B
+   147c   c2 77 14              JNZ     BF_Z
+   147f   11 80 21              LXI     D,FNAME
+   1482   21 01 21              LXI     H,FCB+1
+   1485   06 08                 MVI     B,8
+   1487   1a            BF_N:   LDAX    D
+   1488   fe 00                 CPI     00H
+   148a   ca a3 14              JZ      BF_NPAD
+   148d   fe 2e                 CPI     '.'
+   148f   ca a3 14              JZ      BF_GOTEXT
+   1492   77                    MOV     M,A
+   1493   23                    INX     H
+   1494   13                    INX     D
+   1495   05                    DCR     B
+   1496   c2 87 14              JNZ     BF_N
+   1499   1a                    LDAX    D
+   149a   fe 2e                 CPI     '.'
+   149c   c2 d2 14              JNZ     BF_EXT0
+   149f   13                    INX     D
+   14a0   c3 ac 14              JMP     BF_EXT
+   14a3                 BF_GOTEXT:
+   14a3   3e 20         BF_NPAD: MVI     A,' '
+   14a5   77                    MOV     M,A
+   14a6   23                    INX     H
+   14a7   05                    DCR     B
+   14a8   c2 a3 14              JNZ     BF_NPAD
+   14ab   13                    INX     D                       ; skip '.'
+   14ac   21 09 21      BF_EXT: LXI     H,FCB+9
+   14af   06 03                 MVI     B,3
+   14b1   1a            BF_E:   LDAX    D
+   14b2   fe 00                 CPI     00H
+   14b4   ca ca 14              JZ      BF_EXT_PAD
+   14b7   fe 2e                 CPI     '.'
+   14b9   ca c6 14              JZ      BF_EXT_SKIP
+   14bc   77                    MOV     M,A
+   14bd   23                    INX     H
+   14be   13                    INX     D
+   14bf   05                    DCR     B
+   14c0   c2 b1 14              JNZ     BF_E
+   14c3   c3 d2 14              JMP     BF_EXT0
+   14c6                 BF_EXT_SKIP:
+   14c6   13                    INX     D
+   14c7   c3 b1 14              JMP     BF_E
+   14ca                 BF_EXT_PAD:
+   14ca   3e 20                 MVI     A,' '
+   14cc   77                    MOV     M,A
+   14cd   23                    INX     H
+   14ce   05                    DCR     B
+   14cf   c2 ca 14              JNZ     BF_EXT_PAD
+   14d2                 BF_EXT0:
+   14d2   21 00 21              LXI     H,FCB
+   14d5   36 00                 MVI     M,00H                   ; dir entry byte0 = USER number (0), not drive
+   14d7   21 00 21              LXI     H,FCB
+   14da   11 20 21              LXI     D,FCB2
+   14dd   06 20                 MVI     B,32
+   14df   7e            BF_C:   MOV     A,M
+   14e0   12                    STAX    D
+   14e1   23                    INX     H
+   14e2   13                    INX     D
+   14e3   05                    DCR     B
+   14e4   c2 df 14              JNZ     BF_C
+   14e7   c9                    RET
+                        
+                        ; ============================================================================
+                        ; DO_BOOTCPM -- receive the CP/M system image (CCP+BDOS+CBIOS, the combined
+                        ;   brevia2_cpm binary) via XMODEM into MACHINE RAM at 0xD000, then cold-boot
+                        ;   CP/M by jumping to the CBIOS cold-boot entry (0xE600). The CBIOS persists
+                        ;   CCP/BDOS to the RAM-disk system tracks and enters the CCP, so we reuse the
+                        ;   proven boot path instead of duplicating it.
+                        ;   Transfers into bank A via XMBUF, then copies each block to machine RAM.
+                        ; ============================================================================
+   14e8                 DO_BOOTCPM:
+   14e8   21 a3 1b              LXI     H,MSGBCPM
+   14eb   cd 58 10              CALL    PRTSTR
+   14ee   21 00 d0              LXI     H,0D000H                ; load CCP at 0xD000 (image is contiguous)
+   14f1   22 58 15              SHLD    BCPADDR
+   14f4   21 2b 1b              LXI     H,MSGRECV
+   14f7   cd 58 10              CALL    PRTSTR
+   14fa   3e 15                 MVI     A,XM_NAK                ; kick off with a checksum NAK
+   14fc   cd 03 10              CALL    TXCHAR
+   14ff   cd 1a 12      BCPLOOP: CALL    GETBLK                  ; A=TO,01 good,FF bad,00 EOT,02 CAN
+   1502   fe fe                 CPI     XM_TO
+   1504   ca 36 15              JZ      BCP_NAK                 ; timeout -> resend NAK
+   1507   fe 02                 CPI     02H
+   1509   ca 36 15              JZ      BCP_NAK                 ; CAN
+   150c   fe 00                 CPI     00H
+   150e   ca 3e 15              JZ      BCP_EOT
+   1511   fe ff                 CPI     0FFH
+   1513   ca 36 15              JZ      BCP_NAK                 ; bad block -> NAK
+                                ; good block -> copy XMBUF to machine RAM at BCPADDR, advance by 128
+   1516   2a 58 15              LHLD    BCPADDR
+   1519   11 00 20              LXI     D,XMBUF
+   151c   0e 80                 MVI     C,128
+   151e   1a            BCPC:   LDAX    D
+   151f   77                    MOV     M,A
+   1520   13                    INX     D
+   1521   23                    INX     H
+   1522   0d                    DCR     C
+   1523   c2 1e 15              JNZ     BCPC
+   1526   22 58 15              SHLD    BCPADDR                 ; advance for the next block
+   1529   3e 06                 MVI     A,XM_ACK
+   152b   cd 03 10              CALL    TXCHAR
+   152e   3e 2e                 MVI     A,'.'
+   1530   cd 03 10              CALL    TXCHAR
+   1533   c3 ff 14              JMP     BCPLOOP
+   1536   3e 15         BCP_NAK: MVI     A,XM_NAK
+   1538   cd 03 10              CALL    TXCHAR
+   153b   c3 ff 14              JMP     BCPLOOP
+   153e   3e 06         BCP_EOT: MVI     A,XM_ACK
+   1540   cd 03 10              CALL    TXCHAR
+   1543   cd 39 10              CALL    CRLF
+   1546   21 cb 1b              LXI     H,MSGBCPMOK
+   1549   cd 58 10              CALL    PRTSTR
+   154c   cd 88 16              CALL    DO_FLASH_BURN           ; persist the image to the SPI flash too
+   154f   21 ca 16              LXI     H,MSGFLASHOK
+   1552   cd 58 10              CALL    PRTSTR
+   1555   c3 00 e6              JMP     0E600H                  ; CBIOS cold boot -> enters CCP (A>)
+                        
+   1558                 BCPADDR: DS     2                        ; machine-RAM load address for the boot image
+   155a                 FSLOT:   DS     1               ; directory slot index for the file being written
+   155b                 TWOF:    DS     1               ; !=0 -> two-extent file (extents 0 AND 1 slots)
+   155c                 FNEED:   DS     1               ; slots needed by FINDFREE (1 = single, 2 = two-extent)
+   155d                 NBMAX:   DS     1               ; scratch: highest data block seen during NEXTBLK
+   155e                 BLKNO:   DS     1               ; first free data block for the file being written
+                        
+                        
+                        ; ============================================================================
+                        ; DO_DUMP -- dump 256 bytes from the RAM disk at a hex address, as hex (16/line).
+                        ; ============================================================================
+   155f                 DO_DUMP:
+   155f   21 5e 1b              LXI     H,MSGDUMP
+   1562   cd 58 10              CALL    PRTSTR
+   1565   cd ac 15              CALL    READHEX                 ; HL = start address
+   1568   cd 78 10              CALL    RDSETA
+   156b   06 10                 MVI     B,16                    ; 16 lines
+   156d   16 10         DUMP_L1: MVI     D,16                    ; 16 bytes per line
+   156f   db 20         DUMP_B: IN      RDDATA
+   1571   cd 62 10              CALL    PRTBYTE
+   1574   3e 20                 MVI     A,' '
+   1576   cd 03 10              CALL    TXCHAR
+   1579   15                    DCR     D
+   157a   c2 6f 15              JNZ     DUMP_B
+   157d   cd 39 10              CALL    CRLF
+   1580   05                    DCR     B
+   1581   c2 6d 15              JNZ     DUMP_L1
+   1584   c3 26 11              JMP     MENU
+                        
+                        ; ============================================================================
+                        ; DO_MDUMP -- dump 128 bytes of CPU (bank A) memory at a hex address.
+                        ; Runs with the monitor banked out; reads bank A RAM directly. Useful for
+                        ; inspecting CBIOS/BDOS variable state AFTER a CP/M session (reset -> G 1000).
+                        ; ============================================================================
+   1587                 DO_MDUMP:
+   1587   21 7b 1b              LXI     H,MSGMD
+   158a   cd 58 10              CALL    PRTSTR
+   158d   cd ac 15              CALL    READHEX                 ; HL = start address
+   1590   06 08                 MVI     B,8                     ; 8 lines
+   1592   16 10         MD_L1:  MVI     D,16                    ; 16 bytes per line
+   1594   7e            MD_B:   MOV     A,M
+   1595   cd 62 10              CALL    PRTBYTE
+   1598   3e 20                 MVI     A,' '
+   159a   cd 03 10              CALL    TXCHAR
+   159d   23                    INX     H
+   159e   15                    DCR     D
+   159f   c2 94 15              JNZ     MD_B
+   15a2   cd 39 10              CALL    CRLF
+   15a5   05                    DCR     B
+   15a6   c2 92 15              JNZ     MD_L1
+   15a9   c3 26 11              JMP     MENU
+                        
+                        ; ---------------------------------------------------------------------------
+                        ; READHEX -- read up to 4 hex digits from the console into HL (echoed).
+                        ; ---------------------------------------------------------------------------
+   15ac                 READHEX:
+   15ac   21 00 00              LXI     H,0000H
+   15af   06 04                 MVI     B,4
+   15b1   cd 0f 10      RH1:    CALL    RXCHAR
+   15b4   fe 0d                 CPI     0DH
+   15b6   ca ed 15              JZ      RH_DONE                 ; Enter ends
+                                ; determine hex digit value 0-15 in A
+   15b9   fe 30                 CPI     '0'
+   15bb   da f1 15              JC      RH_NEXT                 ; < '0' -> ignore
+   15be   fe 3a                 CPI     '9'+1
+   15c0   da d4 15              JC      RH_DIG                  ; '0'-'9'
+   15c3   e6 df                 ANI     0DFH                    ; uppercase
+   15c5   fe 41                 CPI     'A'
+   15c7   da f1 15              JC      RH_NEXT                 ; < 'A' -> ignore
+   15ca   fe 47                 CPI     'F'+1
+   15cc   d2 f1 15              JNC     RH_NEXT                 ; > 'F' -> ignore
+   15cf   d6 37                 SUI     'A'-10                  ; 'A'-'F' -> 10-15
+   15d1   c3 d6 15              JMP     RH_ADD
+   15d4   d6 30         RH_DIG: SUI     '0'                     ; '0'-'9' -> 0-9
+   15d6   cd 03 10      RH_ADD: CALL    TXCHAR                  ; echo the digit
+   15d9   4f                    MOV     C,A                     ; C = digit value
+                                ; HL = (HL << 4) | C
+   15da   16 04                 MVI     D,04H
+   15dc   7d            RH_SHL: MOV     A,L
+   15dd   87                    ADD     A
+   15de   6f                    MOV     L,A
+   15df   7c                    MOV     A,H
+   15e0   17                    RAL
+   15e1   67                    MOV     H,A
+   15e2   15                    DCR     D
+   15e3   c2 dc 15              JNZ     RH_SHL
+   15e6   7d                    MOV     A,L
+   15e7   b1                    ORA     C
+   15e8   6f                    MOV     L,A
+   15e9   05                    DCR     B
+   15ea   c2 b1 15              JNZ     RH1
+   15ed                 RH_DONE:
+   15ed   cd 39 10              CALL    CRLF
+   15f0   c9                    RET
+   15f1   c3 b1 15      RH_NEXT: JMP     RH1
+                        
+                        ; ============================================================================
+                        ; --- ISSI IS25LP040E serial-flash routines (SPI) ---------------------------
+                        ; Ports: SPI_DATA(0x50) read clocks a byte in / write clocks a byte out (MSB
+                        ;        first); SPI_CTL(0x51) bit0 = CS# (0=select low, 1=release high);
+                        ;        SPI_STAT(0x52) bit0 = transfer busy. The byte engine stretches the
+                        ;        CPU wait state during every 0x50 access, so back-to-back 0x50
+                        ;        accesses complete within the access -- a busy poll on 0x52 is OPTIONAL.
+                        ; The flash is a 512 KB ISSI IS25LP040E: 128 x 4KB sectors, 256-byte pages,
+                        ; byte-granular program that only CLEARS 1->0. Restoring a bit to 1 requires
+                        ; erasing its whole 4KB sector (to 0xFF) first, so ERASE-BEFORE-WRITE is
+                        ; mandatory unless writing into known-erased 0xFF regions.
+                        ; ============================================================================
+                        ; ---------------- SPI physical helpers (SHARED with cbios) ----------------
+                        ; The selection / transfer / WIP-wait primitives and the 24-bit page-program,
+                        ; bulk-read and sector-erase operations are factored into spi.inc so diskutil
+                        ; and the CBIOS drive B: driver can never diverge.  This must come AFTER the
+                        ; SPI_DATA / SPI_CTL EQU's at the top of this file.
+                                INCL    "spi.inc"
+                        ; ============================================================================
+                        ; spi.inc -- shared 24-bit-capable SPI flash driver for the ISSI IS25LD040.
+                        ; Included by BOTH diskutil (ORG 1000H) and cbios (ORG FA00H) so the physical
+                        ; SPI protocol cannot drift between the two consumers.  Includes only
+                        ; protocol-level primitives (selection, byte transfer, WIP wait, 24-bit
+                        ; address send) and the bulk operations drive B: needs (page program, bulk
+                        ; read, 4K sector erase).  Higher-level logic (CP/M read-modify-write, the
+                        ; format routine) lives in each including program.
+                        ;
+                        ; Ports (must be defined by the including program BEFORE the INCL):
+                        ;   SPI_DATA = 50H   read clocks 1 byte in / write clocks 1 byte out (MSB first)
+                        ;   SPI_CTL  = 51H   write bit0 = CS# (0 = select low, 1 = release high)
+                        ;   SPI_STAT = 52H   read bit0 = transfer busy (poll OPTIONAL -- the RTL byte
+                        ;                               engine stretches the CPU wait on every 0x50
+                        ;                               access, so back-to-back 0x50 completes in-cycle)
+                        ;
+                        ; Convention: the 24-bit flash address for an operation is held in the FBADDR
+                        ; 3-byte block declared below.  Byte order is little-endian by FIELD:
+                        ;   FBADDR+0 = A7-A0  (low byte)
+                        ;   FBADDR+1 = A15-A8 (mid byte)
+                        ;   FBADDR+2 = A23-A16(high byte)
+                        ; SPI_ADDR transmits them MSB-first (A23-A16, A15-A8, A7-A0), which is the
+                        ; order the IS25LD040 command set requires.
+                        ;
+                        ; Each routine documents which registers it clobbers.  A85 note: this file is
+                        ; assembled inline at the INCL point, so FBADDR is allocated at that location
+                        ; in each including program's address space (fine -- it is referenced purely
+                        ; symbolically).  Do NOT add an ORG or END to this file; a85 splices it.
+                        ; ============================================================================
+                        
+                        ; ---------------- CS# and byte transfer primitives ----------------
+                        ; SPI_SEL: pull CS# low (select the flash).  Clobbers A.
+   15f4   3e 00         SPI_SEL: MVI     A,00H
+   15f6   d3 51                  OUT     SPI_CTL
+   15f8   c9                     RET
+                        
+                        ; SPI_REL: release CS# high (deselect the flash).  Clobbers A.
+   15f9   3e 01         SPI_REL: MVI     A,01H
+   15fb   d3 51                  OUT     SPI_CTL
+   15fd   c9                     RET
+                        
+                        ; SPI_XMIT: clock the byte in A out to the flash; the byte returned is
+                        ; discarded.  A is unchanged (OUT does not modify A).  No other regs touched.
+   15fe   d3 50         SPI_XMIT: OUT     SPI_DATA
+   1600   c9                     RET
+                        
+                        ; SPI_WAIT: poll the RDSR (0x05) status until WIP (bit0) clears.  Re-selects
+                        ; the flash and keeps CS# low across the status reads.  Clobbers A.
+   1601   cd f4 15      SPI_WAIT: CALL    SPI_SEL
+   1604   3e 05                  MVI     A,05H
+   1606   cd fe 15               CALL    SPI_XMIT                ; RDSR opcode
+   1609   db 50         SPW:     IN      SPI_DATA                ; read status byte
+   160b   e6 01                  ANI     01H                     ; WIP (bit0) still busy?
+   160d   c2 09 16               JNZ     SPW                     ; loop until the flash is idle
+   1610   cd f9 15               CALL    SPI_REL
+   1613   c9                     RET
+                        
+                        ; ---------------- 24-bit address send ----------------
+                        ; SPI_ADDR: send the three FBADDR bytes as the command address (A23-A16,
+                        ; A15-A8, A7-A0, MSB first).  Must be called with CS# already selected.
+                        ; Clobbers A.
+   1614   3a 87 16      SPI_ADDR: LDA     FBADDR+2
+   1617   cd fe 15               CALL    SPI_XMIT                ; A23-A16
+   161a   3a 86 16               LDA     FBADDR+1
+   161d   cd fe 15               CALL    SPI_XMIT                ; A15-A8
+   1620   3a 85 16               LDA     FBADDR
+   1623   cd fe 15               CALL    SPI_XMIT                ; A7-A0
+   1626   c9                     RET
+                        
+                        ; ---------------- page program (0x02) ----------------
+                        ; SPI_PAGE: program a full 256-byte page from (HL) at the page-aligned FBADDR.
+                        ; FBADDR must be 256-byte aligned (the flash's page program wraps within a
+                        ; page if it crosses the boundary).  Issues WREN (0x06, CS# toggled to latch it
+                        ; -- REQUIRED before every program/erase on the IS25LD040), then the page-
+                        ; program command and 256 data bytes in one CS#-low sequence.  Clobbers A, B,
+                        ; HL (HL is advanced 256 bytes / left at HL+256).
+   1627   cd f4 15      SPI_PAGE: CALL    SPI_SEL
+   162a   3e 06                  MVI     A,06H                   ; WREN (mandatory before every program)
+   162c   cd fe 15               CALL    SPI_XMIT
+   162f   cd f9 15               CALL    SPI_REL                 ; latch WREN (CS# must toggle)
+   1632   cd f4 15               CALL    SPI_SEL
+   1635   3e 02                  MVI     A,02H                   ; Page Program opcode
+   1637   cd fe 15               CALL    SPI_XMIT
+   163a   cd 14 16               CALL    SPI_ADDR
+   163d   06 00                  MVI     B,00H                   ; 256 bytes (0 wraps to 256 on DCR)
+   163f   7e            SPG1:    MOV     A,M
+   1640   cd fe 15               CALL    SPI_XMIT
+   1643   23                     INX     H
+   1644   05                     DCR     B
+   1645   c2 3f 16               JNZ     SPG1
+   1648   cd f9 15               CALL    SPI_REL
+   164b   cd 01 16               CALL    SPI_WAIT                ; wait for the program to settle
+   164e   c9                     RET
+                        
+                        ; ---------------- bulk read (0x03) ----------------
+                        ; SPI_READBUF: read BC bytes from FBADDR into (DE), keeping CS# low across the
+                        ; whole burst (this is the same pattern the proven diskutil DO_READ uses for
+                        ; 16 bytes, extended to an arbitrary count).  Clobbers A, B, C, D, E (BC runs
+                        ; down to 0, DE advances past the last byte read).
+   164f   cd f4 15      SPI_READBUF: CALL    SPI_SEL
+   1652   3e 03                  MVI     A,03H                   ; Read opcode
+   1654   cd fe 15               CALL    SPI_XMIT
+   1657   cd 14 16               CALL    SPI_ADDR
+   165a   db 50         SRDB:    IN      SPI_DATA                ; next byte the flash clocks out
+   165c   12                     STAX    D
+   165d   13                     INX     D
+   165e   0b                     DCX     B
+   165f   78                     MOV     A,B
+   1660   b1                     ORA     C
+   1661   c2 5a 16               JNZ     SRDB
+   1664   cd f9 15               CALL    SPI_REL
+   1667   c9                     RET
+                        
+                        ; ---------------- 4KB sector erase (0x20) ----------------
+                        ; SPI_ERASE_SECT: erase the 4KB sector containing FBADDR.  FBADDR must be
+                        ; pre-set to the sector base (the low 12 bits clear) so only that one sector
+                        ; is erased.  Issues WREN, then the sector-erase command.  Clobbers A.
+   1668   cd f4 15      SPI_ERASE_SECT: CALL    SPI_SEL
+   166b   3e 06                  MVI     A,06H                   ; WREN (required before every program)
+   166d   cd fe 15               CALL    SPI_XMIT
+   1670   cd f9 15               CALL    SPI_REL                 ; latch WREN
+   1673   cd f4 15               CALL    SPI_SEL
+   1676   3e 20                  MVI     A,20H                   ; Sector Erase (4KB) opcode
+   1678   cd fe 15               CALL    SPI_XMIT
+   167b   cd 14 16               CALL    SPI_ADDR
+   167e   cd f9 15               CALL    SPI_REL
+   1681   cd 01 16               CALL    SPI_WAIT                ; wait for the erase to finish
+   1684   c9                     RET
+                        
+                        ; ---------------- FBADDR: the 24-bit address block ----------------
+   1685                 FBADDR:  DS      3                       ; A7-A0, A15-A8, A23-A16
+                        
+                        
+                        ; ============================================================================
+                        ; DO_FLASH_BURN -- persist the CP/M boot image (already received into machine
+                        ;   RAM at 0xD000 by DO_BOOTCPM, CPMIMGLEN bytes) to the SPI flash system area
+                        ;   (flash 0x0000) so the GWMON 'b' command can boot CP/M from the flash on the
+                        ;   next power-up.  Erases ONLY the 2 reserved system sectors (0x0000-0x1FFF),
+                        ;   leaving the drive-B user area (dir at 0x2000) untouched.  Clobbers A,B,D,E,
+                        ;   H,L and FBADDR.  MUST be after the spi.inc INCL (a85 resolves included-file
+                        ;   symbols only once they have been included).
+                        ; ============================================================================
+   1688                 DO_FLASH_BURN:
+                                ; erase system sectors 0x00000 and 0x01000 (the 8KB reserved area)
+   1688   21 00 00              LXI     H,0
+   168b   22 85 16              SHLD    FBADDR
+   168e   af                    XRA     A
+   168f   32 87 16              STA     FBADDR+2
+   1692   cd 68 16              CALL    SPI_ERASE_SECT
+   1695   21 00 10              LXI     H,1000H
+   1698   22 85 16              SHLD    FBADDR
+   169b   af                    XRA     A
+   169c   32 87 16              STA     FBADDR+2
+   169f   cd 68 16              CALL    SPI_ERASE_SECT
+                                ; program the image: 26 pages x 256 B = 0x1A00 B from 0xD000 to flash 0x0000
+   16a2   21 00 d0              LXI     H,0D000H
+   16a5   22 c8 16              SHLD    BURNSRC
+   16a8   21 00 00              LXI     H,0
+   16ab   22 85 16              SHLD    FBADDR
+   16ae   af                    XRA     A
+   16af   32 87 16              STA     FBADDR+2
+   16b2   06 1a                 MVI     B,26                    ; 26 pages
+   16b4                 BURN_LOOP:
+   16b4   c5                    PUSH    B
+   16b5   2a c8 16              LHLD    BURNSRC
+   16b8   cd 27 16              CALL    SPI_PAGE                ; programs 256 B from (HL) at FBADDR, HL+=256
+   16bb   22 c8 16              SHLD    BURNSRC                 ; record the advanced source pointer
+   16be   21 86 16              LXI     H,FBADDR+1
+   16c1   34                    INR     M                       ; next 256B page target (pages advance by 0x100)
+   16c2   c1                    POP     B
+   16c3   05                    DCR     B
+   16c4   c2 b4 16              JNZ     BURN_LOOP
+   16c7   c9                    RET
+   16c8                 BURNSRC: DS      2                       ; source pointer for the page-program loop
+   16ca   53 50 49 20   MSGFLASHOK: DB 'SPI flash boot image written.',0DH,0AH,0
+   16ce   66 6c 61 73   
+   16d2   68 20 62 6f   
+   16d6   6f 74 20 69   
+   16da   6d 61 67 65   
+   16de   20 77 72 69   
+   16e2   74 74 65 6e   
+   16e6   2e 0d 0a 00   
+                        
+                        ; SPI_PROGBYTE / SPI_ERASE_SECT0 below are diskutil-specific: they operate on
+                        ; the <=64K test region (A23-A16 hard-coded 0) and are kept as the proven
+                        ; harness for the I/P/R/E commands.  The shared spi.inc supplies the generic
+                        ; 24-bit ops (SPI_PAGE / SPI_READBUF / SPI_ERASE_SECT) used for drive B:.
+                        
+                        ; SPI_PROGBYTE: program ONE byte (in A) at the address in HL (the A23-A16
+                        ; address byte is taken as 0 -- this utility only uses the <=64K flash region).
+                        ; Uses the per-byte 0x02 Byte Program; issues WREN first (required before every
+                        ; program). Clobbers A and C only (spares B/D/E/H/L across the call).
+   16ea                 SPI_PROGBYTE:
+   16ea   4f                     MOV     C,A                     ; park the data byte
+   16eb   cd f4 15               CALL    SPI_SEL
+   16ee   3e 06                  MVI     A,06H
+   16f0   cd fe 15               CALL    SPI_XMIT                ; WREN
+   16f3   cd f9 15               CALL    SPI_REL                 ; latch WREN (CS# must toggle)
+   16f6   cd f4 15               CALL    SPI_SEL
+   16f9   3e 02                  MVI     A,02H
+   16fb   cd fe 15               CALL    SPI_XMIT                ; Byte Program opcode
+   16fe   3e 00                  MVI     A,00H
+   1700   cd fe 15               CALL    SPI_XMIT                ; A23-A16 = 0
+   1703   7c                     MOV     A,H
+   1704   cd fe 15               CALL    SPI_XMIT                ; A15-A8
+   1707   7d                     MOV     A,L
+   1708   cd fe 15               CALL    SPI_XMIT                ; A7-A0
+   170b   79                     MOV     A,C
+   170c   cd fe 15               CALL    SPI_XMIT                ; data byte -> flash programs it
+   170f   cd f9 15               CALL    SPI_REL
+   1712   cd 01 16               CALL    SPI_WAIT                ; wait for WIP to clear
+   1715   c9                     RET
+                        
+                        ; SPI_ERASE_SECT0: WREN + Sector Erase (0x20) of the 4KB sector at 0x000000
+                        ; (the sector containing the test / flash-layout region). Then wait WIP.
+   1716                 SPI_ERASE_SECT0:
+   1716   cd f4 15               CALL    SPI_SEL
+   1719   3e 06                  MVI     A,06H
+   171b   cd fe 15               CALL    SPI_XMIT                ; WREN
+   171e   cd f9 15               CALL    SPI_REL
+   1721   cd f4 15               CALL    SPI_SEL
+   1724   3e 20                  MVI     A,20H
+   1726   cd fe 15               CALL    SPI_XMIT                ; Sector Erase 4KB opcode
+   1729   3e 00                  MVI     A,00H
+   172b   cd fe 15               CALL    SPI_XMIT                ; A23-A16
+   172e   3e 00                  MVI     A,00H
+   1730   cd fe 15               CALL    SPI_XMIT                ; A15-A8
+   1733   3e 00                  MVI     A,00H
+   1735   cd fe 15               CALL    SPI_XMIT                ; A7-A0 -> sector 0
+   1738   cd f9 15               CALL    SPI_REL
+   173b   cd 01 16               CALL    SPI_WAIT
+   173e   c9                     RET
+                        
+                        ; ---------------- command: read JEDEC ID ----------------
+                        ; The on-board flash is an ISSI IS25LD040.  Per the IS25LD040 datasheet (JEDEC ID
+                        ; READ 0x9F, Table 11), the 0x9F read shifts out, in this order:
+                        ;     second Manufacturer ID 7Fh  ->  first Manufacturer ID 9Dh  ->  Device ID 7Eh
+                        ; i.e. the JEDEC stream is  7F 9D 7E .  The 0x9F command is a 1-byte instruction
+                        ; (no dummy/address byte), so we read the 3 ID bytes back directly and verify the
+                        ; exact IS25LD040 signature.  (The READ command 0x03 is unaffected -- it carries
+                        ; 3 address bytes, so its data path needs no special handling.)
+   173f   21 13 1c      DO_ID:   LXI     H,MSGID
+   1742   cd 58 10               CALL    PRTSTR
+   1745   cd f4 15               CALL    SPI_SEL
+   1748   3e 9f                  MVI     A,09FH
+   174a   cd fe 15               CALL    SPI_XMIT                ; JEDEC ID opcode (0x9F)
+   174d   db 50                  IN      SPI_DATA                ; byte 0 = 2nd mfr ID (7Fh)
+   174f   47                     MOV     B,A
+   1750   db 50                  IN      SPI_DATA                ; byte 1 = 1st mfr ID (9Dh)
+   1752   4f                     MOV     C,A
+   1753   db 50                  IN      SPI_DATA                ; byte 2 = device ID (7Eh)
+   1755   57                     MOV     D,A
+   1756   cd f9 15               CALL    SPI_REL
+   1759   21 2f 1c               LXI     H,MSGIDVAL
+   175c   cd 58 10               CALL    PRTSTR
+   175f   78                     MOV     A,B
+   1760   cd 62 10               CALL    PRTBYTE
+   1763   3e 20                  MVI     A,' '
+   1765   cd 03 10               CALL    TXCHAR
+   1768   79                     MOV     A,C
+   1769   cd 62 10               CALL    PRTBYTE
+   176c   3e 20                  MVI     A,' '
+   176e   cd 03 10               CALL    TXCHAR
+   1771   7a                     MOV     A,D
+   1772   cd 62 10               CALL    PRTBYTE
+   1775   cd 39 10               CALL    CRLF
+   1778   3e 7f                  MVI     A,07FH                  ; IS25LD040 JEDEC ID: 7F 9D 7E
+   177a   b8                     CMP     B
+   177b   c2 93 17               JNZ     ID_FAIL
+   177e   3e 9d                  MVI     A,09DH
+   1780   b9                     CMP     C
+   1781   c2 93 17               JNZ     ID_FAIL
+   1784   3e 7e                  MVI     A,07EH
+   1786   ba                     CMP     D
+   1787   c2 93 17               JNZ     ID_FAIL
+   178a   21 42 1e               LXI     H,MSGPASS
+   178d   cd 58 10               CALL    PRTSTR
+   1790   c3 26 11               JMP     MENU
+   1793   21 49 1e      ID_FAIL: LXI     H,MSGFAIL
+   1796   cd 58 10               CALL    PRTSTR
+   1799   c3 26 11               JMP     MENU
+                        
+                        ; ---------------- command: program a test pattern ----------------
+   179c                 DO_PROGRAM:
+   179c   21 34 1c               LXI     H,MSGPROG
+   179f   cd 58 10               CALL    PRTSTR
+   17a2   cd 16 17               CALL    SPI_ERASE_SECT0         ; known-erased 4KB sector at 0x000000
+                                 ; build the 16-byte test pattern 00,01,...,0F into F_PAT
+   17a5   21 00 22               LXI     H,F_PAT
+   17a8   3e 00                  MVI     A,00H
+   17aa   06 10                  MVI     B,16
+   17ac   77            PGBLD:   MOV     M,A
+   17ad   3c                     INR     A
+   17ae   23                     INX     H
+   17af   05                     DCR     B
+   17b0   c2 ac 17               JNZ     PGBLD
+                                 ; program the pattern at flash 0x000000
+   17b3   21 00 00               LXI     H,0000H                 ; target address (A23-A16 = 0)
+   17b6   11 00 22               LXI     D,F_PAT                 ; pattern source
+   17b9   06 10                  MVI     B,16
+   17bb   1a            PGLOOP:  LDAX    D                       ; pattern byte
+   17bc   cd ea 16               CALL    SPI_PROGBYTE
+   17bf   23                     INX     H
+   17c0   13                     INX     D
+   17c1   05                     DCR     B
+   17c2   c2 bb 17               JNZ     PGLOOP
+   17c5   21 73 1c               LXI     H,MSGPROGOK
+   17c8   cd 58 10               CALL    PRTSTR
+   17cb   c3 26 11               JMP     MENU
+                        
+                        ; ---------------- command: raw read-back + dump + verify ----------------
+   17ce                 DO_READ:
+   17ce   21 94 1c               LXI     H,MSGREAD
+   17d1   cd 58 10               CALL    PRTSTR
+                                 ; read 16 bytes at flash 0x000000 into F_RD
+   17d4   cd f4 15               CALL    SPI_SEL
+   17d7   3e 03                  MVI     A,03H
+   17d9   cd fe 15               CALL    SPI_XMIT                ; Read opcode (0x03)
+   17dc   3e 00                  MVI     A,00H
+   17de   cd fe 15               CALL    SPI_XMIT                ; A23-A16
+   17e1   3e 00                  MVI     A,00H
+   17e3   cd fe 15               CALL    SPI_XMIT                ; A15-A8
+   17e6   3e 00                  MVI     A,00H
+   17e8   cd fe 15               CALL    SPI_XMIT                ; A7-A0
+   17eb   21 10 22               LXI     H,F_RD
+   17ee   06 10                  MVI     B,16
+   17f0   db 50         RDLP:    IN      SPI_DATA                ; next byte the flash drives out
+   17f2   77                     MOV     M,A
+   17f3   23                     INX     H
+   17f4   05                     DCR     B
+   17f5   c2 f0 17               JNZ     RDLP
+   17f8   cd f9 15               CALL    SPI_REL
+   17fb   21 b7 1c               LXI     H,MSGDATA
+   17fe   cd 58 10               CALL    PRTSTR
+   1801   21 10 22               LXI     H,F_RD
+   1804   06 10                  MVI     B,16
+   1806   7e            RDDMP:   MOV     A,M
+   1807   cd 62 10               CALL    PRTBYTE
+   180a   3e 20                  MVI     A,' '
+   180c   cd 03 10               CALL    TXCHAR
+   180f   23                     INX     H
+   1810   05                     DCR     B
+   1811   c2 06 18               JNZ     RDDMP
+   1814   cd 39 10               CALL    CRLF
+                                 ; verify against F_PAT
+   1817   21 10 22               LXI     H,F_RD
+   181a   11 00 22               LXI     D,F_PAT
+   181d   06 10                  MVI     B,16
+   181f   1a            RDCMP:   LDAX    D
+   1820   be                     CMP     M
+   1821   c2 39 18               JNZ     RD_FAIL
+   1824   23                     INX     H
+   1825   13                     INX     D
+   1826   05                     DCR     B
+   1827   c2 1f 18               JNZ     RDCMP
+   182a   21 be 1c               LXI     H,MSGREADOK
+   182d   cd 58 10               CALL    PRTSTR
+   1830   21 42 1e               LXI     H,MSGPASS
+   1833   cd 58 10               CALL    PRTSTR
+   1836   c3 26 11               JMP     MENU
+   1839   21 e6 1c      RD_FAIL: LXI     H,MSGREADFAIL
+   183c   cd 58 10               CALL    PRTSTR
+   183f   21 49 1e               LXI     H,MSGFAIL
+   1842   cd 58 10               CALL    PRTSTR
+   1845   c3 26 11               JMP     MENU
+                        
+                        ; ---------------- command: erase sector + verify ----------------
+   1848                 DO_ERASE:
+   1848   21 fc 1c               LXI     H,MSGERS
+   184b   cd 58 10               CALL    PRTSTR
+   184e   cd 16 17               CALL    SPI_ERASE_SECT0
+                                 ; read the 4KB sector (0x000000-0x000FFF) and confirm it is all 0xFF
+   1851   cd f4 15               CALL    SPI_SEL
+   1854   3e 03                  MVI     A,03H
+   1856   cd fe 15               CALL    SPI_XMIT                ; Read opcode
+   1859   3e 00                  MVI     A,00H
+   185b   cd fe 15               CALL    SPI_XMIT                ; A23-A16
+   185e   3e 00                  MVI     A,00H
+   1860   cd fe 15               CALL    SPI_XMIT                ; A15-A8
+   1863   3e 00                  MVI     A,00H
+   1865   cd fe 15               CALL    SPI_XMIT                ; A7-A0
+   1868   01 00 10               LXI     B,1000H                 ; 4096 bytes
+   186b   db 50         ERCHK:   IN      SPI_DATA
+   186d   fe ff                  CPI     0FFH
+   186f   c2 8a 18               JNZ     ER_FAIL
+   1872   0b                     DCX     B
+   1873   78                     MOV     A,B
+   1874   b1                     ORA     C
+   1875   c2 6b 18               JNZ     ERCHK
+   1878   cd f9 15               CALL    SPI_REL
+   187b   21 20 1d               LXI     H,MSGERROK
+   187e   cd 58 10               CALL    PRTSTR
+   1881   21 42 1e               LXI     H,MSGPASS
+   1884   cd 58 10               CALL    PRTSTR
+   1887   c3 26 11               JMP     MENU
+   188a   cd f9 15      ER_FAIL: CALL    SPI_REL
+   188d   21 44 1d               LXI     H,MSGERFAIL
+   1890   cd 58 10               CALL    PRTSTR
+   1893   21 49 1e               LXI     H,MSGFAIL
+   1896   cd 58 10               CALL    PRTSTR
+   1899   c3 26 11               JMP     MENU
+                        
+                        ; ---------------- command: format the flash as a CP/M drive B: data disk ----
+                        ; The flash will eventually be the CP/M boot drive A:, so the first two
+                        ; "tracks" (0x0000-0x1FFF) are RESERVED as the future system area and stay
+                        ; erased (0xFF) here.  The user data area starts at 0x2000:
+                        ;   - Block 0 (0x2000-0x2FFF) = directory block (AL0=0x80 reserves it).  Only
+                        ;     the first 2K (0x2000-0x27FF = 64 x 32-byte entries) is programmed with
+                        ;     0xE5; the trailing 2K of the block stays erased.
+                        ;   - Blocks 1..125 (0x3000-0x7FFFF) = file data (left erased 0xFF).
+                        ; This mirrors the drive B: DPB in cpm/cbios.asm (BSH=5 -> 4K blocks, OFF=2).
+                        ; THE CBIOS DPB AND THIS FORMATTER MUST AGREE ON THE 0x2000 DATA START.
+   189c                 DO_FMTFLASH:
+   189c   21 68 1d               LXI     H,MSGFMTFL
+   189f   cd 58 10               CALL    PRTSTR
+                                 ; 1) erase the WHOLE chip to 0xFF by erasing each 4KB sector in a loop
+                                 ;    (128 x SECTOR_ER 0x20).  A single chip-erase (0x60) is a valid
+                                 ;    opcode but is a long operation during which (per the datasheet) every
+                                 ;    command except RDSR is ignored -- so a page program issued right
+                                 ;    after it could race and be dropped, leaving the dir 0xFF.  Sector
+                                 ;    erase is the primitive PROVEN reliable on this board (the CBIOS
+                                 ;    drive B: WRITEB uses it), so we erase the whole chip that way.
+   18a2   af                     XRA     A
+   18a3   32 85 16               STA     FBADDR                  ; FBADDR = 0x000000
+   18a6   32 86 16               STA     FBADDR+1
+   18a9   32 87 16               STA     FBADDR+2
+   18ac   01 80 00               LXI     B,0080H                 ; 128 sectors x 4KB = 512KB
+   18af   c5            FMTE:    PUSH    B
+   18b0   cd 68 16               CALL    SPI_ERASE_SECT          ; erase the 4KB sector at FBADDR (WREN+0x20+WIP wait)
+                                 ; advance FBADDR by one 4KB sector (0x1000): FBADDR+1 += 0x10, carry -> +2
+   18b3   3a 86 16               LDA     FBADDR+1
+   18b6   c6 10                  ADI     10H
+   18b8   32 86 16               STA     FBADDR+1
+   18bb   d2 c6 18               JNC     FMTE2
+   18be   3a 87 16               LDA     FBADDR+2
+   18c1   c6 01                  ADI     01H
+   18c3   32 87 16               STA     FBADDR+2
+   18c6   c1            FMTE2:   POP     B
+   18c7   05                     DCR     B
+   18c8   c2 af 18               JNZ     FMTE
+                                 ; 2) fill the 256-byte page buffer with 0xE5 (the empty-directory mark)
+   18cb   21 00 23               LXI     H,FMTBUF
+   18ce   06 00                  MVI     B,00H                   ; 256 bytes (wraps on DCR)
+   18d0   36 e5         FMTF:    MVI     M,0E5H
+   18d2   23                     INX     H
+   18d3   05                     DCR     B
+   18d4   c2 d0 18               JNZ     FMTF
+                                 ; 3) page-program 0xE5 across the directory area (0x2000-0x2FFF, 4K
+                                 ;    = 128 entries across blocks 0-1).  SPI_PAGE advances HL by 256, so
+                                 ;    re-point HL at the 0xE5 page buffer at the TOP of every iteration
+                                 ;    (FMTBUF is a single 256-byte page; all 16 flash pages get the same
+                                 ;    0xE5 contents).
+   18d7   af                     XRA     A
+   18d8   32 85 16               STA     FBADDR                  ; FBADDR = 0x002000
+   18db   3e 20                  MVI     A,20H
+   18dd   32 86 16               STA     FBADDR+1
+   18e0   af                     XRA     A
+   18e1   32 87 16               STA     FBADDR+2
+   18e4   06 10                  MVI     B,10H                   ; 16 pages x 256 bytes = 4K directory
+   18e6   21 00 23      FMTP:    LXI     H,FMTBUF                ; reset source to the 0xE5 page (SPI_PAGE advances it)
+   18e9   c5                     PUSH    B
+   18ea   cd 27 16               CALL    SPI_PAGE                ; programs 256 bytes
+   18ed   3a 86 16               LDA     FBADDR+1
+   18f0   c6 01                  ADI     01H
+   18f2   32 86 16               STA     FBADDR+1                ; next page (mid byte += 1; low stays 00)
+   18f5   c1                     POP     B
+   18f6   05                     DCR     B
+   18f7   c2 e6 18               JNZ     FMTP
+                                 ; 4) verify the directory region (0x2000-0x27FF) reads all 0xE5
+   18fa   16 e5                  MVI     D,0E5H
+   18fc   af                     XRA     A
+   18fd   32 85 16               STA     FBADDR
+   1900   3e 20                  MVI     A,20H
+   1902   32 86 16               STA     FBADDR+1
+   1905   af                     XRA     A
+   1906   32 87 16               STA     FBADDR+2
+   1909   01 00 10               LXI     B,FBDIRZ                ; 2048 bytes
+   190c   cd 7c 19               CALL    VFYEQ
+   190f   b7                     ORA     A
+   1910   c2 32 19               JNZ     FMT_DFAIL
+                                 ; 5) verify the reserved system area (0x0000-0x1FFF) reads all 0xFF
+   1913   16 ff                  MVI     D,0FFH
+   1915   af                     XRA     A
+   1916   32 85 16               STA     FBADDR
+   1919   32 86 16               STA     FBADDR+1
+   191c   32 87 16               STA     FBADDR+2
+   191f   01 00 20               LXI     B,FBSYS                 ; 8192 bytes
+   1922   cd 7c 19               CALL    VFYEQ
+   1925   b7                     ORA     A
+   1926   c2 3e 19               JNZ     FMT_SFAIL
+   1929   21 bc 1d               LXI     H,MSGFMTFOK
+   192c   cd 58 10               CALL    PRTSTR
+   192f   c3 26 11               JMP     MENU
+                        ; distinct failure handlers -- each dumps 16 bytes from the failing region so
+                        ; the on-board test tells us whether the write missed (0xFF) or landed wrong.
+   1932                 FMT_DFAIL:
+   1932   21 f1 1d               LXI     H,MSGFTDIR
+   1935   cd 58 10               CALL    PRTSTR
+   1938   cd 4a 19               CALL    FMTDUMP
+   193b   c3 26 11               JMP     MENU
+   193e                 FMT_SFAIL:
+   193e   21 14 1e               LXI     H,MSGFTENS
+   1941   cd 58 10               CALL    PRTSTR
+   1944   cd 4a 19               CALL    FMTDUMP
+   1947   c3 26 11               JMP     MENU
+                        
+                        ; FMTDUMP: read 16 bytes from the flash at FBADDR into F_RD and print them as
+                        ; hex + spaces + CRLF (diagnostic for the formatter verify).  Clobbers A,B,HL.
+   194a   cd f4 15      FMTDUMP: CALL    SPI_SEL
+   194d   3e 03                  MVI     A,03H
+   194f   cd fe 15               CALL    SPI_XMIT                ; Read opcode
+   1952   cd 14 16               CALL    SPI_ADDR
+   1955   21 10 22               LXI     H,F_RD
+   1958   06 10                  MVI     B,16
+   195a   db 50         FDMP1:   IN      SPI_DATA
+   195c   77                     MOV     M,A
+   195d   23                     INX     H
+   195e   05                     DCR     B
+   195f   c2 5a 19               JNZ     FDMP1
+   1962   cd f9 15               CALL    SPI_REL
+   1965   21 10 22               LXI     H,F_RD
+   1968   06 10                  MVI     B,16
+   196a   7e            FDMP2:   MOV     A,M
+   196b   cd 62 10               CALL    PRTBYTE
+   196e   3e 20                  MVI     A,' '
+   1970   cd 03 10               CALL    TXCHAR
+   1973   23                     INX     H
+   1974   05                     DCR     B
+   1975   c2 6a 19               JNZ     FDMP2
+   1978   cd 39 10               CALL    CRLF
+   197b   c9                     RET
+                        
+                        ; VFYEQ: read BC bytes from the flash at FBADDR and compare each to the byte
+                        ; in D.  Returns A=00H if every byte equals D, else A=0FFH (CS# released in
+                        ; both cases).  Clobbers A, B, C, D, HL.
+   197c   cd f4 15      VFYEQ:   CALL    SPI_SEL
+   197f   3e 03                  MVI     A,03H
+   1981   cd fe 15               CALL    SPI_XMIT                ; Read opcode
+   1984   cd 14 16               CALL    SPI_ADDR
+   1987   db 50         VFYQ:    IN      SPI_DATA
+   1989   ba                     CMP     D
+   198a   c2 99 19               JNZ     VFYQ_FAIL
+   198d   0b                     DCX     B
+   198e   78                     MOV     A,B
+   198f   b1                     ORA     C
+   1990   c2 87 19               JNZ     VFYQ
+   1993   cd f9 15               CALL    SPI_REL
+   1996   3e 00                  MVI     A,00H                   ; all bytes matched
+   1998   c9                     RET
+   1999                 VFYQ_FAIL:
+   1999   cd f9 15               CALL    SPI_REL
+   199c   3e ff                  MVI     A,0FFH
+   199e   c9                     RET
+                        
+                        ; ============================================================================
+                        ; Messages
+                        ; ============================================================================
+   199f   5a 38 30 20   MSGBANNER: DB 'Z80 Brevia2 RAM-disk utility',0DH,0AH,0
+   19a3   42 72 65 76   
+   19a7   69 61 32 20   
+   19ab   52 41 4d 2d   
+   19af   64 69 73 6b   
+   19b3   20 75 74 69   
+   19b7   6c 69 74 79   
+   19bb   0d 0a 00      
+   19be   46 29 6d 74   MSGMENU:   DB 'F)mt U)pload C)oldboot B)dump M)memdump I)flashID P)rogram R)ead E)rase S)fmtflash H)elp > ',0
+   19c2   20 55 29 70   
+   19c6   6c 6f 61 64   
+   19ca   20 43 29 6f   
+   19ce   6c 64 62 6f   
+   19d2   6f 74 20 42   
+   19d6   29 64 75 6d   
+   19da   70 20 4d 29   
+   19de   6d 65 6d 64   
+   19e2   75 6d 70 20   
+   19e6   49 29 66 6c   
+   19ea   61 73 68 49   
+   19ee   44 20 50 29   
+   19f2   72 6f 67 72   
+   19f6   61 6d 20 52   
+   19fa   29 65 61 64   
+   19fe   20 45 29 72   
+   1a02   61 73 65 20   
+   1a06   53 29 66 6d   
+   1a0a   74 66 6c 61   
+   1a0e   73 68 20 48   
+   1a12   29 65 6c 70   
+   1a16   20 3e 20 00   
+   1a1a   46 3d 66 6f   MSGHELP:   DB 'F=format A:  U=xmodem receive  C=xmodem receive CP/M + cold boot',0DH,0AH,0
+   1a1e   72 6d 61 74   
+   1a22   20 41 3a 20   
+   1a26   20 55 3d 78   
+   1a2a   6d 6f 64 65   
+   1a2e   6d 20 72 65   
+   1a32   63 65 69 76   
+   1a36   65 20 20 43   
+   1a3a   3d 78 6d 6f   
+   1a3e   64 65 6d 20   
+   1a42   72 65 63 65   
+   1a46   69 76 65 20   
+   1a4a   43 50 2f 4d   
+   1a4e   20 2b 20 63   
+   1a52   6f 6c 64 20   
+   1a56   62 6f 6f 74   
+   1a5a   0d 0a 00      
+   1a5d   42 3d 52 41              DB 'B=RAMdisk dump  M=CPU memdump',0DH,0AH,0
+   1a61   4d 64 69 73   
+   1a65   6b 20 64 75   
+   1a69   6d 70 20 20   
+   1a6d   4d 3d 43 50   
+   1a71   55 20 6d 65   
+   1a75   6d 64 75 6d   
+   1a79   70 0d 0a 00   
+   1a7d   49 3d 66 6c              DB 'I=flash JEDEC ID  P=program test pattern  R=read-back+verify',0DH,0AH,0
+   1a81   61 73 68 20   
+   1a85   4a 45 44 45   
+   1a89   43 20 49 44   
+   1a8d   20 20 50 3d   
+   1a91   70 72 6f 67   
+   1a95   72 61 6d 20   
+   1a99   74 65 73 74   
+   1a9d   20 70 61 74   
+   1aa1   74 65 72 6e   
+   1aa5   20 20 52 3d   
+   1aa9   72 65 61 64   
+   1aad   2d 62 61 63   
+   1ab1   6b 2b 76 65   
+   1ab5   72 69 66 79   
+   1ab9   0d 0a 00      
+   1abc   45 3d 65 72              DB 'E=erase sector 0  S=format SPI flash as CP/M data disk',0DH,0AH,0
+   1ac0   61 73 65 20   
+   1ac4   73 65 63 74   
+   1ac8   6f 72 20 30   
+   1acc   20 20 53 3d   
+   1ad0   66 6f 72 6d   
+   1ad4   61 74 20 53   
+   1ad8   50 49 20 66   
+   1adc   6c 61 73 68   
+   1ae0   20 61 73 20   
+   1ae4   43 50 2f 4d   
+   1ae8   20 64 61 74   
+   1aec   61 20 64 69   
+   1af0   73 6b 0d 0a   
+   1af4   00            
+   1af5   46 6f 72 6d   MSGFMT:    DB 'Formatting...',0DH,0AH,0
+   1af9   61 74 74 69   
+   1afd   6e 67 2e 2e   
+   1b01   2e 0d 0a 00   
+   1b05   46 6f 72 6d   MSGFMTOK:  DB 'Format OK.',0DH,0AH,0
+   1b09   61 74 20 4f   
+   1b0d   4b 2e 0d 0a   
+   1b11   00            
+   1b12   52 65 63 65   MSGPROMPT: DB 'Receive FILENAME (8.3): ',0
+   1b16   69 76 65 20   
+   1b1a   46 49 4c 45   
+   1b1e   4e 41 4d 45   
+   1b22   20 28 38 2e   
+   1b26   33 29 3a 20   
+   1b2a   00            
+   1b2b   52 65 63 65   MSGRECV:   DB 'Receiving (xmodem)...',0DH,0AH,0
+   1b2f   69 76 69 6e   
+   1b33   67 20 28 78   
+   1b37   6d 6f 64 65   
+   1b3b   6d 29 2e 2e   
+   1b3f   2e 0d 0a 00   
+   1b43   52 65 63 65   MSGDONE:   DB 'Received. Records(hi lo): ',0
+   1b47   69 76 65 64   
+   1b4b   2e 20 52 65   
+   1b4f   63 6f 72 64   
+   1b53   73 28 68 69   
+   1b57   20 6c 6f 29   
+   1b5b   3a 20 00      
+   1b5e   44 75 6d 70   MSGDUMP:   DB 'Dump 256 bytes at hex addr: ',0
+   1b62   20 32 35 36   
+   1b66   20 62 79 74   
+   1b6a   65 73 20 61   
+   1b6e   74 20 68 65   
+   1b72   78 20 61 64   
+   1b76   64 72 3a 20   
+   1b7a   00            
+   1b7b   44 75 6d 70   MSGMD:     DB 'Dump 128 bytes of CPU RAM at hex addr: ',0
+   1b7f   20 31 32 38   
+   1b83   20 62 79 74   
+   1b87   65 73 20 6f   
+   1b8b   66 20 43 50   
+   1b8f   55 20 52 41   
+   1b93   4d 20 61 74   
+   1b97   20 68 65 78   
+   1b9b   20 61 64 64   
+   1b9f   72 3a 20 00   
+   1ba3   52 65 63 65   MSGBCPM:   DB 'Receive CP/M image, then cold boot...',0DH,0AH,0
+   1ba7   69 76 65 20   
+   1bab   43 50 2f 4d   
+   1baf   20 69 6d 61   
+   1bb3   67 65 2c 20   
+   1bb7   74 68 65 6e   
+   1bbb   20 63 6f 6c   
+   1bbf   64 20 62 6f   
+   1bc3   6f 74 2e 2e   
+   1bc7   2e 0d 0a 00   
+   1bcb   43 50 2f 4d   MSGBCPMOK: DB 'CP/M image loaded - cold boot...',0DH,0AH,0
+   1bcf   20 69 6d 61   
+   1bd3   67 65 20 6c   
+   1bd7   6f 61 64 65   
+   1bdb   64 20 2d 20   
+   1bdf   63 6f 6c 64   
+   1be3   20 62 6f 6f   
+   1be7   74 2e 2e 2e   
+   1beb   0d 0a 00      
+   1bee   4e 6f 20 73   MSGNOSPC:  DB 'No space - disk or directory full.',0DH,0AH,0
+   1bf2   70 61 63 65   
+   1bf6   20 2d 20 64   
+   1bfa   69 73 6b 20   
+   1bfe   6f 72 20 64   
+   1c02   69 72 65 63   
+   1c06   74 6f 72 79   
+   1c0a   20 66 75 6c   
+   1c0e   6c 2e 0d 0a   
+   1c12   00            
+                        ; ---- SPI-flash command strings ----
+   1c13   52 65 61 64   MSGID:     DB 'Reading flash JEDEC ID...',0DH,0AH,0
+   1c17   69 6e 67 20   
+   1c1b   66 6c 61 73   
+   1c1f   68 20 4a 45   
+   1c23   44 45 43 20   
+   1c27   49 44 2e 2e   
+   1c2b   2e 0d 0a 00   
+   1c2f   49 44 3a 20   MSGIDVAL:  DB 'ID: ',0
+   1c33   00            
+   1c34   45 72 61 73   MSGPROG:   DB 'Erasing sector 0, then programming test pattern @0x000000...',0DH,0AH,0
+   1c38   69 6e 67 20   
+   1c3c   73 65 63 74   
+   1c40   6f 72 20 30   
+   1c44   2c 20 74 68   
+   1c48   65 6e 20 70   
+   1c4c   72 6f 67 72   
+   1c50   61 6d 6d 69   
+   1c54   6e 67 20 74   
+   1c58   65 73 74 20   
+   1c5c   70 61 74 74   
+   1c60   65 72 6e 20   
+   1c64   40 30 78 30   
+   1c68   30 30 30 30   
+   1c6c   30 2e 2e 2e   
+   1c70   0d 0a 00      
+   1c73   50 72 6f 67   MSGPROGOK: DB 'Programmed 16 bytes @0x000000.',0DH,0AH,0
+   1c77   72 61 6d 6d   
+   1c7b   65 64 20 31   
+   1c7f   36 20 62 79   
+   1c83   74 65 73 20   
+   1c87   40 30 78 30   
+   1c8b   30 30 30 30   
+   1c8f   30 2e 0d 0a   
+   1c93   00            
+   1c94   52 65 61 64   MSGREAD:   DB 'Reading back 16 bytes @0x000000:',0DH,0AH,0
+   1c98   69 6e 67 20   
+   1c9c   62 61 63 6b   
+   1ca0   20 31 36 20   
+   1ca4   62 79 74 65   
+   1ca8   73 20 40 30   
+   1cac   78 30 30 30   
+   1cb0   30 30 30 3a   
+   1cb4   0d 0a 00      
+   1cb7   44 61 74 61   MSGDATA:   DB 'Data: ',0
+   1cbb   3a 20 00      
+   1cbe   52 65 61 64   MSGREADOK: DB 'Read-back MATCHES programmed pattern.',0DH,0AH,0
+   1cc2   2d 62 61 63   
+   1cc6   6b 20 4d 41   
+   1cca   54 43 48 45   
+   1cce   53 20 70 72   
+   1cd2   6f 67 72 61   
+   1cd6   6d 6d 65 64   
+   1cda   20 70 61 74   
+   1cde   74 65 72 6e   
+   1ce2   2e 0d 0a 00   
+   1ce6   52 65 61 64   MSGREADFAIL: DB 'Read-back MISMATCH!',0DH,0AH,0
+   1cea   2d 62 61 63   
+   1cee   6b 20 4d 49   
+   1cf2   53 4d 41 54   
+   1cf6   43 48 21 0d   
+   1cfa   0a 00         
+   1cfc   45 72 61 73   MSGERS:    DB 'Erasing 4KB sector 0 @0x000000...',0DH,0AH,0
+   1d00   69 6e 67 20   
+   1d04   34 4b 42 20   
+   1d08   73 65 63 74   
+   1d0c   6f 72 20 30   
+   1d10   20 40 30 78   
+   1d14   30 30 30 30   
+   1d18   30 30 2e 2e   
+   1d1c   2e 0d 0a 00   
+   1d20   45 72 61 73   MSGERROK:  DB 'Erase OK - sector reads all 0xFF.',0DH,0AH,0
+   1d24   65 20 4f 4b   
+   1d28   20 2d 20 73   
+   1d2c   65 63 74 6f   
+   1d30   72 20 72 65   
+   1d34   61 64 73 20   
+   1d38   61 6c 6c 20   
+   1d3c   30 78 46 46   
+   1d40   2e 0d 0a 00   
+   1d44   45 72 61 73   MSGERFAIL: DB 'Erase FAIL - sector not all 0xFF.',0DH,0AH,0
+   1d48   65 20 46 41   
+   1d4c   49 4c 20 2d   
+   1d50   20 73 65 63   
+   1d54   74 6f 72 20   
+   1d58   6e 6f 74 20   
+   1d5c   61 6c 6c 20   
+   1d60   30 78 46 46   
+   1d64   2e 0d 0a 00   
+   1d68   46 6f 72 6d   MSGFMTFL:  DB 'Formatting SPI flash as CP/M drive B: (dir=0x2000, reserved sys=0x0000-0x1FFF)...',0DH,0AH,0
+   1d6c   61 74 74 69   
+   1d70   6e 67 20 53   
+   1d74   50 49 20 66   
+   1d78   6c 61 73 68   
+   1d7c   20 61 73 20   
+   1d80   43 50 2f 4d   
+   1d84   20 64 72 69   
+   1d88   76 65 20 42   
+   1d8c   3a 20 28 64   
+   1d90   69 72 3d 30   
+   1d94   78 32 30 30   
+   1d98   30 2c 20 72   
+   1d9c   65 73 65 72   
+   1da0   76 65 64 20   
+   1da4   73 79 73 3d   
+   1da8   30 78 30 30   
+   1dac   30 30 2d 30   
+   1db0   78 31 46 46   
+   1db4   46 29 2e 2e   
+   1db8   2e 0d 0a 00   
+   1dbc   46 6c 61 73   MSGFMTFOK: DB 'Flash format OK - dir=0xE5 @0x2000, sys area 0xFF.',0DH,0AH,0
+   1dc0   68 20 66 6f   
+   1dc4   72 6d 61 74   
+   1dc8   20 4f 4b 20   
+   1dcc   2d 20 64 69   
+   1dd0   72 3d 30 78   
+   1dd4   45 35 20 40   
+   1dd8   30 78 32 30   
+   1ddc   30 30 2c 20   
+   1de0   73 79 73 20   
+   1de4   61 72 65 61   
+   1de8   20 30 78 46   
+   1dec   46 2e 0d 0a   
+   1df0   00            
+   1df1   44 69 72 20   MSGFTDIR:  DB 'Dir verify FAILED @0x2000, bytes: ',0
+   1df5   76 65 72 69   
+   1df9   66 79 20 46   
+   1dfd   41 49 4c 45   
+   1e01   44 20 40 30   
+   1e05   78 32 30 30   
+   1e09   30 2c 20 62   
+   1e0d   79 74 65 73   
+   1e11   3a 20 00      
+   1e14   53 79 73 20   MSGFTENS:  DB 'Sys verify FAILED @0x0000 (not 0xFF), bytes: ',0
+   1e18   76 65 72 69   
+   1e1c   66 79 20 46   
+   1e20   41 49 4c 45   
+   1e24   44 20 40 30   
+   1e28   78 30 30 30   
+   1e2c   30 20 28 6e   
+   1e30   6f 74 20 30   
+   1e34   78 46 46 29   
+   1e38   2c 20 62 79   
+   1e3c   74 65 73 3a   
+   1e40   20 00         
+   1e42   50 41 53 53   MSGPASS:   DB 'PASS',0DH,0AH,0
+   1e46   0d 0a 00      
+   1e49   46 41 49 4c   MSGFAIL:   DB 'FAIL',0DH,0AH,0
+   1e4d   0d 0a 00      
+                        ; ---- DEBUG trace tags (remove once the upload path is confirmed) ----
+   1e50   62 6c 6b 3d   MSGT_BLK:  DB 'blk=',0
+   1e54   00            
+   1e55   73 6c 6f 74   MSGT_SLOT: DB 'slot=',0
+   1e59   3d 00         
+   1e5b   72 63 3d 00   MSGT_RC:   DB 'rc=',0
+                        
+   1e5f                         END
+1558  BCPADDR       151e  BCPC          14ff  BCPLOOP       153e  BCP_EOT   
+1536  BCP_NAK       14df  BF_C          14b1  BF_E          14ac  BF_EXT    
+14d2  BF_EXT0       14ca  BF_EXT_PAD    14c6  BF_EXT_SKIP    14a3  BF_GOTEXT 
+1487  BF_N          14a3  BF_NPAD       1477  BF_Z          155e  BLKNO     
+0400  BLKSZ         1472  BUILD_FCB     16c8  BURNSRC       16b4  BURN_LOOP 
+0000  CPMIMG        1d00  CPMIMGLEN     1039  CRLF          2800  DBLOCK0   
+2000  DIRBASE       14e8  DO_BOOTCPM    155f  DO_DUMP       1848  DO_ERASE  
+1688  DO_FLASH_BURN    116b  DO_FMT        189c  DO_FMTFLASH    118e  DO_HELP   
+173f  DO_ID         1587  DO_MDUMP      179c  DO_PROGRAM    17ce  DO_READ   
+1197  DO_UPLOAD     156f  DUMP_B        156d  DUMP_L1       186b  ERCHK     
+188a  ER_FAIL       1685  FBADDR        2000  FBDIR         1000  FBDIRZ    
+2000  FBSYS         2100  FCB           2120  FCB2          195a  FDMP1     
+196a  FDMP2         10b0  FF_ADV        10b5  FF_FULL       1083  FF_LOOP   
+108d  FF_RUN        1094  FF_SHL        107f  FINDFREE      2300  FMTBUF    
+194a  FMTDUMP       18af  FMTE          18c6  FMTE2         18d0  FMTF      
+18e6  FMTP          117c  FMTW          1932  FMT_DFAIL     193e  FMT_SFAIL 
+2180  FNAME         155c  FNEED         155a  FSLOT         2200  F_PAT     
+2210  F_RD          121a  GETBLK        1292  GTCB          12b3  GTCS      
+12db  GT_BAD        123c  GT_CAN        12c3  GT_CHK        128b  GT_CRC    
+123a  GT_EOT        1253  GT_LP         127a  GT_LP2        123f  GT_SOH    
+1268  GT_STX        1237  GT_TIMEOUT    1793  ID_FAIL       1594  MD_B      
+1592  MD_L1         1126  MENU          199f  MSGBANNER     1ba3  MSGBCPM   
+1bcb  MSGBCPMOK     1cb7  MSGDATA       1b43  MSGDONE       1b5e  MSGDUMP   
+1d44  MSGERFAIL     1d20  MSGERROK      1cfc  MSGERS        1e49  MSGFAIL   
+16ca  MSGFLASHOK    1af5  MSGFMT        1d68  MSGFMTFL      1dbc  MSGFMTFOK 
+1b05  MSGFMTOK      1df1  MSGFTDIR      1e14  MSGFTENS      1a1a  MSGHELP   
+1c13  MSGID         1c2f  MSGIDVAL      1b7b  MSGMD         19be  MSGMENU   
+1bee  MSGNOSPC      1e42  MSGPASS       1c34  MSGPROG       1c73  MSGPROGOK 
+1b12  MSGPROMPT     1c94  MSGREAD       1ce6  MSGREADFAIL    1cbe  MSGREADOK 
+1b2b  MSGRECV       1e50  MSGT_BLK      1e5b  MSGT_RC       1e55  MSGT_SLOT 
+155d  NBMAX         111b  NB_FULL       10c3  NB_LOOP       10f4  NB_MAP    
+1106  NB_MAPC       110a  NB_NEXT       10c9  NB_SHL        10e6  NB_SHL2   
+10b7  NEXTBLK       17ac  PGBLD         17bb  PGLOOP        1062  PRTBYTE   
+1044  PRTDBG        106f  PRTH1         1058  PRTSTR        2160  RCNT_L    
+0022  RDADRH        0021  RDADRL        181f  RDCMP         0020  RDDATA    
+1806  RDDMP         17f0  RDLP          1078  RDSETA        1839  RD_FAIL   
+15ac  READHEX       1422  READNAME      0080  RECSZ         15b1  RH1       
+15d6  RH_ADD        15d4  RH_DIG        15ed  RH_DONE       15f1  RH_NEXT   
+15dc  RH_SHL        1427  RN1           1451  RN_BS         146b  RN_DONE   
+1445  RN_STORE      1034  RT_HAVE       101f  RT_L0         101d  RT_L1     
+101b  RT_L2         100f  RXCHAR        1019  RXCHAR_T      13fd  SA1       
+141a  SA21          13ea  SETALLO       1405  SETALLO2      163f  SPG1      
+1614  SPI_ADDR      0051  SPI_CTL       0050  SPI_DATA      1668  SPI_ERASE_SECT
+1716  SPI_ERASE_SECT0    1627  SPI_PAGE      16ea  SPI_PROGBYTE    164f  SPI_READBUF
+15f9  SPI_REL       15f4  SPI_SEL       0052  SPI_STAT      1601  SPI_WAIT  
+15fe  SPI_XMIT      1609  SPW           165a  SRDB          111d  START     
+155b  TWOF          1004  TXCH1         1003  TXCHAR        0081  UDATA     
+11c0  UPLOOP        11f8  UP_EOT        11e7  UP_NAK        11ef  UP_NOSPC  
+0080  USTAT         197c  VFYEQ         1987  VFYQ          1999  VFYQ_FAIL 
+130b  WBLK          12f8  WBLK_B        12e5  WBLK_SHL      13e1  WDF       
+13d0  WDFS          13c8  WDIRFCB       13bf  WFC2B         13ae  WFC2S     
+1362  WFC_TWO       12de  WRITEBLK      131b  WRITEFCB      2000  XMBUF     
+0006  XM_ACK        0018  XM_CAN        0004  XM_EOT        0015  XM_NAK    
+0001  XM_SOH        0002  XM_STX        00fe  XM_TO         
+

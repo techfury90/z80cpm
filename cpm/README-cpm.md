@@ -78,9 +78,10 @@ See `cbios.asm` for full comments.  Key points:
   0x81; `CONOUT` polls tx_busy (bit0) then writes 0x81.  `LIST`/`PUNCH`/`READER`
   map to the same console UART; `LISTST` always reports ready.
 - **Drive A: = SPI flash** (`SELDSK` C=0 -> `DPH`), the persistent boot drive:
-  4K allocation blocks (BSH=5/BLM=31, EXM=3), DSM=125 (126 blocks), DRM=63,
-  CKS=0, OFF=2 (tracks 0-1 hold the CP/M boot image).  `READ`/`WRITE` route
-  `SELBL==0` to the SPI flash path.
+  2KB allocation blocks (BSH=4/BLM=15, EXM=1), DSM=251 (252 blocks), DRM=127
+  (128 entries), CKS=0, OFF=2 (tracks 0-1 hold the CP/M boot image).  DSM<256 so
+  the BDOS stays in single-DM.  `READ`/`WRITE` route `SELBL==0` to the SPI flash
+  path.
 - **Drive B: = RAM disk** (`SELDSK` C=1 -> `DPHB`; ports 0x20/0x21/0x22,
   auto-increment on every 0x20 access), volatile scratch: 1K allocation blocks
   (BSH=3/BLM=7, EXM=0), DSM=55 (56 blocks), DRM=63, CKS=0, OFF=2 (tracks 0-1
@@ -97,12 +98,13 @@ and the CBIOS.
 
 - **Layout** (matches `diskutil`'s `S` formatter and the drive A DPB):
   tracks 0-1 (0x0000-0x1FFF) hold the CP/M boot image (erased 0xFF until
-  provisioned); the user data area starts at 0x2000.  Block 0 (0x2000-0x2FFF) is
-  the directory (64 entries, first 2KB used); blocks 1-125 (0x3000-0x7FFFF) are
-  file data.
-- **DPB geometry (drive A):** 4KB allocation blocks (BSH=5/BLM=31, EXM=3),
-  DSM=125 (126 blocks), DRM=63 (64 directory entries), CKS=0, OFF=2.  One CP/M
-  block maps to exactly one 4KB flash erase sector.
+  provisioned); the user data area starts at 0x2000.  Blocks 0-1 (0x2000-0x2FFF)
+  are the directory (128 entries across the full 4K); blocks 2-251
+  (0x3000-0x7FFFF) are file data.
+- **DPB geometry (drive A):** 2KB allocation blocks (BSH=4/BLM=15, EXM=1),
+  DSM=251 (252 blocks), DRM=127 (128 directory entries), CKS=0, OFF=2.  With
+  DSM<256 the BDOS stays in single-DM (1-byte FCB map entries); two 2KB CP/M
+  blocks now share one 4KB flash erase sector.
 - **Erase-before-write / RMW:** the flash only erases at 4KB granularity and
   programming can only clear bits (1→0), so every 128-byte WRITE performs a 4KB
   read-modify-write into the `RMWBUF` buffer at 0xEF00-0xFEFF (read the whole

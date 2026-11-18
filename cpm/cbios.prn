@@ -452,10 +452,10 @@
                         ;
                         ;   Flash layout (MUST match diskutil's 'S' formatter and the drive A: DPB):
                         ;       0x00000-0x01FFF  (8KB, tracks 0-1)   reserved system (erased 0xFF)
-                        ;       0x02000-0x7FFFF  (504KB, tracks 2-127) user data area = 126 blocks
-                        ;           Block 0  (0x2000-0x2FFF) directory (reserved via AL0=0x80); the
-                        ;                     first 2KB (0x2000-0x27FF) hold 64 x 32-byte entries
-                        ;           Blocks 1..125 (0x3000-0x7FFFF) file data (125 blocks = 500KB)
+                        ;       0x02000-0x7FFFF  (504KB, tracks 2-127) user data area = 252 blocks
+                        ;           Block 0  (0x2000-0x27FF) + Block 1 (0x2800-0x2FFF) directory
+                        ;                     (2KB each, reserved via AL0=0xC0) = 128 x 32-byte entries
+                        ;           Blocks 2..251 (0x3000-0x7FFFF) file data (250 blocks = 500KB)
                         ;
                         ;   Address formula (same as the drive B: RAM-disk CALC, but 24-bit -- the flash is
                         ;   512KB and exceeds 16 bits):  flash_addr = TRK*0x1000 + SECN*0x80
@@ -463,11 +463,13 @@
                         ;   the DPB offset), so OFF is NOT re-added here.
                         ;
                         ;   Erase-before-write is mandatory and the flash only erases at 4KB granularity
-                        ;   (sector = 0x20 opcode), so one CP/M block maps to exactly one erase sector.
-                        ;   A WRITE therefore does a 4KB read-modify-write: read the whole 4KB sector
+                        ;   (sector = 0x20 opcode).  With 2KB CP/M blocks a CP/M block is HALF an erase
+                        ;   sector, so two CP/M blocks share one physical 4KB sector.  Writes are still
+                        ;   correct: a WRITE does a 4KB read-modify-write (read the whole 4KB sector
                         ;   into RMWBUF, overlay the 128-byte record at its offset, erase the sector,
-                        ;   then page-program it back (16 x 256B).  Correctness first; a dirty-sector
-                        ;   cache is a later optimization.
+                        ;   then page-program it back 16 x 256B), which reads back and thus PRESERVES
+                        ;   the other CP/M block that shares the sector.  Correctness first; a
+                        ;   dirty-sector cache is a later optimization.
                         ; ============================================================================
                         
                         ; ---- shared SPI driver (physical primitives + 24-bit ops) ----
@@ -666,10 +668,10 @@
    e89b   cd 58 e8              CALL    FLADDR          ; FBADDR = 24-bit record address
                                 ; ---- save the record's in-sector offset (FBADDR & 0xFFF) ----
    e89e   3a 55 e8              LDA     FBADDR
-   e8a1   32 0a ea              STA     RECOFF          ; offset low byte
+   e8a1   32 1a ea              STA     RECOFF          ; offset low byte
    e8a4   3a 56 e8              LDA     FBADDR+1
    e8a7   e6 0f                 ANI     0FH
-   e8a9   32 0b ea              STA     RECOFF+1        ; offset high nibble (0..0x0F)
+   e8a9   32 1b ea              STA     RECOFF+1        ; offset high nibble (0..0x0F)
                                 ; ---- set FBADDR to the enclosing 4KB sector base (clear low 12 bits) ----
    e8ac   3a 56 e8              LDA     FBADDR+1
    e8af   e6 f0                 ANI     0F0H
@@ -683,10 +685,10 @@
                                 ; ---- overlay the 128-byte DMA record at the in-sector offset ----
    e8c1   2a 2b e9              LHLD    DMA
    e8c4   11 00 ef              LXI     D,RMWBUF
-   e8c7   3a 0a ea              LDA     RECOFF
+   e8c7   3a 1a ea              LDA     RECOFF
    e8ca   83                    ADD     E
    e8cb   5f                    MOV     E,A
-   e8cc   3a 0b ea              LDA     RECOFF+1
+   e8cc   3a 1b ea              LDA     RECOFF+1
    e8cf   8a                    ADC     D
    e8d0   57                    MOV     D,A             ; DE = RMWBUF + offset
    e8d1   06 80                 MVI     B,128
@@ -754,7 +756,7 @@
    e936   00 00                 DW      0000H           ; scratch (curtrk)
    e938   00 00                 DW      0000H           ; scratch (currec)
    e93a   5a e9                 DW      DIRBUF          ; directory buffer (128 bytes)
-   e93c   ea e9                 DW      DPBB            ; disk parameter block (SPI flash 4K geometry)
+   e93c   ea e9                 DW      DPBB            ; disk parameter block (SPI flash 2K geometry)
    e93e   f9 e9                 DW      CSVB            ; checksum vector
    e940   fa e9                 DW      ALVB            ; allocation vector
                         
@@ -794,10 +796,13 @@
                         
                         ; ============================================================================
                         ;   DRIVE A: (SPI flash) DISK PARAMETER HEADER / BLOCK / VECTORS
-                        ;   Geometry: 128-byte sectors, SPT=32, 4KB allocation (BSH=5/BLM=31), OFF=2
-                        ;   (tracks 0-1 reserved for the CP/M boot image), directory = block 0 reserved
-                        ;   via AL0=0x80, DSM=125 (126 blocks), DRM=63 (64 entries), CKS=0 (fixed media).
-                        ;   This MUST agree with diskutil's formatter (data at 0x2000).  The BDOS builds
+                        ;   Geometry: 128-byte sectors, SPT=32, 2KB allocation (BSH=4/BLM=15), OFF=2
+                        ;   (tracks 0-1 reserved for the CP/M boot image), directory = blocks 0-1
+                        ;   reserved via AL0=0xC0 (128 entries = 4K dir spanning both 2K blocks),
+                        ;   DSM=251 (252 blocks), DRM=127 (128 entries), CKS=0 (fixed media).
+                        ;   DSM=251 < 256 so the BDOS stays in SINGLE-DM (1-byte FCB map entries) --
+                        ;   do NOT raise DSM past 255, which flips the BDOS into double-DM.
+                        ;   This MUST agree with diskutil's formatter (data at 0x3000).  The BDOS builds
                         ;   the allocation vector itself on first login, so ALVB just needs the space.
                         ; ============================================================================
    e9da                 DPHB:
@@ -811,20 +816,20 @@
    e9e8   52 e9                 DW      ALV             ; allocation vector
    e9ea                 DPBB:
    e9ea   20 00                 DW      SPT             ; SPT  = 32   (sectors per track)
-   e9ec   05                    DB      05H             ; BSH  = 5    (block shift -> 4KB blocks)
-   e9ed   1f                    DB      1FH             ; BLM  = 31   (block mask)
-   e9ee   03                    DB      03H             ; EXM  = 3    (extent mask, BLS=4096 & DSM<256)
-   e9ef   7d 00                 DW      125             ; DSM  = 125  (max block number = 126 blocks)
-   e9f1   3f 00                 DW      63              ; DRM  = 63   (max directory entry = 64 entries)
-   e9f3   80                    DB      80H             ; AL0  = 0x80 (reserve directory block 0, MSB-first)
+   e9ec   04                    DB      04H             ; BSH  = 4    (block shift -> 2KB blocks)
+   e9ed   0f                    DB      0FH             ; BLM  = 15   (block mask)
+   e9ee   01                    DB      01H             ; EXM  = 1    (extent mask, BLS=2048 & DSM<256)
+   e9ef   fb 00                 DW      251             ; DSM  = 251  (max block number = 252 blocks)
+   e9f1   7f 00                 DW      127             ; DRM  = 127  (max directory entry = 128 entries)
+   e9f3   c0                    DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first)
    e9f4   00                    DB      00H             ; AL1  = 0x00
    e9f5   00 00                 DW      00H             ; CKS  = 0    (fixed media -> no checksum)
    e9f7   02 00                 DW      02H             ; OFF  = 2    (reserve 2 system tracks)
    e9f9                 CSVB:   DS      1               ; checksum vector (0 bytes used since CKS=0)
-   e9fa                 ALVB:   DS      16              ; allocation vector (DSM=125 -> (125/8)+1 = 16 bytes)
-   ea0a                 RECOFF: DS      2               ; in-sector byte offset for the drive B: RMW
+   e9fa                 ALVB:   DS      32              ; allocation vector (DSM=251 -> (251/8)+1 = 32 bytes)
+   ea1a                 RECOFF: DS      2               ; in-sector byte offset for the drive B: RMW
                         
-   ea0c                         END
+   ea1c                         END
 e952  ALV           e9fa  ALVB          e8f7  BANNER        d806  BDOSENT   
 d800  BDOSL         e600  BIOS          e633  BOOT          e72e  CALC      
 d000  CCP           e6ba  CONIN         e6c4  CONOUT        e6ae  CONST     
@@ -836,7 +841,7 @@ e6e8  LIST          e6f1  LISTST        e6e7  PRTEND        e6db  PRTSTR
 e6eb  PUNCH         e6cf  PUTC          e6d0  PUTC1         e7b2  RAMFILL   
 e7b8  RAMFILL1      e751  RAMPTR        e7a4  RAMRD         e7a7  RAMRD1    
 e796  RAMWR         e799  RAMWR1        e758  READ          e76c  READ1     
-e88a  READB         e6ee  READER        ea0a  RECOFF        ef00  RMWBUF    
+e88a  READB         e6ee  READER        ea1a  RECOFF        ef00  RMWBUF    
 e92a  SECN          e72b  SECTRAN       e928  SELBL         e707  SELD0     
 e70b  SELD1         e6f4  SELDSK        e701  SELERR        e722  SETDMA    
 e71d  SETSEC        e718  SETTRK        e68f  SETVEC        e80f  SPG1      

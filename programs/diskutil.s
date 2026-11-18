@@ -61,13 +61,13 @@ FNAME   EQU     2180H                   ; 12-byte user filename buffer (8.3)
 F_PAT   EQU     2200H                   ; 16-byte test-pattern buffer for the flash program/verify
 F_RD    EQU     2210H                   ; 16-byte flash read-back buffer for the raw dump/verify
 FMTBUF  EQU     2300H                   ; 256-byte buffer (one flash page) filled with 0xE5 for the
-                                        ;  drive B: formatter; page-programmed 8x to write the 2K dir.
+                                        ;  drive A: flash formatter; page-programmed 16x to write the 4K dir.
 ; ---- drive B: flash layout (shared with the CBIOS DPB -- keep in lockstep) ----
 ; Reserved system tracks 0-1 = 0x0000-0x1FFF (erased 0xFF, for the future boot).
-; Directory = block 0 at 0x2000-0x27FF (64 x 32-byte entries, filled 0xE5);
-; data blocks 1..125 start at 0x3000.
-FBDIR   EQU     2000H                   ; drive B: directory base (block 0)
-FBDIRZ  EQU     0800H                   ; directory size written (2K = 64 entries)
+; Directory = blocks 0-1 at 0x2000-0x2FFF (128 x 32-byte entries, filled 0xE5);
+; data blocks 2..251 start at 0x3000.
+FBDIR   EQU     2000H                   ; drive A: flash directory base (block 0)
+FBDIRZ  EQU     1000H                   ; directory size written (4K = 128 entries)
 FBSYS   EQU     2000H                   ; end of the reserved system area (0x0000-0x1FFF); dir base
 CPMIMG  EQU     0000H                   ; flash offset of the stored CP/M boot image
 CPMIMGLEN EQU  1A00H                    ; bytes of the boot image (128-pad of the 6656-B .bin)
@@ -1326,17 +1326,18 @@ FMTF:    MVI     M,0E5H
          INX     H
          DCR     B
          JNZ     FMTF
-         ; 3) page-program 0xE5 across the directory block (0x2000-0x27FF).
-         ;    SPI_PAGE advances HL by 256, so re-point HL at the 0xE5 page buffer
-         ;    at the TOP of every iteration (FMTBUF is a single 256-byte page; all
-         ;    8 flash pages get the same 0xE5 contents).
+         ; 3) page-program 0xE5 across the directory area (0x2000-0x2FFF, 4K
+         ;    = 128 entries across blocks 0-1).  SPI_PAGE advances HL by 256, so
+         ;    re-point HL at the 0xE5 page buffer at the TOP of every iteration
+         ;    (FMTBUF is a single 256-byte page; all 16 flash pages get the same
+         ;    0xE5 contents).
          XRA     A
          STA     FBADDR                  ; FBADDR = 0x002000
          MVI     A,20H
          STA     FBADDR+1
          XRA     A
          STA     FBADDR+2
-         MVI     B,08H                   ; 8 pages x 256 bytes = 2K directory
+         MVI     B,10H                   ; 16 pages x 256 bytes = 4K directory
 FMTP:    LXI     H,FMTBUF                ; reset source to the 0xE5 page (SPI_PAGE advances it)
          PUSH    B
          CALL    SPI_PAGE                ; programs 256 bytes

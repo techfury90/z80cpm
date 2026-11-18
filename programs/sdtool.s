@@ -370,13 +370,18 @@ CF_RAW:
         MVI     A,1
         STA     BLKN+3
 CF_DO:
-        ; fill BLKBUF with 0xE5 (directory marker)
+        ; fill BLKBUF (512 bytes) with 0xE5 (directory marker).
+        ; NOTE: use a 16-bit count -- a `MVI B,0; DCR B; JNZ` loop wraps and
+        ; fills only 256 bytes, leaving the upper half of each written sector as
+        ; stale garbage (the old MBR tail), which CP/M reads as phantom dir entries.
         LXI     H,BLKBUF
-        MVI     B,0
+        LXI     B,512
 CF_F:
         MVI     M,0E5H
         INX     H
-        DCR     B
+        DCX     B
+        MOV     A,B
+        ORA     C
         JNZ     CF_F
         ; write 8 sectors (4KB = the 2 directory blocks)
         MVI     D,8

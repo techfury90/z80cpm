@@ -341,7 +341,9 @@ def main():
     # verify the formatted directory (partition start = LBA 1) is 0xE5
     b1 = SD.blocks.get(1)
     if b1 is not None:
-        print("  partition LBA1 first bytes:", [hex(x) for x in b1[:8]], "(expect all E5 if formatted)")
+        alle5 = all(x==0xE5 for x in b1)
+        print("  partition LBA1 first 8 bytes:", [hex(x) for x in b1[:8]])
+        print("  partition LBA1 ALL 512 bytes 0xE5? :", "YES" if alle5 else "NO  (upper half not filled = format bug)")
     print("=== BDOS func counts ===", collections.Counter(bdos_calls))
 
 if __name__=='__main__':

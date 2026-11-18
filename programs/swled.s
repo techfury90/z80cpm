@@ -22,6 +22,13 @@ MAINLOOP:
         CALL    CPUTC
         CALL    CIN
         ; A = command char (echoed by func 1)
+        ; fold lower-case a-z to upper so input is case-insensitive
+        CPI     'a'
+        JC      MAIN3
+        CPI     7BH             ; 'z'+1
+        JNC     MAIN3
+        SUI     20H             ; 'a'-'A' -> uppercase
+MAIN3:
         CPI     'S'
         JZ      CMD_S
         CPI     'L'
@@ -48,12 +55,13 @@ CMD_HELP:
 
 ; ---------------- S: show switches + mirror to LEDs ----------------
 CMD_S:
-        IN      LEDSW
-        MOV     B,A
+        IN      LEDSW           ; read switches (active-low: 1=open, 0=pressed)
+        STA     SWVAL           ; stash in memory -- BDOS func9 clobbers B, keep it out of a reg
         OUT     LEDSW           ; mirror switch bank to the LED bank
         LXI     H,MSG_SW
         CALL    PSTR
-        MOV     A,B
+        LDA     SWVAL           ; reload the TRUE switch value
+        MOV     B,A
         MVI     D,8             ; print 8 bits, MSB first
 SBL:
         RAL
@@ -349,6 +357,7 @@ RMDR:   DS      2
 MSBF:   DS      1
 CNT:    DS      1
 DIGCNT: DS      1
+SWVAL:  DS      1
 MSW:    DS      2
 SECW:   DS      4
         END

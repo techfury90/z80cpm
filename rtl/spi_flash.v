@@ -1,6 +1,11 @@
 `timescale 1ns/1ps
-// spi_flash -- I/O-mapped SPI byte-engine controller for the on-board
-// SST25VF020 serial flash (256 KB) -- the M7 solid-state disk on the Brevia2.
+// spi_flash -- I/O-mapped generic SPI mode-0 byte-engine controller.
+//
+// It drives the on-board SST25VF020 serial flash (the M7/CP/M drive A:), and is
+// ALSO instantiated a second time as the dedicated SD-card SPI port on pins
+// 31/32/35/36.  The engine is byte-generic; the two extra inputs (clock_free,
+// prescale) are SD SPI-mode requirements that are hard-wired to their default
+// values on the flash instance (so the flash path is byte-for-byte unchanged).
 //
 // The CPU drives the SST protocol at the BYTE level: this controller performs
 // the bit-level clocking (8 bits, MSB-first, SCK = 12.5 MHz = 25 MHz / 2) while
@@ -30,6 +35,8 @@ module spi_flash(
   input         rd_stb,      // io_rd strobe for 0x50
   input         wr_stb,      // io_wr strobe for 0x50
   input  [7:0]  din,         // byte to clock out on MOSI (write)
+  input         clock_free,  // clock bit-frames even when CS# is high (SD SPI init)
+  input  [5:0]  prescale,    // clock cycles per half-bit (1 = normal; 32 = ~390 kHz for SD init)
   output [7:0]  dout,        // byte clocked in from MISO (read)
   output        busy,        // 1 = a byte transfer is in progress
   output        wait_req,    // request CPU wait (stretch the 0x50 access)
@@ -59,7 +66,22 @@ module spi_flash(
     if (rst) go_stb_d <= 1'b0;
     else     go_stb_d <= go_stb;
   wire go_stb_edge = go_stb & ~go_stb_d;   // 1-cycle pulse on the access strobe rise
-  wire start  = go_stb_edge & ~cs & ~run;
+  // A transfer starts on the access strobe rise.  Normal operation (flash,
+  // clock_free=0) requires CS# low.  With clock_free=1 (SD SPI init) we also
+  // clock with CS# high, because the SD spec requires >=74 clock pulses with
+  // CS# high before CMD0.
+  wire start  = go_stb_edge & ~run & (clock_free | ~cs);
+
+  // Optional bit-clock prescaler.  SD SPI init must run at <=400 kHz (the
+  // engine is fixed at 12.5 MHz), so software can set prescale=32 to drop the
+  // bit rate to ~390 kHz, then return to 1 for normal-speed data I/O.
+  // prescale=1 advances the state machine every clock (unchanged behaviour).
+  reg  [5:0] pcount;
+  wire       pstep = (pcount == (prescale - 6'd1));
+  always @(posedge clk or posedge rst)
+    if (rst)          pcount <= 6'd0;
+    else if (start)   pcount <= 6'd0;
+    else if (run)     pcount <= pstep ? 6'd0 : (pcount + 6'd1);
 
   always @(posedge clk or posedge rst) begin
     if (rst) begin
@@ -75,7 +97,7 @@ module spi_flash(
       sh_in  <= 8'h00;
       // Writing sends the byte on MOSI; a read clocks out 0xFF (MOSI don't-care).
       sh_out <= rd_stb ? 8'hFF : din;
-    end else if (run) begin
+    end else if (run && pstep) begin
       if (cnt == 5'd17) begin          // byte complete -> latch + idle SCK low
         run    <= 1'b0;
         sck    <= 1'b0;
@@ -105,6 +127,10 @@ module spi_flash(
   assign wait_req = run;
   assign dout     = dout_q;
   assign spi_csn  = cs;                          // active-low chip select
-  assign spi_sclk = sck & ~cs;                   // SCK toggles only while selected
-  assign spi_mosi = (cs == 1'b0) ? sh_out[7] : 1'b1;   // drive MOSI only when selected
+  // With clock_free=1 (SD init) SCK must toggle and MOSI be driven even while
+  // CS# is high (the SD card needs those pulses).  With clock_free=0 (flash)
+  // preserve the original CS-gated behaviour exactly.
+  assign spi_sclk = clock_free ? (sck & run)  : (sck & ~cs);
+  assign spi_mosi = clock_free ? (run ? sh_out[7] : 1'b1)
+                               : ((cs == 1'b0) ? sh_out[7] : 1'b1);
 endmodule

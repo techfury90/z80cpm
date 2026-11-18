@@ -11,6 +11,7 @@
 //   0x40 = LED latch (write, active-low board LEDs) / switch read (read is inverted: pressed=1)
 //   0x41 = clock latch (write) -- snapshots the 32-bit uptime counter
 //   0x42-0x45 = clock value (read) -- latched ms, LSB first (0x42=ms[7:0])
+//   0x53-0x55 = SD card SPI (0x53 data, 0x54 ctl bit0=CS# bit1=slow, 0x55 stat bit0=busy)
 //   0x80 = console status (bit0 tx_busy, bit1 rx_avail), 0x81 = TX/RX data
 module z80cpm_brevia2(
   input         clk_in,     // 50 MHz (pin 21)
@@ -23,6 +24,10 @@ module z80cpm_brevia2(
   output        spi_csn,    // pin 11   (flash chip-select, active low)
   output        spi_mosi,   // pin 15   (flash MOSI)
   input         spi_miso,   // pin 16   (flash MISO)
+  output        sd_csn,     // pin 31   (SD card chip-select, active low)
+  output        sd_mosi,    // pin 32   (SD MOSI)
+  output        sd_sclk,    // pin 35   (SD SCK)
+  input         sd_miso,    // pin 36   (SD MISO)
   output [16:0] sram_addr,  // pins 119..141
   output        sram_cen,   // 142
   output        sram_oen,   // 143
@@ -216,12 +221,43 @@ module z80cpm_brevia2(
                   .rd_stb(spi_rd), .wr_stb(spi_wr),
                   .din(cpu_dout), .dout(spi_dout), .busy(spi_busy),
                   .wait_req(spi_wait),
+                  .clock_free(1'b0), .prescale(6'd1),
                   .spi_sclk(spi_sclk), .spi_csn(spi_csn),
                   .spi_mosi(spi_mosi), .spi_miso(spi_miso));
   // Stretch the CPU wait while a slow SPI byte transfer is in progress so an
   // IN 0x50 returns VALID received data (the CPU only samples di when wait_n
   // is high, after the engine has latched dout).
-  wire cpu_wait_n = sram_wait & ~spi_wait;
+  wire cpu_wait_n = sram_wait & ~spi_wait & ~sd_wait;
+
+  // ---- SD card SPI byte engine (dedicated port; flash SPI pins not broken out).
+  // The SD breakout uses its own SPI port on pins 31 (CS), 32 (MOSI), 35 (CLK),
+  // 36 (MISO).  Ports (decoded here):
+  //   0x53 = SD_SPI_DATA  r/w byte (CPU wait-stretched)
+  //   0x54 = SD_SPI_CTL   bit0 = SD CS# (0 = select, 1 = release)
+  //                       bit1 = slow clock (1 = ~390 kHz, for SD init)
+  //   0x55 = SD_SPI_STAT  bit0 = transfer-busy
+  reg  sd_cs   = 1'b1;
+  reg  sd_slow = 1'b0;
+  always @(posedge clk or posedge rst) begin
+    if (rst) begin sd_cs <= 1'b1; sd_slow <= 1'b0; end
+    else if (io_wr && (A[7:0] == 8'h54)) begin
+      sd_cs   <= cpu_dout[0];
+      sd_slow <= cpu_dout[1];
+    end
+  end
+  wire sd_data_port = (A[7:0] == 8'h53);
+  wire sd_rd = io_rd && sd_data_port;
+  wire sd_wr = io_wr && sd_data_port;
+  wire [7:0] sd_dout;
+  wire       sd_busy, sd_wait;
+  spi_flash u_spi_sd(.clk(clk), .rst(rst), .cs(sd_cs),
+                     .rd_stb(sd_rd), .wr_stb(sd_wr),
+                     .din(cpu_dout), .dout(sd_dout), .busy(sd_busy),
+                     .wait_req(sd_wait),
+                     .clock_free(1'b1),
+                     .prescale(sd_slow ? 6'd32 : 6'd1),
+                     .spi_sclk(sd_sclk), .spi_csn(sd_csn),
+                     .spi_mosi(sd_mosi), .spi_miso(sd_miso));
 
   reg [7:0] io_rdata;
   always @(*) begin
@@ -236,6 +272,8 @@ module z80cpm_brevia2(
     else if (io_rd && (A[7:0] == 8'h20)) io_rdata = rd_dout;   // RAM disk data
     else if (io_rd && (A[7:0] == 8'h50)) io_rdata = spi_dout;  // SPI data (read back)
     else if (io_rd && (A[7:0] == 8'h52)) io_rdata = {6'h00, 1'b0, spi_busy};  // SPI status
+    else if (io_rd && (A[7:0] == 8'h53)) io_rdata = sd_dout;  // SD SPI data (read back)
+    else if (io_rd && (A[7:0] == 8'h55)) io_rdata = {6'h00, 1'b0, sd_busy};  // SD SPI status
   end
 
   // Data mux: ROM for 0x0000-0x0FFF (read), SRAM for 0x1000+, else I/O.

@@ -8,7 +8,7 @@
 //   0x0000-0x0FFF : boot ROM (LUT case-ROM, console test program) -- read-only
 //   0x1000-0xFFFF : external SRAM bank A (stack / data)
 // I/O:
-//   0x40 = LED latch (write, active-low board LEDs) / switch read
+//   0x40 = LED latch (write, active-low board LEDs) / switch read (read is inverted: pressed=1)
 //   0x41 = clock latch (write) -- snapshots the 32-bit uptime counter
 //   0x42-0x45 = clock value (read) -- latched ms, LSB first (0x42=ms[7:0])
 //   0x80 = console status (bit0 tx_busy, bit1 rx_avail), 0x81 = TX/RX data
@@ -226,7 +226,7 @@ module z80cpm_brevia2(
   reg [7:0] io_rdata;
   always @(*) begin
     io_rdata = 8'h00;
-    if (io_rd && (A[7:0] == 8'h40)) io_rdata = sw;
+    if (io_rd && (A[7:0] == 8'h40)) io_rdata = ~sw;   // switches are active-low on the board; invert so pressed=1
     else if (io_rd && (A[7:0] == 8'h81)) io_rdata = uart_rx_data;
     else if (io_rd && (A[7:0] == 8'h80)) io_rdata = {6'h00, uart_rx_avail, uart_tx_busy};
     else if (io_rd && (A[7:0] == 8'h42)) io_rdata = ck_l0;   // clock byte 0 (ms low)

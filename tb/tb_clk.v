@@ -36,10 +36,10 @@ module tb_clk;
 
   // Part 0: port 0x40 must still read the switch bus.
   initial begin
-    #300;  sw = 8'hA5;
+    #300;    sw = 8'hA5;
     force u_dut.io_rd = 1'b1; force u_dut.A = 16'h0040;
     #30; $display("SW read (0x40) = %b %s", u_dut.io_rdata,
-                  (u_dut.io_rdata==8'hA5)?"(PASS, expect A5)":"(FAIL)");
+                  (u_dut.io_rdata==8'h5A)?"(PASS, expect ~A5 = 5A, switches inverted)":"(FAIL)");
     release u_dut.io_rd; release u_dut.A;
   end
 

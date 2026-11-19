@@ -618,12 +618,12 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>CG168 :&quot;C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:47:2:47:9|Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type</Dynamic>
+            <Dynamic>CG168 :&quot;C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:54:2:54:9|Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type</Dynamic>
             <Navigation>CG168</Navigation>
             <Navigation>C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>47</Navigation>
+            <Navigation>54</Navigation>
             <Navigation>2</Navigation>
-            <Navigation>47</Navigation>
+            <Navigation>54</Navigation>
             <Navigation>9</Navigation>
             <Navigation>Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type </Navigation>
         </Message>
@@ -661,120 +661,120 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>MT529 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v&quot;:42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 400 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance.</Dynamic>
+            <Dynamic>MT529 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v&quot;:42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 525 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance.</Dynamic>
             <Navigation>MT529</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v</Navigation>
             <Navigation>42</Navigation>
             <Navigation>2</Navigation>
             <Navigation>42</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 400 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. </Navigation>
+            <Navigation>Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 525 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. </Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net clk_op has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net clk_op has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net clk_op has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net rd_dout[0] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net rd_dout[0] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net rd_dout[0] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net rd_dout[1] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net rd_dout[1] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net rd_dout[1] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net rd_dout[2] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net rd_dout[2] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net rd_dout[2] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net rd_dout[3] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net rd_dout[3] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net rd_dout[3] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net rd_dout[4] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net rd_dout[4] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net rd_dout[4] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net rd_dout[5] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net rd_dout[5] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net rd_dout[5] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net rd_dout[6] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net rd_dout[6] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net rd_dout[6] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net rd_dout[7] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net rd_dout[7] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net rd_dout[7] has multiple drivers .</Navigation>
         </Message>
@@ -788,230 +788,638 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.rd_n_3 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_cpu.rd_n_3 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_cpu.rd_n_3 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_55 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_295 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_55 has multiple drivers .</Navigation>
+            <Navigation>Net N_295 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_56 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_296 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_56 has multiple drivers .</Navigation>
+            <Navigation>Net N_296 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_57 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_297 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_57 has multiple drivers .</Navigation>
+            <Navigation>Net N_297 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_58 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_298 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_58 has multiple drivers .</Navigation>
+            <Navigation>Net N_298 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_59 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_299 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_59 has multiple drivers .</Navigation>
+            <Navigation>Net N_299 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_60 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_300 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_60 has multiple drivers .</Navigation>
+            <Navigation>Net N_300 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_61 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_301 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_61 has multiple drivers .</Navigation>
+            <Navigation>Net N_301 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_62 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_302 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_62 has multiple drivers .</Navigation>
+            <Navigation>Net N_302 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_63 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_303 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_63 has multiple drivers .</Navigation>
+            <Navigation>Net N_303 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_64 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_304 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_64 has multiple drivers .</Navigation>
+            <Navigation>Net N_304 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_65 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_305 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_65 has multiple drivers .</Navigation>
+            <Navigation>Net N_305 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_66 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_306 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_66 has multiple drivers .</Navigation>
+            <Navigation>Net N_306 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_67 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_307 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_67 has multiple drivers .</Navigation>
+            <Navigation>Net N_307 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_68 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_308 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_68 has multiple drivers .</Navigation>
+            <Navigation>Net N_308 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_69 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_309 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_69 has multiple drivers .</Navigation>
+            <Navigation>Net N_309 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_70 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_310 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_70 has multiple drivers .</Navigation>
+            <Navigation>Net N_310 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_71 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_311 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_71 has multiple drivers .</Navigation>
+            <Navigation>Net N_311 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net N_72 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_312 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net N_72 has multiple drivers .</Navigation>
+            <Navigation>Net N_312 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_313 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_313 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_314 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_314 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_315 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_315 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_316 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_316 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_317 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_317 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_318 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_318 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_319 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_319 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_320 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_320 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_321 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_321 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_322 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_322 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_323 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_323 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_324 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_324 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_325 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_325 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_326 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_326 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_327 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_327 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_328 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_328 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_329 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_329 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_330 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_330 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_331 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_331 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_332 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_332 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_333 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_333 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_334 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_334 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_335 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_335 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_336 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_336 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_337 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_337 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_338 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_338 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_339 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_339 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_340 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_340 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_341 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_341 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_342 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_342 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_343 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_343 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_344 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_344 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_345 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_345 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net N_346 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net N_346 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
@@ -2216,888 +2624,480 @@
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.mcycle[0] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_cpu.mcycle[0] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_cpu.mcycle[0] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.tstate[1] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_cpu.tstate[1] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_cpu.tstate[1] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.tstate[2] has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_cpu.tstate[2] has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_cpu.tstate[2] has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_2 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_12 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_2 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_12 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_25 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_15 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_25 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_15 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_26 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_38 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_26 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_38 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_27 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_39 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_27 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_39 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_28 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_40 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_28 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_40 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_29 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_41 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_29 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_41 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_30 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_42 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_30 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_42 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_31 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_43 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_31 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_43 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_32 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_44 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_32 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_44 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_33 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_45 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_33 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_45 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_34 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_46 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_34 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_46 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_35 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_47 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_35 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_47 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_36 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_48 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_36 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_48 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_37 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_49 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_37 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_49 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_38 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_50 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_38 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_50 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_39 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_51 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_39 has multiple drivers .</Navigation>
+            <Navigation>Net u_spi_sd.N_51 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_40 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_52 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_52 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_53 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_53 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_54 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_54 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_55 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_55 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_56 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_56 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_57 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_57 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_58 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_58 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_59 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_59 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_60 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_60 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_61 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_61 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_62 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_62 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi_sd.N_63 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi_sd.N_63 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi.N_14 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_14 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi.N_17 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>20</Navigation>
+            <Navigation>Net u_spi.N_17 has multiple drivers .</Navigation>
+        </Message>
+        <Message>
+            <ID>2019991</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi.N_40 has multiple drivers .</Dynamic>
+            <Navigation>BN161</Navigation>
+            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
+            <Navigation>16</Navigation>
+            <Navigation>7</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_spi.N_40 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_41 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi.N_41 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_spi.N_41 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_42 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi.N_42 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_spi.N_42 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_43 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi.N_43 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_spi.N_43 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_44 has multiple drivers .</Dynamic>
+            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:16:7:16:20|Net u_spi.N_44 has multiple drivers .</Dynamic>
             <Navigation>BN161</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
+            <Navigation>16</Navigation>
             <Navigation>20</Navigation>
             <Navigation>Net u_spi.N_44 has multiple drivers .</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_45 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_45 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_46 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_46 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_47 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_47 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_48 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_48 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_49 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_49 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_spi.N_50 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_spi.N_50 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_73 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_73 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_104 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_104 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_105 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_105 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_106 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_106 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_107 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_107 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_108 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_108 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_109 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_109 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_110 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_110 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_111 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_111 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_112 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_112 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_113 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_113 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_114 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_114 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_115 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_115 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_116 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_116 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_117 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_117 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_118 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_118 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_119 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_119 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_120 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_120 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_121 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_121 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_122 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_122 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_123 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_123 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_124 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_124 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_rx.N_125 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_rx.N_125 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_18 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_18 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_21 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_21 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_55 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_55 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_56 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_56 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_57 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_57 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_58 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_58 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_59 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_59 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_60 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_60 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_61 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_61 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_62 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_62 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_63 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_63 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_64 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_64 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_65 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_65 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_66 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_66 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_67 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_67 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_tx.N_68 has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_tx.N_68 has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[1] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.mcycle_16[1] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[2] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.mcycle_16[2] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BN161 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:13:7:13:20|Net u_cpu.i_tv80_core.mcycle_16[3] has multiple drivers .</Dynamic>
-            <Navigation>BN161</Navigation>
-            <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>7</Navigation>
-            <Navigation>13</Navigation>
-            <Navigation>20</Navigation>
-            <Navigation>Net u_cpu.i_tv80_core.mcycle_16[3] has multiple drivers .</Navigation>
-        </Message>
-        <Message>
-            <ID>2019991</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>BW268 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:47:2:47:9|Ignoring parameter pmi_freq_clkok with floating-point value in -edn file</Dynamic>
+            <Dynamic>BW268 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:54:2:54:9|Ignoring parameter pmi_freq_clkok with floating-point value in -edn file</Dynamic>
             <Navigation>BW268</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>47</Navigation>
+            <Navigation>54</Navigation>
             <Navigation>2</Navigation>
-            <Navigation>47</Navigation>
+            <Navigation>54</Navigation>
             <Navigation>9</Navigation>
             <Navigation>Ignoring parameter pmi_freq_clkok with floating-point value in -edn file</Navigation>
         </Message>
         <Message>
             <ID>2019991</ID>
             <Severity>Warning</Severity>
-            <Dynamic>MT246 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:47:2:47:9|Blackbox pmi_pll is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)</Dynamic>
+            <Dynamic>MT246 :&quot;c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v&quot;:54:2:54:9|Blackbox pmi_pll is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)</Dynamic>
             <Navigation>MT246</Navigation>
             <Navigation>c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v</Navigation>
-            <Navigation>47</Navigation>
+            <Navigation>54</Navigation>
             <Navigation>2</Navigation>
-            <Navigation>47</Navigation>
+            <Navigation>54</Navigation>
             <Navigation>9</Navigation>
             <Navigation>Blackbox pmi_pll is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)</Navigation>
         </Message>

@@ -1,6 +1,6 @@
 #-- Lattice Semiconductor Corporation Ltd.
 #-- Synplify OEM project file C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/launch_synplify.tcl
-#-- Written on Sun Nov 15 22:55:23 2026
+#-- Written on Tue Nov 17 20:42:06 2026
 
 project -close
 set filename "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1_syn.prj"
@@ -28,13 +28,13 @@ if {$create_new == 1} {
 	set_option -auto_constrain_io 0
 	set_option -disable_io_insertion false
 	set_option -retiming false; set_option -pipe true
-	set_option -force_gsr false
+	set_option -force_gsr auto
 	set_option -compiler_compatible 0
 	set_option -dup false
 	
 	set_option -default_enum_encoding default
 	
-	
+	set_option -num_critical_paths 3
 	
 	set_option -write_apr_constraint 1
 	set_option -fix_gated_and_generated_clocks 1
@@ -47,16 +47,18 @@ if {$create_new == 1} {
 }
 #-- add_file options
 set_option -include_path "C:/Users/techf/Desktop/brevia2/z80cpm/build"
-add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom.v"
-add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v"
-add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_alu.v"
-add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_core.v"
-add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_mcode.v"
-add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_reg.v"
-add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80n.v"
-add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v"
-add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_tx.v"
 add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80n.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_core.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_alu.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_reg.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_mcode.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_tx.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uart_rx.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/ram_disk.v"
+add_file -verilog -vlog_std v2001 "C:/Users/techf/Desktop/brevia2/z80cpm/rtl/spi_flash.v"
 #-- top module name
 set_option -top_module {}
 project -result_file {C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1.edi}

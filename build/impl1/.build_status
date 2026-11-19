@@ -5,43 +5,43 @@
             <Task name="IBIS" build_result="0" update_result="3" update_time="0"/>
             <Task name="TimingSimFileVlg" build_result="0" update_result="3" update_time="0"/>
             <Task name="TimingSimFileVHD" build_result="0" update_result="3" update_time="0"/>
-            <Task name="Bitgen" build_result="2" update_result="0" update_time="1794901684"/>
+            <Task name="Bitgen" build_result="2" update_result="0" update_time="1795055512"/>
         </Milestone>
-        <Milestone name="Map" build_result="2" build_time="1794901587">
-            <Task name="Map" build_result="2" update_result="0" update_time="1794901587"/>
-            <Task name="MapTrace" build_result="0" update_result="2" update_time="1794901587"/>
-            <Task name="MapVerilogSimFile" build_result="2" update_result="0" update_time="1794901589"/>
-            <Task name="MapVHDLSimFile" build_result="0" update_result="2" update_time="1794901587"/>
+        <Milestone name="Map" build_result="2" build_time="1795055472">
+            <Task name="Map" build_result="2" update_result="0" update_time="1795055472"/>
+            <Task name="MapTrace" build_result="0" update_result="2" update_time="1795055472"/>
+            <Task name="MapVerilogSimFile" build_result="2" update_result="0" update_time="1795055474"/>
+            <Task name="MapVHDLSimFile" build_result="0" update_result="2" update_time="1795055472"/>
         </Milestone>
-        <Milestone name="PAR" build_result="2" build_time="1794901634">
-            <Task name="PAR" build_result="2" update_result="0" update_time="1794901634"/>
-            <Task name="PARTrace" build_result="2" update_result="0" update_time="1794901637"/>
+        <Milestone name="PAR" build_result="2" build_time="1795055507">
+            <Task name="PAR" build_result="2" update_result="0" update_time="1795055507"/>
+            <Task name="PARTrace" build_result="2" update_result="0" update_time="1795055509"/>
             <Task name="IOTiming" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="Synthesis" build_result="2" build_time="1794901584">
-            <Task name="Synplify_Synthesis" build_result="2" update_result="0" update_time="1794901584"/>
+        <Milestone name="Synthesis" build_result="2" build_time="1795055468">
+            <Task name="Synplify_Synthesis" build_result="2" update_result="0" update_time="1795055468"/>
         </Milestone>
         <Milestone name="TOOL_Report" build_result="0" build_time="0">
-            <Task name="HDLE" build_result="2" update_result="0" update_time="1794901364"/>
-            <Task name="BKM" build_result="0" update_result="2" update_time="1794901364"/>
+            <Task name="HDLE" build_result="0" update_result="2" update_time="1795055414"/>
+            <Task name="BKM" build_result="0" update_result="2" update_time="1795055414"/>
             <Task name="SSO" build_result="0" update_result="3" update_time="0"/>
             <Task name="PIODRC" build_result="0" update_result="3" update_time="0"/>
             <Task name="DEC" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="Translate" build_result="2" build_time="1794901585">
-            <Task name="Translate" build_result="2" update_result="0" update_time="1794901585"/>
+        <Milestone name="Translate" build_result="2" build_time="1795055470">
+            <Task name="Translate" build_result="2" update_result="0" update_time="1795055470"/>
         </Milestone>
         <Report name=".vdbs/z80cpm_impl1_map.vdb" last_build_time="1794794623" last_build_size="520731"/>
-        <Report name="z80cpm_impl1.bgn" last_build_time="1794901684" last_build_size="3696"/>
-        <Report name="z80cpm_impl1.edi" last_build_time="1794901579" last_build_size="1821189"/>
-        <Report name="z80cpm_impl1.jed" last_build_time="1794901684" last_build_size="1269682"/>
+        <Report name="z80cpm_impl1.bgn" last_build_time="1795055512" last_build_size="3696"/>
+        <Report name="z80cpm_impl1.edi" last_build_time="1795055464" last_build_size="1986193"/>
+        <Report name="z80cpm_impl1.jed" last_build_time="1795055512" last_build_size="1269804"/>
         <Report name="z80cpm_impl1.lsedata" last_build_time="1794794611" last_build_size="2861179"/>
-        <Report name="z80cpm_impl1.ncd" last_build_time="1794901634" last_build_size="2062303"/>
-        <Report name="z80cpm_impl1.ngd" last_build_time="1794901585" last_build_size="1696516"/>
-        <Report name="z80cpm_impl1.twr" last_build_time="1794901636" last_build_size="294730"/>
-        <Report name="z80cpm_impl1_map.ncd" last_build_time="1794901587" last_build_size="1224105"/>
-        <Report name="z80cpm_impl1_mapvo.sdf" last_build_time="1794901589" last_build_size="2259629"/>
-        <Report name="z80cpm_impl1_mapvo.vo" last_build_time="1794901589" last_build_size="1118790"/>
+        <Report name="z80cpm_impl1.ncd" last_build_time="1795055507" last_build_size="2294362"/>
+        <Report name="z80cpm_impl1.ngd" last_build_time="1795055470" last_build_size="1867081"/>
+        <Report name="z80cpm_impl1.twr" last_build_time="1795055509" last_build_size="299841"/>
+        <Report name="z80cpm_impl1_map.ncd" last_build_time="1795055472" last_build_size="1360190"/>
+        <Report name="z80cpm_impl1_mapvo.sdf" last_build_time="1795055474" last_build_size="2520293"/>
+        <Report name="z80cpm_impl1_mapvo.vo" last_build_time="1795055474" last_build_size="1223710"/>
     </Strategy>
 </BuildStatus>
-                            
+                           

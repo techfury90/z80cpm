@@ -1186,12 +1186,13 @@ RECOFF: DS      2               ; in-sector byte offset for the drive B: RMW
 
 ; ============================================================================
 ;   DRIVE C / D: (SD card) DISK PARAMETER HEADER / BLOCK / VECTORS
-;   Geometry (matches sdtool/sdprobe and the flash family): 128-byte sectors,
-;   SPT=32, 2KB allocation blocks (BSH=4/BLM=15), DRM=127 (128 dir entries),
-;   AL0=0xC0 (reserve directory blocks 0-1), CKS=0, DSM=251 (single-DM),
-;   OFF=0 (data partition, NO system tracks -- the directory is at the partition
-;   start, exactly where sdtool formatted it).  Drive C and D both point here for
-;   now (D is reserved for a future SD partition 2).
+;   Geometry: 128-byte sectors, SPT=32, 4KB allocation blocks (BSH=5/BLM=31),
+;   DRM=255 (256 dir entries), AL0=0xC0 (reserve dir blocks 0-1 = 8KB),
+;   CKS=0, DSM=2047 (DOUBLE-DM -- 2048 blocks x 4KB = 8 MB = the CP/M 2.2
+;   16-bit record-counter ceiling), OFF=0 (data partition, no system tracks --
+;   the directory is at the partition start, where sdtool formats it).
+;   Drive C is 8 MB; drive D (DPHD) still maps here (a future SD partition 2).
+;   See cpm/SD-8MB-DRIVE.md.
 DPHC:
         DW      0000H           ; XLT: no sector translation
         DW      0000H           ; scratch (cdrmax)
@@ -1212,17 +1213,26 @@ DPHD:
         DW      ALVC
 DPBC:
         DW      SPT             ; SPT  = 32   (sectors per track)
-        DB      04H             ; BSH  = 4    (block shift  -> 2KB blocks)
-        DB      0FH             ; BLM  = 15   (block mask)
-        DB      01H             ; EXM  = 1
-        DW      251             ; DSM  = 251  (max block number = 252 blocks)
-        DW      127             ; DRM  = 127  (max directory entry = 128 entries)
-        DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first)
+        DB      05H             ; BSH  = 5    (block shift  -> 4KB blocks)
+        DB      1FH             ; BLM  = 31   (block mask)
+        DB      01H             ; EXM  = 1    (BLS=4096 & DSM>255 -> double-DM (16-bit
+                                ;              block pointers): entry covers 8x4KB=32KB
+                                ;              -> EXM = 32KB/16KB - 1 = 1)
+        DW      2047            ; DSM  = 2047 (max block = 2048 blocks x 4KB = 8 MB --
+                                ;              the CP/M 2.2 16-bit record-counter ceiling)
+        DW      255             ; DRM  = 255  (max directory entry = 256 entries)
+        DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first;
+                                ;              256 entries x 32B = 8KB = 2 x 4KB blocks)
         DB      00H             ; AL1  = 0x00
         DW      00H             ; CKS  = 0    (fixed media -> no checksum)
         DW      00H             ; OFF  = 0    (data partition, no system tracks)
 CSVC:   DS      1               ; checksum vector (0 bytes used since CKS=0)
-ALVC:   DS      32              ; allocation vector (DSM=251 -> 32 bytes)
+ALVC:   DS      256             ; allocation vector (DSM=2047 -> (2047+1)/8 = 256 bytes).
+                                ;   The BDOS builds this itself on drive login and keeps
+                                ;   it while the drive is logged in -- it must NOT alias a
+                                ;   clobbered buffer.  It lives in the free RAM gap
+                                ;   (0xED00-0xEF00, below RMWBUF), harmless if not loaded
+                                ;   by the boot image (the BDOS zeroes it on login).
 SDOFF:  DS      2               ; in-sector byte offset for the SD deblock
 BLKN:   DS      4               ; SD block number (32-bit, MSB first); SD block = SDPLBA + record/4
 SDCMDB: DS      6               ; SD command buffer (opcode + 4-byte arg + CRC)

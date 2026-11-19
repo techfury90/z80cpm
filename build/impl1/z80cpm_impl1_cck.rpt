@@ -12,7 +12,7 @@ Hostname: MEMETOP
 
 Implementation : impl1
 
-# Written on Tue Nov 17 02:45:56 2026
+# Written on Wed Nov 18 21:30:44 2026
 
 ##### DESIGN INFO #######################################################
 
@@ -55,6 +55,10 @@ p:led[5]
 p:led[6]
 p:led[7]
 p:rst_n
+p:sd_csn
+p:sd_miso
+p:sd_mosi
+p:sd_sclk
 p:spi_csn
 p:spi_miso
 p:spi_mosi

@@ -23,23 +23,23 @@ Target Vendor:  LATTICE
 Target Device:  LFXP2-5ETQFP144
 Target Performance:   6
 Mapper:  mg5a00,  version:  Diamond (64-bit) 3.14.0.75.2
-Mapped on:  11/17/26  02:46:25
+Mapped on:  11/18/26  21:31:10
 
 
 <A name="mrp_ds"></A><B><U><big>Design Summary</big></U></B>
-   Number of registers:    505 out of  3864 (13%)
-      PFU registers:          503 out of  3564 (14%)
-      PIO registers:            2 out of   300 (1%)
-   Number of SLICEs:      1523 out of  2376 (64%)
-      SLICEs as Logic/ROM:   1523 out of  2376 (64%)
+   Number of registers:    629 out of  3864 (16%)
+      PFU registers:          626 out of  3564 (18%)
+      PIO registers:            3 out of   300 (1%)
+   Number of SLICEs:      1682 out of  2376 (71%)
+      SLICEs as Logic/ROM:   1682 out of  2376 (71%)
       SLICEs as RAM:            0 out of   405 (0%)
-      SLICEs as Carry:         84 out of  2376 (4%)
-   Number of LUT4s:        2577 out of  4752 (54%)
-      Number used as logic LUTs:        2409
+      SLICEs as Carry:        120 out of  2376 (5%)
+   Number of LUT4s:        2862 out of  4752 (60%)
+      Number used as logic LUTs:        2622
       Number used as distributed RAM:     0
-      Number used as ripple logic:      168
+      Number used as ripple logic:      240
       Number used as shift registers:     0
-   Number of PIO sites used: 52 out of 100 (52%)
+   Number of PIO sites used: 56 out of 100 (56%)
    Number of PIO FIXEDDELAY:    0
    Number of DQSDLLs:  0 out of 2 (0%)
    Number of PLLs:  1 out of 2 (50%)
@@ -71,12 +71,12 @@ Mapped on:  11/17/26  02:46:25
    Number of Used DSP Sites:  0 out of 24 (0 %)
    Number of clocks:  2
      Net clk_in_c: 1 loads, 1 rising, 0 falling (Driver: PIO clk_in )
-     Net clk_op: 352 loads, 348 rising, 4 falling (Driver: pll_inst/PLLInst_0 )
-   Number of Clock Enables:  52
+     Net clk_op: 424 loads, 420 rising, 4 falling (Driver: pll_inst/PLLInst_0 )
+   Number of Clock Enables:  62
      Net boot_done5: 1 loads, 1 LSLICEs
      Net spi_cs6: 1 loads, 1 LSLICEs
-     Net u_tx.un1_tx_busy13_4_i: 1 loads, 0 LSLICEs
-     Net u_cpu/di_reg_eena: 4 loads, 4 LSLICEs
+     Net sd_cs6: 2 loads, 1 LSLICEs
+     Net u_cpu/di_reg_eena: 6 loads, 6 LSLICEs
      Net u_cpu/i_tv80_core/i_reg/awe7: 4 loads, 4 LSLICEs
      Net u_cpu/i_tv80_core/i_reg/awe6: 4 loads, 4 LSLICEs
      Net u_cpu/i_tv80_core/i_reg/awe5: 4 loads, 4 LSLICEs
@@ -94,40 +94,51 @@ Mapped on:  11/17/26  02:46:25
      Net u_cpu/i_tv80_core/i_reg/awe1_0: 8 loads, 8 LSLICEs
      Net u_cpu/i_tv80_core/i_reg/awe0_0: 8 loads, 8 LSLICEs
      Net u_cpu/i_tv80_core/un1_BusReq_s5_i_a3: 2 loads, 2 LSLICEs
-     Net u_cpu/i_tv80_core/un1_ALU_Op_r10_10_i: 16 loads, 16 LSLICEs
      Net u_cpu/i_tv80_core/IncDecZ_1_sqmuxa_i: 1 loads, 1 LSLICEs
      Net u_cpu/i_tv80_core/ALU_Op_r_0_sqmuxa: 16 loads, 16 LSLICEs
-     Net u_cpu/i_tv80_core/un1_ISet_0_sqmuxa_1_i[0]: 4 loads, 4 LSLICEs
+     Net u_cpu/i_tv80_core/un1_ISet_0_sqmuxa_1_i[0]: 3 loads, 3 LSLICEs
      Net u_cpu/i_tv80_core/un1_XY_Ind19_i[0]: 1 loads, 1 LSLICEs
      Net u_cpu/i_tv80_core/ACC_2_sqmuxa_i: 4 loads, 4 LSLICEs
      Net u_cpu/i_tv80_core/un1_ALU_Op_r10_i: 1 loads, 1 LSLICEs
      Net u_cpu/i_tv80_core/dout_3_sqmuxa_i: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/I_1_sqmuxa: 4 loads, 4 LSLICEs
      Net u_cpu/i_tv80_core/IntE_FF2_2_sqmuxa_i: 1 loads, 1 LSLICEs
      Net u_cpu/i_tv80_core/un1_IR_0_sqmuxa_1_i[0]: 16 loads, 16 LSLICEs
      Net u_cpu/i_tv80_core/ACC_0_sqmuxa: 8 loads, 8 LSLICEs
-     Net u_cpu/i_tv80_core/I_1_sqmuxa: 4 loads, 4 LSLICEs
-     Net u_spi/dout_q_0_sqmuxa: 4 loads, 4 LSLICEs
-     Net u_spi/un1_run13_i_0: 8 loads, 8 LSLICEs
+     Net u_cpu/i_tv80_core/un1_ALU_Op_r10_10_i: 16 loads, 16 LSLICEs
+     Net u_spi_sd/un1_run13_i: 8 loads, 8 LSLICEs
+     Net u_spi_sd/cnte: 4 loads, 4 LSLICEs
+     Net u_spi_sd/un1_start_1: 1 loads, 1 LSLICEs
+     Net u_spi_sd/pcounte: 3 loads, 3 LSLICEs
+     Net u_spi_sd/dout_q_0_sqmuxa: 4 loads, 4 LSLICEs
+     Net u_spi/run_RNO: 1 loads, 1 LSLICEs
+     Net u_spi/un1_run13_i: 8 loads, 8 LSLICEs
      Net u_spi/cnte: 4 loads, 4 LSLICEs
-     Net led_reg4: 4 loads, 4 LSLICEs
+     Net u_spi/pcounte: 3 loads, 3 LSLICEs
+     Net u_spi/dout_q_0_sqmuxa: 4 loads, 4 LSLICEs
+     Net led_reg5: 4 loads, 4 LSLICEs
+     Net ck_l05: 16 loads, 16 LSLICEs
      Net u_rx/rx_data_0_sqmuxa: 4 loads, 4 LSLICEs
      Net u_rx/sr_RNO[0]: 1 loads, 1 LSLICEs
-     Net u_rx/sr_RNO[4]: 1 loads, 1 LSLICEs
-     Net u_rx/sr_RNO[6]: 1 loads, 1 LSLICEs
-     Net u_rx/sr_RNO[5]: 1 loads, 1 LSLICEs
+     Net u_rx/sr_RNO[3]: 1 loads, 1 LSLICEs
      Net u_rx/sr_RNO[1]: 1 loads, 1 LSLICEs
      Net u_rx/srce[2]: 1 loads, 1 LSLICEs
-     Net u_rx/srce[3]: 1 loads, 1 LSLICEs
+     Net u_rx/srce[4]: 1 loads, 1 LSLICEs
+
+     Net u_rx/srce[5]: 1 loads, 1 LSLICEs
+     Net u_rx/srce[6]: 1 loads, 1 LSLICEs
      Net u_rx/srce[7]: 1 loads, 1 LSLICEs
      Net u_rx/rx_avail_1_sqmuxa_1_i: 1 loads, 1 LSLICEs
      Net u_rx/ke: 9 loads, 9 LSLICEs
      Net u_rx/un1_rx_state6_2_i[0]: 3 loads, 3 LSLICEs
-     Net u_tx/un1_tx_start_i_m2[0]: 2 loads, 2 LSLICEs
      Net u_tx/un1_tx_busy13_i: 4 loads, 4 LSLICEs
-
-     Net u_tx/N_34_i: 6 loads, 6 LSLICEs
-   Number of LSRs:  6
-     Net rst: 205 loads, 203 LSLICEs
+     Net u_tx/N_416_i: 6 loads, 6 LSLICEs
+     Net u_tx/N_31_i: 2 loads, 2 LSLICEs
+     Net u_tx.un1_tx_busy13_4_i: 1 loads, 0 LSLICEs
+     Net ck_mse: 17 loads, 17 LSLICEs
+   Number of LSRs:  7
+     Net u_cpu.i_tv80_core.reset_n_i_1: 271 loads, 268 LSLICEs
+     Net u_cpu/di_reg_230: 6 loads, 6 LSLICEs
      Net u_cpu/i_tv80_core/mcycle_16[5]: 1 loads, 1 LSLICEs
      Net u_cpu/i_tv80_core/Auto_Wait_t2: 1 loads, 1 LSLICEs
      Net u_cpu/i_tv80_core/Auto_Wait_t1: 1 loads, 1 LSLICEs
@@ -135,16 +146,16 @@ Mapped on:  11/17/26  02:46:25
      Net rst_n_c: 3 loads, 3 LSLICEs
    Number of nets driven by tri-state buffers:  0
    Top 10 highest fanout non-clock nets:
-     Net A[6]: 261 loads
-     Net A[2]: 257 loads
-     Net A[3]: 257 loads
-     Net A[1]: 255 loads
-     Net rst: 207 loads
-     Net A[7]: 136 loads
-     Net u_cpu/mcycle[0]: 112 loads
-     Net u_cpu/i_tv80_core/mcycle_16[1]: 105 loads
-     Net u_cpu/i_tv80_core/RegAddrB7: 87 loads
-     Net u_cpu/i_tv80_core/RegAddrA[0]: 80 loads
+     Net A[1]: 377 loads
+     Net A[2]: 372 loads
+     Net A[3]: 359 loads
+     Net A[6]: 300 loads
+     Net u_cpu.i_tv80_core.reset_n_i_1: 273 loads
+     Net A[5]: 157 loads
+     Net A[7]: 141 loads
+     Net u_cpu/mcycle[0]: 113 loads
+     Net A[4]: 112 loads
+     Net u_cpu/i_tv80_core/mcycle_16[1]: 104 loads
 
 
 
@@ -173,6 +184,7 @@ Mapped on:  11/17/26  02:46:25
 | led[0]              | OUTPUT    | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
 | clk_in              | INPUT     | LVCMOS33  |            |            |
+
 +---------------------+-----------+-----------+------------+------------+
 | sram_data[7]        | BIDIR     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
@@ -184,7 +196,6 @@ Mapped on:  11/17/26  02:46:25
 +---------------------+-----------+-----------+------------+------------+
 | sram_data[3]        | BIDIR     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
-
 | sram_data[2]        | BIDIR     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
 | sram_data[1]        | BIDIR     | LVCMOS33  |            |            |
@@ -229,6 +240,15 @@ Mapped on:  11/17/26  02:46:25
 +---------------------+-----------+-----------+------------+------------+
 | sram_addr[0]        | OUTPUT    | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
+| sd_miso             | INPUT     | LVCMOS33  |            |            |
+
++---------------------+-----------+-----------+------------+------------+
+| sd_sclk             | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sd_mosi             | OUTPUT    | LVCMOS33  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| sd_csn              | OUTPUT    | LVCMOS33  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
 | spi_miso            | INPUT     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
 | spi_mosi            | OUTPUT    | LVCMOS33  |            |            |
@@ -241,7 +261,6 @@ Mapped on:  11/17/26  02:46:25
 +---------------------+-----------+-----------+------------+------------+
 | uart_rx             | INPUT     | LVCMOS33  | IN         |            |
 +---------------------+-----------+-----------+------------+------------+
-
 | sw[7]               | INPUT     | LVCMOS33  |            |            |
 +---------------------+-----------+-----------+------------+------------+
 | sw[6]               | INPUT     | LVCMOS33  |            |            |
@@ -280,10 +299,13 @@ Mapped on:  11/17/26  02:46:25
 <A name="mrp_rm"></A><B><U><big>Removed logic</big></U></B>
 
 Block u_rom/VCC undriven or does not drive anything - clipped.
+
 Block u_rom/GND undriven or does not drive anything - clipped.
 Block u_cpu/GND undriven or does not drive anything - clipped.
 Block u_cpu/VCC undriven or does not drive anything - clipped.
 Block u_cpu/i_tv80_core/i_mcode/VCC undriven or does not drive anything -
+     clipped.
+Block u_cpu/i_tv80_core/i_mcode/GND undriven or does not drive anything -
      clipped.
 Block u_cpu/i_tv80_core/i_reg/GND undriven or does not drive anything - clipped.
      
@@ -295,23 +317,23 @@ Signal u_cpu/i_tv80_core/Auto_Wait_t1_i was merged into signal
      u_cpu/i_tv80_core/Auto_Wait_t1
 Signal u_cpu/i_tv80_core/ISet_i[1] was merged into signal
      u_cpu/i_tv80_core/ISet[1]
-Signal u_cpu/i_tv80_core/i_mcode/un1_IncDec_16_3_0_mb_rn_2 was merged into
-     signal u_cpu/tstate[2]
-Signal GND undriven or does not drive anything - clipped.
 Signal pll_inst/scuba_vlo undriven or does not drive anything - clipped.
-
-Signal u_cpu/i_tv80_core/i_mcode/GND undriven or does not drive anything -
-     clipped.
+Signal ck_ms_s_0_S1[31] undriven or does not drive anything - clipped.
+Signal ck_ms_s_0_COUT[31] undriven or does not drive anything - clipped.
+Signal un4_ck_div_cry_0_0_S1 undriven or does not drive anything - clipped.
+Signal un4_ck_div_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_2 undriven or does not drive anything - clipped.
+Signal un4_ck_div_cry_13_0_COUT undriven or does not drive anything - clipped.
 Signal pll_inst/PLLInst_0/CLKINTFB undriven or does not drive anything -
      clipped.
 Signal LOCK undriven or does not drive anything - clipped.
 Signal CLKOK2 undriven or does not drive anything - clipped.
 Signal pll_inst/PLLInst_0/CLKOK undriven or does not drive anything - clipped.
 Signal CLKOS undriven or does not drive anything - clipped.
+Signal u_rd/addr_cry_0_S0[0] undriven or does not drive anything - clipped.
+Signal u_rd/N_2 undriven or does not drive anything - clipped.
 Signal u_rd/addr_s_0_S1[15] undriven or does not drive anything - clipped.
 Signal u_rd/addr_s_0_COUT[15] undriven or does not drive anything - clipped.
-Signal u_rd/addr_cry_0_S0[0] undriven or does not drive anything - clipped.
-Signal u_rd/N_1 undriven or does not drive anything - clipped.
 Signal u_tx/k_cry_0_S0[0] undriven or does not drive anything - clipped.
 Signal u_tx/N_1 undriven or does not drive anything - clipped.
 Signal u_tx/k_s_0_S1[11] undriven or does not drive anything - clipped.
@@ -332,9 +354,26 @@ Signal u_rx/un1_k_15_0_I_15_0_S0 undriven or does not drive anything - clipped.
 Signal u_rx/un1_k_15_0_I_45_0_S0 undriven or does not drive anything - clipped.
 Signal u_rx/un1_k_15_0_I_45_0_COUT undriven or does not drive anything -
      clipped.
-Signal u_spi/cnt_cry_0_S0[0] undriven or does not drive anything - clipped.
+Signal u_spi/pcount_cry_0_S0[0] undriven or does not drive anything - clipped.
 Signal u_spi/N_1 undriven or does not drive anything - clipped.
+
+Signal u_spi/pcount_s_0_S1[5] undriven or does not drive anything - clipped.
+Signal u_spi/pcount_s_0_COUT[5] undriven or does not drive anything - clipped.
+Signal u_spi/cnt_cry_0_S0[0] undriven or does not drive anything - clipped.
+Signal u_spi/N_2 undriven or does not drive anything - clipped.
 Signal u_spi/cnt_cry_0_COUT[3] undriven or does not drive anything - clipped.
+Signal u_spi_sd/pcount_cry_0_S0_0[0] undriven or does not drive anything -
+     clipped.
+Signal u_spi_sd/N_1 undriven or does not drive anything - clipped.
+Signal u_spi_sd/pcount_s_0_S1_0[5] undriven or does not drive anything -
+     clipped.
+Signal u_spi_sd/pcount_s_0_COUT_0[5] undriven or does not drive anything -
+     clipped.
+Signal u_spi_sd/cnt_cry_0_S0_0[0] undriven or does not drive anything - clipped.
+     
+Signal u_spi_sd/N_2 undriven or does not drive anything - clipped.
+Signal u_spi_sd/cnt_cry_0_COUT_0[3] undriven or does not drive anything -
+     clipped.
 Signal u_cpu/i_tv80_core/PC_20_m1_0_cry_0_0_S1 undriven or does not drive
      anything - clipped.
 Signal u_cpu/i_tv80_core/PC_20_m1_0_cry_0_0_S0 undriven or does not drive
@@ -356,7 +395,6 @@ Signal u_cpu/i_tv80_core/un1_TmpAddr_0_s_15_0_COUT undriven or does not drive
 Signal u_cpu/i_tv80_core/ID16_cry_0_0_S1 undriven or does not drive anything -
      clipped.
 Signal u_cpu/i_tv80_core/ID16_cry_0_0_S0 undriven or does not drive anything -
-
      clipped.
 Signal u_cpu/i_tv80_core/N_3 undriven or does not drive anything - clipped.
 Signal u_cpu/i_tv80_core/ID16_s_15_0_S1 undriven or does not drive anything -
@@ -375,8 +413,9 @@ Signal u_cpu/i_tv80_core/SP16_1_s_15_0_COUT undriven or does not drive anything
 Signal u_cpu/i_tv80_core/SP16_0_cry_0_0_S1 undriven or does not drive anything -
      clipped.
 Signal u_cpu/i_tv80_core/SP16_0_cry_0_0_S0 undriven or does not drive anything -
+
      clipped.
-Signal u_cpu/i_tv80_core/N_10 undriven or does not drive anything - clipped.
+Signal u_cpu/i_tv80_core/N_11 undriven or does not drive anything - clipped.
 Signal u_cpu/i_tv80_core/SP16_0_s_15_0_S1 undriven or does not drive anything -
      clipped.
 Signal u_cpu/i_tv80_core/SP16_0_s_15_0_COUT undriven or does not drive anything
@@ -385,7 +424,7 @@ Signal u_cpu/i_tv80_core/i_alu/un1_BusA_0_cry_5_0_S1 undriven or does not drive
      anything - clipped.
 Signal u_cpu/i_tv80_core/i_alu/un1_BusA_0_cry_5_0_S0 undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/N_6 undriven or does not drive anything -
+Signal u_cpu/i_tv80_core/i_alu/N_1 undriven or does not drive anything -
      clipped.
 Signal u_cpu/i_tv80_core/i_alu/un1_BusA_0_s_8_0_S1 undriven or does not drive
      anything - clipped.
@@ -395,24 +434,19 @@ Signal u_cpu/i_tv80_core/i_alu/un1_BusA_3_cry_5_0_S1 undriven or does not drive
      anything - clipped.
 Signal u_cpu/i_tv80_core/i_alu/un1_BusA_3_cry_5_0_S0 undriven or does not drive
      anything - clipped.
-Signal u_cpu/i_tv80_core/i_alu/N_7 undriven or does not drive anything -
+Signal u_cpu/i_tv80_core/i_alu/N_2 undriven or does not drive anything -
      clipped.
 Signal u_cpu/i_tv80_core/i_alu/un1_BusA_3_s_8_0_S1 undriven or does not drive
      anything - clipped.
 Signal u_cpu/i_tv80_core/i_alu/un1_BusA_3_s_8_0_COUT undriven or does not drive
      anything - clipped.
+Signal ck_ms_cry_0_S0[0] undriven or does not drive anything - clipped.
+Signal N_1 undriven or does not drive anything - clipped.
 Block rst_n_pad_RNIQR5E7 was optimized away.
 Block u_cpu/wr_n.CN was optimized away.
 Block u_cpu/i_tv80_core/Auto_Wait_t2_RNO_0 was optimized away.
 Block u_cpu/i_tv80_core/Z16_r_RNO was optimized away.
-Block u_cpu/i_tv80_core/i_mcode/RegAddrA_m5_0_mb_N_2L1_RNO was optimized away.
-Block GND was optimized away.
 Block pll_inst/scuba_vlo_inst was optimized away.
-Block u_cpu/i_tv80_core/i_mcode/GND was optimized away.
-
-
-
-
 
 
 
@@ -438,6 +472,7 @@ PLL 1:                                     Pin/Node Value
   Dynamic Phase Adjust Input 3:                     NONE
   Dynamic Duty Adjust Input 0:                      NONE
   Dynamic Duty Adjust Input 1:                      NONE
+
   Dynamic Duty Adjust Input 2:                      NONE
   Dynamic Duty Adjust Input 3:                      NONE
   Dynamic Power Down Signal:                        NONE
@@ -478,8 +513,8 @@ Instance Name: pll_inst/PLLInst_0
 
 GSR Component:
    The Global Set Reset (GSR) resource has been used to implement a global reset
-
-        of the design. The reset signal used for GSR control is 'rst_i'.
+        of the design. The reset signal used for GSR control is
+        'u_cpu.i_tv80_core.reset_n_i_1_i'.
         
 
      GSR Property:
@@ -492,16 +527,18 @@ GSR Component:
 -------------------------------------
 
      These components have the GSR property set to DISABLED. The components will
-     not respond to the reset signal 'rst_i' via the GSR component.
+     not respond to the reset signal 'u_cpu.i_tv80_core.reset_n_i_1_i' via the
+     GSR component.
 
      Type and number of components of the type: 
-   Register = 494 
+   Register = 618 
+
 
      Type and instance name of component: 
-   Register : rst_cnt[3]
+   Register : ck_div[14]
    Register : boot_done
    Register : spi_cs
-   Register : u_tx_txdio
+   Register : sd_cs_0io
    Register : u_rx_rxd_s0io
    Register : u_cpu/iorq_n
    Register : u_cpu/di_reg[7]
@@ -535,7 +572,6 @@ GSR Component:
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[2]
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[3]
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[4]
-
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[5]
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[6]
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram4_[7]
@@ -554,6 +590,7 @@ GSR Component:
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[4]
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[5]
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[6]
+
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram2_[7]
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[0]
    Register : u_cpu/i_tv80_core/i_reg/RegsL.i_reg.RegsL_ram1_[1]
@@ -592,7 +629,6 @@ GSR Component:
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[2]
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[3]
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[4]
-
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[5]
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[6]
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram5_[7]
@@ -611,6 +647,7 @@ GSR Component:
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[4]
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[5]
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[6]
+
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram3_[7]
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[0]
    Register : u_cpu/i_tv80_core/i_reg/RegsH.i_reg.RegsH_ram2_[1]
@@ -649,7 +686,6 @@ GSR Component:
    Register : u_cpu/i_tv80_core/mcycles[1]
    Register : u_cpu/i_tv80_core/mcycle[2]
    Register : u_cpu/i_tv80_core/mcycles[2]
-
    Register : u_cpu/i_tv80_core/mcycle[3]
    Register : u_cpu/i_tv80_core/mcycle[4]
    Register : u_cpu/i_tv80_core/mcycle[5]
@@ -668,6 +704,7 @@ GSR Component:
    Register : u_cpu/i_tv80_core/TmpAddr[0]
    Register : u_cpu/i_tv80_core/TmpAddr[1]
    Register : u_cpu/i_tv80_core/TmpAddr[2]
+
    Register : u_cpu/i_tv80_core/TmpAddr[3]
    Register : u_cpu/i_tv80_core/TmpAddr[4]
    Register : u_cpu/i_tv80_core/TmpAddr[5]
@@ -706,7 +743,6 @@ GSR Component:
    Register : u_cpu/i_tv80_core/RegBusA_r[5]
    Register : u_cpu/i_tv80_core/RegBusA_r[6]
    Register : u_cpu/i_tv80_core/RegBusA_r[7]
-
    Register : u_cpu/i_tv80_core/RegBusA_r[8]
    Register : u_cpu/i_tv80_core/RegBusA_r[9]
    Register : u_cpu/i_tv80_core/RegBusA_r[10]
@@ -725,6 +761,7 @@ GSR Component:
    Register : u_cpu/i_tv80_core/RegAddrA_r[2]
    Register : u_cpu/i_tv80_core/Read_To_Reg_r[0]
    Register : u_cpu/i_tv80_core/Read_To_Reg_r[1]
+
    Register : u_cpu/i_tv80_core/Read_To_Reg_r[2]
    Register : u_cpu/i_tv80_core/Read_To_Reg_r[3]
    Register : u_cpu/i_tv80_core/Read_To_Reg_r[4]
@@ -751,76 +788,74 @@ GSR Component:
    Register : u_cpu/i_tv80_core/No_BTR
    Register : u_cpu/i_tv80_core/IntE_FF2
    Register : u_cpu/i_tv80_core/IncDecZ
-   Register : u_cpu/i_tv80_core/I[0]
    Register : u_cpu/i_tv80_core/ISet[0]
-   Register : u_cpu/i_tv80_core/ISet_fast[0]
+   Register : u_cpu/i_tv80_core/I[0]
    Register : u_cpu/i_tv80_core/I[1]
-   Register : u_cpu/i_tv80_core/IR_fast[2]
-   Register : u_cpu/i_tv80_core/I[4]
-   Register : u_cpu/i_tv80_core/I[5]
-   Register : u_cpu/i_tv80_core/ISet_1_rep1
-   Register : u_cpu/i_tv80_core/ISet[1]
    Register : u_cpu/i_tv80_core/ISet_fast[1]
+   Register : u_cpu/i_tv80_core/ISet[1]
    Register : u_cpu/i_tv80_core/IR_fast[0]
    Register : u_cpu/i_tv80_core/IR_fast[1]
-
+   Register : u_cpu/i_tv80_core/IR[1]
    Register : u_cpu/i_tv80_core/I[2]
+   Register : u_cpu/i_tv80_core/IR_fast[2]
+   Register : u_cpu/i_tv80_core/IR[3]
+   Register : u_cpu/i_tv80_core/I[3]
+   Register : u_cpu/i_tv80_core/I[4]
+   Register : u_cpu/i_tv80_core/IR_fast[5]
+   Register : u_cpu/i_tv80_core/I[6]
+   Register : u_cpu/i_tv80_core/ISet_1_rep1
    Register : u_cpu/i_tv80_core/IR_fast[3]
    Register : u_cpu/i_tv80_core/IR_fast[4]
-   Register : u_cpu/i_tv80_core/IR_fast[5]
-   Register : u_cpu/i_tv80_core/IR_fast[6]
-   Register : u_cpu/i_tv80_core/I[6]
    Register : u_cpu/i_tv80_core/IR_fast[7]
+   Register : u_cpu/i_tv80_core/IR_7_rep1
+   Register : u_cpu/i_tv80_core/IR_6_rep1
+   Register : u_cpu/i_tv80_core/IR_5_rep1
+   Register : u_cpu/i_tv80_core/IR_3_rep2
+   Register : u_cpu/i_tv80_core/IR_2_rep1
+   Register : u_cpu/i_tv80_core/IR[4]
+   Register : u_cpu/i_tv80_core/I[5]
+   Register : u_cpu/i_tv80_core/IR_fast[6]
    Register : u_cpu/i_tv80_core/I[7]
    Register : u_cpu/i_tv80_core/IR_7_rep2
-   Register : u_cpu/i_tv80_core/IR_7_rep1
    Register : u_cpu/i_tv80_core/IR_6_rep2
-   Register : u_cpu/i_tv80_core/IR_6_rep1
+
    Register : u_cpu/i_tv80_core/IR_5_rep2
-   Register : u_cpu/i_tv80_core/IR_5_rep1
    Register : u_cpu/i_tv80_core/IR_4_rep2
    Register : u_cpu/i_tv80_core/IR_4_rep1
-   Register : u_cpu/i_tv80_core/IR_3_rep2
    Register : u_cpu/i_tv80_core/IR_3_rep1
    Register : u_cpu/i_tv80_core/IR_2_rep2
-   Register : u_cpu/i_tv80_core/IR_2_rep1
-   Register : u_cpu/i_tv80_core/IR[2]
-   Register : u_cpu/i_tv80_core/I[3]
    Register : u_cpu/i_tv80_core/IR_1_rep2
    Register : u_cpu/i_tv80_core/IR_1_rep1
    Register : u_cpu/i_tv80_core/IR_0_rep2
    Register : u_cpu/i_tv80_core/IR_0_rep1
    Register : u_cpu/i_tv80_core/IR[0]
-   Register : u_cpu/i_tv80_core/IR[1]
-   Register : u_cpu/i_tv80_core/IR[3]
-   Register : u_cpu/i_tv80_core/IR[4]
+   Register : u_cpu/i_tv80_core/IR[2]
    Register : u_cpu/i_tv80_core/IR[5]
    Register : u_cpu/i_tv80_core/IR[6]
    Register : u_cpu/i_tv80_core/IR[7]
    Register : u_cpu/i_tv80_core/Halt_FF
-   Register : u_cpu/i_tv80_core/F[0]
    Register : u_cpu/i_tv80_core/Fp[0]
+   Register : u_cpu/i_tv80_core/F[0]
    Register : u_cpu/i_tv80_core/Fp[1]
    Register : u_cpu/i_tv80_core/F[1]
    Register : u_cpu/i_tv80_core/Fp[2]
    Register : u_cpu/i_tv80_core/F[2]
-   Register : u_cpu/i_tv80_core/Fp[3]
    Register : u_cpu/i_tv80_core/F[3]
+   Register : u_cpu/i_tv80_core/Fp[3]
    Register : u_cpu/i_tv80_core/Fp[4]
    Register : u_cpu/i_tv80_core/F[4]
    Register : u_cpu/i_tv80_core/F[5]
    Register : u_cpu/i_tv80_core/Fp[5]
    Register : u_cpu/i_tv80_core/F[6]
    Register : u_cpu/i_tv80_core/Fp[6]
-   Register : u_cpu/i_tv80_core/Fp[7]
    Register : u_cpu/i_tv80_core/F[7]
+   Register : u_cpu/i_tv80_core/Fp[7]
    Register : u_cpu/i_tv80_core/BusB[0]
    Register : u_cpu/i_tv80_core/BusB[1]
    Register : u_cpu/i_tv80_core/BusB[2]
    Register : u_cpu/i_tv80_core/BusB[3]
    Register : u_cpu/i_tv80_core/BusB[4]
    Register : u_cpu/i_tv80_core/BusB[5]
-
    Register : u_cpu/i_tv80_core/BusB[6]
    Register : u_cpu/i_tv80_core/BusB[7]
    Register : u_cpu/i_tv80_core/BusA[0]
@@ -833,28 +868,29 @@ GSR Component:
    Register : u_cpu/i_tv80_core/BusA[7]
    Register : u_cpu/i_tv80_core/BTR_r
    Register : u_cpu/i_tv80_core/Arith16_r
-   Register : u_cpu/i_tv80_core/A[0]
    Register : u_cpu/i_tv80_core/Ap[0]
-   Register : u_cpu/i_tv80_core/ALU_Op_r[0]
-   Register : u_cpu/i_tv80_core/A[1]
+   Register : u_cpu/i_tv80_core/A[0]
    Register : u_cpu/i_tv80_core/Ap[1]
-   Register : u_cpu/i_tv80_core/A[2]
+   Register : u_cpu/i_tv80_core/A[1]
    Register : u_cpu/i_tv80_core/Ap[2]
+   Register : u_cpu/i_tv80_core/Alternate
+   Register : u_cpu/i_tv80_core/A[2]
+
    Register : u_cpu/i_tv80_core/Ap[3]
    Register : u_cpu/i_tv80_core/Ap[4]
+   Register : u_cpu/i_tv80_core/ALU_Op_r[0]
+   Register : u_cpu/i_tv80_core/ACC[1]
+   Register : u_cpu/i_tv80_core/A[4]
    Register : u_cpu/i_tv80_core/Ap[5]
    Register : u_cpu/i_tv80_core/Ap[6]
    Register : u_cpu/i_tv80_core/Ap[7]
-   Register : u_cpu/i_tv80_core/Alternate
    Register : u_cpu/i_tv80_core/ALU_Op_r[1]
    Register : u_cpu/i_tv80_core/ALU_Op_r[2]
-   Register : u_cpu/i_tv80_core/ACC[1]
-   Register : u_cpu/i_tv80_core/ACC[2]
-   Register : u_cpu/i_tv80_core/ACC[3]
+   Register : u_cpu/i_tv80_core/ACC[0]
    Register : u_cpu/i_tv80_core/A[3]
    Register : u_cpu/i_tv80_core/ALU_Op_r[3]
-   Register : u_cpu/i_tv80_core/ACC[0]
-   Register : u_cpu/i_tv80_core/A[4]
+   Register : u_cpu/i_tv80_core/ACC[2]
+   Register : u_cpu/i_tv80_core/ACC[3]
    Register : u_cpu/i_tv80_core/ACC[4]
    Register : u_cpu/i_tv80_core/A[5]
    Register : u_cpu/i_tv80_core/ACC[5]
@@ -877,10 +913,48 @@ GSR Component:
    Register : u_cpu/di_reg[1]
    Register : u_cpu/di_reg[2]
    Register : u_cpu/di_reg[3]
-
    Register : u_cpu/di_reg[4]
    Register : u_cpu/di_reg[5]
    Register : u_cpu/di_reg[6]
+   Register : u_spi_sd/sh_out[0]
+   Register : u_spi_sd/sh_out[1]
+   Register : u_spi_sd/sh_out[2]
+   Register : u_spi_sd/sh_out[3]
+   Register : u_spi_sd/sh_out[4]
+   Register : u_spi_sd/sh_out[5]
+   Register : u_spi_sd/sh_out[6]
+   Register : u_spi_sd/sh_out[7]
+   Register : u_spi_sd/sh_in[0]
+   Register : u_spi_sd/sh_in[1]
+   Register : u_spi_sd/sh_in[2]
+   Register : u_spi_sd/sh_in[3]
+   Register : u_spi_sd/sh_in[4]
+   Register : u_spi_sd/sh_in[5]
+   Register : u_spi_sd/sh_in[6]
+   Register : u_spi_sd/sh_in[7]
+
+   Register : u_spi_sd/sck
+   Register : u_spi_sd/run
+   Register : u_spi_sd/pcount[0]
+   Register : u_spi_sd/pcount[1]
+   Register : u_spi_sd/pcount[2]
+   Register : u_spi_sd/pcount[3]
+   Register : u_spi_sd/pcount[4]
+   Register : u_spi_sd/pcount[5]
+   Register : u_spi_sd/go_stb_d
+   Register : u_spi_sd/dout_q[0]
+   Register : u_spi_sd/dout_q[1]
+   Register : u_spi_sd/dout_q[2]
+   Register : u_spi_sd/dout_q[3]
+   Register : u_spi_sd/dout_q[4]
+   Register : u_spi_sd/dout_q[5]
+   Register : u_spi_sd/dout_q[6]
+   Register : u_spi_sd/dout_q[7]
+   Register : u_spi_sd/cnt[0]
+   Register : u_spi_sd/cnt[1]
+   Register : u_spi_sd/cnt[2]
+   Register : u_spi_sd/cnt[3]
+   Register : u_spi_sd/cnt[4]
    Register : u_spi/sh_out[0]
    Register : u_spi/sh_out[1]
    Register : u_spi/sh_out[2]
@@ -899,6 +973,12 @@ GSR Component:
    Register : u_spi/sh_in[7]
    Register : u_spi/sck
    Register : u_spi/run
+   Register : u_spi/pcount[0]
+   Register : u_spi/pcount[1]
+   Register : u_spi/pcount[2]
+   Register : u_spi/pcount[3]
+   Register : u_spi/pcount[4]
+   Register : u_spi/pcount[5]
    Register : u_spi/go_stb_d
    Register : u_spi/dout_q[0]
    Register : u_spi/dout_q[1]
@@ -909,6 +989,7 @@ GSR Component:
    Register : u_spi/dout_q[6]
    Register : u_spi/dout_q[7]
    Register : u_spi/cnt[0]
+
    Register : u_spi/cnt[1]
    Register : u_spi/cnt[2]
    Register : u_spi/cnt[3]
@@ -934,7 +1015,6 @@ GSR Component:
    Register : u_rx/rx_avail
    Register : u_rx/k[0]
    Register : u_rx/k[1]
-
    Register : u_rx/k[2]
    Register : u_rx/k[3]
    Register : u_rx/k[4]
@@ -966,6 +1046,7 @@ GSR Component:
    Register : u_tx/k[1]
    Register : u_tx/k[2]
    Register : u_tx/k[3]
+
    Register : u_tx/k[4]
    Register : u_tx/k[5]
    Register : u_tx/k[6]
@@ -991,24 +1072,106 @@ GSR Component:
    Register : u_rd/addr[9]
    Register : u_rd/addr[10]
    Register : u_rd/addr[11]
-
    Register : u_rd/addr[12]
    Register : u_rd/addr[13]
    Register : u_rd/addr[14]
    Register : u_rd/addr[15]
+   Register : u_tx_txdio
+   Register : sd_slow
    Register : rst_n_sync2
    Register : rst_n_sync1
    Register : rst_cnt[0]
    Register : rst_cnt[1]
    Register : rst_cnt[2]
+   Register : rst_cnt[3]
+   Register : ck_ms[0]
+   Register : ck_ms[1]
+   Register : ck_ms[2]
+   Register : ck_ms[3]
+   Register : ck_ms[4]
+   Register : ck_ms[5]
+   Register : ck_ms[6]
+   Register : ck_ms[7]
+   Register : ck_ms[8]
+   Register : ck_ms[9]
+   Register : ck_ms[10]
+   Register : ck_ms[11]
+   Register : ck_ms[12]
+   Register : ck_ms[13]
+   Register : ck_ms[14]
+   Register : ck_ms[15]
+   Register : ck_ms[16]
+   Register : ck_ms[17]
+   Register : ck_ms[18]
+
+   Register : ck_ms[19]
+   Register : ck_ms[20]
+   Register : ck_ms[21]
+   Register : ck_ms[22]
+   Register : ck_ms[23]
+   Register : ck_ms[24]
+   Register : ck_ms[25]
+   Register : ck_ms[26]
+   Register : ck_ms[27]
+   Register : ck_ms[28]
+   Register : ck_ms[29]
+   Register : ck_ms[30]
+   Register : ck_ms[31]
+   Register : ck_l3[0]
+   Register : ck_l3[1]
+   Register : ck_l3[2]
+   Register : ck_l3[3]
+   Register : ck_l3[4]
+   Register : ck_l3[5]
+   Register : ck_l3[6]
+   Register : ck_l3[7]
+   Register : ck_l2[0]
+   Register : ck_l2[1]
+   Register : ck_l2[2]
+   Register : ck_l2[3]
+   Register : ck_l2[4]
+   Register : ck_l2[5]
+   Register : ck_l2[6]
+   Register : ck_l2[7]
+   Register : ck_l1[0]
+   Register : ck_l1[1]
+   Register : ck_l1[2]
+   Register : ck_l1[3]
+   Register : ck_l1[4]
+   Register : ck_l1[5]
+   Register : ck_l1[6]
+   Register : ck_l1[7]
+   Register : ck_l0[0]
+   Register : ck_l0[1]
+   Register : ck_l0[2]
+   Register : ck_l0[3]
+   Register : ck_l0[4]
+   Register : ck_l0[5]
+   Register : ck_l0[6]
+   Register : ck_l0[7]
+   Register : ck_div[0]
+   Register : ck_div[1]
+   Register : ck_div[2]
+   Register : ck_div[3]
+   Register : ck_div[4]
+   Register : ck_div[5]
+   Register : ck_div[6]
+   Register : ck_div[7]
+   Register : ck_div[8]
+   Register : ck_div[9]
+   Register : ck_div[10]
+
+   Register : ck_div[11]
+   Register : ck_div[12]
+   Register : ck_div[13]
 
      Components with synchronous local reset also reset by asynchronous GSR
 ----------------------------------------------------------------------
 
      These components have the GSR property set to ENABLED and the local reset
      is synchronous. The components will respond to the synchronous local reset
-     and to the unrelated asynchronous reset signal 'rst_i' via the GSR
-     component.
+     and to the unrelated asynchronous reset signal
+     'u_cpu.i_tv80_core.reset_n_i_1_i' via the GSR component.
 
      Type and number of components of the type: 
    Register = 3 
@@ -1025,8 +1188,14 @@ GSR Component:
 
    Total CPU Time: 1 secs  
    Total REAL Time: 2 secs  
-   Peak Memory Usage: 79 MB
+   Peak Memory Usage: 82 MB
         
+
+
+
+
+
+
 
 
 

@@ -12,7 +12,7 @@ Hostname: MEMETOP
 
 Implementation : impl1
 
-# Written on Tue Nov 17 02:45:54 2026
+# Written on Wed Nov 18 21:30:42 2026
 
 ##### FILES SYNTAX CHECKED ##############################################
 Constraint File(s):      (none)
@@ -32,7 +32,7 @@ Clock Summary
           Start                                    Requested     Requested     Clock        Clock          Clock
 Level     Clock                                    Frequency     Period        Type         Group          Load 
 ----------------------------------------------------------------------------------------------------------------
-0 -       z80cpm_brevia2|clk_op_inferred_clock     200.0 MHz     5.000         inferred     (multiple)     400  
+0 -       z80cpm_brevia2|clk_op_inferred_clock     200.0 MHz     5.000         inferred     (multiple)     525  
 ================================================================================================================
 
 
@@ -42,5 +42,5 @@ Clock Load Summary
                                          Clock     Source                      Clock Pin          Non-clock Pin     Non-clock Pin          
 Clock                                    Load      Pin                         Seq Example        Seq Example       Comb Example           
 -------------------------------------------------------------------------------------------------------------------------------------------
-z80cpm_brevia2|clk_op_inferred_clock     400       pll_inst.CLKOP(pmi_pll)     rst_cnt[3:0].C     -                 u_cpu.un1_clk.I[0](inv)
+z80cpm_brevia2|clk_op_inferred_clock     525       pll_inst.CLKOP(pmi_pll)     rst_cnt[3:0].C     -                 u_cpu.un1_clk.I[0](inv)
 ===========================================================================================================================================

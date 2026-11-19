@@ -6,7 +6,7 @@ Performance Grade:      6
 PACKAGE:          TQFP144
 Package Status:                     Final          Version 1.42
 
-Tue Nov 17 02:47:04 2026
+Wed Nov 18 21:31:37 2026
 
 Pinout by Port Name:
 +---------------+----------+---------------+-------+-------------------------------+
@@ -22,6 +22,10 @@ Pinout by Port Name:
 | led[6]        | 38/5     | LVCMOS33_OUT  | PB7A  | DRIVE:12mA SLEW:FAST PULL:UP  |
 | led[7]        | 37/5     | LVCMOS33_OUT  | PB8A  | DRIVE:12mA SLEW:FAST PULL:UP  |
 | rst_n         | 19/7     | LVCMOS33_IN   | PL11A | SLEW:FAST PULL:UP             |
+| sd_csn        | 31/6     | LVCMOS33_OUT  | PL16B | DRIVE:12mA SLEW:FAST PULL:UP  |
+| sd_miso       | 36/6     | LVCMOS33_IN   | PL25B | SLEW:FAST PULL:UP             |
+| sd_mosi       | 32/6     | LVCMOS33_OUT  | PL16A | DRIVE:12mA SLEW:FAST PULL:UP  |
+| sd_sclk       | 35/6     | LVCMOS33_OUT  | PL25A | DRIVE:12mA SLEW:FAST PULL:UP  |
 | spi_csn       | 11/7     | LVCMOS33_OUT  | PL8A  | DRIVE:12mA SLEW:FAST PULL:UP  |
 | spi_miso      | 16/7     | LVCMOS33_IN   | PL10A | SLEW:FAST PULL:UP             |
 | spi_mosi      | 15/7     | LVCMOS33_OUT  | PL9A  | DRIVE:12mA SLEW:FAST PULL:UP  |
@@ -73,6 +77,7 @@ Vccio by Bank:
 | 0    | 3.3V  |
 | 1    | 3.3V  |
 | 5    | 3.3V  |
+| 6    | 3.3V  |
 | 7    | 3.3V  |
 +------+-------+
 
@@ -108,10 +113,10 @@ Pinout by Pin Number:
 | 28/6     |     unused, PULL:UP |            |               | PL14A | PCLKT6_0/LDQ18       |
 | 29/6     |     unused, PULL:UP |            |               | PL15B | LDQ18                |
 | 30/6     |     unused, PULL:UP |            |               | PL14B | PCLKC6_0/LDQ18       |
-| 31/6     |     unused, PULL:UP |            |               | PL16B | LDQ18                |
-| 32/6     |     unused, PULL:UP |            |               | PL16A | LDQ18                |
-| 35/6     |     unused, PULL:UP |            |               | PL25A | VREF1_6              |
-| 36/6     |     unused, PULL:UP |            |               | PL25B | VREF2_6              |
+| 31/6     | sd_csn              | LOCATED    | LVCMOS33_OUT  | PL16B | LDQ18                |
+| 32/6     | sd_mosi             | LOCATED    | LVCMOS33_OUT  | PL16A | LDQ18                |
+| 35/6     | sd_sclk             | LOCATED    | LVCMOS33_OUT  | PL25A | VREF1_6              |
+| 36/6     | sd_miso             | LOCATED    | LVCMOS33_IN   | PL25B | VREF2_6              |
 | 37/5     | led[7]              | LOCATED    | LVCMOS33_OUT  | PB8A  |                      |
 | 38/5     | led[6]              | LOCATED    | LVCMOS33_OUT  | PB7A  | VREF1_5              |
 | 39/5     | led[5]              | LOCATED    | LVCMOS33_OUT  | PB8B  |                      |
@@ -302,6 +307,10 @@ LOCATE  COMP  "led[5]"  SITE  "39";
 LOCATE  COMP  "led[6]"  SITE  "38";
 LOCATE  COMP  "led[7]"  SITE  "37";
 LOCATE  COMP  "rst_n"  SITE  "19";
+LOCATE  COMP  "sd_csn"  SITE  "31";
+LOCATE  COMP  "sd_miso"  SITE  "36";
+LOCATE  COMP  "sd_mosi"  SITE  "32";
+LOCATE  COMP  "sd_sclk"  SITE  "35";
 LOCATE  COMP  "spi_csn"  SITE  "11";
 LOCATE  COMP  "spi_miso"  SITE  "16";
 LOCATE  COMP  "spi_mosi"  SITE  "15";
@@ -357,5 +366,5 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
-Tue Nov 17 02:47:04 2026
+Wed Nov 18 21:31:37 2026
 

@@ -5,8 +5,8 @@
 #CUR:"C:\\lscc\\diamond\\3.14\\synpbase\\lib\\vlog\\hypermods.v":1727134415
 #CUR:"C:\\lscc\\diamond\\3.14\\synpbase\\lib\\vlog\\scemi_objects.v":1727134415
 #CUR:"C:\\lscc\\diamond\\3.14\\synpbase\\lib\\vlog\\scemi_pipes.svh":1727134415
-#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\z80cpm_brevia2.v":1794894525
-#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\boot_rom.v":1794804013
+#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\z80cpm_brevia2.v":1795025758
+#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\boot_rom.v":1795055398
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\tv80n.v":1794778501
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\tv80_core.v":1794799912
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\tv80_alu.v":1794778532
@@ -16,7 +16,7 @@
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\uart_rx.v":1794901339
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\sram_async.v":1794810318
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\ram_disk.v":1794814953
-#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\spi_flash.v":1794900198
+#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\spi_flash.v":1795025673
 0			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v" verilog
 1			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v" verilog
 2			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v" verilog

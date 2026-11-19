@@ -1,5 +1,5 @@
 SCHEMATIC START ;
-# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Tue Nov 17 02:46:27 2026
+# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Wed Nov 18 21:31:12 2026
 
 SYSCONFIG DONE_OD=ON DONE_EX=OFF CONFIG_SECURE=OFF WAKE_UP=21 WAKE_ON_LOCK=OFF INBUF=ON MASTER_SPI_PORT=DISABLE SLAVE_SPI_PORT=DISABLE MY_ASSP=OFF ONE_TIME_PROGRAM=OFF ;
 LOCATE COMP "sram_data[0]" SITE "1" ;
@@ -32,6 +32,10 @@ LOCATE COMP "sram_addr[3]" SITE "122" ;
 LOCATE COMP "sram_addr[2]" SITE "121" ;
 LOCATE COMP "sram_addr[1]" SITE "120" ;
 LOCATE COMP "sram_addr[0]" SITE "119" ;
+LOCATE COMP "sd_miso" SITE "36" ;
+LOCATE COMP "sd_sclk" SITE "35" ;
+LOCATE COMP "sd_mosi" SITE "32" ;
+LOCATE COMP "sd_csn" SITE "31" ;
 LOCATE COMP "spi_miso" SITE "16" ;
 LOCATE COMP "spi_mosi" SITE "15" ;
 LOCATE COMP "spi_csn" SITE "11" ;
@@ -62,7 +66,7 @@ BLOCK ASYNCPATHS ;
 BLOCK JTAGPATHS ;
 CLOCK_TO_OUT PORT "sram_addr*" 15.000000 ns CLKNET "clk_op" ;
 INPUT_SETUP PORT "uart_rx" 20.000000 ns CLKNET "clk_op" ;
-INPUT_SETUP PORT "sram_data*" 5.000000 ns CLKNET "clk_op" ;
+INPUT_SETUP PORT "sram_data*" 10.000000 ns CLKNET "clk_op" ;
 CLOCK_TO_OUT PORT "sram_cen" 15.000000 ns CLKNET "clk_op" ;
 CLOCK_TO_OUT PORT "sram_oen" 15.000000 ns CLKNET "clk_op" ;
 CLOCK_TO_OUT PORT "sram_wen" 15.000000 ns CLKNET "clk_op" ;

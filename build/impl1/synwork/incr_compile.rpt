@@ -13,19 +13,21 @@ Hostname: MEMETOP
 Implementation : impl1
 Synopsys HDL compiler and linker, Version comp202309synp1, Build 349R, Built Sep 17 2024 08:16:26, @
 
-Modified Files: 0
+Modified Files: 1
 FID:  path (prevtimestamp, timestamp)
+0        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v (2026-11-17 17:20:29, 2026-11-18 21:29:58)
 
 *******************************************************************
-Modules that may have changed as a result of file changes: 0
+Modules that may have changed as a result of file changes: 1
 MID:  lib.cell.view
+0        work.boot_rom.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v (2026-11-17 17:20:29, 2026-11-18 21:29:58) <-- (module definition)
 
 *******************************************************************
-Unmodified files: 17
+Unmodified files: 16
 FID:  path (timestamp)
-0        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v (2026-11-15 23:40:13)
 15       C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v (2026-11-16 02:42:33)
-16       C:\Users\techf\Desktop\brevia2\z80cpm\rtl\spi_flash.v (2026-11-17 02:23:18)
+16       C:\Users\techf\Desktop\brevia2\z80cpm\rtl\spi_flash.v (2026-11-18 13:14:33)
 1        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v (2026-11-16 01:25:18)
 2        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v (2026-11-15 16:35:32)
 3        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_core.v (2026-11-15 22:31:52)
@@ -34,7 +36,7 @@ FID:  path (timestamp)
 6        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v (2026-11-15 16:35:01)
 7        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v (2026-11-17 02:42:19)
 8        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v (2026-11-17 02:42:44)
-9        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v (2026-11-17 00:48:45)
+9        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v (2026-11-18 13:15:58)
 10       C:\lscc\diamond\3.14\synpbase\lib\lucent\pmi_def.v (2024-09-23 19:33:10)
 11       C:\lscc\diamond\3.14\synpbase\lib\lucent\xp2.v (2024-09-23 19:33:10)
 12       C:\lscc\diamond\3.14\synpbase\lib\vlog\hypermods.v (2024-09-23 19:33:35)
@@ -42,9 +44,8 @@ FID:  path (timestamp)
 14       C:\lscc\diamond\3.14\synpbase\lib\vlog\scemi_pipes.svh (2024-09-23 19:33:35)
 
 *******************************************************************
-Unchanged modules: 12
+Unchanged modules: 11
 MID:  lib.cell.view
-0        work.boot_rom.verilog
 10       work.ram_disk.verilog
 11       work.spi_flash.verilog
 1        work.sram_async.verilog

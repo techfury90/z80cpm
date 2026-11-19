@@ -1,3 +1,28 @@
-sim/*.out
-sim/*.vcd
-sim/*.fst
+# ---------------------------------------------------------------------------
+# z80cpm - generated artifacts that must NOT be committed
+# Regenerable from source (rtl/, cpm/, gwmon/, programs/, scripts/, tb/) or the
+# Diamond/iverilog toolchain. The one tracked build deliverable IS the
+# bitstream: build/impl1/z80cpm_impl1.jed
+# ---------------------------------------------------------------------------
+
+# ---- iverilog / vvp simulation outputs (repo root, sim/, build/impl1/) ----
+*.out
+
+# ---- Waveform dumps ----
+*.vcd
+*.fst
+
+# ---- Synthesis / debug / trace logs ----
+*.log
+*.trace.log
+
+# ---- Python ----
+__pycache__/
+*.pyc
+
+# ---- Editor / OS noise ----
+.DS_Store
+Thumbs.db
+
+# ---- Scratch / local cruft ----
+beat

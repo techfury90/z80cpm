@@ -14,12 +14,14 @@
 ;   Q -- quit.
 ;
 ; The SD CP/M partition geometry (MUST match the CBIOS DPB):
-;   128-byte records, SPT=32, 2KB allocation blocks (BSH=4/BLM=15),
-;   DRM=127 (128 directory entries = 4096 bytes = 2 blocks, reserved via
-;   AL0=0xC0), CKS=0, OFF=0 (data partition, no system tracks).  The directory
-;   occupies the first 4KB (8 x 512B SD sectors) of the partition and is the
-;   only thing a format must write (the BDOS rebuilds the allocation vector on
-;   login).  Partition 1 starts at LBA 1, size 0x00020000 sectors (64 MB).
+;   128-byte records, SPT=32, 4KB allocation blocks (BSH=5/BLM=31),
+;   DSM=2047 (DOUBLE-DM, 2048 blocks x 4KB = 8 MB = the CP/M 2.2 ceiling),
+;   DRM=255 (256 directory entries = 8192 bytes = 2 blocks, reserved via
+;   AL0=0xC0), EXM=1, CKS=0, OFF=0 (data partition, no system tracks).  The
+;   directory occupies the first 8KB (16 x 512B SD sectors) of the partition and
+;   is the only thing a format must write (the BDOS rebuilds the allocation
+;   vector on login).  Partition 1 starts at LBA 1, size 0x00020000 sectors
+;   (64 MB -- drive C uses only the first 8 MB of it for now).
 ;
 ; NOTE on BDOS register clobbering: every console-call loop preserves B/HL
 ; across CPUTC/func-2 with PUSH/POP (func 2 destroys B and HL on this CBIOS).
@@ -31,11 +33,12 @@ SDCTL   EQU     54H
 SDSTAT  EQU     55H
 
 SPT     EQU     32              ; sectors (128B) per track  [geometry]
-BSH     EQU     4               ; 2KB allocation blocks
-BLM     EQU     15
-EXM     EQU     1
-DRM     EQU     127             ; 128 directory entries
-AL0V    EQU     0C0H            ; reserve directory blocks 0,1
+BSH     EQU     5               ; 4KB allocation blocks
+BLM     EQU     31
+EXM     EQU     1               ; BLS=4096 & DSM>255 -> double-DM
+DSM     EQU     2047            ; 8 MB (2048 blocks x 4KB = CP/M 2.2 ceiling)
+DRM     EQU     255             ; 256 directory entries
+AL0V    EQU     0C0H            ; reserve directory blocks 0,1 (8KB dir = 64 records)
 AL1V    EQU     00H
 
 PMTYPE  EQU     53H             ; CP/M partition type (no standard MBR type exists)
@@ -383,8 +386,8 @@ CF_F:
         MOV     A,B
         ORA     C
         JNZ     CF_F
-        ; write 8 sectors (4KB = the 2 directory blocks)
-        MVI     D,8
+        ; write 16 sectors (8KB = the 2 directory blocks; DRM=255 -> 256 entries)
+        MVI     D,16
 CF_LP:
         LXI     H,BLKBUF
         CALL    SD_WRITEBLKN

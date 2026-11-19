@@ -1,23 +1,26 @@
 [ START MERGED ]
-rst_n_c_i rst_n_c
 u_cpu/CN clk_op
-u_cpu/i_tv80_core/i_mcode/un1_IncDec_16_3_0_mb_rn_2 u_cpu/tstate[2]
 u_cpu/i_tv80_core/ISet_i[1] u_cpu/i_tv80_core/ISet[1]
 u_cpu/i_tv80_core/Auto_Wait_t1_i u_cpu/i_tv80_core/Auto_Wait_t1
+rst_n_c_i rst_n_c
 [ END MERGED ]
 [ START CLIPPED ]
-GND
 pll_inst/scuba_vlo
-u_cpu/i_tv80_core/i_mcode/GND
+ck_ms_s_0_S1[31]
+ck_ms_s_0_COUT[31]
+un4_ck_div_cry_0_0_S1
+un4_ck_div_cry_0_0_S0
+N_2
+un4_ck_div_cry_13_0_COUT
 pll_inst/PLLInst_0/CLKINTFB
 LOCK
 CLKOK2
 pll_inst/PLLInst_0/CLKOK
 CLKOS
+u_rd/addr_cry_0_S0[0]
+u_rd/N_2
 u_rd/addr_s_0_S1[15]
 u_rd/addr_s_0_COUT[15]
-u_rd/addr_cry_0_S0[0]
-u_rd/N_1
 u_tx/k_cry_0_S0[0]
 u_tx/N_1
 u_tx/k_s_0_S1[11]
@@ -37,9 +40,20 @@ u_rx/un1_k_15_0_I_15_0_S1
 u_rx/un1_k_15_0_I_15_0_S0
 u_rx/un1_k_15_0_I_45_0_S0
 u_rx/un1_k_15_0_I_45_0_COUT
-u_spi/cnt_cry_0_S0[0]
+u_spi/pcount_cry_0_S0[0]
 u_spi/N_1
+u_spi/pcount_s_0_S1[5]
+u_spi/pcount_s_0_COUT[5]
+u_spi/cnt_cry_0_S0[0]
+u_spi/N_2
 u_spi/cnt_cry_0_COUT[3]
+u_spi_sd/pcount_cry_0_S0_0[0]
+u_spi_sd/N_1
+u_spi_sd/pcount_s_0_S1_0[5]
+u_spi_sd/pcount_s_0_COUT_0[5]
+u_spi_sd/cnt_cry_0_S0_0[0]
+u_spi_sd/N_2
+u_spi_sd/cnt_cry_0_COUT_0[3]
 u_cpu/i_tv80_core/PC_20_m1_0_cry_0_0_S1
 u_cpu/i_tv80_core/PC_20_m1_0_cry_0_0_S0
 u_cpu/i_tv80_core/N_1
@@ -62,23 +76,25 @@ u_cpu/i_tv80_core/SP16_1_s_15_0_S1
 u_cpu/i_tv80_core/SP16_1_s_15_0_COUT
 u_cpu/i_tv80_core/SP16_0_cry_0_0_S1
 u_cpu/i_tv80_core/SP16_0_cry_0_0_S0
-u_cpu/i_tv80_core/N_10
+u_cpu/i_tv80_core/N_11
 u_cpu/i_tv80_core/SP16_0_s_15_0_S1
 u_cpu/i_tv80_core/SP16_0_s_15_0_COUT
 u_cpu/i_tv80_core/i_alu/un1_BusA_0_cry_5_0_S1
 u_cpu/i_tv80_core/i_alu/un1_BusA_0_cry_5_0_S0
-u_cpu/i_tv80_core/i_alu/N_6
+u_cpu/i_tv80_core/i_alu/N_1
 u_cpu/i_tv80_core/i_alu/un1_BusA_0_s_8_0_S1
 u_cpu/i_tv80_core/i_alu/un1_BusA_0_s_8_0_COUT
 u_cpu/i_tv80_core/i_alu/un1_BusA_3_cry_5_0_S1
 u_cpu/i_tv80_core/i_alu/un1_BusA_3_cry_5_0_S0
-u_cpu/i_tv80_core/i_alu/N_7
+u_cpu/i_tv80_core/i_alu/N_2
 u_cpu/i_tv80_core/i_alu/un1_BusA_3_s_8_0_S1
 u_cpu/i_tv80_core/i_alu/un1_BusA_3_s_8_0_COUT
+ck_ms_cry_0_S0[0]
+N_1
 [ END CLIPPED ]
 [ START DESIGN PREFS ]
 SCHEMATIC START ;
-# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Tue Nov 17 02:46:27 2026
+# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Wed Nov 18 21:31:12 2026
 
 SYSCONFIG DONE_OD=ON DONE_EX=OFF CONFIG_SECURE=OFF WAKE_UP=21 WAKE_ON_LOCK=OFF INBUF=ON MASTER_SPI_PORT=DISABLE SLAVE_SPI_PORT=DISABLE MY_ASSP=OFF ONE_TIME_PROGRAM=OFF ;
 LOCATE COMP "sram_data[0]" SITE "1" ;
@@ -111,6 +127,10 @@ LOCATE COMP "sram_addr[3]" SITE "122" ;
 LOCATE COMP "sram_addr[2]" SITE "121" ;
 LOCATE COMP "sram_addr[1]" SITE "120" ;
 LOCATE COMP "sram_addr[0]" SITE "119" ;
+LOCATE COMP "sd_miso" SITE "36" ;
+LOCATE COMP "sd_sclk" SITE "35" ;
+LOCATE COMP "sd_mosi" SITE "32" ;
+LOCATE COMP "sd_csn" SITE "31" ;
 LOCATE COMP "spi_miso" SITE "16" ;
 LOCATE COMP "spi_mosi" SITE "15" ;
 LOCATE COMP "spi_csn" SITE "11" ;

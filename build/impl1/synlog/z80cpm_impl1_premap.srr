@@ -1,4 +1,4 @@
-# Tue Nov 17 02:45:53 2026
+# Wed Nov 18 21:30:42 2026
 
 
 Copyright (C) 1994-2023 Synopsys, Inc.
@@ -19,7 +19,7 @@ Synopsys Lattice Technology Pre-mapping, Version map202309lat, Build 191R, Built
 Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 184MB peak: 184MB)
 
 
-Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 189MB peak: 199MB)
+Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 188MB peak: 199MB)
 
 @A: MF827 |No constraint file specified.
 @L: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1_scck.rpt 
@@ -28,16 +28,16 @@ See clock summary report "C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80c
 @N: MF248 |Running in 64-bit mode.
 @N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
 
-Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 196MB peak: 199MB)
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 195MB peak: 199MB)
 
 
-Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 196MB peak: 199MB)
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 195MB peak: 199MB)
 
 
 Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 208MB peak: 208MB)
 
 
-Finished loading timing files (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:00s; Memory used current: 208MB peak: 210MB)
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 208MB peak: 210MB)
 
 NConnInternalConnection caching is on
 @N: FX493 |Applying initial value "00000000" on instance sr[7:0].
@@ -49,14 +49,20 @@ NConnInternalConnection caching is on
 @N: FX493 |Applying initial value "0" on instance rst_n_sync1.
 @N: FX493 |Applying initial value "0" on instance boot_done.
 @N: FX493 |Applying initial value "1" on instance spi_cs.
+@N: FX493 |Applying initial value "0" on instance sd_slow.
+@N: FX493 |Applying initial value "1" on instance sd_cs.
+@N: FX493 |Applying initial value "00000000" on instance ck_l0[7:0].
+@N: FX493 |Applying initial value "00000000" on instance ck_l1[7:0].
+@N: FX493 |Applying initial value "00000000" on instance ck_l2[7:0].
+@N: FX493 |Applying initial value "00000000" on instance ck_l3[7:0].
 
 Starting HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 259MB)
 
 
-Finished HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 259MB)
+Finished HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
 
 
-Started DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 259MB)
+Started DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
 
 
 Finished DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
@@ -66,22 +72,22 @@ Finished DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:0
 @N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":1193:2:1193:7|Removing sequential instance m1_n (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffs(prim) because it does not drive other instances.
 @N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":1193:2:1193:7|Removing sequential instance IntE_FF1 (in view: work.tv80_core_Z2(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
 
-Starting clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 261MB peak: 261MB)
+Starting clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 262MB peak: 262MB)
 
 
 mixed edge conversion for GCC is OFF
 
-Finished clock optimization phase (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:01s; Memory used current: 263MB peak: 263MB)
+Finished clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 264MB peak: 264MB)
 
 
-Starting clock optimization report phase (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:01s; Memory used current: 263MB peak: 264MB)
+Starting clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 264MB peak: 264MB)
 
 
-Finished clock optimization report phase (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 263MB peak: 264MB)
+Finished clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 264MB peak: 264MB)
 
 @N: FX1184 |Applying syn_allowed_resources blockrams=9 on top level netlist z80cpm_brevia2 
 
-Finished netlist restructuring (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 263MB peak: 264MB)
+Finished netlist restructuring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 264MB peak: 264MB)
 
 
 
@@ -91,7 +97,7 @@ Clock Summary
           Start                                    Requested     Requested     Clock        Clock          Clock
 Level     Clock                                    Frequency     Period        Type         Group          Load 
 ----------------------------------------------------------------------------------------------------------------
-0 -       z80cpm_brevia2|clk_op_inferred_clock     200.0 MHz     5.000         inferred     (multiple)     400  
+0 -       z80cpm_brevia2|clk_op_inferred_clock     200.0 MHz     5.000         inferred     (multiple)     525  
 ================================================================================================================
 
 
@@ -102,10 +108,10 @@ Clock Load Summary
                                          Clock     Source                      Clock Pin          Non-clock Pin     Non-clock Pin          
 Clock                                    Load      Pin                         Seq Example        Seq Example       Comb Example           
 -------------------------------------------------------------------------------------------------------------------------------------------
-z80cpm_brevia2|clk_op_inferred_clock     400       pll_inst.CLKOP(pmi_pll)     rst_cnt[3:0].C     -                 u_cpu.un1_clk.I[0](inv)
+z80cpm_brevia2|clk_op_inferred_clock     525       pll_inst.CLKOP(pmi_pll)     rst_cnt[3:0].C     -                 u_cpu.un1_clk.I[0](inv)
 ===========================================================================================================================================
 
-@W: MT529 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v":42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 400 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+@W: MT529 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v":42:2:42:7|Found inferred clock z80cpm_brevia2|clk_op_inferred_clock which controls 525 sequential elements including u_rd.addr[15:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
 
 ICG Latch Removal Summary:
 Number of ICG latches removed: 0
@@ -118,14 +124,14 @@ Number of ICG latches not removed:	0
 
 #### START OF PREMAP CLOCK OPTIMIZATION REPORT #####[
 
-1 non-gated/non-generated clock tree(s) driving 358 clock pin(s) of sequential element(s)
+1 non-gated/non-generated clock tree(s) driving 483 clock pin(s) of sequential element(s)
 0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
 0 instances converted, 0 sequential instances remain driven by gated/generated clocks
 
 =========================== Non-Gated/Non-Generated Clocks ============================
 Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample Instance
 ---------------------------------------------------------------------------------------
-@KP:ckid0_0       pll_inst.CLKOP      pmi_pll                358        spi_cs         
+@KP:ckid0_0       pll_inst.CLKOP      pmi_pll                483        ck_l3[7]       
 =======================================================================================
 
 
@@ -144,13 +150,13 @@ Starting constraint checker (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:0
 Finished constraint checker preprocessing (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 263MB peak: 264MB)
 
 
-Finished constraint checker (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:02s; Memory used current: 264MB peak: 264MB)
+Finished constraint checker (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 265MB peak: 265MB)
 
 Pre-mapping successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:02s; Memory used current: 174MB peak: 265MB)
+At Mapper Exit (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 174MB peak: 265MB)
 
-Process took 0h:00m:03s realtime, 0h:00m:03s cputime
-# Tue Nov 17 02:45:57 2026
+Process took 0h:00m:02s realtime, 0h:00m:02s cputime
+# Wed Nov 18 21:30:45 2026
 
 ###########################################################]

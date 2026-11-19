@@ -1,0 +1,86 @@
+                        ; RAMFMT.COM -- format the Brevia2 RAM disk (drive B:, bank B SRAM).
+                        ; 8080 assembly, assembled with the Glitch Works a85 8085 cross-assembler.
+                        ; Loads at 0x0100 (CP/M transient). Calls BDOS entry 0x0005 for console I/O.
+                        ;
+                        ; Fills the ENTIRE 64K RAM disk (bank B) with 0xE5 (the CP/M empty-directory /
+                        ; erased-data mark), then prints a completion message and SPINS in an infinite
+                        ; loop -- the user must press the reset button to reboot CP/M.  (A warm boot
+                        ; here was tried first but the port goes into a reboot loop, so a manual reset
+                        ; is the clean way to re-log drive B: and rebuild its directory/ALV.)
+                        ; No diskutil needed.
+                        ;
+                        ; Geometry note: the CP/M system tracks / boot store (the CCP/BDOS image) now
+                        ; live on the SPI FLASH (drive A:), NOT on the RAM disk -- so wiping all of
+                        ; bank B is safe; a fresh cold boot reloads the OS from flash.
+                        
+   0100                         ORG     0100H
+                        ; ---------------- RAM-disk controller ports (bank B SRAM) ----------------
+   0020                 RDDATA  EQU     20H                     ; data, read/write, auto-increment
+   0021                 RDADRL  EQU     21H                     ; address low
+   0022                 RDADRH  EQU     22H                     ; address high
+                        
+   0100                 START:
+   0100   21 30 01              LXI     H,MSG1
+   0103   cd 28 01              CALL    PSTR
+                                ; restart the RAM-disk address counter at byte 0
+   0106   af                    XRA     A
+   0107   d3 21                 OUT     RDADRL
+   0109   d3 22                 OUT     RDADRH
+                                ; fill the ENTIRE 64K RAM disk with 0xE5
+   010b   01 00 00              LXI     B,65536                 ; count = 0 -> 65536 bytes (wraps)
+   010e   16 e5                 MVI     D,0E5H                  ; fill value in D (A holds the value below)
+   0110   7a            FMTW:   MOV     A,D
+   0111   d3 20                 OUT     RDDATA                  ; write 0xE5, auto-increment
+   0113   0b                    DCX     B
+   0114   78                    MOV     A,B
+   0115   b1                    ORA     C
+   0116   c2 10 01              JNZ     FMTW
+   0119   21 5a 01              LXI     H,MSG2
+   011c   cd 28 01              CALL    PSTR
+   011f   21 74 01              LXI     H,MSG3
+   0122   cd 28 01              CALL    PSTR
+                                ; done -- spin forever; user presses RESET to cold-boot CP/M
+   0125   c3 25 01      HERE:   JMP     HERE
+                        
+                        ; ---------------- console helpers (BDOS via CALL 5) ----------------
+                        ; print a '$'-terminated string at HL via BDOS func 9
+   0128   54            PSTR:   MOV     D,H
+   0129   5d                    MOV     E,L
+   012a   0e 09                 MVI     C,9
+   012c   cd 05 00              CALL    5
+   012f   c9                    RET
+                        
+   0130   0d 0a 46 6f   MSG1:   DB      13,10,'Formatting RAM disk B: (0xE5 fill)...',13,10,'$'
+   0134   72 6d 61 74   
+   0138   74 69 6e 67   
+   013c   20 52 41 4d   
+   0140   20 64 69 73   
+   0144   6b 20 42 3a   
+   0148   20 28 30 78   
+   014c   45 35 20 66   
+   0150   69 6c 6c 29   
+   0154   2e 2e 2e 0d   
+   0158   0a 24         
+   015a   44 6f 6e 65   MSG2:   DB      'Done - format complete.',13,10,'$'
+   015e   20 2d 20 66   
+   0162   6f 72 6d 61   
+   0166   74 20 63 6f   
+   016a   6d 70 6c 65   
+   016e   74 65 2e 0d   
+   0172   0a 24         
+   0174   50 72 65 73   MSG3:   DB      'Press the RESET button to reboot CP/M.',13,10,'$'
+   0178   73 20 74 68   
+   017c   65 20 52 45   
+   0180   53 45 54 20   
+   0184   62 75 74 74   
+   0188   6f 6e 20 74   
+   018c   6f 20 72 65   
+   0190   62 6f 6f 74   
+   0194   20 43 50 2f   
+   0198   4d 2e 0d 0a   
+   019c   24            
+   019d                         END
+0110  FMTW          0125  HERE          0130  MSG1          015a  MSG2      
+0174  MSG3          0128  PSTR          0022  RDADRH        0021  RDADRL    
+0020  RDDATA        0100  START         
+

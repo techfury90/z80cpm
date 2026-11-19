@@ -180,8 +180,17 @@ supported; free node-locked license for XP2 non-SERDES). No macOS native build.
 - **Boot ROM must live in ON-CHIP EBR**, not external SRAM. The Brevia2 external
   SRAM is volatile (empty at power-up) and there's no SSD loader, so the reset
   stub + GWMON (~483 bytes) MUST be baked into the bitstream in EBR block RAM.
-  The boot-ROM WB slave must be a **WAIT-STATE** slave (EBR reads are
-  synchronous/registered), never combinational.
+  **VERIFIED 2026-11-19: the boot ROM in EBR does NOT need a wait state.** The
+  XP2 EBR is configured with the DEFAULT **NOREG** register mode (see below),
+  in which only the *address* is registered and the data output is a
+  **read-through** (combinational off the registered address). The tv80/Z80 M
+  read cycle presents the address during T1 and samples `di` at T2, giving a
+  full clock for the EBR to register the address and present the read-through
+  data — so `wait_n` is held HIGH throughout and GWMON boots to the identical
+  banner. The old "boot-ROM WB slave must be a WAIT-STATE slave" note over-
+  assumed **OUTREG** (pipelined) mode, which IS +1 full cycle and would need a
+  wait. `pmi_regmode` must be **"noreg"** — do NOT add a wait unless you also
+  switch to OUTREG.
 - **Diamond pmi_rom init is read at SYNTHESIS time via a CWD-RELATIVE path.** The
   big trap is a **stale copy of the .mem in the Diamond build dir**: Diamond
   reads *that* instead of the one you just regenerated, so you chase a phantom

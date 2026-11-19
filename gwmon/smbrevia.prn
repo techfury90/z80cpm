@@ -1,0 +1,857 @@
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;SMBREVIA -- GWMON-80 Small Monitor for the LatticeXP2 Brevia2 Z80
+                        ;
+                        ;Memory map of this machine:
+                        ;   0x0000-0x0FFF : boot ROM (we'll burn GWMON into this LUT ROM)
+                        ;   0x1000-0xFFFF : external 64K SRAM (monitor stack + loaded programs)
+                        ;   I/O 0x80      : console UART status (bit0 tx_busy, bit1 rx_avail)
+                        ;   I/O 0x81      : console UART data (write TX / read RX)
+                        ;
+                        ;The CPU resets to 0x0000, so GWMON's cold start lives at the reset vector.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;Hardware Equates
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0080                 CTLPRT	equ	080H		;Brevia2 console UART status port
+   0081                 DATPRT	equ	081H		;Brevia2 console UART data port
+   ff00                 STACK	equ	0FF00H		;top of the 64K SRAM (0x1000-0xFFFF)
+                        
+                        ;---- CP/M SPI-flash boot constants (MUST match diskutil.s and cbios.asm) ----
+   0050                 SPI_DATA equ	50H		;SPI flash data (read clocks in / write clocks out)
+   0051                 SPI_CTL  equ	51H		;SPI flash control (bit0 = CS#)
+   0052                 SPI_STAT equ	52H		;SPI flash status (bit0 = busy)
+   0000                 CPMIMG	 equ	0000H		;flash offset of the stored CP/M image
+   1d00                 CPMIMGLEN equ	1D00H		;bytes of the boot image (padded to 0x1D00; must match diskutil.s)
+                        
+   0000                 	ORG	0H
+                        
+                        	INCLUDE	'vectors.inc'	;Standard GWMON-80 jump table
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;VECTORS -- Jump Table Vectors
+                        ;
+                        ;These vectors are consistent across all versions of
+                        ;GWMON-80 >= 0.9.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0000   c3 0c 00      JMPTAB:	JMP	CSTART		;Cold start, initializes hardware
+   0003   c3 21 00      	JMP	WSTART		;Warm start
+   0006   c3 da 01      	JMP	COUT		;Output A register to console
+   0009   c3 70 00      	JMP	CIN		;Input A register from console, waits
+   000c                 CSTART:	
+                        
+                        
+                        	INCLUDE	'sm.inc'	;The small monitor
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;SM -- GWMON-80 Small Monitor
+                        ;
+                        ;This is the small monitor for GWMON-80. It includes the
+                        ;small command processor and common monitor routines.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;Small Monitor Equates
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   fefd                 DYNIN	equ	STACK - 3
+   fefa                 DYNOUT	equ	STACK - 6
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;SMSTRT -- SM cold start routine
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   000c   31 00 ff      SMSTRT:	LXI	SP, STACK	;Set up stack pointer
+                        
+   000f   21 d3 c9      	LXI	H, 0C9D3H	;Prime area above "real" stack
+   0012   e5            	PUSH	H		;for dynamic IN and OUT
+   0013   11 c9 db      	LXI	D, 0DBC9H
+   0016   d5            	PUSH	D
+   0017   e5            	PUSH	H
+                        
+   0018   cd ca 01      	CALL	IOSET		;Do I/O module setup
+   001b   21 fd 00      	LXI	H, SIGNON$	;SM signon
+   001e   cd ed 00      	CALL	PRTCLS
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;WSTART -- Warm start routine
+                        ;
+                        ;Falls through to the command processor.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0021   31 fa fe      WSTART: LXI	SP, STACK - 6	;Reload stack pointer, don't clobber
+                        				;dynamic IN/OUT area
+                        
+                        	INCLUDE	'scp.inc'
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;SCP -- GWMON-80 Small Command Processor
+                        ;
+                        ;This is the small command processor for Glitch Works
+                        ;Monitor for 8080/8085/Z80 and compatible.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;CMDLP -- Small command processor loop
+                        ;
+                        ;Get a character from the console device and immediately 
+                        ;handle it by passing off to helper function.
+                        ;
+                        ;Falls through to ERROR if an invalid command is specified.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0024   21 21 00      CMDLP:	LXI	H, WSTART	;HL = warm start address
+   0027   e5            	PUSH	H		;Prime stack for RET
+   0028   21 0c 01      	LXI	H, PROMPT$
+   002b   cd ed 00      	CALL	PRTCLS
+   002e   cd 70 00      	CALL	CIN
+   0031   f6 20         	ORI	20H		;Downcase input
+                        
+   0033   21 b3 01      	LXI	H, CMDTAB - 1
+   0036   23            CMDLP1:	INX	H		;Point to next command char
+   0037   be            	CMP	M
+   0038   ca 4d 00      	JZ	RUNCMD		;Match, run command handler
+   003b   47            	MOV	B, A
+   003c   7e            	MOV	A, M
+   003d   b7            	ORA	A
+   003e   78            	MOV	A, B
+   003f   23            	INX	H		;Get past handler address
+   0040   23            	INX	H
+   0041   c2 36 00      	JNZ	CMDLP1
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;ERROR -- Print generic error message and abort
+                        ;
+                        ;Falls through to PRTERR.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0044   21 14 01      ERROR:	LXI	H, ERR$		;Fall through to PRTERR
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;PRTERR -- Print a null-terminated error string
+                        ;
+                        ;pre: HL contains pointer to start of null-terminated string
+                        ;post: string at HL printed to console
+                        ;post: program execution returned to command loop
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0047   cd ed 00      PRTERR:	CALL	PRTCLS
+   004a   c3 21 00      	JMP	WSTART		;Warm start, restore SP
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;RUNCMD -- Run a command handler from CMDTAB
+                        ;
+                        ;pre: H register points to command letter
+                        ;post: control transferred to command handler
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   004d   cd de 00      RUNCMD:	CALL	PRTSPC
+   0050   23            	INX	H		;Point to low handler address
+   0051   5e            	MOV	E, M
+   0052   23            	INX	H
+   0053   56            	MOV	D, M
+   0054   eb            	XCHG
+   0055   e9            	PCHL
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;GETADR -- Get a 16-bit address from the console
+                        ;
+                        ;pre: none
+                        ;post: HL contains address from console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0056   cd 5f 00      GETADR:	CALL	GETHEX
+   0059   67            	MOV	H, A
+   005a   cd 5f 00      	CALL	GETHEX
+   005d   6f            	MOV	L, A
+   005e   c9            	RET
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;GETHEX -- Get byte from console as hex
+                        ;
+                        ;Enter at GETHE2 with character in A register from EDTCMD.
+                        ;
+                        ;pre: none
+                        ;post: A register contains byte from hex input
+                        ;post: Carry flag set if non hex character received
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   005f   cd 70 00      GETHEX:	CALL 	CIN
+   0062   e5            GETHE2:	PUSH	H
+   0063   67            	MOV	H, A
+   0064   cd 70 00      	CALL	CIN
+   0067   6f            	MOV	L, A
+   0068   cd 76 00      	CALL	HEXBYT
+   006b   e1            	POP	H
+   006c   da 44 00      	JC	ERROR		;Invalid hex char, abort
+   006f   c9            	RET
+                        
+                        	INCLUDE	'common.inc'
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;COMMON -- Functions Common to SM and XM
+                        ;
+                        ;These functions are used by both the SM and XM versions
+                        ;of GWMON-80.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;ASCII Equates
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0003                 CTLC	equ	03
+   0008                 BS	equ	08
+   000a                 LF	equ	10
+   000d                 CR	equ	13
+                        
+   0003                 CANCEL	equ	CTLC		;Escape/cancel character, CTRL+C
+   000d                 NEXTLOC	equ	CR		;Keystroke for next location in E
+                        				;defaults to CR
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;CIN -- Get a char from the console and echo
+                        ;
+                        ;Returns through COUT.
+                        ;
+                        ;pre: console device is initialized
+                        ;post: received char is in A register
+                        ;post: received char is echoed
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0070   cd cb 01      CIN:	CALL	CINNE
+   0073   c3 da 01      	JMP	COUT
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;HEXBYT -- Convert pair of ASCII characters to byte
+                        ;
+                        ;pre: H register contains high ASCII coded hex nybble
+                        ;pre: L register contains low ASCII coded hex nybble
+                        ;post: A register contains converted byte
+                        ;post: CY flag set if non-hex character input
+                        ;post: Z flag set if conversion results in 0x00
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0076   7c            HEXBYT:	MOV	A, H
+   0077   cd 87 00      	CALL	ASCHEX
+   007a   d8            	RC
+   007b   07            	RLC
+   007c   07            	RLC
+   007d   07            	RLC
+   007e   07            	RLC
+   007f   67            	MOV	H, A
+   0080   7d            	MOV	A, L
+   0081   cd 87 00      	CALL	ASCHEX
+   0084   d8            	RC
+   0085   b4            	ORA	H
+   0086   c9            	RET
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;ASCHEX -- Convert ASCII character to hex nybble
+                        ;
+                        ;pre: A register contains ASCII coded nybble
+                        ;post: A register contains nybble
+                        ;post: CY flag set if ASCII character is invalid hex
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0087   d6 30         ASCHEX:	SUI	'0'		;ASCII to decimal bias
+   0089   d8            	RC			;Return if less than '0'
+   008a   fe 0a         	CPI	0AH
+   008c   3f            	CMC			;Clear CY
+   008d   f8            	RM			;0x0 - 0x9, done
+   008e   e6 5f         	ANI	5FH		;Upcase
+   0090   d6 07         	SUI	07H		;ASCII to hex bias
+   0092   fe 10         	CPI	10H
+   0094   3f            	CMC			;Set CY if > 'F'
+   0095   c9            	RET
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;HEXDMP -- Hex dump memory to console
+                        ;
+                        ;This routine prints the contents of memory starting at HL
+                        ;and ending at DE in 16-byte blocks.
+                        ;
+                        ;pre: HL register pair contains starting address
+                        ;pre: DE register pair contains ending address
+                        ;post: contents of memory printed to console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0096   06 00         HEXDMP:	MVI	B, 00H		;Initialize B as completion flag
+                        
+   0098   cd b9 00      HEXDM1:	CALL	PRTADR
+   009b   0e 10         	MVI	C, 16		;C = line loop counter
+   009d   cd de 00      HEXDM2:	CALL	PRTSPC
+   00a0   cd c9 00      	CALL	DMPLOC
+   00a3   7b            	MOV	A, E		;A = low byte of end address
+   00a4   bd            	CMP	L		;Compare current low byte
+   00a5   c2 ae 00      	JNZ	HEXDM3
+   00a8   7a            	MOV	A, D		;A = high byte of end address
+   00a9   bc            	CMP	H		;Compare current high byte
+   00aa   c2 ae 00      	JNZ	HEXDM3
+   00ad   05            	DCR	B		;B = nonzero, done
+                        
+   00ae   23            HEXDM3:	INX	H		;Increment current address pointer
+   00af   0d            	DCR	C
+   00b0   c2 9d 00      	JNZ	HEXDM2		;Print more lines
+                        
+   00b3   78            	MOV	A, B
+   00b4   b7            	ORA	A
+   00b5   ca 98 00      	JZ	HEXDM1		;Yes, dump more memory
+   00b8   c9            	RET			;No, done
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;PRTADR -- Print an address to the console
+                        ;
+                        ;Prints CR, LF, a 16-bit address, a space, and a colon. 
+                        ;Destroys A register contents.
+                        ;
+                        ;Returns through COUT.
+                        ;
+                        ;pre: HL pair contains address to print
+                        ;post: HL printed to console as hex
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   00b9   cd e3 00      PRTADR: CALL	CRLF
+   00bc   7c            	MOV	A, H
+   00bd   cd ca 00      	CALL	PRTHEX
+   00c0   7d            	MOV	A, L
+   00c1   cd ca 00      	CALL	PRTHEX
+   00c4   3e 3a         	MVI	A, ':'
+   00c6   c3 da 01      	JMP	COUT
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;DMPLOC -- Print a byte at HL to console
+                        ;
+                        ;Falls through to PRTHEX.
+                        ;
+                        ;pre: HL pair contains address of byte
+                        ;post: byte at HL printed to console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   00c9   7e            DMPLOC:	MOV	A, M
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;PRTHEX -- Output byte to console as hex
+                        ;
+                        ;Falls through to PRTNIB.
+                        ;
+                        ;pre: A register contains byte to be output
+                        ;post: byte is output to console as hex
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   00ca   f5            PRTHEX: PUSH	PSW		;Save A register on stack
+   00cb   0f            	RRC			;Rotate high nybble down
+   00cc   0f            	RRC
+   00cd   0f            	RRC
+   00ce   0f            	RRC
+   00cf   cd d3 00      	CALL	PRTNIB		;Print high nybble
+   00d2   f1            	POP	PSW		;Restore A register
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;PRTNIB -- Print hex nybble on console
+                        ;
+                        ;Returns through COUT.
+                        ;
+                        ;pre: A register contains nybble
+                        ;post: nybble printed to console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   00d3   e6 0f         PRTNIB:	ANI	0FH		;Mask off low nybble
+   00d5   c6 90         	ADI	90H
+   00d7   27            	DAA
+   00d8   ce 40         	ACI	40H
+   00da   27            	DAA
+   00db   c3 da 01      	JMP	COUT
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;PRTSPC -- Print a space to the console
+                        ;
+                        ;Returns through COUT.
+                        ;
+                        ;pre: none
+                        ;post: ASCII space printed to console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   00de   3e 20         PRTSPC:	MVI	A, ' '
+   00e0   c3 da 01      	JMP	COUT
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;CRLF -- Print a CR, LF
+                        ;
+                        ;Returns through COUT.
+                        ;
+                        ;pre: none
+                        ;post: CR, LF printed to console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   00e3   3e 0d         CRLF:	MVI	A, CR
+   00e5   cd da 01      	CALL	COUT
+   00e8   3e 0a         	MVI	A, LF
+   00ea   c3 da 01      	JMP	COUT
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;PRTCLS -- Print CR, LF, and a high bit terminated string
+                        ;
+                        ;Falls through to PRTSTR
+                        ;
+                        ;pre: HL contains pointer to start of string
+                        ;post: CR, LF, and string at HL printed to console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   00ed   cd e3 00      PRTCLS:	CALL	CRLF
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;PRTSTR -- Print a high bit terminated string
+                        ;
+                        ;Destroys contents of A register.
+                        ;
+                        ;pre: HL contains pointer to start of string
+                        ;post: string at HL printed to console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   00f0   7e            PRTSTR:	MOV	A, M
+   00f1   e6 7f         	ANI	07FH		;Strip high bit
+   00f3   cd da 01      	CALL	COUT
+   00f6   7e            	MOV	A, M
+   00f7   b7            	ORA	A		;Set flags
+   00f8   f8            	RM			;High bit set, done
+   00f9   23            	INX	H
+   00fa   c3 f0 00      	JMP	PRTSTR
+                        
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;Small Monitor Strings
+                        ;
+                        ;These strings are terminated by setting the high bit in the
+                        ;last character.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   00fd   47 57 4d 4f   SIGNON$:	db 'GWMON-80 1.1 S', 'M' + 80H
+   0101   4e 2d 38 30   
+   0105   20 31 2e 31   
+   0109   20 53 cd      
+   010c   0a be         PROMPT$:	db LF, '>' + 80H
+   010e   43 4b 53 55   CSERR$:		db 'CKSUM '
+   0112   4d 20         
+   0114   45 52 52 4f   ERR$:		db 'ERRO', 'R' + 80H
+   0118   d2            
+                        
+                        	INCLUDE	'scmdstd.inc'	;SM standard commands
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;SCMDSTD -- Small Monitor Standard Commands
+                        ;
+                        ;This file contains implementations of all standard SM
+                        ;commands. The command table is located at the end of the
+                        ;file.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;HDCMD -- Hex dump command
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0119   cd 56 00      HDCMD:	CALL	GETADR		;HL = start address
+   011c   eb            	XCHG			;DE = start address
+   011d   cd de 00      	CALL	PRTSPC
+   0120   cd 56 00      	CALL	GETADR		;HL = end address
+   0123   eb            	XCHG			;HL = start, DE = end
+   0124   c3 96 00      	JMP	HEXDMP		;Return through HEXDMP
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;EDTCMD -- Edit memory command
+                        ;
+                        ;Breaks out to main command loop through GETHEX jump to
+                        ;WSTART.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0127   cd 56 00      EDTCMD:	CALL	GETADR		;HL = address to open
+   012a   cd b9 00      EDTCM1:	CALL	PRTADR		;Print location address
+   012d   cd de 00      	CALL	PRTSPC
+   0130   cd c9 00      	CALL	DMPLOC		;Print contents of location
+   0133   cd de 00      	CALL	PRTSPC
+   0136   cd 70 00      	CALL	CIN		;Get user input
+   0139   fe 0d         	CPI	NEXTLOC		;Check for NEXTLOC character
+   013b   ca 48 01      	JZ	EDTCM2		;Yes, go to next location
+   013e   cd 62 00      	CALL	GETHE2		;No, process as hex input
+   0141   77            	MOV	M, A
+   0142   cd de 00      	CALL	PRTSPC
+   0145   cd c9 00      	CALL	DMPLOC		;Print contents of location (verification)
+   0148   23            EDTCM2:	INX	H
+   0149   c3 2a 01      	JMP	EDTCM1
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;GOCMD -- Call out to a specified address
+                        ;
+                        ;The stack is primed with the GWMON-80 warm start address.
+                        ;Called program can return control to GWMON-80 through a RET
+                        ;as long as the stack is not disturbed.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   014c   cd 56 00      GOCMD:	CALL	GETADR		;HL = Address to call
+   014f   e9            	PCHL			;Go to specified address
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;INPCMD -- Input to port command
+                        ;
+                        ;Returns through PRTHEX.
+                        ;
+                        ;pre: DYNIN memory area has been initialized
+                        ;post: byte from specififed port printed to console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0150   cd 5f 00      INPCMD:	CALL	GETHEX
+   0153   32 fe fe      	STA	DYNIN + 1	;Store operand
+   0156   cd de 00      	CALL	PRTSPC
+   0159   cd fd fe      	CALL	DYNIN
+   015c   c3 ca 00      	JMP	PRTHEX
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;LODCMD -- Load an Intel HEX file from console
+                        ;
+                        ;This loader accepts data with both CR (*NIX) and
+                        ;CR,LF (DOS/Windows) terminated lines.
+                        ;
+                        ;Intel HEX record may be ended with:
+                        ;
+                        ;   * DATA (0x00) record with length of 0
+                        ;   * Any nonzero record type
+                        ;
+                        ;post: Intel HEX file loaded, or error printed
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   015f   cd e3 00      LODCMD:	CALL	CRLF
+   0162   cd cb 01      LODCM1:	CALL	CINNE
+   0165   fe 3a         	CPI	':'
+   0167   c2 62 01      	JNZ	LODCM1		;Wait for start colon
+   016a   cd da 01      	CALL	COUT		;Print start colon
+   016d   cd 5f 00      	CALL	GETHEX		;Get record length
+   0170   ca 96 01      	JZ	LODCM4		;Length == 0, done
+   0173   47            	MOV	B, A		;Record length in B
+   0174   4f            	MOV	C, A		;Start checksumming in C
+                        
+   0175   cd 56 00      	CALL	GETADR		;HL = 16-bit starting address
+   0178   81            	ADD	C		;A == L from GETADR
+   0179   84            	ADD	H
+   017a   4f            	MOV	C, A		;Checksum
+                        
+   017b   cd 5f 00      	CALL	GETHEX		;Get record type
+   017e   c2 96 01      	JNZ	LODCM4		;Not Record Type 00 (DATA), done
+                        
+   0181   cd 5f 00      LODCM2:	CALL	GETHEX		;This is the main record processing loop
+   0184   77            	MOV	M, A		;Store char at HL
+   0185   81            	ADD	C
+   0186   4f            	MOV	C, A		;Checksum
+   0187   23            	INX	H		;Move memory pointer up
+   0188   05            	DCR	B
+   0189   c2 81 01      	JNZ	LODCM2		;Not done with the line
+   018c   cd 5f 00      LODCM3:	CALL	GETHEX		;Get checksum byte
+   018f   81            	ADD	C
+   0190   c2 9f 01      	JNZ	CSUMER		;Checksum bad, print error
+   0193   c3 5f 01      	JMP	LODCMD		;Process more records
+   0196   cd 70 00      LODCM4:	CALL	CIN		;Done getting data, eat chars
+   0199   fe 0a         	CPI	LF
+   019b   c2 96 01      	JNZ	LODCM4		;No LF, keep eating
+   019e   c9            	RET			;Got LF, return to command loop
+   019f   21 0e 01      CSUMER:	LXI	H, CSERR$	;Print checksum error to console
+   01a2   c3 47 00      	JMP	PRTERR		;RET from ERROUT will return to command loop
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;OUTCMD -- Output to port command
+                        ;
+                        ;Returns through DYNOUT.
+                        ;
+                        ;pre: DYNOUT memory area has been initialized
+                        ;post: specified byte has been written to specified port
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   01a5   cd 5f 00      OUTCMD:	CALL	GETHEX
+   01a8   32 fb fe      	STA	DYNOUT + 1	;Store operand
+   01ab   cd de 00      	CALL	PRTSPC
+   01ae   cd 5f 00      	CALL	GETHEX
+   01b1   c3 fa fe      	JMP	DYNOUT
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;CMDTAB -- Table/array of commands
+                        ;
+                        ;This data *must* be the last item in SCMDSTD.INC to allow
+                        ;chaining of additional command tables.
+                        ;
+                        ;Table entry structure:
+                        ;    * Single command character, lowercase only
+                        ;    * Pointer to implementation routine
+                        ;
+                        ;The last entry should contain 0x00 for the command char and
+                        ;no additional address. It is provided in SCMDNULL.INC
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   01b4   64            CMDTAB:	db	'd'
+   01b5   19 01         	dw	HDCMD
+   01b7   65            	db	'e'
+   01b8   27 01         	dw	EDTCMD
+   01ba   67            	db	'g'
+   01bb   4c 01         	dw	GOCMD
+   01bd   69            	db	'i'
+   01be   50 01         	dw	INPCMD
+   01c0   6c            	db	'l'
+   01c1   5f 01         	dw	LODCMD
+   01c3   6f            	db	'o'
+   01c4   a5 01         	dw	OUTCMD
+                        
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;BFLSH -- 'b' command: boot CP/M from the IS25LD040 SPI flash
+                        ;Command-table entry only; the handler BFOOT lives in spiboot.inc.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   01c6   62            BFLSH:	db	'b'
+   01c7   7a 02         	dw	BFOOT
+                        	INCLUDE 'scmdnull.inc'	;Command table terminator
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;SCMDNULL -- SM NULL Command
+                        ;
+                        ;This should be the last command list included in a SM
+                        ;customization. It provides consistent termination to the
+                        ;command list.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   01c9   00            NULCMD:	db	0
+                        
+                        
+                        	INCLUDE 'sbruart.inc'	;Brevia2 custom 8N1 UART I/O
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;SBRUART -- Console I/O drivers for the Brevia2 custom 8N1 UART
+                        ;
+                        ;The Brevia2 SoC console is a custom polled 8N1 UART mapped at:
+                        ;   CTLPRT = 080H  status: bit0 = tx_busy (1=busy), bit1 = rx_avail (1=ready)
+                        ;   DATPRT = 081H  data:   write = TX, read = RX
+                        ;Set CTLPRT and DATPRT in the customization file.
+                        ;
+                        ;Requires three subroutines: IOSET, CINNE, COUT (GWMON-80 I/O module contract).
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;IOSET -- I/O specific setup routine
+                        ;
+                        ;pre: none
+                        ;post: console serial channel is ready (our UART needs no init)
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   01ca                 IOSET:
+   01ca   c9            	RET
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;CINNE -- Get a char from the console, no echo
+                        ;
+                        ;If the CANCEL character is received, do a warm start.
+                        ;
+                        ;pre: console device is initialized
+                        ;post: received char is in A register
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   01cb                 CINNE:
+   01cb   db 80         	IN	CTLPRT
+   01cd   e6 02         	ANI	02H		;rx_avail (bit1)
+   01cf   ca cb 01      	JZ	CINNE		;wait until a char is ready
+   01d2   db 81         	IN	DATPRT
+   01d4   fe 03         	CPI	CANCEL
+   01d6   ca 21 00      	JZ	WSTART
+   01d9   c9            	RET
+                        
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;COUT -- Output a character to the console
+                        ;
+                        ;This routine *must* preserve the contents of the A register
+                        ;or CIN will not function properly.
+                        ;
+                        ;pre: A register contains char to be printed
+                        ;post: character is printed to the console
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   01da                 COUT:
+   01da   f5            	PUSH	PSW		;Save A on stack
+   01db                 COUT1:
+   01db   db 80         	IN	CTLPRT
+   01dd   e6 01         	ANI	01H		;tx_busy (bit0, 1=busy)
+   01df   c2 db 01      	JNZ	COUT1		;wait until transmitter is idle
+   01e2   f1            	POP	PSW		;Restore A
+   01e3   d3 81         	OUT	DATPRT
+   01e5   c9            	RET
+                        
+                        
+                        	INCLUDE '../spi.inc'	;shared IS25LD040 SPI primitives + FBADDR
+                        ; ============================================================================
+                        ; spi.inc -- shared 24-bit-capable SPI flash driver for the ISSI IS25LD040.
+                        ; Included by BOTH diskutil (ORG 1000H) and cbios (ORG FA00H) so the physical
+                        ; SPI protocol cannot drift between the two consumers.  Includes only
+                        ; protocol-level primitives (selection, byte transfer, WIP wait, 24-bit
+                        ; address send) and the bulk operations drive B: needs (page program, bulk
+                        ; read, 4K sector erase).  Higher-level logic (CP/M read-modify-write, the
+                        ; format routine) lives in each including program.
+                        ;
+                        ; Ports (must be defined by the including program BEFORE the INCL):
+                        ;   SPI_DATA = 50H   read clocks 1 byte in / write clocks 1 byte out (MSB first)
+                        ;   SPI_CTL  = 51H   write bit0 = CS# (0 = select low, 1 = release high)
+                        ;   SPI_STAT = 52H   read bit0 = transfer busy (poll OPTIONAL -- the RTL byte
+                        ;                               engine stretches the CPU wait on every 0x50
+                        ;                               access, so back-to-back 0x50 completes in-cycle)
+                        ;
+                        ; Convention: the 24-bit flash address for an operation is held in the FBADDR
+                        ; 3-byte block declared below.  Byte order is little-endian by FIELD:
+                        ;   FBADDR+0 = A7-A0  (low byte)
+                        ;   FBADDR+1 = A15-A8 (mid byte)
+                        ;   FBADDR+2 = A23-A16(high byte)
+                        ; SPI_ADDR transmits them MSB-first (A23-A16, A15-A8, A7-A0), which is the
+                        ; order the IS25LD040 command set requires.
+                        ;
+                        ; Each routine documents which registers it clobbers.  A85 note: this file is
+                        ; assembled inline at the INCL point, so FBADDR is allocated at that location
+                        ; in each including program's address space (fine -- it is referenced purely
+                        ; symbolically).  Do NOT add an ORG or END to this file; a85 splices it.
+                        ; ============================================================================
+                        
+                        ; ---------------- CS# and byte transfer primitives ----------------
+                        ; SPI_SEL: pull CS# low (select the flash).  Clobbers A.
+   01e6   3e 00         SPI_SEL: MVI     A,00H
+   01e8   d3 51                  OUT     SPI_CTL
+   01ea   c9                     RET
+                        
+                        ; SPI_REL: release CS# high (deselect the flash).  Clobbers A.
+   01eb   3e 01         SPI_REL: MVI     A,01H
+   01ed   d3 51                  OUT     SPI_CTL
+   01ef   c9                     RET
+                        
+                        ; SPI_XMIT: clock the byte in A out to the flash; the byte returned is
+                        ; discarded.  A is unchanged (OUT does not modify A).  No other regs touched.
+   01f0   d3 50         SPI_XMIT: OUT     SPI_DATA
+   01f2   c9                     RET
+                        
+                        ; SPI_WAIT: poll the RDSR (0x05) status until WIP (bit0) clears.  Re-selects
+                        ; the flash and keeps CS# low across the status reads.  Clobbers A.
+   01f3   cd e6 01      SPI_WAIT: CALL    SPI_SEL
+   01f6   3e 05                  MVI     A,05H
+   01f8   cd f0 01               CALL    SPI_XMIT                ; RDSR opcode
+   01fb   db 50         SPW:     IN      SPI_DATA                ; read status byte
+   01fd   e6 01                  ANI     01H                     ; WIP (bit0) still busy?
+   01ff   c2 fb 01               JNZ     SPW                     ; loop until the flash is idle
+   0202   cd eb 01               CALL    SPI_REL
+   0205   c9                     RET
+                        
+                        ; ---------------- 24-bit address send ----------------
+                        ; SPI_ADDR: send the three FBADDR bytes as the command address (A23-A16,
+                        ; A15-A8, A7-A0, MSB first).  Must be called with CS# already selected.
+                        ; Clobbers A.
+   0206   3a 79 02      SPI_ADDR: LDA     FBADDR+2
+   0209   cd f0 01               CALL    SPI_XMIT                ; A23-A16
+   020c   3a 78 02               LDA     FBADDR+1
+   020f   cd f0 01               CALL    SPI_XMIT                ; A15-A8
+   0212   3a 77 02               LDA     FBADDR
+   0215   cd f0 01               CALL    SPI_XMIT                ; A7-A0
+   0218   c9                     RET
+                        
+                        ; ---------------- page program (0x02) ----------------
+                        ; SPI_PAGE: program a full 256-byte page from (HL) at the page-aligned FBADDR.
+                        ; FBADDR must be 256-byte aligned (the flash's page program wraps within a
+                        ; page if it crosses the boundary).  Issues WREN (0x06, CS# toggled to latch it
+                        ; -- REQUIRED before every program/erase on the IS25LD040), then the page-
+                        ; program command and 256 data bytes in one CS#-low sequence.  Clobbers A, B,
+                        ; HL (HL is advanced 256 bytes / left at HL+256).
+   0219   cd e6 01      SPI_PAGE: CALL    SPI_SEL
+   021c   3e 06                  MVI     A,06H                   ; WREN (mandatory before every program)
+   021e   cd f0 01               CALL    SPI_XMIT
+   0221   cd eb 01               CALL    SPI_REL                 ; latch WREN (CS# must toggle)
+   0224   cd e6 01               CALL    SPI_SEL
+   0227   3e 02                  MVI     A,02H                   ; Page Program opcode
+   0229   cd f0 01               CALL    SPI_XMIT
+   022c   cd 06 02               CALL    SPI_ADDR
+   022f   06 00                  MVI     B,00H                   ; 256 bytes (0 wraps to 256 on DCR)
+   0231   7e            SPG1:    MOV     A,M
+   0232   cd f0 01               CALL    SPI_XMIT
+   0235   23                     INX     H
+   0236   05                     DCR     B
+   0237   c2 31 02               JNZ     SPG1
+   023a   cd eb 01               CALL    SPI_REL
+   023d   cd f3 01               CALL    SPI_WAIT                ; wait for the program to settle
+   0240   c9                     RET
+                        
+                        ; ---------------- bulk read (0x03) ----------------
+                        ; SPI_READBUF: read BC bytes from FBADDR into (DE), keeping CS# low across the
+                        ; whole burst (this is the same pattern the proven diskutil DO_READ uses for
+                        ; 16 bytes, extended to an arbitrary count).  Clobbers A, B, C, D, E (BC runs
+                        ; down to 0, DE advances past the last byte read).
+   0241   cd e6 01      SPI_READBUF: CALL    SPI_SEL
+   0244   3e 03                  MVI     A,03H                   ; Read opcode
+   0246   cd f0 01               CALL    SPI_XMIT
+   0249   cd 06 02               CALL    SPI_ADDR
+   024c   db 50         SRDB:    IN      SPI_DATA                ; next byte the flash clocks out
+   024e   12                     STAX    D
+   024f   13                     INX     D
+   0250   0b                     DCX     B
+   0251   78                     MOV     A,B
+   0252   b1                     ORA     C
+   0253   c2 4c 02               JNZ     SRDB
+   0256   cd eb 01               CALL    SPI_REL
+   0259   c9                     RET
+                        
+                        ; ---------------- 4KB sector erase (0x20) ----------------
+                        ; SPI_ERASE_SECT: erase the 4KB sector containing FBADDR.  FBADDR must be
+                        ; pre-set to the sector base (the low 12 bits clear) so only that one sector
+                        ; is erased.  Issues WREN, then the sector-erase command.  Clobbers A.
+   025a   cd e6 01      SPI_ERASE_SECT: CALL    SPI_SEL
+   025d   3e 06                  MVI     A,06H                   ; WREN (required before every program)
+   025f   cd f0 01               CALL    SPI_XMIT
+   0262   cd eb 01               CALL    SPI_REL                 ; latch WREN
+   0265   cd e6 01               CALL    SPI_SEL
+   0268   3e 20                  MVI     A,20H                   ; Sector Erase (4KB) opcode
+   026a   cd f0 01               CALL    SPI_XMIT
+   026d   cd 06 02               CALL    SPI_ADDR
+   0270   cd eb 01               CALL    SPI_REL
+   0273   cd f3 01               CALL    SPI_WAIT                ; wait for the erase to finish
+   0276   c9                     RET
+                        
+                        ; ---------------- FBADDR: the 24-bit address block ----------------
+   0277                 FBADDR:  DS      3                       ; A7-A0, A15-A8, A23-A16
+                        
+                        	INCLUDE 'spiboot.inc'	;BFOOT: flash-boot handler
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;SPIBOOT -- GWMON-80 'b' command: boot CP/M from the ISSI IS25LD040
+                        ;SPI flash on the Brevia2.
+                        ;
+                        ;Reads the CP/M system image (CCP+BDOS+CBIOS) from the flash system area
+                        ;(flash 0x0000, CPMIMGLEN bytes) into machine RAM at 0xD000, then cold-boots
+                        ;via the CBIOS entry (0xE600) which enters the CCP.
+                        ;
+                        ;Runs in place from the monitor ROM -- the Brevia2 monitor lives at 0x0000,
+                        ;so no RAM shadow/mover is needed (unlike bflash.inc on a paged-ROM target).
+                        ;
+                        ;Reuses the shared spi.inc primitives (SPI_SEL/REL/XMIT/ADDR/READBUF, FBADDR).
+                        ;Define SPI_DATA/SPI_CTL/SPI_STAT and CPMIMG/CPMIMGLEN BEFORE including
+                        ;spi.inc and this file.
+                        ;
+                        ;pre:  none (typed 'b' at the monitor prompt)
+                        ;post: CP/M running at the 'A>' prompt, or a "NO CP/M ON FLASH" message and
+                        ;      return to the monitor command loop.
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        
+                        ;---- command handler for 'b' ----
+   027a                 BFOOT:
+                                ; sanity: the image must begin with 0xC3 (JP, the CCP's first
+                                ; instruction).  An erased/absent image (0xFF) must not be run.
+   027a   21 00 00              LXI     H,0
+   027d   22 77 02              SHLD    FBADDR          ; FBADDR(2) = 0x0000
+   0280   af                    XRA     A
+   0281   32 79 02              STA     FBADDR+2        ; FBADDR = 0x000000
+   0284   11 00 fe              LXI     D,BOOTCHK
+   0287   01 01 00              LXI     B,1
+   028a   cd 41 02              CALL    SPI_READBUF     ; read 1 byte into BOOTCHK
+   028d   3a 00 fe              LDA     BOOTCHK
+   0290   fe c3                 CPI     0C3H
+   0292   ca 9b 02              JZ      BFOOT1
+   0295   21 b1 02              LXI     H,MSGNOFLASH
+   0298   c3 47 00              JMP     PRTERR          ; prints CRLF + string, back to monitor
+                        
+   029b                 BFOOT1:
+                                ; load the full CP/M image into machine RAM at 0xD000
+   029b   21 00 00              LXI     H,0
+   029e   22 77 02              SHLD    FBADDR
+   02a1   af                    XRA     A
+   02a2   32 79 02              STA     FBADDR+2
+   02a5   11 00 d0              LXI     D,0D000H
+   02a8   01 00 1d              LXI     B,CPMIMGLEN
+   02ab   cd 41 02              CALL    SPI_READBUF     ; reads CPMIMGLEN bytes, DE advances past
+                                ; cold-boot CP/M (CBIOS BOOT persists CCP/BDOS to the flash and enters CCP)
+   02ae   c3 00 e6              JMP     0E600H
+                        
+   fe00                 BOOTCHK equ     0FE00H  ; machine-RAM scratch for the 1-byte magic check.  The
+                                                ; monitor's own writable data lives near 0xFF00 (DYNIN/
+                                                ; DYNOUT/stack); the 0x0000-0x0FFF boot ROM is READ-ONLY,
+                                                ; so a DS byte there cannot be written and STAX'ing a
+                                                ; read value into it is silently dropped.  Keep all the
+                                                ; 'b' command's writable bytes in machine RAM (>=0x1000).
+   02b1   4e 4f 20 43   MSGNOFLASH: DB 'NO CP/M ON FLAS',0C8H   ; 'H'|0x80 -- high-bit string terminator
+   02b5   50 2f 4d 20   
+   02b9   4f 4e 20 46   
+   02bd   4c 41 53 c8   
+                        
+                        
+   02c1                 	END
+0087  ASCHEX        01c6  BFLSH         027a  BFOOT         029b  BFOOT1    
+fe00  BOOTCHK       0008  BS            0003  CANCEL        0070  CIN       
+01cb  CINNE         0024  CMDLP         0036  CMDLP1        01b4  CMDTAB    
+01da  COUT          01db  COUT1         0000  CPMIMG        1d00  CPMIMGLEN 
+000d  CR            00e3  CRLF          010e  CSERR$        000c  CSTART    
+019f  CSUMER        0003  CTLC          0080  CTLPRT        0081  DATPRT    
+00c9  DMPLOC        fefd  DYNIN         fefa  DYNOUT        012a  EDTCM1    
+0148  EDTCM2        0127  EDTCMD        0114  ERR$          0044  ERROR     
+0277  FBADDR        0056  GETADR        0062  GETHE2        005f  GETHEX    
+014c  GOCMD         0119  HDCMD         0076  HEXBYT        0098  HEXDM1    
+009d  HEXDM2        00ae  HEXDM3        0096  HEXDMP        0150  INPCMD    
+01ca  IOSET         0000  JMPTAB        000a  LF            0162  LODCM1    
+0181  LODCM2        018c  LODCM3        0196  LODCM4        015f  LODCMD    
+02b1  MSGNOFLASH    000d  NEXTLOC       01c9  NULCMD        01a5  OUTCMD    
+010c  PROMPT$       00b9  PRTADR        00ed  PRTCLS        0047  PRTERR    
+00ca  PRTHEX        00d3  PRTNIB        00de  PRTSPC        00f0  PRTSTR    
+004d  RUNCMD        00fd  SIGNON$       000c  SMSTRT        0231  SPG1      
+0206  SPI_ADDR      0051  SPI_CTL       0050  SPI_DATA      025a  SPI_ERASE_SECT
+0219  SPI_PAGE      0241  SPI_READBUF    01eb  SPI_REL       01e6  SPI_SEL   
+0052  SPI_STAT      01f3  SPI_WAIT      01f0  SPI_XMIT      01fb  SPW       
+024c  SRDB          ff00  STACK         0021  WSTART        
+

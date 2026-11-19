@@ -14,12 +14,14 @@
                         ;   Q -- quit.
                         ;
                         ; The SD CP/M partition geometry (MUST match the CBIOS DPB):
-                        ;   128-byte records, SPT=32, 2KB allocation blocks (BSH=4/BLM=15),
-                        ;   DRM=127 (128 directory entries = 4096 bytes = 2 blocks, reserved via
-                        ;   AL0=0xC0), CKS=0, OFF=0 (data partition, no system tracks).  The directory
-                        ;   occupies the first 4KB (8 x 512B SD sectors) of the partition and is the
-                        ;   only thing a format must write (the BDOS rebuilds the allocation vector on
-                        ;   login).  Partition 1 starts at LBA 1, size 0x00020000 sectors (64 MB).
+                        ;   128-byte records, SPT=32, 4KB allocation blocks (BSH=5/BLM=31),
+                        ;   DSM=2047 (DOUBLE-DM, 2048 blocks x 4KB = 8 MB = the CP/M 2.2 ceiling),
+                        ;   DRM=255 (256 directory entries = 8192 bytes = 2 blocks, reserved via
+                        ;   AL0=0xC0), EXM=1, CKS=0, OFF=0 (data partition, no system tracks).  The
+                        ;   directory occupies the first 8KB (16 x 512B SD sectors) of the partition and
+                        ;   is the only thing a format must write (the BDOS rebuilds the allocation
+                        ;   vector on login).  Partition 1 starts at LBA 1, size 0x00020000 sectors
+                        ;   (64 MB -- drive C uses only the first 8 MB of it for now).
                         ;
                         ; NOTE on BDOS register clobbering: every console-call loop preserves B/HL
                         ; across CPUTC/func-2 with PUSH/POP (func 2 destroys B and HL on this CBIOS).
@@ -31,11 +33,12 @@
    0055                 SDSTAT  EQU     55H
                         
    0020                 SPT     EQU     32              ; sectors (128B) per track  [geometry]
-   0004                 BSH     EQU     4               ; 2KB allocation blocks
-   000f                 BLM     EQU     15
-   0001                 EXM     EQU     1
-   007f                 DRM     EQU     127             ; 128 directory entries
-   00c0                 AL0V    EQU     0C0H            ; reserve directory blocks 0,1
+   0005                 BSH     EQU     5               ; 4KB allocation blocks
+   001f                 BLM     EQU     31
+   0001                 EXM     EQU     1               ; BLS=4096 & DSM>255 -> double-DM
+   07ff                 DSM     EQU     2047            ; 8 MB (2048 blocks x 4KB = CP/M 2.2 ceiling)
+   00ff                 DRM     EQU     255             ; 256 directory entries
+   00c0                 AL0V    EQU     0C0H            ; reserve directory blocks 0,1 (8KB dir = 64 records)
    0000                 AL1V    EQU     00H
                         
    0053                 PMTYPE  EQU     53H             ; CP/M partition type (no standard MBR type exists)
@@ -383,8 +386,8 @@
    0381   78                    MOV     A,B
    0382   b1                    ORA     C
    0383   c2 7d 03              JNZ     CF_F
-                                ; write 8 sectors (4KB = the 2 directory blocks)
-   0386   16 08                 MVI     D,8
+                                ; write 16 sectors (8KB = the 2 directory blocks; DRM=255 -> 256 entries)
+   0386   16 10                 MVI     D,16
    0388                 CF_LP:
    0388   21 09 08              LXI     H,BLKBUF
    038b   cd e7 04              CALL    SD_WRITEBLKN
@@ -943,7 +946,7 @@
    0a09                         END
 0635  ACMD41        07ed  ACMDIT        07ee  ACMDR1        061c  ADDH      
 061d  ADDH_L        00c0  AL0V          0000  AL1V          0647  BANNER    
-0809  BLKBUF        07f5  BLKN          000f  BLM           0004  BSH       
+0809  BLKBUF        07f5  BLKN          001f  BLM           0005  BSH       
 02af  CC_OK         030c  CC_WOK        02b4  CC_Z          0377  CF_DO     
 037d  CF_F          0388  CF_LP         033e  CF_MBROK      0327  CF_OK     
 0367  CF_RAW        039c  CF_WOK        07f9  CIDBUF        05d5  CIN       
@@ -953,25 +956,25 @@
 07e4  CMDR1         029e  CMD_CREATE    0316  CMD_FORMAT    0155  CMD_INFO  
 0201  CMD_PART      05cf  CPUTC         024a  CP_LP         0229  CP_MBROK  
 0294  CP_NOMBR      0212  CP_OK         05db  CRLF          0477  DELAYMS   
-047a  DLMS          007f  DRM           07e2  ENTPTR        0001  EXM       
-07e1  HEXV          05a1  INCBLK        05c6  INCD          0106  MAINLOOP  
-011a  ML1           0130  ML_C          013b  ML_F          0125  ML_P      
-0146  ML_Q          014c  ML_UNK        0708  MSG_CID       071d  MSG_CIDERR
-07c5  MSG_FMT       06bc  MSG_INITOK    0755  MSG_MBR       06a4  MSG_NOINIT
-0779  MSG_NOMBR     0741  MSG_RDERR     072f  MSG_RDOK      06c4  MSG_SDHC  
-06e9  MSG_SDSC      0713  MSG_SN        06a0  MSG_UNK       078b  MSG_WERR  
-079a  MSG_WROTE     060e  P32_L         0001  PARTLBA0      0000  PARTSEC0  
-0000  PARTSEC1      0002  PARTSEC2      0000  PARTSEC3      0053  PMTYPE    
-05e6  PRHEX2        060c  PRHEX32       0605  PRI_NUM       05fe  PRNIB     
-05c7  PSTR          07e5  RBUF          0465  SD6_DONE      045a  SD6_RX    
-0450  SD6_TX        055a  SDCCS         0587  SDCID_L       059a  SDCID_TE  
-0054  SDCTL         0053  SDDAT         03ad  SDINIT        03ba  SDI_CK    
-0426  SDI_FAIL      03e5  SDI_FR1       03f5  SDI_HAVE      0429  SDI_OK    
-040e  SDI_RDY       03d8  SDI_RX        03f6  SDI_ST1       03cb  SDI_TX    
-042f  SDRDY0        0432  SDRDY1        0446  SDRDY_OK      0055  SDSTAT    
-056d  SD_CID        048f  SD_READBLKN    042c  SD_READY      0449  SD_SEND6  
-0481  SD_SETBLK0    0466  SD_WAITTKN    04e7  SD_WRITEBLKN    0468  SD_WT     
-0475  SD_WT_OK      0020  SPT           04e0  SRB_ERR       04cb  SRB_LP    
-0100  START         054c  SWB_DONE      0553  SWB_ERR       053e  SWB_GOT   
-0521  SWB_LP        0533  SWB_RSP       
+047a  DLMS          00ff  DRM           07ff  DSM           07e2  ENTPTR    
+0001  EXM           07e1  HEXV          05a1  INCBLK        05c6  INCD      
+0106  MAINLOOP      011a  ML1           0130  ML_C          013b  ML_F      
+0125  ML_P          0146  ML_Q          014c  ML_UNK        0708  MSG_CID   
+071d  MSG_CIDERR    07c5  MSG_FMT       06bc  MSG_INITOK    0755  MSG_MBR   
+06a4  MSG_NOINIT    0779  MSG_NOMBR     0741  MSG_RDERR     072f  MSG_RDOK  
+06c4  MSG_SDHC      06e9  MSG_SDSC      0713  MSG_SN        06a0  MSG_UNK   
+078b  MSG_WERR      079a  MSG_WROTE     060e  P32_L         0001  PARTLBA0  
+0000  PARTSEC0      0000  PARTSEC1      0002  PARTSEC2      0000  PARTSEC3  
+0053  PMTYPE        05e6  PRHEX2        060c  PRHEX32       0605  PRI_NUM   
+05fe  PRNIB         05c7  PSTR          07e5  RBUF          0465  SD6_DONE  
+045a  SD6_RX        0450  SD6_TX        055a  SDCCS         0587  SDCID_L   
+059a  SDCID_TE      0054  SDCTL         0053  SDDAT         03ad  SDINIT    
+03ba  SDI_CK        0426  SDI_FAIL      03e5  SDI_FR1       03f5  SDI_HAVE  
+0429  SDI_OK        040e  SDI_RDY       03d8  SDI_RX        03f6  SDI_ST1   
+03cb  SDI_TX        042f  SDRDY0        0432  SDRDY1        0446  SDRDY_OK  
+0055  SDSTAT        056d  SD_CID        048f  SD_READBLKN    042c  SD_READY  
+0449  SD_SEND6      0481  SD_SETBLK0    0466  SD_WAITTKN    04e7  SD_WRITEBLKN
+0468  SD_WT         0475  SD_WT_OK      0020  SPT           04e0  SRB_ERR   
+04cb  SRB_LP        0100  START         054c  SWB_DONE      0553  SWB_ERR   
+053e  SWB_GOT       0521  SWB_LP        0533  SWB_RSP       
 

@@ -1,0 +1,1528 @@
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 1 - 11/17/2026 14:7:8
+con
+
+
+    1/   0 :                            ; Reformatted and converted for cross-assembly by Macro Assembler AS
+    2/   0 :                            ; Eric Smith <spacewar@gmail.com> 2018-01-24
+    3/   0 :                            ; from original source os2ccp.asm from
+    4/   0 :                            ;   http://www.cpm.z80.de/download/cpm2-plm.zip
+    5/   0 :                            
+    6/   0 :                            ; Changes:
+    7/   0 :                            ;   multiple instructions per line split to separate lines
+    8/   0 :                            ;   dollar sign in labels replaced by underscore
+    9/   0 :                            ;   dollar sign (as digit separator) in binary constants removed
+   10/   0 :                            ;   single quotes around strings replaced with double quotes
+   11/   0 :                            ;   true and false replaced with _true and _false
+   12/   0 :                            ;   replaced "not" operator with "~"
+   13/   0 :                            ;   removed empty comments
+   14/   0 :                            ;   added ifdef origin to allow origin to be specified from command line
+   15/   0 :                            ;   added commments about serial number
+   16/   0 :                            ;   added ifdefs on "noserial" to omit serialization check
+   17/   0 :                            
+   18/   0 :                            
+   19/   0 :                            	.cpu	8080
+   20/   0 :                            
+   21/   0 :                            	title	"console command processor (CCP), ver 2.0"
+   22/   0 :                            ;	assembly language version of the CP/M console command processor
+   23/   0 :                            
+   24/   0 :                            ;	version 2.2 February, 1980
+   25/   0 :                            
+   26/   0 :                            ;	Copyright (c) 1976, 1977, 1978, 1979, 1980
+   27/   0 :                            ;	Digital Research
+   28/   0 :                            ;	Box 579, Pacific Grove,
+   29/   0 :                            ;	California, 93950
+   30/   0 :                            
+   31/   0 : =0H                        _false	equ	0000h
+   32/   0 : =0FFFFFFFFFFFFFFFFH        _true	equ	~_false
+   33/   0 : =0H                        testing	equ	_false	;true if debugging
+   34/   0 :                            
+   35/   0 :                            
+   36/   0 : =>DEFINED                  	ifdef	origin
+   37/D000 :                            	org	origin
+   38/D000 : =0D800H                    bdosl	equ	$+800h		;bdos location
+   39/D000 : =>FALSE                    	else
+   40/D000 :                            	if	testing
+   41/D000 :                            	org	3400h
+   42/D000 :                            bdosl	equ	$+800h		;bdos location
+   43/D000 :                            	else
+   44/D000 :                            	org	000h
+   45/D000 :                            bdosl	equ	$+800h		;bdos location
+   46/D000 : [40]                       	endif
+   47/D000 : [36]                       	endif
+   48/D000 : =100H                      tran	equ	100h
+   49/D000 : =0D000H                    tranm	equ	$
+   50/D000 : =0D000H                    ccploc	equ	$
+   51/D000 :                            
+   52/D000 :                            ;	********************************************************
+   53/D000 :                            ;	*	Base of CCP contains the following code/data   *
+   54/D000 :                            ;	*	ccp:	jmp ccpstart	(start with command)   *
+   55/D000 :                            ;	*		jmp ccpclear    (start, clear command) *
+   56/D000 :                            ;	*	ccp+6	127		(max command length)   *
+   57/D000 :                            ;	*	ccp+7	comlen		(command length = 00)  *
+   58/D000 :                            ;	*	ccp+8	' ... '		(16 blanks)	       *
+   59/D000 :                            ;	********************************************************
+   60/D000 :                            ;	* Normal entry is at ccp, where the command line given *
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 2 - 11/17/2026 14:7:8
+con
+
+
+   61/D000 :                            ;	* at ccp+8 is executed automatically (normally a null  *
+   62/D000 :                            ;	* command with comlen = 00).  An initializing program  *
+   63/D000 :                            ;	* can be automatically loaded by storing the command   *
+   64/D000 :                            ;	* at ccp+8, with the command length at ccp+7.  In this *
+   65/D000 :                            ;	* case, the ccp executes the command before prompting  *
+   66/D000 :                            ;	* the console for input.  Note that the command is exe-*
+   67/D000 :                            ;	* cuted on both warm and cold starts.  When the command*
+   68/D000 :                            ;	* line is initialized, a jump to "jmp ccpclear" dis-   *
+   69/D000 :                            ;	* ables the automatic command execution.               *
+   70/D000 :                            ;	********************************************************
+   71/D000 :                            
+   72/D000 : C3 5C D3                   	jmp	ccpstart	;start ccp with possible initial command
+   73/D003 : C3 58 D3                   	jmp	ccpclear	;clear the command buffer
+   74/D006 : 7F                         maxlen:	db	127	;max buffer length
+   75/D007 : 00                         comlen:	db	0	;command length (filled in by dos)
+   76/D008 :                            ;	(command executed initially if comlen non zero)
+   77/D008 :                            combuf:
+   78/D008 : 20 20 20 20 20 20 20 20    	db	"        "	;8 character fill
+   79/D010 : 20 20 20 20 20 20 20 20    	db	"        "	;8 character fill
+   80/D018 : 43 4F 50 59 52 49 47 48    	db	"COPYRIGHT (C) 1979, DIGITAL RESEARCH  "; 38
+      D020 : 54 20 28 43 29 20 31 39
+      D028 : 37 39 2C 20 44 49 47 49
+      D030 : 54 41 4C 20 52 45 53 45
+      D038 : 41 52 43 48 20 20      
+   81/D03E :                            	ds	128-($-combuf)
+   82/D088 :                            ;	total buffer length is 128 characters
+   83/D088 : 08 D0                      comaddr:dw	combuf	;address of next to char to scan
+   84/D08A :                            staddr:	ds	2	;starting address of current fillfcb request
+   85/D08C :                            
+   86/D08C : =4H                        diska	equ	0004h	;disk address for current disk
+   87/D08C : =5H                        bdos	equ	0005h	;primary bdos entry point
+   88/D08C : =80H                       buff	equ	0080h	;default buffer
+   89/D08C : =5CH                       fcb	equ	005ch	;default file control block
+   90/D08C :                            
+   91/D08C : =1H                        rcharf	equ	1	;read character function
+   92/D08C : =2H                        pcharf	equ	2	;print character function
+   93/D08C : =9H                        pbuff	equ	9	;print buffer function
+   94/D08C : =0AH                       rbuff	equ	10	;read buffer function
+   95/D08C : =0BH                       breakf	equ	11	;break key function
+   96/D08C : =0CH                       liftf	equ	12	;lift head function (no operation)
+   97/D08C : =0DH                       initf	equ	13	;initialize bdos function
+   98/D08C : =0EH                       self	equ	14	;select disk function
+   99/D08C : =0FH                       openf	equ	15	;open file function
+  100/D08C : =10H                       closef	equ	16	;close file function
+  101/D08C : =11H                       searf	equ	17	;search for file function
+  102/D08C : =12H                       searnf	equ	18	;search for next file function
+  103/D08C : =13H                       delf	equ	19	;delete file function
+  104/D08C : =14H                       dreadf	equ	20	;disk read function
+  105/D08C : =15H                       dwritf	equ	21	;disk write function
+  106/D08C : =16H                       makef	equ	22	;file make function
+  107/D08C : =17H                       renf	equ	23	;rename file function
+  108/D08C : =18H                       logf	equ	24	;return login vector
+  109/D08C : =19H                       cself	equ	25	;return currently selected drive number
+  110/D08C : =1AH                       dmaf	equ	26	;set dma address
+  111/D08C : =20H                       userf	equ	32	;set user number
+  112/D08C :                            
+  113/D08C :                            ;	special fcb flags
+  114/D08C : =9H                        rofile	equ	9	;read only file
+  115/D08C : =0AH                       sysfile	equ	10	;system file flag
+  116/D08C :                            
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 3 - 11/17/2026 14:7:8
+con
+
+
+  117/D08C :                            ;	special characters
+  118/D08C : =0DH                       cr	equ	13	;carriage return
+  119/D08C : =0AH                       lf	equ	10	;line feed
+  120/D08C : =5FH                       la	equ	5fh	;left arrow
+  121/D08C : =1AH                       eofile	equ	1ah	;end of file
+  122/D08C :                            
+  123/D08C :                            ;	utility procedures
+  124/D08C :                            printchar:
+  125/D08C : 5F                         	mov	e,a
+  126/D08D : 0E 02                      	mvi	c,pcharf
+  127/D08F : C3 05 00                   	jmp	bdos
+  128/D092 :                            
+  129/D092 :                            printbc:
+  130/D092 :                            	;print character, but save b,c registers
+  131/D092 : C5                         	push	b
+  132/D093 : CD 8C D0                   	call	printchar
+  133/D096 : C1                         	pop	b
+  134/D097 : C9                         	ret
+  135/D098 :                            
+  136/D098 :                            crlf:
+  137/D098 : 3E 0D                      	mvi	a,cr
+  138/D09A : CD 92 D0                   	call	printbc
+  139/D09D : 3E 0A                      	mvi	a,lf
+  140/D09F : C3 92 D0                   	jmp	printbc
+  141/D0A2 :                            
+  142/D0A2 :                            blank:
+  143/D0A2 : 3E 20                      	mvi	a,' '
+  144/D0A4 : C3 92 D0                   	jmp	printbc
+  145/D0A7 :                            
+  146/D0A7 :                            print:	;print string starting at b,c until next 00 entry
+  147/D0A7 : C5                         	push	b		;now print the string
+  148/D0A8 : CD 98 D0                   	call	crlf
+  149/D0AB : E1                         	pop	h
+  150/D0AC : 7E                         prin0:	mov	a,m		;stop on 00
+  151/D0AD : B7                         	ora	a
+  152/D0AE : C8                         	rz
+  153/D0AF : 23                         	inx	h		;ready for next
+  154/D0B0 : E5                         	push	h
+  155/D0B1 : CD 8C D0                   	call	printchar	;character printed
+  156/D0B4 : E1                         	pop	h
+  157/D0B5 : C3 AC D0                   	jmp	prin0		;for another character
+  158/D0B8 :                            
+  159/D0B8 :                            initialize:
+  160/D0B8 : 0E 0D                      	mvi	c,initf
+  161/D0BA : C3 05 00                   	jmp	bdos
+  162/D0BD :                            
+  163/D0BD :                            select:
+  164/D0BD : 5F                         	mov	e,a
+  165/D0BE : 0E 0E                      	mvi	c,self
+  166/D0C0 : C3 05 00                   	jmp	bdos
+  167/D0C3 :                            
+  168/D0C3 :                            bdos_inr:
+  169/D0C3 : CD 05 00                   	call	bdos
+  170/D0C6 : 32 EE D7                   	sta	dcnt
+  171/D0C9 : 3C                         	inr	a
+  172/D0CA : C9                         	ret
+  173/D0CB :                            
+  174/D0CB :                            open:	;open the file given by d,e
+  175/D0CB : 0E 0F                      	mvi	c,openf
+  176/D0CD : C3 C3 D0                   	jmp	bdos_inr
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 4 - 11/17/2026 14:7:8
+con
+
+
+  177/D0D0 :                            
+  178/D0D0 :                            openc:	;open comfcb
+  179/D0D0 : AF                         	xra	a		;clear next record to read
+  180/D0D1 : 32 ED D7                   	sta	comrec
+  181/D0D4 : 11 CD D7                   	lxi	d,comfcb
+  182/D0D7 : C3 CB D0                   	jmp	open
+  183/D0DA :                            
+  184/D0DA :                            close:	;close the file given by d,e
+  185/D0DA : 0E 10                      	mvi	c,closef
+  186/D0DC : C3 C3 D0                   	jmp	bdos_inr
+  187/D0DF :                            
+  188/D0DF :                            search:	;search for the file given by d,e
+  189/D0DF : 0E 11                      	mvi	c,searf
+  190/D0E1 : C3 C3 D0                   	jmp	bdos_inr
+  191/D0E4 :                            
+  192/D0E4 :                            searchn:
+  193/D0E4 :                            	;search for the next occurrence of the file given by d,e
+  194/D0E4 : 0E 12                      	mvi	c,searnf
+  195/D0E6 : C3 C3 D0                   	jmp	bdos_inr
+  196/D0E9 :                            
+  197/D0E9 :                            searchcom:
+  198/D0E9 :                            	;search for comfcb file
+  199/D0E9 : 11 CD D7                   	lxi	d,comfcb
+  200/D0EC : C3 DF D0                   	jmp	search
+  201/D0EF :                            
+  202/D0EF :                            delete:	;delete the file given by d,e
+  203/D0EF : 0E 13                      	mvi	c,delf
+  204/D0F1 : C3 05 00                   	jmp	bdos
+  205/D0F4 :                            
+  206/D0F4 :                            bdos_cond:
+  207/D0F4 : CD 05 00                   	call	bdos
+  208/D0F7 : B7                         	ora	a
+  209/D0F8 : C9                         	ret
+  210/D0F9 :                            
+  211/D0F9 :                            diskread:
+  212/D0F9 :                            	;read the next record from the file given by d,e
+  213/D0F9 : 0E 14                      	mvi	c,dreadf
+  214/D0FB : C3 F4 D0                   	jmp	bdos_cond
+  215/D0FE :                            
+  216/D0FE :                            diskreadc:
+  217/D0FE :                            	;read the comfcb file
+  218/D0FE : 11 CD D7                   	lxi	d,comfcb
+  219/D101 : C3 F9 D0                   	jmp	diskread
+  220/D104 :                            
+  221/D104 :                            diskwrite:
+  222/D104 :                            	;write the next record to the file given by d,e
+  223/D104 : 0E 15                      	mvi	c,dwritf
+  224/D106 : C3 F4 D0                   	jmp	bdos_cond
+  225/D109 :                            
+  226/D109 :                            make:	;create the file given by d,e
+  227/D109 : 0E 16                      	mvi	c,makef
+  228/D10B : C3 C3 D0                   	jmp	bdos_inr
+  229/D10E :                            
+  230/D10E :                            renam:	;rename the file given by d,e
+  231/D10E : 0E 17                      	mvi	c,renf
+  232/D110 : C3 05 00                   	jmp	bdos
+  233/D113 :                            
+  234/D113 :                            getuser:
+  235/D113 :                            	;return current user code in a
+  236/D113 : 1E FF                      	mvi	e,0ffh		;drop through to setuser
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 5 - 11/17/2026 14:7:8
+con
+
+
+  237/D115 :                            
+  238/D115 :                            setuser:
+  239/D115 : 0E 20                              mvi	c,userf		;sets user number
+  240/D117 : C3 05 00                   	jmp	bdos
+  241/D11A :                            
+  242/D11A :                            saveuser:
+  243/D11A :                            	;save user#/disk# before possible ^c or transient
+  244/D11A : CD 13 D1                   	call	getuser		;code to a
+  245/D11D : 87                         	add	a		;rot left
+  246/D11E : 87                         	add	a
+  247/D11F : 87                         	add	a
+  248/D120 : 87                         	add	a
+  249/D121 : 21 EF D7                   	lxi	h,cdisk		;4b=user, 4b=disk
+  250/D124 : B6                         	ora	m
+  251/D125 : 32 04 00                   	sta	diska		;stored away in memory for later
+  252/D128 : C9                         	ret
+  253/D129 :                            
+  254/D129 :                            setdiska:
+  255/D129 : 3A EF D7                   	lda	cdisk		;user/disk
+  256/D12C : 32 04 00                   	sta	diska
+  257/D12F : C9                         	ret
+  258/D130 :                            
+  259/D130 :                            translate:
+  260/D130 :                            	;translate character in register A to upper case
+  261/D130 : FE 61                      	cpi	61h		;return if below lower case a
+  262/D132 : D8                         	rc
+  263/D133 : FE 7B                      	cpi	7bh		;return if above lower case z
+  264/D135 : D0                         	rnc
+  265/D136 : E6 5F                      	ani	5fh		;translated to upper case
+  266/D138 : C9                         	ret
+  267/D139 :                            
+  268/D139 :                            readcom:
+  269/D139 :                            	;read the next command into the command buffer
+  270/D139 :                            	;check for submit file
+  271/D139 : 3A AB D7                   	lda	submit
+  272/D13C : B7                         	ora	a
+  273/D13D : CA 96 D1                   	jz	nosub
+  274/D140 :                            	;scanning a submit file
+  275/D140 :                            	;change drives to open and read the file
+  276/D140 : 3A EF D7                   	lda	cdisk
+  277/D143 : B7                         	ora	a
+  278/D144 : 3E 00                      	mvi	a,0
+  279/D146 : C4 BD D0                   	cnz	select
+  280/D149 :                            	;have to open again in case xsub present
+  281/D149 : 11 AC D7                   	lxi	d,subfcb	;skip if no sub
+  282/D14C : CD CB D0                   	call	open
+  283/D14F : CA 96 D1                   	jz	nosub
+  284/D152 : 3A BB D7                   	lda	subrc		;read last record(s) first
+  285/D155 : 3D                         	dcr	a
+  286/D156 : 32 CC D7                   	sta	subcr		;current record to read
+  287/D159 : 11 AC D7                   	lxi	d,subfcb	;end of file if last record
+  288/D15C : CD F9 D0                   	call	diskread
+  289/D15F : C2 96 D1                   	jnz	nosub
+  290/D162 :                            	;disk read is ok, transfer to combuf
+  291/D162 : 11 07 D0                   	lxi	d,comlen
+  292/D165 : 21 80 00                   	lxi	h,buff
+  293/D168 : 06 80                      	mvi	b,128
+  294/D16A : CD 42 D4                   	call	move0
+  295/D16D :                            	;line is transferred, close the file with a
+  296/D16D :                            	;deleted record
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 6 - 11/17/2026 14:7:8
+con
+
+
+  297/D16D : 21 BA D7                   	lxi	h,submod	;clear fwflag
+  298/D170 : 36 00                      	mvi	m,0
+  299/D172 : 23                         	inx	h		;one less record
+  300/D173 : 35                         	dcr	m
+  301/D174 : 11 AC D7                   	lxi	d,subfcb
+  302/D177 : CD DA D0                   	call	close
+  303/D17A : CA 96 D1                   	jz	nosub
+  304/D17D :                            	;close went ok, return to original drive
+  305/D17D : 3A EF D7                   	lda	cdisk
+  306/D180 : B7                         	ora	a
+  307/D181 : C4 BD D0                   	cnz	select
+  308/D184 :                            	;print to the 00
+  309/D184 : 21 08 D0                   	lxi	h,combuf
+  310/D187 : CD AC D0                   	call	prin0
+  311/D18A : CD C2 D1                   	call	break_key
+  312/D18D : CA A7 D1                   	jz	noread
+  313/D190 : CD DD D1                   	call	del_sub		;break key depressed
+  314/D193 : C3 82 D3                   	jmp	ccp
+  315/D196 :                            
+  316/D196 :                            nosub:	;no submit file
+  317/D196 : CD DD D1                   	call	del_sub
+  318/D199 :                            	;translate to upper case, store zero at end
+  319/D199 : CD 1A D1                   	call	saveuser	;user # save in case control c
+  320/D19C : 0E 0A                      	mvi	c,rbuff
+  321/D19E : 11 06 D0                   	lxi	d,maxlen
+  322/D1A1 : CD 05 00                   	call	bdos
+  323/D1A4 : CD 29 D1                   	call	setdiska	;no control c, so restore diska
+  324/D1A7 :                            noread:	;enter here from submit file
+  325/D1A7 :                            	;set the last character to zero for later scans
+  326/D1A7 : 21 07 D0                   	lxi	h,comlen	;length is in b
+  327/D1AA : 46                         	mov	b,m
+  328/D1AB :                            readcom0:
+  329/D1AB : 23                         	inx	h		;end of scan?
+  330/D1AC : 78                         	mov	a,b
+  331/D1AD : B7                         	ora	a
+  332/D1AE : CA BA D1                   	jz	readcom1	;get character and translate
+  333/D1B1 : 7E                         	mov	a,m
+  334/D1B2 : CD 30 D1                   	call	translate
+  335/D1B5 : 77                         	mov	m,a
+  336/D1B6 : 05                         	dcr	b
+  337/D1B7 : C3 AB D1                   	jmp	readcom0
+  338/D1BA :                            
+  339/D1BA :                            readcom1: ;end of scan, h,l address end of command
+  340/D1BA : 77                         	mov	m,a		;store a zero
+  341/D1BB : 21 08 D0                   	lxi	h,combuf	;ready to scan to zero
+  342/D1BE : 22 88 D0                   	shld	comaddr
+  343/D1C1 : C9                         	ret
+  344/D1C2 :                            
+  345/D1C2 :                            break_key:
+  346/D1C2 :                            	;check for a character ready at the console
+  347/D1C2 : 0E 0B                      	mvi	c,breakf
+  348/D1C4 : CD 05 00                   	call	bdos
+  349/D1C7 : B7                         	ora	a
+  350/D1C8 : C8                         	rz
+  351/D1C9 : 0E 01                      	mvi	c,rcharf	;character cleared
+  352/D1CB : CD 05 00                   	call	bdos
+  353/D1CE : B7                         	ora	a
+  354/D1CF : C9                         	ret
+  355/D1D0 :                            
+  356/D1D0 :                            cselect:
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 7 - 11/17/2026 14:7:8
+con
+
+
+  357/D1D0 :                            	;get the currently selected drive number to reg-A
+  358/D1D0 : 0E 19                      	mvi	c,cself
+  359/D1D2 : C3 05 00                   	jmp	bdos
+  360/D1D5 :                            
+  361/D1D5 :                            setdmabuff:
+  362/D1D5 :                            	;set default buffer dma address
+  363/D1D5 : 11 80 00                   	lxi	d,buff		;(drop through)
+  364/D1D8 :                            
+  365/D1D8 :                            setdma:
+  366/D1D8 :                            	;set dma address to d,e
+  367/D1D8 : 0E 1A                      	mvi	c,dmaf
+  368/D1DA : C3 05 00                   	jmp	bdos
+  369/D1DD :                            
+  370/D1DD :                            del_sub:
+  371/D1DD :                            	;delete the submit file, and set submit flag to false
+  372/D1DD : 21 AB D7                   	lxi	h,submit	;return if no sub file
+  373/D1E0 : 7E                         	mov	a,m
+  374/D1E1 : B7                         	ora	a
+  375/D1E2 : C8                         	rz
+  376/D1E3 : 36 00                      	mvi	m,0		;submit flag is set to false
+  377/D1E5 : AF                         	xra	a		;on drive a to erase file
+  378/D1E6 : CD BD D0                   	call	select
+  379/D1E9 : 11 AC D7                   	lxi	d,subfcb
+  380/D1EC : CD EF D0                   	call	delete
+  381/D1EF : 3A EF D7                   	lda	cdisk		;back to original drive
+  382/D1F2 : C3 BD D0                   	jmp	select
+  383/D1F5 :                            
+  384/D1F5 : =>UNDEFINED                	ifndef	noserial
+  385/D1F5 :                            serialize:
+  386/D1F5 :                            	;check serialization
+  387/D1F5 : 11 28 D3                   	lxi	d,serial	;check six bytes
+  388/D1F8 : 21 00 D8                   	lxi	h,bdosl
+  389/D1FB : 06 06                      	mvi	b,6
+  390/D1FD : 1A                         ser0:	ldax	d
+  391/D1FE : BE                         	cmp	m
+  392/D1FF : C2 CF D3                   	jnz	badserial
+  393/D202 : 13                         	inx	d
+  394/D203 : 23                         	inx	h
+  395/D204 : 05                         	dcr	b
+  396/D205 : C2 FD D1                   	jnz	ser0
+  397/D208 : C9                         	ret			;serial number is ok
+  398/D209 : [384]                      	endif
+  399/D209 :                            
+  400/D209 :                            comerr:
+  401/D209 :                            	;error in command string starting at position
+  402/D209 :                            	;'staddr' and ending with first delimiter
+  403/D209 : CD 98 D0                   	call	crlf		;space to next line
+  404/D20C : 2A 8A D0                   	lhld	staddr		;h,l address first to print
+  405/D20F :                            comerr0: ;print characters until blank or zero
+  406/D20F : 7E                         	mov	a,m		; not blank
+  407/D210 : FE 20                      	cpi	' '
+  408/D212 : CA 22 D2                   	jz	comerr1
+  409/D215 : B7                         	ora	a		; not zero, so print it
+  410/D216 : CA 22 D2                   	jz	comerr1
+  411/D219 : E5                         	push	h
+  412/D21A : CD 8C D0                   	call	printchar
+  413/D21D : E1                         	pop	h
+  414/D21E : 23                         	inx	h
+  415/D21F : C3 0F D2                   	jmp	comerr0;	for another character
+  416/D222 :                            comerr1: ;print question mark,and delete sub file
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 8 - 11/17/2026 14:7:8
+con
+
+
+  417/D222 : 3E 3F                      	mvi	a,'?'
+  418/D224 : CD 8C D0                   	call	printchar
+  419/D227 : CD 98 D0                   	call	crlf
+  420/D22A : CD DD D1                   	call	del_sub
+  421/D22D : C3 82 D3                   	jmp	ccp ;restart with next command
+  422/D230 :                            
+  423/D230 :                            ; fcb scan and fill subroutine (entry is at fillfcb below)
+  424/D230 :                            	;fill the comfcb, indexed by A (0 or 16)
+  425/D230 :                            	;subroutines
+  426/D230 :                            delim:	;look for a delimiter
+  427/D230 : 1A                         	ldax	d		;not the last element
+  428/D231 : B7                         	ora	a
+  429/D232 : C8                         	rz
+  430/D233 : FE 20                      	cpi	' '		;non graphic
+  431/D235 : DA 09 D2                   	jc	comerr
+  432/D238 : C8                         	rz			;treat blank as delimiter
+  433/D239 : FE 3D                      	cpi	'='
+  434/D23B : C8                         	rz
+  435/D23C : FE 5F                      	cpi	la		;left arrow
+  436/D23E : C8                         	rz
+  437/D23F : FE 2E                      	cpi	'.'
+  438/D241 : C8                         	rz
+  439/D242 : FE 3A                      	cpi	':'
+  440/D244 : C8                         	rz
+  441/D245 : FE 3B                      	cpi	';'
+  442/D247 : C8                         	rz
+  443/D248 : FE 3C                      	cpi	'<'
+  444/D24A : C8                         	rz
+  445/D24B : FE 3E                      	cpi	'>'
+  446/D24D : C8                         	rz
+  447/D24E : C9                         	ret			;delimiter not found
+  448/D24F :                            
+  449/D24F :                            deblank: ;deblank the input line
+  450/D24F : 1A                         	ldax	d		;treat end of line as blank
+  451/D250 : B7                         	ora	a
+  452/D251 : C8                         	rz
+  453/D252 : FE 20                      	cpi	' '
+  454/D254 : C0                         	rnz
+  455/D255 : 13                         	inx	d
+  456/D256 : C3 4F D2                   	jmp	deblank
+  457/D259 :                            
+  458/D259 :                            addh: ;add a to h,l
+  459/D259 : 85                         	add	l
+  460/D25A : 6F                         	mov	l,a
+  461/D25B : D0                         	rnc
+  462/D25C : 24                         	inr	h
+  463/D25D : C9                         	ret
+  464/D25E :                            
+  465/D25E :                            fillfcb0:
+  466/D25E :                            	;equivalent to fillfcb(0)
+  467/D25E : 3E 00                      	mvi	a,0
+  468/D260 :                            
+  469/D260 :                            fillfcb:
+  470/D260 : 21 CD D7                   	lxi	h,comfcb	;fcb rescanned at end
+  471/D263 : CD 59 D2                   	call	addh
+  472/D266 : E5                         	push	h
+  473/D267 : E5                         	push	h
+  474/D268 : AF                         	xra	a		;clear selected disk (in case A:...)
+  475/D269 : 32 F0 D7                   	sta	sdisk
+  476/D26C : 2A 88 D0                   	lhld	comaddr		;command address in d,e
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 9 - 11/17/2026 14:7:8
+con
+
+
+  477/D26F : EB                         	xchg
+  478/D270 : CD 4F D2                   	call	deblank		;to first non-blank character
+  479/D273 : EB                         	xchg			;in case of errors
+  480/D274 : 22 8A D0                   	shld	staddr
+  481/D277 : EB                         	xchg			;d,e has command, h,l has fcb address
+  482/D278 : E1                         	pop	h
+  483/D279 :                            	;look for preceding file name A: B: ...
+  484/D279 : 1A                         	ldax	d		;use current disk if empty command
+  485/D27A : B7                         	ora	a
+  486/D27B : CA 89 D2                   	jz	setcur0
+  487/D27E : DE 40                      	sbi	'A'-1		;disk name held in b if : follows
+  488/D280 : 47                         	mov	b,a
+  489/D281 : 13                         	inx	d		;set disk name if :
+  490/D282 : 1A                         	ldax	d
+  491/D283 : FE 3A                      	cpi	':'
+  492/D285 : CA 90 D2                   	jz	setdsk
+  493/D288 :                            
+  494/D288 :                            setcur: ;set current disk
+  495/D288 : 1B                         	dcx	d		;back to first character of command
+  496/D289 :                            setcur0:
+  497/D289 : 3A EF D7                   	lda	cdisk
+  498/D28C : 77                         	mov	m,a
+  499/D28D : C3 96 D2                   	jmp	setname
+  500/D290 :                            
+  501/D290 :                            setdsk: ;set disk to name in register b
+  502/D290 : 78                         	mov	a,b		;mark as disk selected
+  503/D291 : 32 F0 D7                   	sta	sdisk
+  504/D294 : 70                         	mov	m,b		;past the :
+  505/D295 : 13                         	inx	d
+  506/D296 :                            
+  507/D296 :                            setname: ;set the file name field
+  508/D296 : 06 08                      	mvi	b,8		;file name length (max)
+  509/D298 :                            setnam0:
+  510/D298 : CD 30 D2                   	call	delim		;not a delimiter
+  511/D29B : CA B9 D2                   	jz	padname
+  512/D29E : 23                         	inx	h		;must be ?'s
+  513/D29F : FE 2A                      	cpi	'*'
+  514/D2A1 : C2 A9 D2                   	jnz	setnam1
+  515/D2A4 : 36 3F                      	mvi	m,'?'		;to dec count
+  516/D2A6 : C3 AB D2                   	jmp	setnam2
+  517/D2A9 :                            
+  518/D2A9 :                            setnam1:
+  519/D2A9 : 77                         	mov	m,a		;store character to fcb
+  520/D2AA : 13                         	inx	d
+  521/D2AB :                            setnam2:
+  522/D2AB : 05                         	dcr	b		;count down length
+  523/D2AC : C2 98 D2                   	jnz	setnam0
+  524/D2AF :                            
+  525/D2AF :                            	;end of name, truncate remainder
+  526/D2AF : CD 30 D2                   trname:	call	delim		;set type field if delimiter
+  527/D2B2 : CA C0 D2                   	jz	setty
+  528/D2B5 : 13                         	inx	d
+  529/D2B6 : C3 AF D2                   	jmp	trname
+  530/D2B9 :                            
+  531/D2B9 :                            padname:
+  532/D2B9 : 23                         	inx	h
+  533/D2BA : 36 20                      	mvi	m,' '
+  534/D2BC : 05                         	dcr	b
+  535/D2BD : C2 B9 D2                   	jnz	padname
+  536/D2C0 :                            
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 10 - 11/17/2026 14:7:8
+con
+
+
+  537/D2C0 :                            setty: ;set the type field
+  538/D2C0 : 06 03                      	mvi	b,3		;skip the type field if no .
+  539/D2C2 : FE 2E                      	cpi	'.'
+  540/D2C4 : C2 E9 D2                   	jnz	padty
+  541/D2C7 : 13                         	inx	d		;past the ., to the file type field
+  542/D2C8 :                            setty0: ;set the field from the command buffer
+  543/D2C8 : CD 30 D2                   	call	delim
+  544/D2CB : CA E9 D2                   	jz	padty
+  545/D2CE : 23                         	inx	h
+  546/D2CF : FE 2A                      	cpi	'*'
+  547/D2D1 : C2 D9 D2                   	jnz	setty1
+  548/D2D4 : 36 3F                      	mvi	m,'?'		;since * specified
+  549/D2D6 : C3 DB D2                   	jmp	setty2
+  550/D2D9 :                            
+  551/D2D9 :                            setty1: ;not a *, so copy to type field
+  552/D2D9 : 77                         	mov	m,a
+  553/D2DA : 13                         	inx	d
+  554/D2DB :                            setty2: ;decrement count and go again
+  555/D2DB : 05                         	dcr	b
+  556/D2DC : C2 C8 D2                   	jnz	setty0
+  557/D2DF :                            
+  558/D2DF :                            	;end of type field, truncate
+  559/D2DF :                            trtyp: ;truncate type field
+  560/D2DF : CD 30 D2                   	call	delim
+  561/D2E2 : CA F0 D2                   	jz	efill
+  562/D2E5 : 13                         	inx	d
+  563/D2E6 : C3 DF D2                   	jmp	trtyp
+  564/D2E9 :                            
+  565/D2E9 :                            padty:	;pad the type field with blanks
+  566/D2E9 : 23                         	inx	h
+  567/D2EA : 36 20                      	mvi	m,' '
+  568/D2EC : 05                         	dcr	b
+  569/D2ED : C2 E9 D2                   	jnz	padty
+  570/D2F0 :                            
+  571/D2F0 :                            efill: ;end of the filename/filetype fill, save command address
+  572/D2F0 :                            	;fill the remaining fields for the fcb
+  573/D2F0 : 06 03                      	mvi	b,3
+  574/D2F2 : 23                         efill0:	inx h
+  575/D2F3 : 36 00                      	mvi	m,0
+  576/D2F5 : 05                         	dcr	b
+  577/D2F6 : C2 F2 D2                   	jnz	efill0
+  578/D2F9 : EB                         	xchg			;set new starting point
+  579/D2FA : 22 88 D0                   	shld	comaddr
+  580/D2FD :                            
+  581/D2FD :                            	;recover the start address of the fcb and count ?'s
+  582/D2FD : E1                         	pop	h		;b=0, c=8+3
+  583/D2FE : 01 0B 00                   	lxi	b,11
+  584/D301 : 23                         scnq:	inx	h
+  585/D302 : 7E                         	mov	a,m
+  586/D303 : FE 3F                      	cpi	'?'
+  587/D305 : C2 09 D3                   	jnz	scnq0
+  588/D308 :                            	;? found, count it in b
+  589/D308 : 04                         	inr b
+  590/D309 : 0D                         scnq0:	dcr	c
+  591/D30A : C2 01 D3                   	jnz	scnq
+  592/D30D :                            
+  593/D30D :                            	;number of ?'s in c, move to a and return with flags set
+  594/D30D : 78                         	mov	a,b
+  595/D30E : B7                         	ora	a
+  596/D30F : C9                         	ret
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 11 - 11/17/2026 14:7:8
+con
+
+
+  597/D310 :                            
+  598/D310 :                            intvec:
+  599/D310 :                            	;intrinsic function names (all are four characters)
+  600/D310 : 44 49 52 20                	db	"DIR "
+  601/D314 : 45 52 41 20                	db	"ERA "
+  602/D318 : 54 59 50 45                	db	"TYPE"
+  603/D31C : 53 41 56 45                	db	"SAVE"
+  604/D320 : 52 45 4E 20                	db	"REN "
+  605/D324 : 55 53 45 52                        db      "USER"
+  606/D328 : =6H                        intlen	equ ($-intvec)/4 ;intrinsic function length
+  607/D328 :                            	
+  608/D328 :                            ; serial number (details not documented in original DRI source file)
+  609/D328 : 00                         serial:	db	0		; OEM number, low byte
+  610/D329 : 00                         	db	0		; CP/M version, 16h = 2.2
+  611/D32A : 00                         	db	0		; OEM number, high byte
+  612/D32B : 00 00 00                   	db	0,0,0		; serial number, big-endian
+  613/D32E :                            
+  614/D32E :                            
+  615/D32E :                            intrinsic:
+  616/D32E :                            	;look for intrinsic functions (comfcb has been filled)
+  617/D32E : 21 10 D3                   	lxi	h,intvec	;c counts intrinsics as scanned
+  618/D331 : 0E 00                      	mvi	c,0
+  619/D333 :                            intrin0:
+  620/D333 : 79                         	mov	a,c		;done with scan?
+  621/D334 : FE 06                      	cpi	intlen
+  622/D336 : D0                         	rnc
+  623/D337 :                            	;no, more to scan
+  624/D337 : 11 CE D7                   	lxi	d,comfcb+1	;beginning of name
+  625/D33A : 06 04                      	mvi	b,4		;length of match is in b
+  626/D33C :                            intrin1:
+  627/D33C : 1A                         	ldax	d		;match?
+  628/D33D : BE                         	cmp	m
+  629/D33E : C2 4F D3                   	jnz	intrin2		;skip if no match
+  630/D341 : 13                         	inx	d
+  631/D342 : 23                         	inx	h
+  632/D343 : 05                         	dcr	b
+  633/D344 : C2 3C D3                   	jnz	intrin1		;loop while matching
+  634/D347 :                            
+  635/D347 :                            	;complete match on name, check for blank in fcb
+  636/D347 : 1A                         	ldax	d		;otherwise matched
+  637/D348 : FE 20                      	cpi	' '
+  638/D34A : C2 54 D3                   	jnz	intrin3
+  639/D34D : 79                         	mov	a,c		;with intrinsic number in a
+  640/D34E : C9                         	ret
+  641/D34F :                            
+  642/D34F :                            intrin2: ;mismatch, move to end of intrinsic
+  643/D34F : 23                         	inx	h
+  644/D350 : 05                         	dcr	b
+  645/D351 : C2 4F D3                   	jnz	intrin2
+  646/D354 :                            
+  647/D354 :                            intrin3: ;try next intrinsic
+  648/D354 : 0C                         	inr	c		;to next intrinsic number
+  649/D355 : C3 33 D3                   	jmp	intrin0		;for another round
+  650/D358 :                            
+  651/D358 :                            ccpclear:
+  652/D358 :                            	;clear the command buffer
+  653/D358 : AF                         	xra	a
+  654/D359 : 32 07 D0                   	sta	comlen
+  655/D35C :                            	;drop through to start ccp
+  656/D35C :                            ccpstart:
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 12 - 11/17/2026 14:7:8
+con
+
+
+  657/D35C :                            	;enter here from boot loader
+  658/D35C : 31 AB D7                   	lxi	sp,stack	;save initial disk number
+  659/D35F : C5                         	push	b
+  660/D360 :                                    ;(high order 4bits=user code, low 4bits=disk#)
+  661/D360 : 79                         	mov	a,c		;user code
+  662/D361 : 1F                         	rar
+  663/D362 : 1F                         	rar
+  664/D363 : 1F                         	rar
+  665/D364 : 1F                         	rar
+  666/D365 : E6 0F                      	ani	0fh
+  667/D367 :                            	
+  668/D367 : 5F                         	mov	e,a		;user code selected
+  669/D368 : CD 15 D1                   	call	setuser
+  670/D36B :                            	;initialize for this user, get $ flag
+  671/D36B : CD B8 D0                           call	initialize	;0ffh in accum if $ file present
+  672/D36E : 32 AB D7                           sta	submit		;submit flag set if $ file present
+  673/D371 : C1                                 pop	b		;recall user code and disk number
+  674/D372 : 79                         	mov	a,c		;disk number in accumulator
+  675/D373 : E6 0F                      	ani	0fh
+  676/D375 : 32 EF D7                           sta	cdisk		;clears user code nibble
+  677/D378 : CD BD D0                   	call	select		;proper disk is selected, now check sub files
+  678/D37B :                            	;check for initial command
+  679/D37B : 3A 07 D0                   	lda	comlen		;assume typed already
+  680/D37E : B7                         	ora	a
+  681/D37F : C2 98 D3                   	jnz	ccp0
+  682/D382 :                            
+  683/D382 :                            ccp:
+  684/D382 :                            	;enter here on each command or error condition
+  685/D382 : 31 AB D7                   	lxi	sp,stack
+  686/D385 : CD 98 D0                   	call	crlf		;print d> prompt, where d is disk name
+  687/D388 : CD D0 D1                   	call	cselect		;get current disk number
+  688/D38B : C6 41                      	adi	'A'
+  689/D38D : CD 8C D0                   	call	printchar
+  690/D390 : 3E 3E                      	mvi	a,'>'
+  691/D392 : CD 8C D0                   	call	printchar
+  692/D395 : CD 39 D1                   	call	readcom		;command buffer filled
+  693/D398 :                            ccp0:	;(enter here from initialization with command full)
+  694/D398 : 11 80 00                   	lxi	d,buff		;default dma address at buff
+  695/D39B : CD D8 D1                   	call	setdma
+  696/D39E : CD D0 D1                   	call	cselect		;current disk number saved
+  697/D3A1 : 32 EF D7                   	sta	cdisk
+  698/D3A4 : CD 5E D2                   	call	fillfcb0	;command fcb filled
+  699/D3A7 : C4 09 D2                   	cnz	comerr		;the name cannot be an ambiguous reference
+  700/D3AA : 3A F0 D7                   	lda	sdisk
+  701/D3AD : B7                         	ora	a
+  702/D3AE : C2 A5 D6                   	jnz	userfunc
+  703/D3B1 :                            	;check for an intrinsic function
+  704/D3B1 : CD 2E D3                   	call	intrinsic
+  705/D3B4 : 21 C1 D3                   	lxi	h,jmptab	;index is in the accumulator
+  706/D3B7 : 5F                         	mov	e,a		;index in d,e
+  707/D3B8 : 16 00                      	mvi	d,0
+  708/D3BA : 19                         	dad	d
+  709/D3BB : 19                         	dad	d
+  710/D3BC : 7E                         	mov	a,m
+  711/D3BD : 23                         	inx	h
+  712/D3BE : 66                         	mov	h,m
+  713/D3BF : 6F                         	mov	l,a
+  714/D3C0 : E9                         	pchl
+  715/D3C1 :                            	;pc changes to the proper intrinsic or user function
+  716/D3C1 :                            
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 13 - 11/17/2026 14:7:8
+con
+
+
+  717/D3C1 :                            jmptab:
+  718/D3C1 : 77 D4                      	dw	direct	;directory search
+  719/D3C3 : 1F D5                      	dw	erase	;file erase
+  720/D3C5 : 5D D5                      	dw	type	;type file
+  721/D3C7 : AD D5                      	dw	save	;save memory image
+  722/D3C9 : 10 D6                      	dw	rename	;file rename
+  723/D3CB : 8E D6                      	dw	user	;user number
+  724/D3CD : A5 D6                      	dw	userfunc;user-defined function
+  725/D3CF :                            
+  726/D3CF : =>UNDEFINED                	ifndef	noserial
+  727/D3CF :                            badserial:
+  728/D3CF : 21 F3 76                   	LXI	H,76F3H	;'DI HLT' instructions.	
+  729/D3D2 :                            	;typo "lxi h,di or (hlt shl 8)" here originally,
+  730/D3D2 :                            	;corrected by comparing to disassembly of Clark Calkins.
+  731/D3D2 : 22 00 D0                   	shld	ccploc
+  732/D3D5 : 21 00 D0                   	lxi	h,ccploc
+  733/D3D8 : E9                         	pchl
+  734/D3D9 : [726]                      	endif
+  735/D3D9 :                            
+  736/D3D9 :                            ;utility subroutines for intrinsic handlers
+  737/D3D9 :                            readerr:
+  738/D3D9 :                            	;print the read error message
+  739/D3D9 : 01 DF D3                   	lxi	b,rdmsg
+  740/D3DC : C3 A7 D0                   	jmp	print
+  741/D3DF : 52 45 41 44 20 45 52 52    rdmsg: db "READ ERROR",0
+      D3E7 : 4F 52 00                  
+  742/D3EA :                            
+  743/D3EA :                            nofile:
+  744/D3EA :                            	;print no file message
+  745/D3EA : 01 F0 D3                   	lxi	b,nofmsg
+  746/D3ED : C3 A7 D0                   	jmp	print
+  747/D3F0 : 4E 4F 20 46 49 4C 45 00    nofmsg: db "NO FILE",0
+  748/D3F8 :                            
+  749/D3F8 :                            getnumber: ;read a number from the command line
+  750/D3F8 : CD 5E D2                   	call	fillfcb0	;should be number
+  751/D3FB : 3A F0 D7                   	lda	sdisk		;cannot be prefixed
+  752/D3FE : B7                         	ora	a
+  753/D3FF : C2 09 D2                   	jnz	comerr
+  754/D402 :                            	;convert the byte value in comfcb to binary
+  755/D402 : 21 CE D7                   	lxi	h,comfcb+1	;(b=0, c=11)
+  756/D405 : 01 0B 00                   	lxi	b,11
+  757/D408 :                            	;value accumulated in b, c counts name length to zero
+  758/D408 : 7E                         conv0:	mov	a,m
+  759/D409 : FE 20                      	cpi ' '
+  760/D40B : CA 33 D4                   	jz	conv1
+  761/D40E :                            	;more to scan, convert char to binary and add
+  762/D40E : 23                         	inx	h		;valid?
+  763/D40F : D6 30                      	sui	'0'
+  764/D411 : FE 0A                      	cpi	10
+  765/D413 : D2 09 D2                   	jnc	comerr
+  766/D416 : 57                         	mov	d,a		;save value
+  767/D417 : 78                         	mov	a,b		;mult by 10
+  768/D418 : E6 E0                      	ani	11100000b
+  769/D41A : C2 09 D2                   	jnz	comerr
+  770/D41D : 78                         	mov	a,b		;recover value
+  771/D41E : 07                         	rlc			;*8
+  772/D41F : 07                         	rlc
+  773/D420 : 07                         	rlc
+  774/D421 : 80                         	add	b
+  775/D422 : DA 09 D2                   	jc	comerr
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 14 - 11/17/2026 14:7:8
+con
+
+
+  776/D425 : 80                         	add	b		;*8+*2 = *10
+  777/D426 : DA 09 D2                   	jc	comerr
+  778/D429 : 82                         	add	d		;+digit
+  779/D42A : DA 09 D2                   	jc	comerr
+  780/D42D : 47                         	mov	b,a		;for another digit
+  781/D42E : 0D                         	dcr	c
+  782/D42F : C2 08 D4                   	jnz	conv0
+  783/D432 : C9                         	ret
+  784/D433 :                            conv1:	;end of digits, check for all blanks
+  785/D433 : 7E                         	mov	a,m		;blanks?
+  786/D434 : FE 20                      	cpi	' '
+  787/D436 : C2 09 D2                   	jnz	comerr
+  788/D439 : 23                         	inx	h
+  789/D43A : 0D                         	dcr	c
+  790/D43B : C2 33 D4                   	jnz	conv1
+  791/D43E : 78                         	mov	a,b		;recover value
+  792/D43F : C9                         	ret
+  793/D440 :                            
+  794/D440 :                            movename:
+  795/D440 :                            	;move 3 characters from h,l to d,e addresses
+  796/D440 : 06 03                      	mvi	b,3
+  797/D442 : 7E                         move0:	mov	a,m
+  798/D443 : 12                         	stax	d
+  799/D444 : 23                         	inx	h
+  800/D445 : 13                         	inx	d
+  801/D446 : 05                         	dcr	b
+  802/D447 : C2 42 D4                   	jnz	move0
+  803/D44A : C9                         	ret
+  804/D44B :                            
+  805/D44B :                            addhcf:	;buff + a + c to h,l followed by fetch
+  806/D44B : 21 80 00                   	lxi	h,buff
+  807/D44E : 81                         	add	c
+  808/D44F : CD 59 D2                   	call	addh
+  809/D452 : 7E                         	mov	a,m
+  810/D453 : C9                         	ret
+  811/D454 :                            
+  812/D454 :                            setdisk:
+  813/D454 :                            	;change disks for this command, if requested
+  814/D454 : AF                         	xra	a		;clear disk name from fcb
+  815/D455 : 32 CD D7                   	sta	comfcb
+  816/D458 : 3A F0 D7                   	lda	sdisk		;no action if not specified
+  817/D45B : B7                         	ora	a
+  818/D45C : C8                         	rz
+  819/D45D : 3D                         	dcr	a		;already selected
+  820/D45E : 21 EF D7                   	lxi	h,cdisk
+  821/D461 : BE                         	cmp	m
+  822/D462 : C8                         	rz
+  823/D463 : C3 BD D0                   	jmp	select
+  824/D466 :                            
+  825/D466 :                            resetdisk:
+  826/D466 :                            	;return to original disk after command
+  827/D466 : 3A F0 D7                   	lda	sdisk		;no action if not selected
+  828/D469 : B7                         	ora	a
+  829/D46A : C8                         	rz
+  830/D46B : 3D                         	dcr	a		;same disk
+  831/D46C : 21 EF D7                   	lxi	h,cdisk
+  832/D46F : BE                         	cmp	m
+  833/D470 : C8                         	rz
+  834/D471 : 3A EF D7                   	lda	cdisk
+  835/D474 : C3 BD D0                   	jmp	select
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 15 - 11/17/2026 14:7:8
+con
+
+
+  836/D477 :                            
+  837/D477 :                            ;individual intrinsics follow
+  838/D477 :                            direct:
+  839/D477 :                            	;directory search
+  840/D477 : CD 5E D2                   	call	fillfcb0	;comfcb gets file name
+  841/D47A : CD 54 D4                   	call	setdisk		;change disk drives if requested
+  842/D47D : 21 CE D7                   	lxi	h,comfcb+1	;may be empty request
+  843/D480 : 7E                         	mov	a,m
+  844/D481 : FE 20                      	cpi	' '		;skip fill of ??? if not blank
+  845/D483 : C2 8F D4                   	jnz	dir1
+  846/D486 :                            	;set comfcb to all ??? for current disk
+  847/D486 : 06 0B                      	mvi	b,11		;length of fill ????????.???
+  848/D488 : 36 3F                      dir0:	mvi	m,'?'
+  849/D48A : 23                         	inx	h
+  850/D48B : 05                         	dcr	b
+  851/D48C : C2 88 D4                   	jnz	dir0
+  852/D48F :                            	;not a blank request, must be in comfcb
+  853/D48F : 1E 00                      dir1:	mvi	e,0		;E counts directory entries
+  854/D491 : D5                         	push	d
+  855/D492 : CD E9 D0                   	call	searchcom	;first one has been found
+  856/D495 : CC EA D3                   	cz	nofile		;not found message
+  857/D498 : CA 1B D5                   dir2:	jz	endir
+  858/D49B :                            	;found, but may be system file
+  859/D49B : 3A EE D7                   	lda	dcnt		;get the location of the element
+  860/D49E : 0F                         	rrc
+  861/D49F : 0F                         	rrc
+  862/D4A0 : 0F                         	rrc
+  863/D4A1 : E6 60                      	ani	1100000b
+  864/D4A3 : 4F                         	mov	c,a
+  865/D4A4 :                            	;c contains base index into buff for dir entry
+  866/D4A4 : 3E 0A                      	mvi	a,sysfile	;value to A
+  867/D4A6 : CD 4B D4                   	call	addhcf
+  868/D4A9 : 17                         	ral			;skip if system file
+  869/D4AA : DA 0F D5                   	jc	dir6
+  870/D4AD :                            	;c holds index into buffer
+  871/D4AD :                            	;another fcb found, new line?
+  872/D4AD : D1                         	pop	d
+  873/D4AE : 7B                         	mov	a,e
+  874/D4AF : 1C                         	inr	e
+  875/D4B0 : D5                         	push	d
+  876/D4B1 :                            	;e=0,1,2,3,...new line if mod 4 = 0
+  877/D4B1 : E6 03                      	ani	11b		;and save the test
+  878/D4B3 : F5                         	push	psw
+  879/D4B4 : C2 CC D4                   	jnz	dirhdr0		;header on current line
+  880/D4B7 : CD 98 D0                   	call	crlf
+  881/D4BA : C5                         	push	b
+  882/D4BB : CD D0 D1                   	call	cselect
+  883/D4BE : C1                         	pop	b
+  884/D4BF :                            	;current disk in A
+  885/D4BF : C6 41                      	adi	'A'
+  886/D4C1 : CD 92 D0                   	call	printbc
+  887/D4C4 : 3E 3A                      	mvi	a,':'
+  888/D4C6 : CD 92 D0                   	call	printbc
+  889/D4C9 : C3 D4 D4                   	jmp	dirhdr1		;skip current line hdr
+  890/D4CC :                            dirhdr0:
+  891/D4CC : CD A2 D0                   	call	blank		;after last one
+  892/D4CF : 3E 3A                      	mvi	a,':'
+  893/D4D1 : CD 92 D0                   	call	printbc
+  894/D4D4 :                            dirhdr1:
+  895/D4D4 : CD A2 D0                   	call	blank
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 16 - 11/17/2026 14:7:8
+con
+
+
+  896/D4D7 :                            	;compute position of name in buffer
+  897/D4D7 : 06 01                      	mvi	b,1		;start with first character of name
+  898/D4D9 : 78                         dir3:	mov	a,b		;buff+a+c fetched
+  899/D4DA : CD 4B D4                   	call	addhcf
+  900/D4DD : E6 7F                      	ani	7fh		;mask flags
+  901/D4DF :                            	;may delete trailing blanks
+  902/D4DF : FE 20                      	cpi	' '		;check for blank type
+  903/D4E1 : C2 F9 D4                   	jnz	dir4
+  904/D4E4 : F1                         	pop	psw		;may be 3rd item
+  905/D4E5 : F5                         	push	psw
+  906/D4E6 : FE 03                      	cpi	3		;place blank at end if not
+  907/D4E8 : C2 F7 D4                   	jnz	dirb
+  908/D4EB : 3E 09                      	mvi	a,9		;first char of type
+  909/D4ED : CD 4B D4                   	call	addhcf
+  910/D4F0 : E6 7F                      	ani	7fh
+  911/D4F2 : FE 20                      	cpi	' '
+  912/D4F4 : CA 0E D5                   	jz	dir5
+  913/D4F7 :                            	;not a blank in the file type field
+  914/D4F7 : 3E 20                      dirb:	mvi	a,' '		;restore trailing filename chr
+  915/D4F9 :                            dir4:
+  916/D4F9 : CD 92 D0                   	call	printbc		;char printed
+  917/D4FC : 04                         	inr	b
+  918/D4FD : 78                         	mov	a,b
+  919/D4FE : FE 0C                      	cpi	12
+  920/D500 : D2 0E D5                   	jnc	dir5
+  921/D503 :                            	;check for break between names
+  922/D503 : FE 09                      	cpi	9		;for another char
+  923/D505 : C2 D9 D4                   	jnz	dir3
+  924/D508 :                            	;print a blank between names
+  925/D508 : CD A2 D0                   	call	blank
+  926/D50B : C3 D9 D4                   	jmp	dir3
+  927/D50E :                            
+  928/D50E :                            dir5:	;end of current entry
+  929/D50E : F1                         	pop	psw		;discard the directory counter (mod 4)
+  930/D50F : CD C2 D1                   dir6:	call	break_key	;check for interrupt at keyboard
+  931/D512 : C2 1B D5                   	jnz	endir		;abort directory search
+  932/D515 : CD E4 D0                   	call	searchn		;for another entry
+  933/D518 : C3 98 D4                   	jmp	dir2
+  934/D51B :                            endir:	;end of directory scan
+  935/D51B : D1                         	pop	d		;discard directory counter
+  936/D51C : C3 86 D7                   	jmp	retcom
+  937/D51F :                            
+  938/D51F :                            
+  939/D51F :                            erase:
+  940/D51F : CD 5E D2                   	call	fillfcb0	;cannot be all ???'s
+  941/D522 : FE 0B                      	cpi	11
+  942/D524 : C2 42 D5                   	jnz	erasefile
+  943/D527 :                            	;erasing all of the disk
+  944/D527 : 01 52 D5                   	lxi	b,ermsg
+  945/D52A : CD A7 D0                   	call	print
+  946/D52D : CD 39 D1                   	call	readcom
+  947/D530 : 21 07 D0                   	lxi	h,comlen	;bad input
+  948/D533 : 35                         	dcr	m
+  949/D534 : C2 82 D3                   	jnz	ccp
+  950/D537 : 23                         	inx	h
+  951/D538 : 7E                         	mov	a,m
+  952/D539 : FE 59                      	cpi	'Y'
+  953/D53B : C2 82 D3                   	jnz	ccp
+  954/D53E :                            	;ok, erase the entire diskette
+  955/D53E : 23                         	inx	h		;otherwise error at retcom
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 17 - 11/17/2026 14:7:8
+con
+
+
+  956/D53F : 22 88 D0                   	shld	comaddr
+  957/D542 :                            erasefile:
+  958/D542 : CD 54 D4                   	call	setdisk
+  959/D545 : 11 CD D7                   	lxi	d,comfcb
+  960/D548 : CD EF D0                   	call	delete
+  961/D54B : 3C                         	inr	a		;255 returned if not found
+  962/D54C : CC EA D3                   	cz	nofile		;no file message if so
+  963/D54F : C3 86 D7                   	jmp	retcom
+  964/D552 :                            
+  965/D552 : 41 4C 4C 20 28 59 2F 4E    ermsg:	db	"ALL (Y/N)?",0
+      D55A : 29 3F 00                  
+  966/D55D :                            
+  967/D55D :                            type:
+  968/D55D : CD 5E D2                   	call	fillfcb0	;don't allow ?'s in file name
+  969/D560 : C2 09 D2                   	jnz	comerr
+  970/D563 : CD 54 D4                   	call	setdisk		;open the file
+  971/D566 : CD D0 D0                   	call	openc
+  972/D569 : CA A7 D5                   	jz	typerr		;zero flag indicates not found
+  973/D56C :                            	;file opened, read 'til eof
+  974/D56C : CD 98 D0                   	call	crlf		;read first buffer
+  975/D56F : 21 F1 D7                   	lxi	h,bptr
+  976/D572 : 36 FF                      	mvi	m,255
+  977/D574 :                            type0:	;loop on bptr
+  978/D574 : 21 F1 D7                   	lxi	h,bptr		;end buffer
+  979/D577 : 7E                         	mov	a,m
+  980/D578 : FE 80                      	cpi	128
+  981/D57A : DA 87 D5                   	jc	type1		;carry if 0,1,...,127
+  982/D57D : E5                         	push	h
+  983/D57E :                            	;read another buffer full
+  984/D57E : CD FE D0                   	call	diskreadc
+  985/D581 : E1                         	pop	h		;recover address of bptr
+  986/D582 : C2 A0 D5                   	jnz	typeof		;hard end of file
+  987/D585 : AF                         	xra	a		;bptr = 0
+  988/D586 : 77                         	mov	m,a
+  989/D587 :                            type1:	;read character at bptr and print
+  990/D587 : 34                         	inr	m		;bptr = bptr + 1
+  991/D588 : 21 80 00                   	lxi	h,buff		;h,l addresses char
+  992/D58B : CD 59 D2                   	call	addh
+  993/D58E : 7E                         	mov	a,m
+  994/D58F : FE 1A                      	cpi	eofile
+  995/D591 : CA 86 D7                   	jz	retcom
+  996/D594 : CD 8C D0                   	call	printchar
+  997/D597 : CD C2 D1                   	call	break_key	;abort if break
+  998/D59A : C2 86 D7                   	jnz	retcom
+  999/D59D : C3 74 D5                   	jmp	type0 ;for another character
+ 1000/D5A0 :                            
+ 1001/D5A0 :                            typeof:	;end of file, check for errors
+ 1002/D5A0 : 3D                         	dcr	a
+ 1003/D5A1 : CA 86 D7                   	jz	retcom
+ 1004/D5A4 : CD D9 D3                   	call	readerr
+ 1005/D5A7 : CD 66 D4                   typerr:	call	resetdisk
+ 1006/D5AA : C3 09 D2                   	jmp	comerr
+ 1007/D5AD :                            
+ 1008/D5AD :                            save:
+ 1009/D5AD : CD F8 D3                   	call	getnumber	; value to register a
+ 1010/D5B0 : F5                         	push	psw		;save it for later
+ 1011/D5B1 :                            
+ 1012/D5B1 :                            	;should be followed by a file to save the memory image
+ 1013/D5B1 : CD 5E D2                   	call	fillfcb0
+ 1014/D5B4 : C2 09 D2                   	jnz	comerr		;cannot be ambiguous
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 18 - 11/17/2026 14:7:8
+con
+
+
+ 1015/D5B7 : CD 54 D4                   	call	setdisk		;may be a disk change
+ 1016/D5BA : 11 CD D7                   	lxi	d,comfcb	;existing file removed
+ 1017/D5BD : D5                         	push	d
+ 1018/D5BE : CD EF D0                   	call	delete
+ 1019/D5C1 : D1                         	pop	d
+ 1020/D5C2 : CD 09 D1                   	call	make		;create a new file on disk
+ 1021/D5C5 : CA FB D5                   	jz	saverr		;no directory space
+ 1022/D5C8 : AF                         	xra	a		;clear next record field
+ 1023/D5C9 : 32 ED D7                   	sta	comrec
+ 1024/D5CC : F1                         	pop	psw		;#pages to write is in a, change to #sectors
+ 1025/D5CD : 6F                         	mov	l,a
+ 1026/D5CE : 26 00                      	mvi	h,0
+ 1027/D5D0 : 29                         	dad	h 
+ 1028/D5D1 : 11 00 01                   	lxi	d,tran		;h,l is sector count, d,e is load address
+ 1029/D5D4 :                            save0:	;check for sector count zero
+ 1030/D5D4 : 7C                         	mov	a,h		;may be completed
+ 1031/D5D5 : B5                         	ora	l
+ 1032/D5D6 : CA F1 D5                   	jz	save1
+ 1033/D5D9 : 2B                         	dcx	h		;sector count = sector count - 1
+ 1034/D5DA : E5                         	push	h		;save it for next time around
+ 1035/D5DB : 21 80 00                   	lxi	h,128		;next dma address saved
+ 1036/D5DE : 19                         	dad	d
+ 1037/D5DF : E5                         	push	h
+ 1038/D5E0 : CD D8 D1                   	call	setdma		;current dma address set
+ 1039/D5E3 : 11 CD D7                   	lxi	d,comfcb
+ 1040/D5E6 : CD 04 D1                   	call	diskwrite
+ 1041/D5E9 : D1                         	pop	d		;dma address, sector count
+ 1042/D5EA : E1                         	pop	h
+ 1043/D5EB : C2 FB D5                   	jnz	saverr		;may be disk full case
+ 1044/D5EE : C3 D4 D5                   	jmp	save0		;for another sector
+ 1045/D5F1 :                            
+ 1046/D5F1 :                            save1:	;end of dump, close the file
+ 1047/D5F1 : 11 CD D7                   	lxi	d,comfcb
+ 1048/D5F4 : CD DA D0                   	call	close
+ 1049/D5F7 : 3C                         	inr	a		;255 becomes 00 if error
+ 1050/D5F8 : C2 01 D6                   	jnz	retsave		;for another command
+ 1051/D5FB :                            saverr:	;must be full or read only disk
+ 1052/D5FB : 01 07 D6                   	lxi	b,fullmsg
+ 1053/D5FE : CD A7 D0                   	call	print
+ 1054/D601 :                            retsave:
+ 1055/D601 :                            	;reset dma buffer
+ 1056/D601 : CD D5 D1                   	call	setdmabuff
+ 1057/D604 : C3 86 D7                   	jmp	retcom
+ 1058/D607 :                            fullmsg:
+ 1059/D607 : 4E 4F 20 53 50 41 43 45    	db "NO SPACE",0
+      D60F : 00                        
+ 1060/D610 :                            
+ 1061/D610 :                            
+ 1062/D610 :                            rename:
+ 1063/D610 :                            	;rename a file on a specific disk
+ 1064/D610 : CD 5E D2                   	call	fillfcb0	;must be unambiguous
+ 1065/D613 : C2 09 D2                   	jnz	comerr
+ 1066/D616 : 3A F0 D7                   	lda	sdisk		;save for later compare
+ 1067/D619 : F5                         	push	psw
+ 1068/D61A : CD 54 D4                   	call	setdisk		;disk selected
+ 1069/D61D : CD E9 D0                   	call	searchcom	;is new name already there?
+ 1070/D620 : C2 79 D6                   	jnz	renerr3
+ 1071/D623 :                            	;file doesn't exist, move to second half of fcb
+ 1072/D623 : 21 CD D7                   	lxi	h,comfcb
+ 1073/D626 : 11 DD D7                   	lxi	d,comfcb+16
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 19 - 11/17/2026 14:7:8
+con
+
+
+ 1074/D629 : 06 10                      	mvi	b,16
+ 1075/D62B : CD 42 D4                   	call	move0
+ 1076/D62E :                            	;check for = or left arrow
+ 1077/D62E : 2A 88 D0                   	lhld	comaddr
+ 1078/D631 : EB                         	xchg
+ 1079/D632 : CD 4F D2                   	call	deblank
+ 1080/D635 : FE 3D                      	cpi	'='		;ok if =
+ 1081/D637 : CA 3F D6                   	jz	ren1
+ 1082/D63A : FE 5F                      	cpi	la
+ 1083/D63C : C2 73 D6                   	jnz	renerr2
+ 1084/D63F : EB                         ren1:	xchg			;past delimiter
+ 1085/D640 : 23                         	inx	h
+ 1086/D641 : 22 88 D0                   	shld	comaddr
+ 1087/D644 :                            	;proper delimiter found
+ 1088/D644 : CD 5E D2                   	call	fillfcb0
+ 1089/D647 : C2 73 D6                   	jnz	renerr2
+ 1090/D64A :                            	;check for drive conflict
+ 1091/D64A : F1                         	pop	psw		;previous drive number
+ 1092/D64B : 47                         	mov	b,a
+ 1093/D64C : 21 F0 D7                   	lxi	h,sdisk
+ 1094/D64F : 7E                         	mov	a,m
+ 1095/D650 : B7                         	ora	a
+ 1096/D651 : CA 59 D6                   	jz	ren2
+ 1097/D654 :                            	;drive name was specified.  same one?
+ 1098/D654 : B8                         	cmp	b
+ 1099/D655 : 70                         	mov	m,b
+ 1100/D656 : C2 73 D6                   	jnz	renerr2
+ 1101/D659 : 70                         ren2:	mov	m,b		;store the name in case drives switched
+ 1102/D65A : AF                         	xra	a		;is old file there?
+ 1103/D65B : 32 CD D7                   	sta	comfcb
+ 1104/D65E : CD E9 D0                   	call	searchcom
+ 1105/D661 : CA 6D D6                   	jz	renerr1
+ 1106/D664 :                            
+ 1107/D664 :                            	;everything is ok, rename the file
+ 1108/D664 : 11 CD D7                   	lxi	d,comfcb
+ 1109/D667 : CD 0E D1                   	call	renam
+ 1110/D66A : C3 86 D7                   	jmp	retcom
+ 1111/D66D :                            
+ 1112/D66D :                            renerr1:; no file on disk
+ 1113/D66D : CD EA D3                   	call	nofile
+ 1114/D670 : C3 86 D7                   	jmp	retcom
+ 1115/D673 :                            renerr2:; ambigous reference/name conflict
+ 1116/D673 : CD 66 D4                   	call	resetdisk
+ 1117/D676 : C3 09 D2                   	jmp	comerr
+ 1118/D679 :                            renerr3:; file already exists
+ 1119/D679 : 01 82 D6                   	lxi	b,renmsg
+ 1120/D67C : CD A7 D0                   	call	print
+ 1121/D67F : C3 86 D7                   	jmp	retcom
+ 1122/D682 : 46 49 4C 45 20 45 58 49    renmsg:	db "FILE EXISTS",0
+      D68A : 53 54 53 00            
+ 1123/D68E :                            
+ 1124/D68E :                            user:
+ 1125/D68E :                            	;set user number
+ 1126/D68E : CD F8 D3                   	call	getnumber	; leaves the value in the accumulator
+ 1127/D691 : FE 10                      	cpi	16		; must be between 0 and 15
+ 1128/D693 : D2 09 D2                   	jnc	comerr
+ 1129/D696 : 5F                         	mov	e,a		;save for setuser call
+ 1130/D697 : 3A CE D7                   	lda	comfcb+1
+ 1131/D69A : FE 20                      	cpi	' '
+ 1132/D69C : CA 09 D2                   	jz	comerr
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 20 - 11/17/2026 14:7:8
+con
+
+
+ 1133/D69F : CD 15 D1                   	call	setuser		;new user number set
+ 1134/D6A2 : C3 89 D7                   	jmp	endcom
+ 1135/D6A5 :                            
+ 1136/D6A5 :                            userfunc:
+ 1137/D6A5 : =>UNDEFINED                	ifndef	noserialize
+ 1138/D6A5 : CD F5 D1                   	call	serialize	;check serialization
+ 1139/D6A8 : [1137]                     	endif
+ 1140/D6A8 :                            	;load user function and set up for execution
+ 1141/D6A8 : 3A CE D7                   	lda	comfcb+1
+ 1142/D6AB : FE 20                      	cpi	' '
+ 1143/D6AD : C2 C4 D6                   	jnz	user0
+ 1144/D6B0 :                            	;no file name, but may be disk switch
+ 1145/D6B0 : 3A F0 D7                   	lda	sdisk		;no disk name if 0
+ 1146/D6B3 : B7                         	ora	a
+ 1147/D6B4 : CA 89 D7                   	jz	endcom
+ 1148/D6B7 : 3D                         	dcr	a		;set user/disk
+ 1149/D6B8 : 32 EF D7                   	sta	cdisk
+ 1150/D6BB : CD 29 D1                   	call	setdiska
+ 1151/D6BE : CD BD D0                   	call	select
+ 1152/D6C1 : C3 89 D7                   	jmp	endcom
+ 1153/D6C4 :                            user0:	;file name is present
+ 1154/D6C4 : 11 D6 D7                   	lxi	d,comfcb+9	;type ' '
+ 1155/D6C7 : 1A                         	ldax	d
+ 1156/D6C8 : FE 20                      	cpi	' '
+ 1157/D6CA : C2 09 D2                   	jnz	comerr
+ 1158/D6CD : D5                         	push	d		;.com
+ 1159/D6CE : CD 54 D4                   	call	setdisk
+ 1160/D6D1 : D1                         	pop	d
+ 1161/D6D2 : 21 83 D7                   	lxi	h,comtype
+ 1162/D6D5 : CD 40 D4                   	call	movename	;file type is set to .com
+ 1163/D6D8 : CD D0 D0                   	call	openc
+ 1164/D6DB : CA 6B D7                   	jz	userer
+ 1165/D6DE :                            	;file opened properly, read it into memory
+ 1166/D6DE : 21 00 01                   	lxi	h,tran		;transient program base
+ 1167/D6E1 : E5                         load0:	push	h		;save dma address
+ 1168/D6E2 : EB                         	xchg
+ 1169/D6E3 : CD D8 D1                   	call	setdma
+ 1170/D6E6 : 11 CD D7                   	lxi	d,comfcb
+ 1171/D6E9 : CD F9 D0                   	call	diskread
+ 1172/D6EC : C2 01 D7                   	jnz	load1
+ 1173/D6EF :                            	;sector loaded, set new dma address and compare
+ 1174/D6EF : E1                         	pop	h
+ 1175/D6F0 : 11 80 00                   	lxi	d,128
+ 1176/D6F3 : 19                         	dad	d
+ 1177/D6F4 : 11 00 D0                   	lxi	d,tranm		;has the load overflowed?
+ 1178/D6F7 : 7D                         	mov	a,l
+ 1179/D6F8 : 93                         	sub	e
+ 1180/D6F9 : 7C                         	mov	a,h
+ 1181/D6FA : 9A                         	sbb	d
+ 1182/D6FB : D2 71 D7                   	jnc	loaderr
+ 1183/D6FE : C3 E1 D6                   	jmp	load0		;for another sector
+ 1184/D701 :                            
+ 1185/D701 : E1                         load1:	pop	h		;end file is 1
+ 1186/D702 : 3D                         	dcr	a
+ 1187/D703 : C2 71 D7                   	jnz	loaderr
+ 1188/D706 : CD 66 D4                   	call	resetdisk	;back to original disk
+ 1189/D709 : CD 5E D2                   	call	fillfcb0
+ 1190/D70C : 21 F0 D7                   	lxi	h,sdisk
+ 1191/D70F : E5                         	push	h
+ 1192/D710 : 7E                         	mov	a,m		;drive number set
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 21 - 11/17/2026 14:7:8
+con
+
+
+ 1193/D711 : 32 CD D7                   	sta	comfcb
+ 1194/D714 : 3E 10                      	mvi	a,16		;move entire fcb to memory
+ 1195/D716 : CD 60 D2                   	call	fillfcb
+ 1196/D719 : E1                         	pop	h
+ 1197/D71A : 7E                         	mov	a,m
+ 1198/D71B : 32 DD D7                   	sta	comfcb+16
+ 1199/D71E : AF                         	xra	a		;record number set to zero
+ 1200/D71F : 32 ED D7                   	sta	comrec
+ 1201/D722 : 11 5C 00                   	lxi	d,fcb
+ 1202/D725 : 21 CD D7                   	lxi	h,comfcb
+ 1203/D728 : 06 21                      	mvi	b,33
+ 1204/D72A : CD 42 D4                   	call	move0
+ 1205/D72D :                            	;move command line to buff
+ 1206/D72D : 21 08 D0                   	lxi	h,combuf
+ 1207/D730 : 7E                         bmove0:	mov	a,m
+ 1208/D731 : B7                         	ora	a
+ 1209/D732 : CA 3E D7                   	jz	bmove1
+ 1210/D735 : FE 20                      	cpi	' '
+ 1211/D737 : CA 3E D7                   	jz	bmove1
+ 1212/D73A : 23                         	inx	h		;for another scan
+ 1213/D73B : C3 30 D7                   	jmp	bmove0
+ 1214/D73E :                            	;first blank position found
+ 1215/D73E : 06 00                      bmove1:	mvi	b,0		;ready for the move
+ 1216/D740 : 11 81 00                   	lxi	d,buff+1
+ 1217/D743 : 7E                         bmove2:	mov	a,m
+ 1218/D744 : 12                         	stax	d
+ 1219/D745 : B7                         	ora	a
+ 1220/D746 : CA 4F D7                   	jz	bmove3
+ 1221/D749 :                            	;more to move
+ 1222/D749 : 04                         	inr	b
+ 1223/D74A : 23                         	inx	h
+ 1224/D74B : 13                         	inx	d
+ 1225/D74C : C3 43 D7                   	jmp	bmove2
+ 1226/D74F :                            bmove3:	;b has character count
+ 1227/D74F : 78                         	mov	a,b
+ 1228/D750 : 32 80 00                   	sta	buff
+ 1229/D753 : CD 98 D0                   	call	crlf
+ 1230/D756 :                            	;now go to the loaded program
+ 1231/D756 : CD D5 D1                   	call	setdmabuff	;default dma
+ 1232/D759 : CD 1A D1                   	call	saveuser	;user code saved
+ 1233/D75C :                            	;low memory diska contains user code
+ 1234/D75C : CD 00 01                   	call	tran		;gone to the loaded program
+ 1235/D75F : 31 AB D7                   	lxi	sp,stack	;may come back here
+ 1236/D762 : CD 29 D1                   	call	setdiska
+ 1237/D765 : CD BD D0                   	call	select
+ 1238/D768 : C3 82 D3                   	jmp	ccp
+ 1239/D76B :                            
+ 1240/D76B :                            userer:	;arrive here on command error
+ 1241/D76B : CD 66 D4                   	call	resetdisk
+ 1242/D76E : C3 09 D2                   	jmp	comerr
+ 1243/D771 :                            
+ 1244/D771 :                            loaderr:;cannot load the program
+ 1245/D771 : 01 7A D7                   	lxi	b,loadmsg
+ 1246/D774 : CD A7 D0                   	call	print
+ 1247/D777 : C3 86 D7                   	jmp	retcom
+ 1248/D77A :                            loadmsg:
+ 1249/D77A : 42 41 44 20 4C 4F 41 44    	db "BAD LOAD",0
+      D782 : 00                        
+ 1250/D783 :                            comtype:
+ 1251/D783 : 43 4F 4D                   	db "COM"		;for com files
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 22 - 11/17/2026 14:7:8
+con
+
+
+ 1252/D786 :                            
+ 1253/D786 :                            
+ 1254/D786 :                            retcom:	;reset disk before end of command check
+ 1255/D786 : CD 66 D4                   	call	resetdisk
+ 1256/D789 :                            
+ 1257/D789 :                            endcom:	;end of intrinsic command
+ 1258/D789 : CD 5E D2                   	call	fillfcb0	;to check for garbage at end of line
+ 1259/D78C : 3A CE D7                   	lda	comfcb+1
+ 1260/D78F : D6 20                      	sui	' '
+ 1261/D791 : 21 F0 D7                   	lxi	h,sdisk
+ 1262/D794 : B6                         	ora	m
+ 1263/D795 :                            	;0 in accumulator if no disk selected, and blank fcb
+ 1264/D795 : C2 09 D2                   	jnz	comerr
+ 1265/D798 : C3 82 D3                   	jmp	ccp
+ 1266/D79B :                            
+ 1267/D79B :                            
+ 1268/D79B :                            
+ 1269/D79B :                            ;	data areas
+ 1270/D79B :                            	ds	16	;8 level stack
+ 1271/D7AB :                            stack:
+ 1272/D7AB :                            
+ 1273/D7AB :                            ;	'submit' file control block
+ 1274/D7AB : 00                         submit:	db	0	;00 if no submit file, ff if submitting
+ 1275/D7AC : 00 24 24 24 20 20 20 20    subfcb:	db	0,"$$$     "	;file name is $$$
+      D7B4 : 20                        
+ 1276/D7B5 : 53 55 42 00 00             	db	"SUB",0,0	;file type is sub
+ 1277/D7BA : 00                         submod:	db	0	;module number
+ 1278/D7BB :                            subrc:	ds	1	;record count filed
+ 1279/D7BC :                            	ds	16	;disk map
+ 1280/D7CC :                            subcr:	ds	1	;current record to read
+ 1281/D7CD :                            
+ 1282/D7CD :                            ;	command file control block
+ 1283/D7CD :                            comfcb:	ds	32	;fields filled in later
+ 1284/D7ED :                            comrec:	ds	1	;current record to read/write
+ 1285/D7EE :                            dcnt:	ds	1	;disk directory count (used for error codes)
+ 1286/D7EF :                            cdisk:	ds	1	;current disk
+ 1287/D7F0 :                            sdisk:	ds	1	;selected disk for current operation
+ 1288/D7F1 :                            			;none=0, a=1, b=2 ...
+ 1289/D7F1 :                            bptr:	ds	1	;buffer pointer
+ 1290/D7F2 :                            	end	ccploc
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 23 - 11/17/2026 14:7:8
+con
+
+
+  Symbol Table (* = unused):
+  --------------------------
+
+ ADDH :                       0D259 C |  ADDHCF :                     0D44B C |
+*ARCHITECTURE :                                        "i386-unknown-win32" - |
+*ASL_VERSION :              12A013C - |  BADSERIAL :                  0D3CF C |
+ BDOS :                           5 - |  BDOSL :                      0D800 - |
+ BDOS_COND :                  0D0F4 C |  BDOS_INR :                   0D0C3 C |
+ BLANK :                      0D0A2 C |  BMOVE0 :                     0D730 C |
+ BMOVE1 :                     0D73E C |  BMOVE2 :                     0D743 C |
+ BMOVE3 :                     0D74F C |  BPTR :                       0D7F1 C |
+ BREAKF :                        0B - |  BREAK_KEY :                  0D1C2 C |
+ BUFF :                          80 - | *CASESENSITIVE :                  0 - |
+ CCP :                        0D382 C |  CCP0 :                       0D398 C |
+ CCPCLEAR :                   0D358 C |  CCPLOC :                     0D000 - |
+ CCPSTART :                   0D35C C |  CDISK :                      0D7EF C |
+ CLOSE :                      0D0DA C |  CLOSEF :                        10 - |
+ COMADDR :                    0D088 C |  COMBUF :                     0D008 C |
+ COMERR :                     0D209 C |  COMERR0 :                    0D20F C |
+ COMERR1 :                    0D222 C |  COMFCB :                     0D7CD C |
+ COMLEN :                     0D007 C |  COMREC :                     0D7ED C |
+ COMTYPE :                    0D783 C | *CONSTPI :     3.141592653589793239 - |
+ CONV0 :                      0D408 C |  CONV1 :                      0D433 C |
+ CR :                            0D - |  CRLF :                       0D098 C |
+ CSELECT :                    0D1D0 C |  CSELF :                         19 - |
+*DATE :                "11/17/2026" - |  DCNT :                       0D7EE C |
+ DEBLANK :                    0D24F C |  DELETE :                     0D0EF C |
+ DELF :                          13 - |  DELIM :                      0D230 C |
+ DEL_SUB :                    0D1DD C |  DIR0 :                       0D488 C |
+ DIR1 :                       0D48F C |  DIR2 :                       0D498 C |
+ DIR3 :                       0D4D9 C |  DIR4 :                       0D4F9 C |
+ DIR5 :                       0D50E C |  DIR6 :                       0D50F C |
+ DIRB :                       0D4F7 C |  DIRECT :                     0D477 C |
+ DIRHDR0 :                    0D4CC C |  DIRHDR1 :                    0D4D4 C |
+ DISKA :                          4 - |  DISKREAD :                   0D0F9 C |
+ DISKREADC :                  0D0FE C |  DISKWRITE :                  0D104 C |
+ DMAF :                          1A - |  DREADF :                        14 - |
+ DWRITF :                        15 - |  EFILL :                      0D2F0 C |
+ EFILL0 :                     0D2F2 C |  ENDCOM :                     0D789 C |
+ ENDIR :                      0D51B C |  EOFILE :                        1A - |
+ ERASE :                      0D51F C |  ERASEFILE :                  0D542 C |
+ ERMSG :                      0D552 C | *FALSE :                          0 - |
+ FCB :                           5C - |  FILLFCB :                    0D260 C |
+ FILLFCB0 :                   0D25E C | *FLOATMAX :   1.18973149535725E4932 - |
+ FULLMSG :                    0D607 C |  GETNUMBER :                  0D3F8 C |
+ GETUSER :                    0D113 C | *HAS64 :                          1 - |
+ INITF :                         0D - |  INITIALIZE :                 0D0B8 C |
+ INTLEN :                         6 - |  INTRIN0 :                    0D333 C |
+ INTRIN1 :                    0D33C C |  INTRIN2 :                    0D34F C |
+ INTRIN3 :                    0D354 C |  INTRINSIC :                  0D32E C |
+ INTVEC :                     0D310 C | *INTWIDTH :                      40 - |
+ JMPTAB :                     0D3C1 C |  LA :                            5F - |
+ LF :                            0A - | *LIFTF :                         0C - |
+*LISTON :                         1 - |  LOAD0 :                      0D6E1 C |
+ LOAD1 :                      0D701 C |  LOADERR :                    0D771 C |
+ LOADMSG :                    0D77A C | *LOGF :                          18 - |
+*MACEXP :                         7 - |  MAKE :                       0D109 C |
+ MAKEF :                         16 - |  MAXLEN :                     0D006 C |
+*MOMCPU :                      8080 - | *MOMCPUNAME :                "8080" - |
+ MOVE0 :                      0D442 C |  MOVENAME :                   0D440 C |
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 24 - 11/17/2026 14:7:8
+con
+
+
+*NESTMAX :                      100 - |  NOFILE :                     0D3EA C |
+ NOFMSG :                     0D3F0 C |  NOREAD :                     0D1A7 C |
+ NOSUB :                      0D196 C |  OPEN :                       0D0CB C |
+ OPENC :                      0D0D0 C |  OPENF :                         0F - |
+ ORIGIN :                     0D000 - |  PADNAME :                    0D2B9 C |
+ PADTY :                      0D2E9 C | *PBUFF :                          9 - |
+ PCHARF :                         2 - |  PRIN0 :                      0D0AC C |
+ PRINT :                      0D0A7 C |  PRINTBC :                    0D092 C |
+ PRINTCHAR :                  0D08C C |  RBUFF :                         0A - |
+ RCHARF :                         1 - |  RDMSG :                      0D3DF C |
+ READCOM :                    0D139 C |  READCOM0 :                   0D1AB C |
+ READCOM1 :                   0D1BA C |  READERR :                    0D3D9 C |
+*RELAXED :                        0 - |  REN1 :                       0D63F C |
+ REN2 :                       0D659 C |  RENAM :                      0D10E C |
+ RENAME :                     0D610 C |  RENERR1 :                    0D66D C |
+ RENERR2 :                    0D673 C |  RENERR3 :                    0D679 C |
+ RENF :                          17 - |  RENMSG :                     0D682 C |
+ RESETDISK :                  0D466 C |  RETCOM :                     0D786 C |
+ RETSAVE :                    0D601 C | *ROFILE :                         9 - |
+ SAVE :                       0D5AD C |  SAVE0 :                      0D5D4 C |
+ SAVE1 :                      0D5F1 C |  SAVERR :                     0D5FB C |
+ SAVEUSER :                   0D11A C |  SCNQ :                       0D301 C |
+ SCNQ0 :                      0D309 C |  SDISK :                      0D7F0 C |
+ SEARCH :                     0D0DF C |  SEARCHCOM :                  0D0E9 C |
+ SEARCHN :                    0D0E4 C |  SEARF :                         11 - |
+ SEARNF :                        12 - |  SELECT :                     0D0BD C |
+ SELF :                          0E - |  SER0 :                       0D1FD C |
+ SERIAL :                     0D328 C |  SERIALIZE :                  0D1F5 C |
+*SETCUR :                     0D288 C |  SETCUR0 :                    0D289 C |
+ SETDISK :                    0D454 C |  SETDISKA :                   0D129 C |
+ SETDMA :                     0D1D8 C |  SETDMABUFF :                 0D1D5 C |
+ SETDSK :                     0D290 C |  SETNAM0 :                    0D298 C |
+ SETNAM1 :                    0D2A9 C |  SETNAM2 :                    0D2AB C |
+ SETNAME :                    0D296 C |  SETTY :                      0D2C0 C |
+ SETTY0 :                     0D2C8 C |  SETTY1 :                     0D2D9 C |
+ SETTY2 :                     0D2DB C |  SETUSER :                    0D115 C |
+ STACK :                      0D7AB C |  STADDR :                     0D08A C |
+ SUBCR :                      0D7CC C |  SUBFCB :                     0D7AC C |
+ SUBMIT :                     0D7AB C |  SUBMOD :                     0D7BA C |
+ SUBRC :                      0D7BB C |  SYSFILE :                       0A - |
+*TESTING :                        0 - | *TIME :                    "14:7:7" - |
+ TRAN :                         100 - |  TRANM :                      0D000 - |
+ TRANSLATE :                  0D130 C |  TRNAME :                     0D2AF C |
+ TRTYP :                      0D2DF C | *TRUE :                           1 - |
+ TYPE :                       0D55D C |  TYPE0 :                      0D574 C |
+ TYPE1 :                      0D587 C |  TYPEOF :                     0D5A0 C |
+ TYPERR :                     0D5A7 C |  USER :                       0D68E C |
+ USER0 :                      0D6C4 C |  USERER :                     0D76B C |
+ USERF :                         20 - |  USERFUNC :                   0D6A5 C |
+*VERSION :                     142F - | *Z80SYNTAX :                      0 - |
+ _FALSE :                         0 - | *_TRUE :          0FFFFFFFFFFFFFFFF - |
+
+    215 symbols
+     26 unused symbols
+
+ AS V1.42 Beta [Bld 316] - Source File ccp.asm - Page 25 - 11/17/2026 14:7:8
+con
+
+
+  Code Pages:
+  ----------
+
+STANDARD (0 changed characters)
+
+1 code page
+
+0.03 seconds assembly time
+
+   1291 lines source file
+      2 passes
+      0 errors
+      0 warnings

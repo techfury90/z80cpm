@@ -53,7 +53,8 @@ for name,path,base in FILES:
           %(name,len(data),d[15],base,base+nblk-1,d[15]))
 
 # ---------------- drive C: formatted, blank ----------------
-for blk in range(1,9):
+# new 4KB-block / DRM=255 geometry: directory = 2 blocks = 8KB = 16 SD sectors
+for blk in range(1,17):
     S.SD.blocks[blk]=bytearray(b'\xE5'*512)
 
 # ---------------- boot ----------------
@@ -77,26 +78,52 @@ err = 'Bad Sector' in con
 print("=== disk error reported:", err)
 
 # ---------------- verify both files on the card ----------------
-S.MEM[SELBL]=2; S.MEM[DMA]=0x80; S.MEM[DMA+1]=0
+# Parse the drive C: directory from the card (8KB on the SD = 16 sectors, down
+# at CP/M blocks 0-1) to find each file's ACTUAL block allocation.  With the
+# double-DM DPB (DSM>255) the allocation map is 8 x 16-bit LE block numbers, so a
+# file's blocks can be >255.  This is geometry-independent and also verifies the
+# directory WRITE, not just the data.
+def read_cdir():
+    return b''.join(S.SD.blocks.get(i, bytearray(512)) for i in range(1,17))
+
+def find_blocks(dirdata, name):
+    for e in range(256):
+        ent = dirdata[e*32:(e+1)*32]
+        if ent[0]==0xE5: continue
+        fn=(ent[1:9].decode('ascii','ignore').strip()+'.'
+            +ent[9:12].decode('ascii','ignore').strip()).upper()
+        if fn==name.upper():
+            return [ent[16+2*i] | (ent[17+2*i]<<8) for i in range(8) if (ent[16+2*i] | (ent[17+2*i]<<8))]
+    return None
+
 S.MEM[0xFC00]=0x76
 allok=True
+dirdata=read_cdir()
+RECPERBLK=32   # 4KB allocation block / 128-byte record (BSH=5)
 for name,path,base in FILES:
     want=open(path,'rb').read()
     recs=(len(want)+127)//128
+    blks=find_blocks(dirdata, name)
+    if blks is None:
+        print("%-8s NOT FOUND in C: directory"%name); allok=False; continue
+    cstart=blks[0]
+    # host (PC-side) view: the DRI deblock mapping applied to the raw card
+    host=bytearray()
+    for rec in range(cstart*RECPERBLK, cstart*RECPERBLK+recs):
+        b=S.SD.blocks.get(1+rec//4)
+        host += (b or bytearray(512))[(rec%4)*128:(rec%4)*128+128]
+    hsame=(bytes(host[:len(want)])==want)
+    # CBIOS view: read the file's records back through the BIOS READ entry
+    S.MEM[SELBL]=2; S.MEM[DMA]=0x80; S.MEM[DMA+1]=0
     got=bytearray(); rerr=None
-    for rec in range(base*16, base*16+recs):
+    for r in range(recs):
+        rec=cstart*RECPERBLK + r
         S.MEM[TRK]=rec>>5; S.MEM[SECN]=rec&31
         S.SP=0xCE00; S.push(0xFC00); S.PC=S.V('READ'); S.HALTED=False
         S.run(max_steps=800000, until=lambda: S.PC==0xFC00)
         if S.A!=0: rerr=(rec,S.A); break
         got+=bytes(S.MEM[0x80:0x100])
-    same = (rerr is None) and bytes(got[:len(want)])==want
-    # host (PC-side) view: correct deblock mapping must also agree
-    host=bytearray()
-    for rec in range(base*16, base*16+recs):
-        b=S.SD.blocks.get(1+rec//4)
-        host += (b or bytearray(512))[(rec%4)*128:(rec%4)*128+128]
-    hsame = bytes(host[:len(want)])==want
+    same=(rerr is None) and bytes(got[:len(want)])==want
     print("%-8s CBIOS read-back: %s%s   host view of card: %s"
           %(name, "byte-exact" if same else "MISMATCH",
             (" (read err %s)"%str(rerr)) if rerr else "", "byte-exact" if hsame else "CORRUPT"))

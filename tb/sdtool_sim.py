@@ -357,12 +357,18 @@ def main():
             b0[446],b0[450], b0[454],b0[455],b0[456],b0[457], b0[458],b0[459],b0[460],b0[461], b0[510],b0[511]))
     else:
         print("  block 0 not written")
-    # verify the formatted directory (partition start = LBA 1) is 0xE5
-    b1 = SD.blocks.get(1)
-    if b1 is not None:
-        alle5 = all(x==0xE5 for x in b1)
-        print("  partition LBA1 first 8 bytes:", [hex(x) for x in b1[:8]])
-        print("  partition LBA1 ALL 512 bytes 0xE5? :", "YES" if alle5 else "NO  (upper half not filled = format bug)")
+    # verify the formatted directory (partition start = LBA 1) is 0xE5.
+    # 4KB-block / DRM=255 geometry: the directory = 2 blocks = 8KB = 16 SD
+    # sectors (blocks 1-16).  Check ALL of them -- a formatter that writes only
+    # the first N would leave the upper sectors stale (phantom dir entries).
+    bad=[]
+    for b in range(1,17):
+        sb=SD.blocks.get(b)
+        if sb is None or not all(x==0xE5 for x in sb):
+            bad.append(b)
+    b1=SD.blocks.get(1)
+    print("  partition LBA1 first 8 bytes:", [hex(x) for x in (b1 or bytearray(512))[:8]])
+    print("  partition dir sectors 1-16 ALL 0xE5? :", "YES" if not bad else ("NO  (not E5: "+str(bad)+")"))
     print("=== BDOS func counts ===", collections.Counter(bdos_calls))
 
 if __name__=='__main__':

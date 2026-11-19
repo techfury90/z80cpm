@@ -369,6 +369,9 @@ def main():
     b1=SD.blocks.get(1)
     print("  partition LBA1 first 8 bytes:", [hex(x) for x in (b1 or bytearray(512))[:8]])
     print("  partition dir sectors 1-16 ALL 0xE5? :", "YES" if not bad else ("NO  (not E5: "+str(bad)+")"))
+    for b in bad:
+        print("    block %d first bytes: %s"%(b, [hex(x) for x in list(SD.blocks.get(b,bytearray(512)))[:12]]))
+    print("  SD blocks present: %s"%sorted(SD.blocks.keys())[:20])
     print("=== BDOS func counts ===", collections.Counter(bdos_calls))
 
 if __name__=='__main__':

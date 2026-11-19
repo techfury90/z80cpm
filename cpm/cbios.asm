@@ -300,15 +300,25 @@ SELD3:
 
 ; HOME: move to track 0, sector 0.
 HOME:
-        MVI     A,00H
-        STA     TRK
+        XRA     A
+        STA     TRK             ; track low byte
+        STA     TRK+1           ; track high byte -- MUST clear both, or a stale
+                                ; high byte left by a prior drive-C access would
+                                ; survive a HOME on a small drive A/B and corrupt
+                                ; the track address
         STA     SECN
         RET
 
-; SETTRK: set the current track (register C).
+; SETTRK: set the current track.  CP/M 2 passes the track as a WORD in BC (DRI
+;   manual Table 6-5: "Register BC contains the track number ... 0-65535 for
+;   nonstandard disk subsystems"; seasip: "a word under CP/M 2").  Store BOTH
+;   bytes -- the high byte is what lets us address >256 tracks (an 8 MB drive at
+;   SPT=32 needs tracks up to 2047).
 SETTRK:
         MOV     A,C
-        STA     TRK
+        STA     TRK             ; track low byte
+        MOV     A,B
+        STA     TRK+1           ; track high byte
         RET
 
 ; SETSEC: set the current sector (register C).
@@ -446,9 +456,8 @@ WRITE1:
 ;   the in-sector byte offset (SDOFF, 16-bit) for the current 128-byte record.
 ;   record = TRK*SPT + SECN = TRK*32 + SECN.
 SDMAP:
-        LDA     TRK
-        MOV     L,A
-        MVI     H,00H
+        LHLD    TRK             ; HL = full 16-bit TRK (CP/M 2 passes it as a word
+                                ; in BC; an 8 MB drive at SPT=32 reaches track 2047)
         DAD     H               ; *2
         DAD     H               ; *4
         DAD     H               ; *8
@@ -1079,7 +1088,11 @@ BANNER:
 ;   CBIOS VARIABLES
 ; ============================================================================
 SELBL:  DS      1               ; last selected drive
-TRK:    DS      1               ; current (absolute) track
+TRK:    DS      2               ; current (absolute) track -- 16-bit!  CP/M 2 passes
+                                ; the track as a WORD in BC (DRI manual Table 6-5),
+                                ; and a DPB with >256 tracks (8 MB at SPT=32 needs
+                                ; tracks up to 2047) REQUIRES the high byte.  TRK+0 =
+                                ; low byte (from C), TRK+1 = high byte (from B).
 SECN:   DS      1               ; current sector
 DMA:    DS      2               ; current DMA address
 FILLV:  DS      1               ; scratch for RAMFILL

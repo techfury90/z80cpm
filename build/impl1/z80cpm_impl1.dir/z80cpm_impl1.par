@@ -4,7 +4,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
-Wed Nov 18 21:31:14 2026
+Thu Nov 19 03:45:03 2026
 
 C:/lscc/diamond/3.14/ispfpga\bin\nt64\par -f z80cpm_impl1.p2t
 z80cpm_impl1_map.ncd z80cpm_impl1.dir z80cpm_impl1.prf -gui -msgset
@@ -16,11 +16,11 @@ Preference file: z80cpm_impl1.prf.
 Level/       Number       Worst        Timing       Worst        Timing       Run          NCD
 Cost [ncd]   Unrouted     Slack        Score        Slack(hold)  Score(hold)  Time         Status
 ----------   --------     -----        ------       -----------  -----------  ----         ------
-5_1   *      0            2.968        0            0.012        0            33           Completed
+5_1   *      0            2.845        0            0.012        0            29           Completed
 
 * : Design saved.
 
-Total (real) run time for 1-seed: 33 secs 
+Total (real) run time for 1-seed: 29 secs 
 
 par done!
 

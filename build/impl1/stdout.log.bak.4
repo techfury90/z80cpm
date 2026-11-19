@@ -20,38 +20,81 @@ Running in Lattice mode
             Inclusivity and Diversity" (Refer to article 000036315 at
                         https://solvnetplus.synopsys.com)
 
-Starting:    C:\lscc\diamond\3.14\synpbase\bin64\mbin\synplify.exe
+Starting:    C:\lscc\diamond\3.14\synpbase\bin64\mbin\synbatch.exe
 Install:     C:\lscc\diamond\3.14\synpbase
 Hostname:    MEMETOP
-Date:        Tue Nov 17 20:42:08 2026
+Date:        Tue Nov 17 23:09:19 2026
 Version:     V-2023.09L-2
 
-Arguments:   -product synplify_base -tcl C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/launch_synplify.tcl
+Arguments:   -product synplify_base -batch z80cpm_impl1_synplify.tcl
 ProductType: synplify_pro
 
 
 
 
 
+log file: "C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.srr"
+Running: impl1 in foreground
 
-% run_tcl -fg C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/launch_synplify.tcl
-No project opened.
-scm2hydra_preserve_rtl_sig is not supported in current product.
-add_dut_hierarchy is not supported in current product.
-prepare_readback is not supported in current product.
-auto_infer_blackbox is not supported in current product.
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_core.v
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v
-Removed file: C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v
-TCL script complete: "C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/launch_synplify.tcl"
-Loaded XDM (Hierarchy) data base - elapsed time 0:0 Blocks=13
-@N Implementation 'C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\impl1_syn.prj|impl1' design hierarchy loaded from database
-% project -close C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/impl1_syn.prj
+Running proj_1|impl1
+
+Running Flow: compile (Compile) on proj_1|impl1
+# Tue Nov 17 23:09:19 2026
+
+Running Flow: compile_flow (Compile Process) on proj_1|impl1
+# Tue Nov 17 23:09:19 2026
+
+Running: compiler (Compile Input) on proj_1|impl1
+# Tue Nov 17 23:09:19 2026
+Copied C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synwork\z80cpm_impl1_comp.srs to C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.srs
+
+compiler completed
+# Tue Nov 17 23:09:27 2026
+
+Return Code: 0
+Run Time:00h:00m:07s
+
+Running: multi_srs_gen (Multi-srs Generator) on proj_1|impl1
+# Tue Nov 17 23:09:27 2026
+
+multi_srs_gen completed
+# Tue Nov 17 23:09:28 2026
+
+Return Code: 0
+Run Time:00h:00m:01s
+Copied C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synwork\z80cpm_impl1_mult.srs to C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.srs
+Copied C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.srr to C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.srf
+Complete: Compile Process on proj_1|impl1
+
+Running: premap (Premap) on proj_1|impl1
+# Tue Nov 17 23:09:28 2026
+
+premap completed with warnings
+# Tue Nov 17 23:09:31 2026
+
+Return Code: 1
+Run Time:00h:00m:03s
+Complete: Compile on proj_1|impl1
+
+Running Flow: map (Map) on proj_1|impl1
+# Tue Nov 17 23:09:31 2026
+License granted for 4 parallel jobs
+
+Running: fpga_mapper (Map & Optimize) on proj_1|impl1
+# Tue Nov 17 23:09:31 2026
+Copied C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synwork\z80cpm_impl1_m.srm to C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.srm
+
+fpga_mapper completed with warnings
+# Tue Nov 17 23:09:51 2026
+
+Return Code: 1
+Run Time:00h:00m:20s
+Complete: Map on proj_1|impl1
+Copied C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.srr to C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.srf
+Complete: Logic Synthesis on proj_1|impl1
+TCL script complete: "z80cpm_impl1_synplify.tcl"
 exit status=0
+exit status=0
+Save changes for project:
+C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\proj_1.prj
+batch mode default:no

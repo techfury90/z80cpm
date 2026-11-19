@@ -1,5 +1,5 @@
 <html><body><samp><pre>
-<!@TC:1795055434>
+<!@TC:1795077865>
 
 Copyright (C) 1994-2023 Synopsys, Inc.
 This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
@@ -14,11 +14,11 @@ Hostname: MEMETOP
 
 Implementation : impl1
 
-# Written on Wed Nov 18 21:30:44 2026
+# Written on Thu Nov 19 03:44:37 2026
 
 ##### DESIGN INFO #######################################################
 
-Top View:                "z80cpm_brevia2"
+Top View:                "z80cpm_brevia2_bram"
 Constraint File(s):      (none)
 
 
@@ -36,15 +36,17 @@ Found 0 issues in 0 out of 0 constraints
 Clock Relationships
 *******************
 
-Starting                                 Ending                                   |     rise to rise     |     fall to fall     |     rise to fall     |     fall to rise                     
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-z80cpm_brevia2|clk_op_inferred_clock     z80cpm_brevia2|clk_op_inferred_clock     |     5.000            |     No paths         |     2.500            |     2.500                            
-=============================================================================================================================================================================================
+Starting                                      Ending                                        |     rise to rise     |     fall to fall     |     rise to fall     |     fall to rise                     
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+System                                        z80cpm_brevia2_bram|clk_op_inferred_clock     |     5.000            |     No paths         |     No paths         |     No paths                         
+z80cpm_brevia2_bram|clk_op_inferred_clock     System                                        |     5.000            |     No paths         |     No paths         |     No paths                         
+z80cpm_brevia2_bram|clk_op_inferred_clock     z80cpm_brevia2_bram|clk_op_inferred_clock     |     5.000            |     No paths         |     2.500            |     2.500                            
+=======================================================================================================================================================================================================
  Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
        'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
 
 
-<a name=UnconstrainedStartEndPointsCCK33></a>Unconstrained Start/End Points</a>
+<a name=UnconstrainedStartEndPointsCCK47></a>Unconstrained Start/End Points</a>
 ******************************
 
 p:clk_in
@@ -113,25 +115,25 @@ p:uart_rx
 p:uart_tx
 
 
-<a name=InapplicableconstraintsCCK34></a>Inapplicable constraints</a>
+<a name=InapplicableconstraintsCCK48></a>Inapplicable constraints</a>
 ************************
 
 (none)
 
 
-<a name=ApplicableConstraintsWithIssuesCCK35></a>Applicable constraints with issues</a>
+<a name=ApplicableConstraintsWithIssuesCCK49></a>Applicable constraints with issues</a>
 **********************************
 
 (none)
 
 
-<a name=ConstraintsWithMatchingWildcardExpressionsCCK36></a>Constraints with matching wildcard expressions</a>
+<a name=ConstraintsWithMatchingWildcardExpressionsCCK50></a>Constraints with matching wildcard expressions</a>
 **********************************************
 
 (none)
 
 
-<a name=LibraryReportCCK37></a>Library Report</a>
+<a name=LibraryReportCCK51></a>Library Report</a>
 **************
 
 

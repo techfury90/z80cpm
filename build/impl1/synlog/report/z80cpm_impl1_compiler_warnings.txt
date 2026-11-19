@@ -1,4 +1,5 @@
-@W: CG168 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":54:2:54:9|Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type 
+@W: CG168 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v":54:2:54:9|Type of parameter pmi_freq_clkok on the instance pll_inst is not in accordance with the type of parameter on corresponding module. Please update RTL with correct parameter type 
 @W: CL246 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v":52:24:52:24|Input port bits 5 to 3 of F[7:0] are unused. Assign logic for all port bits or change the input port size.
 @W: CL247 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v":52:24:52:24|Input port bit 1 of F[7:0] is unused
+@W: CL246 :"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom_bram.v":30:16:30:22|Input port bits 15 to 12 of addr_in[15:0] are unused. Assign logic for all port bits or change the input port size.
 

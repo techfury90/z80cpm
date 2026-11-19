@@ -46,8 +46,7 @@ set_option -seqshift_no_replicate 0
 
 #-- add_file options
 set_option -include_path {C:/Users/techf/Desktop/brevia2/z80cpm/build}
-add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/z80cpm_brevia2.v}
-add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom.v}
+add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/z80cpm_brevia2_bram.v}
 add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80n.v}
 add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_core.v}
 add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/tv80_alu.v}
@@ -58,9 +57,10 @@ add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/uar
 add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/sram_async.v}
 add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/ram_disk.v}
 add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/spi_flash.v}
+add_file -verilog -vlog_std v2001 {C:/Users/techf/Desktop/brevia2/z80cpm/rtl/boot_rom_bram.v}
 
 #-- top module name
-set_option -top_module z80cpm_brevia2
+set_option -top_module z80cpm_brevia2_bram
 
 #-- set result format/file last
 project -result_file {C:/Users/techf/Desktop/brevia2/z80cpm/build/impl1/z80cpm_impl1.edi}

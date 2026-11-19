@@ -6,6 +6,10 @@ rst_n_c_i rst_n_c
 [ END MERGED ]
 [ START CLIPPED ]
 pll_inst/scuba_vlo
+u_rom/GND
+u_rom/VCC
+u_rom/u_rom/scuba_vlo
+u_rom/u_rom/scuba_vhi
 ck_ms_s_0_S1[31]
 ck_ms_s_0_COUT[31]
 un4_ck_div_cry_0_0_S1
@@ -17,8 +21,72 @@ LOCK
 CLKOK2
 pll_inst/PLLInst_0/CLKOK
 CLKOS
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB17
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB16
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB15
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB14
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB13
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB12
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB11
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB10
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB9
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB8
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB7
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB6
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB5
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB4
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB3
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB2
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB1
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB0
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA17
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA16
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA15
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA14
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA13
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA12
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA11
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA10
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA9
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA8
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA7
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA6
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA5
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOA4
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB17
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB16
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB15
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB14
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB13
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB12
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB11
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB10
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB9
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB8
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB7
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB6
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB5
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB4
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB3
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB2
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB1
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB0
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA17
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA16
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA15
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA14
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA13
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA12
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA11
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA10
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA9
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA8
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA7
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA6
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA5
+u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOA4
 u_rd/addr_cry_0_S0[0]
-u_rd/N_2
+u_rd/N_1
 u_rd/addr_s_0_S1[15]
 u_rd/addr_s_0_COUT[15]
 u_tx/k_cry_0_S0[0]
@@ -41,11 +109,11 @@ u_rx/un1_k_15_0_I_15_0_S0
 u_rx/un1_k_15_0_I_45_0_S0
 u_rx/un1_k_15_0_I_45_0_COUT
 u_spi/pcount_cry_0_S0[0]
-u_spi/N_1
+u_spi/N_3
 u_spi/pcount_s_0_S1[5]
 u_spi/pcount_s_0_COUT[5]
 u_spi/cnt_cry_0_S0[0]
-u_spi/N_2
+u_spi/N_4
 u_spi/cnt_cry_0_COUT[3]
 u_spi_sd/pcount_cry_0_S0_0[0]
 u_spi_sd/N_1
@@ -76,7 +144,7 @@ u_cpu/i_tv80_core/SP16_1_s_15_0_S1
 u_cpu/i_tv80_core/SP16_1_s_15_0_COUT
 u_cpu/i_tv80_core/SP16_0_cry_0_0_S1
 u_cpu/i_tv80_core/SP16_0_cry_0_0_S0
-u_cpu/i_tv80_core/N_11
+u_cpu/i_tv80_core/N_10
 u_cpu/i_tv80_core/SP16_0_s_15_0_S1
 u_cpu/i_tv80_core/SP16_0_s_15_0_COUT
 u_cpu/i_tv80_core/i_alu/un1_BusA_0_cry_5_0_S1
@@ -94,7 +162,7 @@ N_1
 [ END CLIPPED ]
 [ START DESIGN PREFS ]
 SCHEMATIC START ;
-# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Wed Nov 18 21:31:12 2026
+# map:  version Diamond (64-bit) 3.14.0.75.2 -- WARNING: Map write only section -- Thu Nov 19 03:45:00 2026
 
 SYSCONFIG DONE_OD=ON DONE_EX=OFF CONFIG_SECURE=OFF WAKE_UP=21 WAKE_ON_LOCK=OFF INBUF=ON MASTER_SPI_PORT=DISABLE SLAVE_SPI_PORT=DISABLE MY_ASSP=OFF ONE_TIME_PROGRAM=OFF ;
 LOCATE COMP "sram_data[0]" SITE "1" ;

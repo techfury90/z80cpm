@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
-Report for cell z80cpm_brevia2.verilog
+Report for cell z80cpm_brevia2_bram.verilog
 
 Register bits: 629 of 4752 (13%)
 PIC Latch:       0
@@ -21,33 +21,30 @@ I/O cells:       56
                                  IB       13       100.0
                            IFS1P3BX        1       100.0
                                 INV       14       100.0
-                            L6MUX21       60       100.0
+                            L6MUX21       68       100.0
                                  OB       35       100.0
                            OFS1P3BX        2       100.0
-                           ORCALUT4     2249       100.0
-                              PFUMX      318       100.0
+                           ORCALUT4     2230       100.0
+                              PFUMX      304       100.0
                                 PUR        1       100.0
-                           ROM128X1        8       100.0
-                            ROM16X1        3       100.0
-                           ROM256X1       16       100.0
-                            ROM64X1        8       100.0
                                 VHI       12       100.0
                                 VLO       12       100.0
                             pmi_pll        1       100.0
+                         pmi_rom_Z1        1       100.0
 SUB MODULES 
-                           boot_rom        1       100.0
+                      boot_rom_bram        1       100.0
                            ram_disk        1       100.0
                         spi_flash_0        1       100.0
                         spi_flash_1        1       100.0
           tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s        1       100.0
-                       tv80_core_Z2        1       100.0
-                      tv80_mcode_Z1        1       100.0
+                       tv80_core_Z3        1       100.0
+                      tv80_mcode_Z2        1       100.0
                            tv80_reg        1       100.0
                               tv80n        1       100.0
                             uart_rx        1       100.0
                             uart_tx        1       100.0
                             
-                         TOTAL          3519           
+                         TOTAL          3460           
 ----------------------------------------------------------------------
 Report for cell tv80n.netlist
      Instance path:  u_cpu
@@ -64,20 +61,20 @@ Report for cell tv80n.netlist
                             FD1S3IX        3       100.0
                             FD1S3JX        2       100.0
                                 INV        4        28.6
-                            L6MUX21       55        91.7
-                           ORCALUT4     1851        82.3
-                              PFUMX      296        93.1
+                            L6MUX21       61        89.7
+                           ORCALUT4     1887        84.6
+                              PFUMX      284        93.4
                                 VHI        5        41.7
                                 VLO        5        41.7
 SUB MODULES 
           tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s        1       100.0
-                       tv80_core_Z2        1       100.0
-                      tv80_mcode_Z1        1       100.0
+                       tv80_core_Z3        1       100.0
+                      tv80_mcode_Z2        1       100.0
                            tv80_reg        1       100.0
                             
-                         TOTAL          2644           
+                         TOTAL          2674           
 ----------------------------------------------------------------------
-Report for cell tv80_core_Z2.netlist
+Report for cell tv80_core_Z3.netlist
      Instance path:  u_cpu.i_tv80_core
                                           Cell usage:
                                cell       count    Res Usage(%)
@@ -91,26 +88,26 @@ Report for cell tv80_core_Z2.netlist
                             FD1S3IX        3       100.0
                             FD1S3JX        2       100.0
                                 INV        3        21.4
-                            L6MUX21       55        91.7
-                           ORCALUT4     1843        81.9
-                              PFUMX      296        93.1
+                            L6MUX21       61        89.7
+                           ORCALUT4     1862        83.5
+                              PFUMX      284        93.4
                                 VHI        4        33.3
                                 VLO        4        33.3
 SUB MODULES 
           tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s        1       100.0
-                      tv80_mcode_Z1        1       100.0
+                      tv80_mcode_Z2        1       100.0
                            tv80_reg        1       100.0
                             
-                         TOTAL          2620           
+                         TOTAL          2633           
 ----------------------------------------------------------------------
 Report for cell tv80_reg.netlist
      Instance path:  u_cpu.i_tv80_core.i_reg
                                           Cell usage:
                                cell       count    Res Usage(%)
                             FD1P3AX      128        93.4
-                            L6MUX21       48        80.0
-                           ORCALUT4      208         9.2
-                              PFUMX       96        30.2
+                            L6MUX21       48        70.6
+                           ORCALUT4      208         9.3
+                              PFUMX       96        31.6
                                 VHI        1         8.3
                                 VLO        1         8.3
                             
@@ -121,25 +118,25 @@ Report for cell tv80_alu_0s_0s_1s_2s_3s_4s_5s_6s_7s.netlist
                                           Cell usage:
                                cell       count    Res Usage(%)
                               CCU2B        6         5.0
-                            L6MUX21        4         6.7
-                           ORCALUT4      233        10.4
-                              PFUMX       40        12.6
+                            L6MUX21        7        10.3
+                           ORCALUT4      234        10.5
+                              PFUMX       35        11.5
                                 VHI        1         8.3
                                 VLO        1         8.3
                             
-                         TOTAL           285           
+                         TOTAL           284           
 ----------------------------------------------------------------------
-Report for cell tv80_mcode_Z1.netlist
+Report for cell tv80_mcode_Z2.netlist
      Instance path:  u_cpu.i_tv80_core.i_mcode
                                           Cell usage:
                                cell       count    Res Usage(%)
-                            L6MUX21        3         5.0
-                           ORCALUT4     1261        56.1
-                              PFUMX      128        40.3
+                            L6MUX21        6         8.8
+                           ORCALUT4     1275        57.2
+                              PFUMX      121        39.8
                                 VHI        1         8.3
                                 VLO        1         8.3
                             
-                         TOTAL          1394           
+                         TOTAL          1404           
 ----------------------------------------------------------------------
 Report for cell spi_flash_0.netlist
   Original Cell name spi_flash
@@ -163,13 +160,13 @@ Report for cell spi_flash_1.netlist
                               CCU2B        7         5.8
                             FD1P3DX       37        12.7
                             FD1S3DX        1         1.1
-                            L6MUX21        5         8.3
-                           ORCALUT4      171         7.6
-                              PFUMX       22         6.9
+                            L6MUX21        7        10.3
+                           ORCALUT4      150         6.7
+                              PFUMX       20         6.6
                                 VHI        1         8.3
                                 VLO        1         8.3
                             
-                         TOTAL           245           
+                         TOTAL           224           
 ----------------------------------------------------------------------
 Report for cell uart_rx.netlist
      Instance path:  u_rx
@@ -180,11 +177,11 @@ Report for cell uart_rx.netlist
                             FD1P3DX       29         9.9
                             FD1S3BX        1         3.7
                             FD1S3DX        1         1.1
-                           ORCALUT4       65         2.9
+                           ORCALUT4       63         2.8
                                 VHI        1         8.3
                                 VLO        1         8.3
                             
-                         TOTAL           120           
+                         TOTAL           118           
 ----------------------------------------------------------------------
 Report for cell uart_tx.netlist
      Instance path:  u_tx
@@ -193,11 +190,11 @@ Report for cell uart_tx.netlist
                               CCU2B        7         5.8
                             FD1P3DX       24         8.2
                             FD1S3DX        1         1.1
-                           ORCALUT4       38         1.7
+                           ORCALUT4       39         1.7
                                 VHI        1         8.3
                                 VLO        1         8.3
                             
-                         TOTAL            72           
+                         TOTAL            73           
 ----------------------------------------------------------------------
 Report for cell ram_disk.netlist
      Instance path:  u_rd
@@ -205,22 +202,18 @@ Report for cell ram_disk.netlist
                                cell       count    Res Usage(%)
                               CCU2B        9         7.5
                             FD1S3DX       17        19.1
-                           ORCALUT4       35         1.6
+                           ORCALUT4       33         1.5
                                 VHI        1         8.3
                                 VLO        1         8.3
                             
-                         TOTAL            63           
+                         TOTAL            61           
 ----------------------------------------------------------------------
-Report for cell boot_rom.netlist
+Report for cell boot_rom_bram.netlist
      Instance path:  u_rom
                                           Cell usage:
                                cell       count    Res Usage(%)
-                           ORCALUT4       31         1.4
-                           ROM128X1        8       100.0
-                            ROM16X1        3       100.0
-                           ROM256X1       16       100.0
-                            ROM64X1        8       100.0
                                 VHI        1         8.3
                                 VLO        1         8.3
+                         pmi_rom_Z1        1       100.0
                             
-                         TOTAL            68           
+                         TOTAL             3           

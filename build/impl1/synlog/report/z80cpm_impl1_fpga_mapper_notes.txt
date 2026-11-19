@@ -1,9 +1,9 @@
 @N: MF916 |Option synthesis_strategy=base is enabled. 
 @N: MF248 |Running in 64-bit mode.
 @N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
-@N: BZ173 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_mcode.v":1956:12:1956:16|ROM Special_LD_2[2:0] (in view: work.tv80_mcode_Z1(verilog)) mapped in logic.
-@N: MO231 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v":184:2:184:7|Found counter in view:work.z80cpm_brevia2(verilog) instance ck_ms[31:0] 
-@N: MO231 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v":42:2:42:7|Found counter in view:work.z80cpm_brevia2(verilog) instance u_rd.addr[15:0] 
+@N: BZ173 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_mcode.v":1956:12:1956:16|ROM Special_LD_2[2:0] (in view: work.tv80_mcode_Z2(verilog)) mapped in logic.
+@N: MO231 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v":184:2:184:7|Found counter in view:work.z80cpm_brevia2_bram(verilog) instance ck_ms[31:0] 
+@N: MO231 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\ram_disk.v":42:2:42:7|Found counter in view:work.z80cpm_brevia2_bram(verilog) instance u_rd.addr[15:0] 
 @N: FX493 |Applying initial value "0" on instance rst_n_sync2.
 @N: FX493 |Applying initial value "0" on instance rst_n_sync1.
 @N: FX493 |Applying initial value "0" on instance rst_cnt[0].
@@ -31,17 +31,17 @@
 @N: MF135 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|RAM u_cpu.i_tv80_core.i_reg.RegsH_1[7:0] is 8 words by 8 bits.
 @N: MF135 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_reg.v":48:2:48:7|RAM u_cpu.i_tv80_core.i_reg.RegsH[7:0] is 8 words by 8 bits.
 @N: MF794 |RAM i_reg.RegsH[7:0] required 128 registers during mapping 
-@N: FX214 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\boot_rom.v":7:6:7:9|Generating ROM u_rom.byte_read[7:0] (in view: work.z80cpm_brevia2(verilog)).
-@N: MO106 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_mcode.v":1956:12:1956:16|Found ROM u_cpu.i_tv80_core.i_mcode.MCycles_19_0[6:0] (in view: work.z80cpm_brevia2(verilog)) with 78 words by 7 bits.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[0] (in view: work.z80cpm_brevia2(verilog)) with 92 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[1] (in view: work.z80cpm_brevia2(verilog)) with 74 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[5] (in view: work.z80cpm_brevia2(verilog)) with 92 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[6] (in view: work.z80cpm_brevia2(verilog)) with 88 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[2] (in view: work.z80cpm_brevia2(verilog)) with 75 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[3] (in view: work.z80cpm_brevia2(verilog)) with 96 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[7] (in view: work.z80cpm_brevia2(verilog)) with 56 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[4] (in view: work.z80cpm_brevia2(verilog)) with 89 loads 3 times to improve timing.
-@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.ISet[1] (in view: work.z80cpm_brevia2(verilog)) with 66 loads 2 times to improve timing.
+@N: MO106 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_mcode.v":1956:12:1956:16|Found ROM u_cpu.i_tv80_core.i_mcode.MCycles_19_0[6:0] (in view: work.z80cpm_brevia2_bram(verilog)) with 78 words by 7 bits.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[0] (in view: work.z80cpm_brevia2_bram(verilog)) with 92 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[2] (in view: work.z80cpm_brevia2_bram(verilog)) with 82 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[3] (in view: work.z80cpm_brevia2_bram(verilog)) with 102 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[4] (in view: work.z80cpm_brevia2_bram(verilog)) with 100 loads 2 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[5] (in view: work.z80cpm_brevia2_bram(verilog)) with 96 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[6] (in view: work.z80cpm_brevia2_bram(verilog)) with 89 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[1] (in view: work.z80cpm_brevia2_bram(verilog)) with 86 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[7] (in view: work.z80cpm_brevia2_bram(verilog)) with 59 loads 3 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.ISet[1] (in view: work.z80cpm_brevia2_bram(verilog)) with 68 loads 2 times to improve timing.
+@N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.ISet[0] (in view: work.z80cpm_brevia2_bram(verilog)) with 15 loads 1 time to improve timing.
 @N: FX164 |The option to pack registers in the IOB has not been specified. Please set syn_useioff attribute.  
 @N: FX1056 |Writing EDF file: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.edi
 @N: BW106 |Synplicity Constraint File capacitance units using default value of 1pF 

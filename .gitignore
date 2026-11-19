@@ -26,3 +26,17 @@ Thumbs.db
 
 # ---- Scratch / local cruft ----
 beat
+
+# ---- Diamond / scuba / GUI scratch (regenerable; do not commit) ----
+.run_manager.ini
+promote.xml
+reportview.xml
+impl1/
+build/.recovery
+build/impl1/pmi_1/
+build/impl1/pmi_rom*.edn
+build/impl1/pmi_rom*.ngo
+build/impl1/pmi_rom*.srp
+build/impl1/syntmp/logtmp*.db
+build/impl1/syntmp/vhdlsyn*_top_wrapper.vhd
+build/impl1/z80cpm_impl1_LUT.jed.bak

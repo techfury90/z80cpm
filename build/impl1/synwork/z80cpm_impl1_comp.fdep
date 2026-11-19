@@ -1,12 +1,11 @@
-#OPTIONS:"|-layerid|0|-orig_srs|C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\build\\impl1\\synwork\\z80cpm_impl1_comp.srs|-top|z80cpm_brevia2|-prodtype|synplify_pro|-fixsmult|-infer_seqShift|-nram|-sdff_counter|-divnmod|-nostructver|-lattice|-I|C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\build|-I|C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\build\\impl1\\|-I|C:\\lscc\\diamond\\3.14\\synpbase\\lib|-v2001|-devicelib|C:\\lscc\\diamond\\3.14\\synpbase\\lib\\lucent\\xp2.v|-devicelib|C:\\lscc\\diamond\\3.14\\synpbase\\lib\\lucent\\pmi_def.v|-encrypt|-pro|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-D_MULTIPLE_FILE_COMPILATION_UNIT_|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001"
+#OPTIONS:"|-layerid|0|-orig_srs|C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\build\\impl1\\synwork\\z80cpm_impl1_comp.srs|-top|z80cpm_brevia2_bram|-prodtype|synplify_pro|-fixsmult|-infer_seqShift|-nram|-sdff_counter|-divnmod|-nostructver|-lattice|-I|C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\build|-I|C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\build\\impl1\\|-I|C:\\lscc\\diamond\\3.14\\synpbase\\lib|-v2001|-devicelib|C:\\lscc\\diamond\\3.14\\synpbase\\lib\\lucent\\xp2.v|-devicelib|C:\\lscc\\diamond\\3.14\\synpbase\\lib\\lucent\\pmi_def.v|-encrypt|-pro|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-D_MULTIPLE_FILE_COMPILATION_UNIT_|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001|-lib|work|-fv2001"
 #CUR:"C:\\lscc\\diamond\\3.14\\synpbase\\bin64\\c_ver.exe":1727134360
 #CUR:"C:\\lscc\\diamond\\3.14\\synpbase\\lib\\lucent\\xp2.v":1727134390
 #CUR:"C:\\lscc\\diamond\\3.14\\synpbase\\lib\\lucent\\pmi_def.v":1727134390
 #CUR:"C:\\lscc\\diamond\\3.14\\synpbase\\lib\\vlog\\hypermods.v":1727134415
 #CUR:"C:\\lscc\\diamond\\3.14\\synpbase\\lib\\vlog\\scemi_objects.v":1727134415
 #CUR:"C:\\lscc\\diamond\\3.14\\synpbase\\lib\\vlog\\scemi_pipes.svh":1727134415
-#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\z80cpm_brevia2.v":1795025758
-#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\boot_rom.v":1795055398
+#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\z80cpm_brevia2_bram.v":1795074848
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\tv80n.v":1794778501
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\tv80_core.v":1794799912
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\tv80_alu.v":1794778532
@@ -17,23 +16,24 @@
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\sram_async.v":1794810318
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\ram_disk.v":1794814953
 #CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\spi_flash.v":1795025673
-0			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v" verilog
-1			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v" verilog
-2			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v" verilog
-3			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_core.v" verilog
-4			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v" verilog
-5			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v" verilog
-6			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v" verilog
-7			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v" verilog
-8			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v" verilog
-9			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v" verilog
-10			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v" verilog
-11			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\spi_flash.v" verilog
+#CUR:"C:\\Users\\techf\\Desktop\\brevia2\\z80cpm\\rtl\\boot_rom_bram.v":1795077530
+0			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v" verilog
+1			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v" verilog
+2			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_core.v" verilog
+3			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v" verilog
+4			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v" verilog
+5			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v" verilog
+6			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v" verilog
+7			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v" verilog
+8			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v" verilog
+9			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v" verilog
+10			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\spi_flash.v" verilog
+11			"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom_bram.v" verilog
 #Dependency Lists(Uses List)
-0 2 11 8 7 10 9 1
-1 -1
-2 3
-3 5 4 6
+0 1 10 7 6 9 8 11
+1 2
+2 4 3 5
+3 -1
 4 -1
 5 -1
 6 -1
@@ -45,26 +45,26 @@
 #Dependency Lists(Users Of)
 0 -1
 1 0
-2 0
+2 1
 3 2
-4 3
-5 3
-6 3
+4 2
+5 2
+6 0
 7 0
 8 0
 9 0
 10 0
 11 0
 #Design Unit to File Association
-module work tv80_reg 5
-module work tv80_alu 4
-module work tv80_mcode 6
-module work tv80_core 3
-module work tv80n 2
-module work spi_flash 11
-module work uart_rx 8
-module work uart_tx 7
-module work ram_disk 10
-module work sram_async 9
-module work boot_rom 1
-module work z80cpm_brevia2 0
+module work tv80_reg 4
+module work tv80_alu 3
+module work tv80_mcode 5
+module work tv80_core 2
+module work tv80n 1
+module work spi_flash 10
+module work uart_rx 7
+module work uart_tx 6
+module work ram_disk 9
+module work sram_async 8
+module work boot_rom_bram 11
+module work z80cpm_brevia2_bram 0

@@ -1,16 +1,16 @@
 #List of actual used RTLs.
 
-File                                                                Type     IN_PROJECT/INCLUDED/LIBRARY
+File                                                                     Type     IN_PROJECT/INCLUDED/LIBRARY
 
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v"     verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v"              verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_core.v"          verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v"           verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v"           verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v"         verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\spi_flash.v"          verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v"            verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v"            verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v"           verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v"         verilog                      IN PROJECT
-"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v"           verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v"     verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v"                   verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_core.v"               verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_reg.v"                verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_alu.v"                verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80_mcode.v"              verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\spi_flash.v"               verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v"                 verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v"                 verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v"                verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\sram_async.v"              verilog                      IN PROJECT
+"C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom_bram.v"           verilog                      IN PROJECT

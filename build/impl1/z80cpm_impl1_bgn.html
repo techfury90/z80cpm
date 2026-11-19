@@ -12,13 +12,13 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights reserved.
-Wed Nov 18 21:31:49 2026
+Thu Nov 19 03:45:34 2026
 
 
 Command: bitgen -g RamCfg:Reset -g DisableUES:FALSE -g TAG_MEMORY:Normal -w -jedec -e -s C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.sec -k C:/Users/techf/Desktop/brevia2/z80cpm/build/z80cpm.bek -gui -msgset C:/Users/techf/Desktop/brevia2/z80cpm/build/promote.xml z80cpm_impl1.ncd z80cpm_impl1.prf 
 
 Loading design for application Bitgen from file z80cpm_impl1.ncd.
-Design name: z80cpm_brevia2
+Design name: z80cpm_brevia2_bram
 NCD version: 3.3
 Vendor:      LATTICE
 Device:      LFXP2-5E
@@ -29,6 +29,7 @@ Package Status:                     Final          Version 1.42.
 Performance Hardware Data Status:   Final          Version 11.5.
 
 Running DRC.
+chipcheck: INFO: Design contains pre-loadable EBR during configuration that has a requirement:Since the GSR is disabled for the EBR, make sure write enable and chip enable are inactive during wake-up, so that the pre-loaded initialization values will not be corrupted during wake-up state.
 DRC detected 0 errors and 0 warnings.
 Reading Preference File from z80cpm_impl1.prf.
 INFO -  SW_XO3D_SECURITY_ENCRYPTION *NOT* controlled by mg5a00.acd ###

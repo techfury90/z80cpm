@@ -13,18 +13,44 @@ Hostname: MEMETOP
 Implementation : impl1
 Synopsys HDL compiler and linker, Version comp202309synp1, Build 349R, Built Sep 17 2024 08:16:26, @
 
-Modified Files: 1
+Modified Files: 4
 FID:  path (prevtimestamp, timestamp)
-0        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v (2026-11-17 17:20:29, 2026-11-18 21:29:58)
+0        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v (2026-11-19 02:10:03, N/A)
+17       C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom_bram.v (N/A, 2026-11-19 03:38:50)
+9        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v (2026-11-18 13:15:58, N/A)
+18       C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08)
 
 *******************************************************************
-Modules that may have changed as a result of file changes: 1
+Modules that may have changed as a result of file changes: 12
 MID:  lib.cell.view
-0        work.boot_rom.verilog may have changed because the following files changed:
-                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom.v (2026-11-17 17:20:29, 2026-11-18 21:29:58) <-- (module definition)
+12       work.boot_rom_bram.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\boot_rom_bram.v (N/A, 2026-11-19 03:38:50) <-- (module definition)
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+10       work.ram_disk.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+11       work.spi_flash.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+1        work.sram_async.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+2        work.tv80_alu.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+3        work.tv80_core.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+4        work.tv80_mcode.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+5        work.tv80_reg.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+6        work.tv80n.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+7        work.uart_rx.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+8        work.uart_tx.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (may instantiate this module)
+13       work.z80cpm_brevia2_bram.verilog may have changed because the following files changed:
+                        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v (N/A, 2026-11-19 02:54:08) <-- (module definition)
 
 *******************************************************************
-Unmodified files: 16
+Unmodified files: 15
 FID:  path (timestamp)
 15       C:\Users\techf\Desktop\brevia2\z80cpm\rtl\ram_disk.v (2026-11-16 02:42:33)
 16       C:\Users\techf\Desktop\brevia2\z80cpm\rtl\spi_flash.v (2026-11-18 13:14:33)
@@ -36,7 +62,6 @@ FID:  path (timestamp)
 6        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\tv80n.v (2026-11-15 16:35:01)
 7        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_rx.v (2026-11-17 02:42:19)
 8        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\uart_tx.v (2026-11-17 02:42:44)
-9        C:\Users\techf\Desktop\brevia2\z80cpm\rtl\z80cpm_brevia2.v (2026-11-18 13:15:58)
 10       C:\lscc\diamond\3.14\synpbase\lib\lucent\pmi_def.v (2024-09-23 19:33:10)
 11       C:\lscc\diamond\3.14\synpbase\lib\lucent\xp2.v (2024-09-23 19:33:10)
 12       C:\lscc\diamond\3.14\synpbase\lib\vlog\hypermods.v (2024-09-23 19:33:35)
@@ -44,16 +69,5 @@ FID:  path (timestamp)
 14       C:\lscc\diamond\3.14\synpbase\lib\vlog\scemi_pipes.svh (2024-09-23 19:33:35)
 
 *******************************************************************
-Unchanged modules: 11
+Unchanged modules: 0
 MID:  lib.cell.view
-10       work.ram_disk.verilog
-11       work.spi_flash.verilog
-1        work.sram_async.verilog
-2        work.tv80_alu.verilog
-3        work.tv80_core.verilog
-4        work.tv80_mcode.verilog
-5        work.tv80_reg.verilog
-6        work.tv80n.verilog
-7        work.uart_rx.verilog
-8        work.uart_tx.verilog
-9        work.z80cpm_brevia2.verilog

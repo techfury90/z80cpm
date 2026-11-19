@@ -3,7 +3,7 @@
   Synopsys, Inc.
   Version V-2023.09L-2
   Project file C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\syntmp\run_option.xml
-  Written on Wed Nov 18 21:30:34 2026
+  Written on Thu Nov 19 03:44:25 2026
 
 
 --> 
@@ -11,7 +11,7 @@
      <option name="project_name" display_name="Project Name">proj_1</option>
      <option name="device_name" display_name="Device Name">impl1: Lattice XP2 : LFXP2_5E</option>
      <option name="impl_name" display_name="Implementation Name">impl1</option>
-     <option name="top_module" display_name="Top Module">z80cpm_brevia2</option>
+     <option name="top_module" display_name="Top Module">z80cpm_brevia2_bram</option>
      <option name="pipe" display_name="Pipelining">1</option>
      <option name="retiming" display_name="Retiming">0</option>
      <option name="resource_sharing" display_name="Resource Sharing">1</option>

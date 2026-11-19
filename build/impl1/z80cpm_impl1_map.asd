@@ -3,7 +3,7 @@ Device = LFXP2-5E;
 Package = TQFP144;
 Performance = 6;
 LUTS_avail = 4752;
-LUTS_used = 2862;
+LUTS_used = 2489;
 FF_avail = 3664;
 FF_used = 629;
 INPUT_LVCMOS33 = 13;
@@ -14,7 +14,7 @@ IO_used = 56;
 PLL_avail = 2;
 PLL_used = 1;
 EBR_avail = 9;
-EBR_used = 0;
+EBR_used = 2;
 ;
 ; start of DSP statistics
 MULT36X36B = 0;
@@ -29,6 +29,32 @@ DSP_avail = 24;
 DSP_used = 0;
 ; end of DSP statistics
 ;
+; Begin EBR Section
+Instance_Name = u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0;
+Type = DP16KB;
+Width_A = 4;
+Depth_A = 4096;
+REGMODE_A = NOREG;
+REGMODE_B = NOREG;
+RESETMODE = SYNC;
+WRITEMODE_A = NORMAL;
+WRITEMODE_B = NORMAL;
+GSR = DISABLED;
+MEM_INIT_FILE = boot_rom.mem;
+MEM_LPC_FILE = pmi_romXhboot_romssdn8124096p11842eef__PMIR__4096__8__8__-1H;
+Instance_Name = u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1;
+Type = DP16KB;
+Width_A = 4;
+Depth_A = 4096;
+REGMODE_A = NOREG;
+REGMODE_B = NOREG;
+RESETMODE = SYNC;
+WRITEMODE_A = NORMAL;
+WRITEMODE_B = NORMAL;
+GSR = DISABLED;
+MEM_INIT_FILE = boot_rom.mem;
+MEM_LPC_FILE = pmi_romXhboot_romssdn8124096p11842eef__PMIR__4096__8__8__-1H;
+; End EBR Section
 ; Begin PLL Section
 Instance_Name = pll_inst/PLLInst_0;
 Type = EHXPLLE;

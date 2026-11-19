@@ -400,6 +400,8 @@ READ:
         JZ      READB           ; drive A (SELBL==0) -> SPI flash (boot drive)
         CPI     02H
         JZ      READC           ; drive C (SELBL==2) -> SD card (with retry)
+        CPI     03H
+        JZ      READC           ; drive D (SELBL==3) -> SD card (with retry)
         ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR          ; set the disk data-pointer
@@ -426,6 +428,8 @@ WRITE:
         JZ      WRITEB          ; drive A (SELBL==0) -> SPI flash (boot drive)
         CPI     02H
         JZ      WRITEC          ; drive C (SELBL==2) -> SD card (with retry)
+        CPI     03H
+        JZ      WRITEC          ; drive D (SELBL==3) -> SD card (with retry)
         ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR
@@ -511,6 +515,19 @@ SDMAP_H1:
         MOV     A,L
         RAR
         MOV     L,A             ; HL = record >> 2 = SSEC
+        ; ---- per-drive region offset (CP/M has no partitioning) ----
+        ; The BDOS does NOT reliably apply the DPB OFF here, so the region base is
+        ; added at the CBIOS deblock layer.  Drive D (SELBL==3) is region 1 =
+        ; +8 MB = +16384 SD sectors (0x4000); drive C (SELBL==2) is region 0 (+0).
+        ; This shifts the logical drive's record space into its own 8 MB region of
+        ; the 64 MB partition.  SDOFF is unaffected (the region is a multiple of 4
+        ; records, so record&3 is unchanged).
+        LDA     SELBL
+        CPI     03H
+        JNZ     SDMAP_REG0
+        LXI     D,4000H
+        DAD     D               ; SSEC += 0x4000 (into region 1)
+SDMAP_REG0:
         ; BLKN = SDPLBA + SSEC  (SDPLBA=1)
         INX     H
         MVI     A,00H
@@ -1199,40 +1216,55 @@ DPHC:
         DW      0000H           ; scratch (curtrk)
         DW      0000H           ; scratch (currec)
         DW      DIRBUF          ; shared directory buffer (128 bytes)
-        DW      DPBC            ; disk parameter block (SD 2K geometry)
-        DW      CSVC            ; checksum vector
-        DW      ALVC            ; allocation vector
+        DW      DPBC            ; disk parameter block (SD 8K geometry, OFF=0)
+        DW      CSVC            ; checksum vector (CKS=0 -> 0 bytes)
+        DW      ALVC            ; allocation vector (drive C)
 DPHD:
-        DW      0000H
-        DW      0000H
-        DW      0000H
-        DW      0000H
-        DW      DIRBUF
-        DW      DPBC            ; (future: SD partition 2 DPB; shared DPBC for now)
-        DW      CSVC
-        DW      ALVC
+        DW      0000H           ; XLT: no sector translation
+        DW      0000H           ; scratch (cdrmax)
+        DW      0000H           ; scratch (curtrk)
+        DW      0000H           ; scratch (currec)
+        DW      DIRBUF          ; shared directory buffer (128 bytes)
+        DW      DPBD            ; disk parameter block (SD 8K geometry, OFF=2048)
+        DW      CSVC            ; checksum vector (CKS=0 -> 0 bytes)
+        DW      ALVD            ; allocation vector (drive D)
 DPBC:
         DW      SPT             ; SPT  = 32   (sectors per track)
-        DB      05H             ; BSH  = 5    (block shift  -> 4KB blocks)
-        DB      1FH             ; BLM  = 31   (block mask)
-        DB      01H             ; EXM  = 1    (BLS=4096 & DSM>255 -> double-DM (16-bit
-                                ;              block pointers): entry covers 8x4KB=32KB
-                                ;              -> EXM = 32KB/16KB - 1 = 1)
-        DW      2047            ; DSM  = 2047 (max block = 2048 blocks x 4KB = 8 MB --
+        DB      06H             ; BSH  = 6    (block shift  -> 8KB blocks)
+        DB      3FH             ; BLM  = 63   (block mask)
+        DB      03H             ; EXM  = 3    (DSM>255 & BLS=8192 -> double-DM (16-bit
+                                ;              block pointers): entry covers 8x8KB=64KB
+                                ;              -> EXM = 64KB/16KB - 1 = 3)
+        DW      1023            ; DSM  = 1023 (max block = 1024 blocks x 8KB = 8 MB --
                                 ;              the CP/M 2.2 16-bit record-counter ceiling)
-        DW      255             ; DRM  = 255  (max directory entry = 256 entries)
-        DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first;
-                                ;              256 entries x 32B = 8KB = 2 x 4KB blocks)
-        DB      00H             ; AL1  = 0x00
+        DW      4095            ; DRM  = 4095 (max directory entry = 4096 entries)
+        DB      0FFH            ; AL0  = 0xFF (reserve directory blocks 0-7, MSB-first)
+        DB      0FFH            ; AL1  = 0xFF (reserve directory blocks 8-15 = the max 16
+                                ;              blocks; 16 x 8KB = 128KB = 4096 entries)
         DW      00H             ; CKS  = 0    (fixed media -> no checksum)
-        DW      00H             ; OFF  = 0    (data partition, no system tracks)
+        DW      00H             ; OFF  = 0    (drive C: partition region 0, no system tracks)
+DPBD:
+        DW      SPT             ; SPT  = 32   (sectors per track)
+        DB      06H             ; BSH  = 6    (block shift  -> 8KB blocks)
+        DB      3FH             ; BLM  = 63   (block mask)
+        DB      03H             ; EXM  = 3    (double-DM, 8KB blocks)
+        DW      1023            ; DSM  = 1023 (1024 blocks x 8KB = 8 MB)
+        DW      4095            ; DRM  = 4095 (4096 entries)
+        DB      0FFH            ; AL0  = 0xFF (reserve directory blocks 0-7)
+        DB      0FFH            ; AL1  = 0xFF (reserve directory blocks 8-15)
+        DW      00H             ; CKS  = 0
+        DW      00H             ; OFF  = 0    (drive D: partition region 1.  CP/M has
+                                ;              no partitioning, so the region offset is
+                                ;              applied at the CBIOS deblock layer (SDMAP
+                                ;              adds +0x4000 SD sectors for SELBL==3).
 CSVC:   DS      1               ; checksum vector (0 bytes used since CKS=0)
-ALVC:   DS      256             ; allocation vector (DSM=2047 -> (2047+1)/8 = 256 bytes).
-                                ;   The BDOS builds this itself on drive login and keeps
-                                ;   it while the drive is logged in -- it must NOT alias a
-                                ;   clobbered buffer.  It lives in the free RAM gap
-                                ;   (0xED00-0xEF00, below RMWBUF), harmless if not loaded
-                                ;   by the boot image (the BDOS zeroes it on login).
+ALVC:   DS      128             ; allocation vector (drive C: DSM=1023 -> (1023+1)/8 = 128 B)
+ALVD:   DS      128             ; allocation vector (drive D: DSM=1023 -> 128 B)
+                                ;   The BDOS builds these itself on drive login and keeps
+                                ;   them while the drives are logged in -- they must NOT
+                                ;   alias a clobbered buffer.  ALVC+ALVD = 256 total, the
+                                ;   SAME footprint the old single-drive ALV used (it lived
+                                ;   in the free RAM gap 0xED00-0xEF00, below RMWBUF).
 SDOFF:  DS      2               ; in-sector byte offset for the SD deblock
 BLKN:   DS      4               ; SD block number (32-bit, MSB first); SD block = SDPLBA + record/4
 SDCMDB: DS      6               ; SD command buffer (opcode + 4-byte arg + CRC)

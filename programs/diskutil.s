@@ -70,7 +70,7 @@ FBDIR   EQU     2000H                   ; drive A: flash directory base (block 0
 FBDIRZ  EQU     1000H                   ; directory size written (4K = 128 entries)
 FBSYS   EQU     2000H                   ; end of the reserved system area (0x0000-0x1FFF); dir base
 CPMIMG  EQU     0000H                   ; flash offset of the stored CP/M boot image
-CPMIMGLEN EQU  1D00H                    ; bytes of the boot image (padded to 0x1D00; must match gwmon/smbrevia.asm)
+CPMIMGLEN EQU  1E00H                    ; bytes of the boot image (padded to 0x1E00; must match gwmon/smbrevia.asm)
 
 ; ============================================================================
         JMP     START
@@ -1040,18 +1040,18 @@ DO_FLASH_BURN:
         XRA     A
         STA     FBADDR+2
         CALL    SPI_ERASE_SECT
-        ; program the image: 29 pages x 256 B = 0x1D00 B from 0xD000 to flash 0x0000
-        ; (MUST equal CPMIMGLEN -- at 26 pages the last 0x300 bytes of the CBIOS,
-        ;  0xEA00-0xECFF, were never burned, so a power-up flash boot ran a
-        ;  truncated CBIOS with the SPI primitives and drive-A code reading back
-        ;  as erased 0xFF.  Keep this count in step with CPMIMGLEN.)
+        ; program the image: 30 pages x 256 B = 0x1E00 B from 0xD000 to flash 0x0000
+        ; (MUST equal CPMIMGLEN -- at fewer pages the last bytes of the CBIOS,
+        ;  incl. the drive-C/D DPH/DPB tables at 0xED00+, were never burned, so a
+        ;  power-up flash boot ran a truncated CBIOS reading them as erased 0xFF.
+        ;  Keep this count in step with CPMIMGLEN.)
         LXI     H,0D000H
         SHLD    BURNSRC
         LXI     H,0
         SHLD    FBADDR
         XRA     A
         STA     FBADDR+2
-        MVI     B,29                    ; 29 pages = 0x1D00 B = CPMIMGLEN
+        MVI     B,30                    ; 30 pages = 0x1E00 B = CPMIMGLEN
 BURN_LOOP:
         PUSH    B
         LHLD    BURNSRC

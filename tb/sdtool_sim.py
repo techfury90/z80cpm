@@ -354,7 +354,7 @@ def main():
     MEM[0xFC00]=0x76
     MEM[0xDFFF]=0xFC; MEM[0xDFFE]=0x00
     SP=0xDFFE; PC=0x0100
-    steps = run(max_steps=8_000_000)   # generous: SD_BUSY=8000 busy-drain per write burns a lot of steps
+    steps = run(max_steps=40_000_000)   # generous: SD_BUSY=8000 busy-drain per write burns a lot of steps
     print("=== SDTOOL OUTPUT (commands I C P F P Q) ===")
     print(''.join(stdout).replace('\r',''))
     print("=== steps:", steps, "PC=%04X (clean quit if returned to 0xFC00)"%PC)
@@ -370,16 +370,16 @@ def main():
     # sectors (blocks 1-16).  Check ALL of them -- a formatter that writes only
     # the first N would leave the upper sectors stale (phantom dir entries).
     bad=[]
-    for b in range(1,17):
-        sb=SD.blocks.get(b)
-        if sb is None or not all(x==0xE5 for x in sb):
-            bad.append(b)
+    # 8KB-block / DRM=4095 geometry: two logical drives (C: region 0, D: region 1).
+    #   each directory = 128KB = 256 SD sectors.  region 0 = SD blocks 1-256,
+    #   region 1 = SD blocks 16385-16640 (region-0 base + 0x4000).
+    for rng,label in [((1,257),'region0 (C:)'),((16385,16641),'region1 (D:)')]:
+        rbad=[b for b in range(*rng) if (SD.blocks.get(b) is None or not all(x==0xE5 for x in SD.blocks.get(b)))]
+        print("  %s dir blocks %d-%d ALL 0xE5? : %s"%(
+            label, rng[0], rng[1]-1, "YES" if not rbad else ("NO  (not E5: "+str(rbad[:8])+")")))
+        bad.extend(rbad)
     b1=SD.blocks.get(1)
     print("  partition LBA1 first 8 bytes:", [hex(x) for x in (b1 or bytearray(512))[:8]])
-    print("  partition dir sectors 1-16 ALL 0xE5? :", "YES" if not bad else ("NO  (not E5: "+str(bad)+")"))
-    for b in bad:
-        print("    block %d first bytes: %s"%(b, [hex(x) for x in list(SD.blocks.get(b,bytearray(512)))[:12]]))
-    print("  SD blocks present: %s"%sorted(SD.blocks.keys())[:20])
     print("=== BDOS func counts ===", collections.Counter(bdos_calls))
 
 if __name__=='__main__':

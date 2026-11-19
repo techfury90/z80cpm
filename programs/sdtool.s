@@ -14,14 +14,15 @@
 ;   Q -- quit.
 ;
 ; The SD CP/M partition geometry (MUST match the CBIOS DPB):
-;   128-byte records, SPT=32, 4KB allocation blocks (BSH=5/BLM=31),
-;   DSM=2047 (DOUBLE-DM, 2048 blocks x 4KB = 8 MB = the CP/M 2.2 ceiling),
-;   DRM=255 (256 directory entries = 8192 bytes = 2 blocks, reserved via
-;   AL0=0xC0), EXM=1, CKS=0, OFF=0 (data partition, no system tracks).  The
-;   directory occupies the first 8KB (16 x 512B SD sectors) of the partition and
-;   is the only thing a format must write (the BDOS rebuilds the allocation
-;   vector on login).  Partition 1 starts at LBA 1, size 0x00020000 sectors
-;   (64 MB -- drive C uses only the first 8 MB of it for now).
+;   128-byte records, SPT=32, 8KB allocation blocks (BSH=6/BLM=63),
+;   DSM=1023 (DOUBLE-DM, 1024 blocks x 8KB = 8 MB per drive = CP/M 2.2 ceiling),
+;   DRM=4095 (4096 directory entries = 128KB = 16 blocks, reserved via
+;   AL0=0xFF/AL1=0xFF), EXM=3, CKS=0, OFF=0 (data partition, no system tracks).
+;   TWO 8 MB logical drives are formatted (C: region 0 at the partition start,
+;   D: region 1 at +8 MB): each directory = 128KB = 256 x 512B SD sectors written
+;   as 0xE5, the only thing a format must write (the BDOS rebuilds the
+;   allocation vector on login).  Partition 1 starts at LBA 1, size 0x00020000
+;   sectors (64 MB -- drives C:/D: currently use the first 16 MB of it).
 ;
 ; NOTE on BDOS register clobbering: every console-call loop preserves B/HL
 ; across CPUTC/func-2 with PUSH/POP (func 2 destroys B and HL on this CBIOS).
@@ -33,13 +34,13 @@ SDCTL   EQU     54H
 SDSTAT  EQU     55H
 
 SPT     EQU     32              ; sectors (128B) per track  [geometry]
-BSH     EQU     5               ; 4KB allocation blocks
-BLM     EQU     31
-EXM     EQU     1               ; BLS=4096 & DSM>255 -> double-DM
-DSM     EQU     2047            ; 8 MB (2048 blocks x 4KB = CP/M 2.2 ceiling)
-DRM     EQU     255             ; 256 directory entries
-AL0V    EQU     0C0H            ; reserve directory blocks 0,1 (8KB dir = 64 records)
-AL1V    EQU     00H
+BSH     EQU     6               ; 8KB allocation blocks
+BLM     EQU     63
+EXM     EQU     3               ; BLS=8192 & DSM>255 -> double-DM (16-bit block ptrs)
+DSM     EQU     1023            ; 8 MB (1024 blocks x 8KB = CP/M 2.2 ceiling)
+DRM     EQU     4095            ; 4096 directory entries
+AL0V    EQU     0FFH            ; reserve directory blocks 0-7 (MSB-first)
+AL1V    EQU     0FFH            ; reserve directory blocks 8-15 (16 blocks = 128KB dir)
 
 PMTYPE  EQU     53H             ; CP/M partition type (no standard MBR type exists)
 PARTLBA0 EQU    01H             ; partition 1 LBA start = 1 (LE byte 0)
@@ -386,8 +387,17 @@ CF_F:
         MOV     A,B
         ORA     C
         JNZ     CF_F
-        ; write 16 sectors (8KB = the 2 directory blocks; DRM=255 -> 256 entries)
-        MVI     D,16
+        ; save the region-0 base (partition LBA) so we can compute region 1
+        LDA     BLKN+0
+        STA     REGBASE+0
+        LDA     BLKN+1
+        STA     REGBASE+1
+        LDA     BLKN+2
+        STA     REGBASE+2
+        LDA     BLKN+3
+        STA     REGBASE+3
+        ; ---- region 0 (drive C): 256 sectors = 128KB directory (4096 entries) ----
+        MVI     D,256
 CF_LP:
         LXI     H,BLKBUF
         CALL    SD_WRITEBLKN
@@ -401,6 +411,37 @@ CF_WOK:
         CALL    INCBLK          ; advance BLKN by 1 sector
         DCR     D
         JNZ     CF_LP
+        ; ---- region 1 (drive D): BLKN = region-0 base + 0x4000 (8 MB), 256 sectors
+        LDA     REGBASE+0
+        STA     BLKN+0
+        LDA     REGBASE+1
+        STA     BLKN+1
+        LDA     REGBASE+2
+        STA     BLKN+2
+        LDA     REGBASE+3
+        STA     BLKN+3
+        LDA     BLKN+2
+        ADI     40H             ; +0x4000 = +16384 SD sectors = +8 MB (region 1)
+        STA     BLKN+2
+        JNC     CF_R1            ; carry into BLKN+1 if it overflowed (partition LBA>0xFF)
+        LDA     BLKN+1
+        ADI     01H
+        STA     BLKN+1
+CF_R1:
+        MVI     D,256
+CF_LP2:
+        LXI     H,BLKBUF
+        CALL    SD_WRITEBLKN
+        ORA     A
+        JZ      CF_WOK2
+        LXI     H,MSG_WERR
+        CALL    PSTR
+        CALL    CRLF
+        RET
+CF_WOK2:
+        CALL    INCBLK
+        DCR     D
+        JNZ     CF_LP2
         LXI     H,MSG_FMT
         CALL    PSTR
         CALL    CRLF
@@ -844,6 +885,7 @@ ACMDIT: DS      1
 ACMDR1: DS      1
 CMDBUF: DS      6
 BLKN:   DS      4               ; SD block number (MSB first)
+REGBASE: DS      4               ; saved region-0 base BLKN (for the drive-D region-1 offset)
 CIDBUF: DS      16
 BLKBUF: DS      512
         END

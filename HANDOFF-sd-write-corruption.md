@@ -1,3 +1,40 @@
+# HANDOFF — SD drive C: WRITE path corruption — RESOLVED (verified on silicon)
+
+Status 2026-11-18: fixed and confirmed on the board. `PIP C:=A:*.*` copies
+cleanly, `dir c:` is stable, `SDTOOL F` formats in one pass.
+
+**Authoritative reference for other agents: `cpm/SD-WRITE-PATH-FIX.md`**
+(root causes with before/after code, current build map + addresses, GWMON dump
+fingerprints, simulator harness and results, and the rules for changing this
+path). This file is the investigation trail.
+
+## What was actually wrong (one line each)
+
+1. `SDMAP` built the deblock in-sector offset with `RLC` (circular) instead of
+   `RAL` — records 2/3 of every 512-byte sector were written ONE BYTE HIGH.
+   CP/M read back through the same wrong offset, so it hid the damage; the card
+   was silently corrupt.
+2. No card-ready handling: a programming card holds MISO low (or floats it), and
+   `SD_SEND6` accepted the resulting `00h` as "R1 = OK", silently dropping the
+   command. That is the `Bdos Err On C: Bad Sector`.
+3. `SD_WRITEBLK` threw away the data-response token, so rejected writes looked
+   successful.
+4. One-shot error handling made any transient fatal. `READC`/`WRITEC` now retry
+   the whole operation 6x with a ~10 ms wait + re-handshake between attempts
+   (which also heals a boot-time `SD_INIT` failure — `BOOT` ignores its result).
+
+Bonus find: `diskutil`'s flash burn programmed 26 pages (0x1A00) while
+`CPMIMGLEN` is 0x1D00, so a power-up boot from flash ran a truncated CBIOS
+(SPI primitives, drive-A code, DPH/DPB and all variables from 0xEA09 up were
+never burned). Fixed to 29 pages.
+
+Not bugs, despite appearances: the `00 F6` fill was RMWBUF residue (nothing
+writes into the system — verified by trapping every store to CCP/CBIOS code), and
+"CP/M got corrupted" was CP/M 2.2's `errflg` waiting on the console after the
+error.
+
+---
+
 
 ## UPDATE (retry layer) — the failure is intermittent: retry, don't poll harder
 
@@ -36,133 +73,7 @@ dropped forever), and CS# edges must abort the data phase or junk responses leak
 across transactions.
 
 ---
-# HANDOFF — SD drive C: WRITE path corruption — **RESOLVED** (sim-verified)
 
-Two independent defects in the WRITE path. Both were reproduced deterministically
-in a new full-system simulator (`tb/cpmsys_sim.py` + `tb/test_drive_c.py`), fixed,
-and re-verified. **Board confirmation still pending** (build below).
-
-## Root cause 1 — deblock sector offset was off by one (silent card corruption)
-
-`SDMAP` computed `SDOFF_lo = ((record & 3) << 7)` with **`RLC`**, which is a
-*circular* rotate: bit 7 wraps back into bit 0. So
-
-| record & 3 | SDOFF wanted | SDOFF produced |
-|---|---|---|
-| 0 | `0x0000` | `0x0000` |
-| 1 | `0x0080` | `0x0080` |
-| 2 | `0x0100` | **`0x0101`** |
-| 3 | `0x0180` | **`0x0181`** |
-
-Records 2 and 3 of every 512-byte sector were deblocked **one byte high**.
-Because READS used the same wrong offset, CP/M round-tripped its own writes — which
-is exactly why "a copied file can SOMETIMES run from C:". But the *card* content
-was shifted: the byte at offset `0x100` kept its stale value and everything after
-drifted, so every directory/data sector written to C: was silently corrupt to any
-host-side reader (and to any later fixed CBIOS).
-
-Fix: `XRA A` (clear CY) + 7 × **`RAL`** (rotate through carry) in `SDMAP`.
-
-Evidence: `tb/test_write.py` writes 128 records through the CBIOS and compares the
-card. Before: "block 1 offset 256 wrong: ff020304..." (data at 0x101). After:
-"SDOFF 0x0100/0x0180", "SD card content matches the deblock mapping: True".
-
-## Root cause 2 — no busy/ready handling on the SD bus ("Bad Sector" + flaky format)
-
-A card that is still programming a block drives MISO **low**, so every byte read
-returns `0x00`. `SD_SEND6` reads the R1 byte with `CPI 0FFH / JNZ done`, i.e. it
-accepts that `0x00` as **"R1 = OK"** and the command is silently dropped —
-desyncing the card's stream. On top of that the old write tail only polled busy
-for 255 clocks (~80 µs) and then released CS, far short of the SD spec's 250 ms
-worst-case block programming time.
-
-Sequence that produces the reported failure: CMD24 accepted → 512B written → CS
-released while the card is still programming → the *next* command (the CMD17 of the
-following RMW, or the directory read) is fed into a busy card → garbage/`0FFh` R1 →
-BIOS WRITE returns `0FFh` → **`Bdos Err On C: Bad Sector`**, with some writes
-having landed and others not.
-
-Same defect in `programs/sdtool.s`: the first write (MBR `C`) succeeds, then every
-subsequent command fails → `F` (format) has to be run **twice**. Reproduced:
-old `sdtool.com` against a realistically busy card prints `INIT ok`,
-`MBR written`, then `NO CARD / init failed` for every following command.
-
-Fix (both `cpm/cbios.asm` and `programs/sdtool.s`):
-- new **`SD_READY`**: clock `0FFh` until the card is not busy, 4 × 65536 reads
-  (~0.4 s @ 25 MHz) timeout; preserves D/H/L (SD_INIT keeps its ACMD41 retry
-  counter in D).
-- `SD_SEND6` calls `SD_READY` **before** every command.
-- `SD_WRITEBLK(N)` now actually **checks the data-response token** (`& 1Fh == 05h`)
-  instead of discarding it, then calls `SD_READY` **before** releasing CS.
-
-## About the "00 F6" fill and the "corrupted CP/M"
-
-Not a memory-clobber. Instrumented the whole PIP copy for stores into the CCP
-(`0xD000-0xD7FF`) and CBIOS code (`0xE600-0xEB00`): the only writes are the CCP's
-own stack (`0xD7A7-0xD7AA`) and `FBADDR`. Nothing writes into the system.
-`0xF700+` is inside RMWBUF (`0xEF00-0xFEFF`) — buffer residue, not corruption;
-only a drive-A 4 KB flash RMW fills that far up. What looks like a dead system
-after the error is CP/M 2.2's `errflg`, which prints the message and then **drops
-into `conin`** waiting for a key, with the FCB/dir state left mid-operation — a
-cold boot is the only clean way out.
-
-## Verification (simulator, `tb/cpmsys_sim.py`)
-
-Faithful 8080 core + real CCP/BDOS/CBIOS image + writable SD model that models
-programming busy (data-response token first, *then* MISO low) + SPI-flash model
-for drive A + console input queue. `python3 tb/test_drive_c.py <busy_clocks> <max_steps>`:
-boots, `DIR C:`, `PIP C:=A:*.*` (two files), `DIR C:`, then reads both files back
-through the CBIOS **and** reconstructs them from the raw card blocks.
-
-```
-A>PIP C:=A:*.*
-COPYING -
-PIP.COM
-ED1.COM
-A>DIR C:
-C: PIP      COM : ED1      COM
-=== disk error reported: False
-PIP.COM  CBIOS read-back: byte-exact   host view of card: byte-exact
-ED1.COM  CBIOS read-back: byte-exact   host view of card: byte-exact
-=== RESULT: PASS
-```
-
-Same run on the old image: `COPYING - PIP.COM` then `Bdos Err On C: Bad Sector`
-(busy ≥ 300 clocks), and with a non-busy model the copy "succeeds" but the host
-view of the card is `CORRUPT` (root cause 1).
-
-## Build pushed to the board
-
-| file | bytes | sha256 |
-|---|---|---|
-| `cpm/brevia2_cpm.bin` | 7424 | `c38c8124f0136766e4ac56e4407182441f0e343b1d1fd843e74a292a4b3a5cf1` |
-| `programs/sdtool.com` | 1761 | `319f2e90965f9cc0248913b2a6d193cb6723e519fb9cdf144e1e29d0bc70b5d3` |
-
-CBIOS now ends at `0xECA1` (was `0xEC9F`), still inside `CPMIMGLEN 0x1D00`, so
-`make_combined_hex.py`, `diskutil.s` and `gwmon/smbrevia.asm` are unchanged.
-
-## Board procedure (must reformat: old writes left every sector misaligned)
-
-1. `G 1000` → `C` → XMODEM-send `cpm/brevia2_cpm.bin` (loads + burns flash), cold boot.
-2. `XMODEM R SDTOOL.COM` → send `programs/sdtool.com` (lands on drive A:).
-3. `SDTOOL` → `I` (init ok) → `C` (create MBR, only if the card has none) → `F`.
-   `F` must succeed **first time** now; `DIR C:` must show `No File` and `STAT C:`
-   ~500 K free.
-4. `PIP C:=A:*.*` — no `Bad Sector`; `DIR C:` lists every file.
-5. Optional: run a copied `.COM` from `C:` (e.g. `C:PIP` or `C:SDTOOL`).
-
-## Files
-- `cpm/cbios.asm` — `SDMAP` (RAL), `SD_READY`, `SD_WRITEBLK` response check.
-- `programs/sdtool.s` — same two fixes; `programs/sdtool.com`/`.hex` rebuilt.
-- `tb/cpmsys_sim.py` — full-system simulator (CPU, RAM disk, flash, SD, UART).
-- `tb/test_drive_c.py` — end-to-end regression (boot → DIR → PIP → verify).
-- `tb/test_write.py` — 128-record write/read sweep + card-content check.
-- `tb/test_sdmap.py` — prints SDOFF/BLKN per record.
-- `tb/sdtool_sim.py` — now models card busy (`SD_BUSY=<read clocks>`).
-
-The original investigation notes are kept below for context.
-
----
 # HANDOFF — SD drive C: WRITE path corruption (fresh investigation)
 
 Goal: get the SD (drive C:) to a fully working CP/M disk.  READS and directory

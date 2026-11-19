@@ -1,5 +1,12 @@
 # SD-card support (SPI mode) for the Brevia2 — investigation & design
 
+> **Implemented since this was written** (drive C:, deblocking, `sdtool.com`).
+> For the WRITE-path bugs found on silicon and their fixes — deblock offset
+> off-by-one, card-busy/ready handling, data-response checking, the retry layer,
+> and the truncated flash burn — see **`cpm/SD-WRITE-PATH-FIX.md`**.
+> Current build map, verification harness and rules for changing the path are
+> all in that file.
+
 Assumption in this document: the user has SPI-mode SD breakouts with pins
 **3V3, CS, MOSI, CLK, MISO, GND** (pull-ups already on the breakouts), and the
 Brevia2 has a proven SPI byte-engine already driving the on-board SST flash. We

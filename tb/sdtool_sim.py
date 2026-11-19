@@ -44,12 +44,15 @@ class SDCard:
 
     def out(self, byte):
         if self.busy:            # card ignores everything while programming
+            if getattr(self,'dbg',0) and self.write_state=='data' and self.write_blk==16:
+                print("  [model] blk16 DATA byte dropped (busy=%d)"%self.busy)
             self.busy -= 1
             return
         # handle the write data phase (token/data/crc) first
         if self.write_state == 'token':
             self.tx = []             # drop any stray command accumulation
             if byte == 0xFE:
+                if getattr(self,'dbg',0) and self.write_blk==16: print("  [model] blk16 FE token, busy=%d"%self.busy)
                 self.write_state = 'data'
                 self.write_len = 0
                 self.write_buf = bytearray(512)
@@ -57,13 +60,17 @@ class SDCard:
         if self.write_state == 'data':
             self.write_buf[self.write_len] = byte
             self.write_len += 1
+            if getattr(self,'dbg',0) and self.write_blk==16 and self.write_len % 64 == 0:
+                print("  [model] blk16 data len=%d"%self.write_len)
             if self.write_len == 512:
+                if getattr(self,'dbg',0) and self.write_blk==16: print("  [model] blk16 data done, busy=%d"%self.busy)
                 self.write_state = 'crc'
                 self.write_crc = 0
             return
         if self.write_state == 'crc':
             self.write_crc += 1
             if self.write_crc == 2:
+                if getattr(self,'dbg',0) and self.write_blk==16: print("  [model] blk16 crc done, storing, busy=%d"%self.busy)
                 self._store(self.write_blk, self.write_buf)
                 self.write_state = None
                 self.resp.append(0x05)   # data response OK (clocked before busy)
@@ -73,6 +80,7 @@ class SDCard:
         if self.cs == 0:
             self.tx.append(byte)
             if len(self.tx) == 6:
+                if getattr(self,'dbg',0) and (self.tx[0]&0x3F) in (17,24): print("  [model] CMD%d blk=%d"%(self.tx[0]&0x3F,(self.tx[1]<<24)|(self.tx[2]<<16)|(self.tx[3]<<8)|self.tx[4]))
                 self.process(self.tx[0] & 0x3F, self.tx)
                 self.tx = []
 
@@ -346,7 +354,7 @@ def main():
     MEM[0xFC00]=0x76
     MEM[0xDFFF]=0xFC; MEM[0xDFFE]=0x00
     SP=0xDFFE; PC=0x0100
-    steps = run(max_steps=1_000_000)
+    steps = run(max_steps=8_000_000)   # generous: SD_BUSY=8000 busy-drain per write burns a lot of steps
     print("=== SDTOOL OUTPUT (commands I C P F P Q) ===")
     print(''.join(stdout).replace('\r',''))
     print("=== steps:", steps, "PC=%04X (clean quit if returned to 0xFC00)"%PC)

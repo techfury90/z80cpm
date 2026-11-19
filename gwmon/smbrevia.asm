@@ -22,7 +22,7 @@ SPI_DATA equ	50H		;SPI flash data (read clocks in / write clocks out)
 SPI_CTL  equ	51H		;SPI flash control (bit0 = CS#)
 SPI_STAT equ	52H		;SPI flash status (bit0 = busy)
 CPMIMG	 equ	0000H		;flash offset of the stored CP/M image
-CPMIMGLEN equ	1D00H		;bytes of the boot image (padded to 0x1D00; must match diskutil.s)
+CPMIMGLEN equ	1E00H		;bytes of the boot image (padded to 0x1E00; must match diskutil.s)
 
 	ORG	0H
 

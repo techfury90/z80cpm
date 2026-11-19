@@ -70,7 +70,7 @@
    1000                 FBDIRZ  EQU     1000H                   ; directory size written (4K = 128 entries)
    2000                 FBSYS   EQU     2000H                   ; end of the reserved system area (0x0000-0x1FFF); dir base
    0000                 CPMIMG  EQU     0000H                   ; flash offset of the stored CP/M boot image
-   1d00                 CPMIMGLEN EQU  1D00H                    ; bytes of the boot image (padded to 0x1D00; must match gwmon/smbrevia.asm)
+   1e00                 CPMIMGLEN EQU  1E00H                    ; bytes of the boot image (padded to 0x1E00; must match gwmon/smbrevia.asm)
                         
                         ; ============================================================================
    1000   c3 1d 11              JMP     START
@@ -1172,18 +1172,18 @@
    169b   af                    XRA     A
    169c   32 87 16              STA     FBADDR+2
    169f   cd 68 16              CALL    SPI_ERASE_SECT
-                                ; program the image: 29 pages x 256 B = 0x1D00 B from 0xD000 to flash 0x0000
-                                ; (MUST equal CPMIMGLEN -- at 26 pages the last 0x300 bytes of the CBIOS,
-                                ;  0xEA00-0xECFF, were never burned, so a power-up flash boot ran a
-                                ;  truncated CBIOS with the SPI primitives and drive-A code reading back
-                                ;  as erased 0xFF.  Keep this count in step with CPMIMGLEN.)
+                                ; program the image: 30 pages x 256 B = 0x1E00 B from 0xD000 to flash 0x0000
+                                ; (MUST equal CPMIMGLEN -- at fewer pages the last bytes of the CBIOS,
+                                ;  incl. the drive-C/D DPH/DPB tables at 0xED00+, were never burned, so a
+                                ;  power-up flash boot ran a truncated CBIOS reading them as erased 0xFF.
+                                ;  Keep this count in step with CPMIMGLEN.)
    16a2   21 00 d0              LXI     H,0D000H
    16a5   22 c8 16              SHLD    BURNSRC
    16a8   21 00 00              LXI     H,0
    16ab   22 85 16              SHLD    FBADDR
    16ae   af                    XRA     A
    16af   32 87 16              STA     FBADDR+2
-   16b2   06 1d                 MVI     B,29                    ; 29 pages = 0x1D00 B = CPMIMGLEN
+   16b2   06 1e                 MVI     B,30                    ; 30 pages = 0x1E00 B = CPMIMGLEN
    16b4                 BURN_LOOP:
    16b4   c5                    PUSH    B
    16b5   2a c8 16              LHLD    BURNSRC
@@ -1903,7 +1903,7 @@
 14d2  BF_EXT0       14ca  BF_EXT_PAD    14c6  BF_EXT_SKIP    14a3  BF_GOTEXT 
 1487  BF_N          14a3  BF_NPAD       1477  BF_Z          155e  BLKNO     
 0400  BLKSZ         1472  BUILD_FCB     16c8  BURNSRC       16b4  BURN_LOOP 
-0000  CPMIMG        1d00  CPMIMGLEN     1039  CRLF          2800  DBLOCK0   
+0000  CPMIMG        1e00  CPMIMGLEN     1039  CRLF          2800  DBLOCK0   
 2000  DIRBASE       14e8  DO_BOOTCPM    155f  DO_DUMP       1848  DO_ERASE  
 1688  DO_FLASH_BURN    116b  DO_FMT        189c  DO_FMTFLASH    118e  DO_HELP   
 173f  DO_ID         1587  DO_MDUMP      179c  DO_PROGRAM    17ce  DO_READ   

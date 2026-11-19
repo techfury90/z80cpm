@@ -61,6 +61,8 @@ SPT     EQU     32              ; sectors per track (from DPB)
 SYSCPP  EQU     0000H           ; RAM-disk byte offset of the stored CCP
 SYSBDS  EQU     0800H           ; RAM-disk byte offset of the stored BDOS
 DMA0    EQU     0080H           ; CP/M default DMA buffer
+LEDPORT EQU     40H             ; drive-activity LEDs (write bit = drive; MSB = drive A).
+                                ;  Port 40h is shared read-only with the DIP switches.
 ;
 ; ---- ISSI IS25LD040 SPI flash ports (drive B:) — same map as diskutil ---- 
 SPI_DATA EQU    50H             ; read clocks a byte in / write clocks a byte out (MSB first)
@@ -391,17 +393,52 @@ RAMPTR:
         RET
 
 ; ============================================================================
+;   DRIVE-ACTIVITY LEDS.  Port 40h carries the drive LEDs (write-only; the DIP
+;   switches share the port read-only).  On every disk READ/WRITE we light the
+;   LED for the selected drive, then write 00h to extinguish before returning.
+;   Bit assignment (user spec): MSB / pin37 / D8 = drive A, D7 = drive B,
+;   D6 = drive C, D5 = drive D  =>  bit = 7 - SELBL.
+; ============================================================================
+LIGHT:
+        LDA     SELBL           ; A = drive number (0..3)
+        MOV     C,A             ; C = shift count
+        MVI     B,80H           ; B = MSB mask (drive A)
+LIGHT_LP:
+        MOV     A,C
+        ORA     A
+        JZ      LIGHT_OUT
+        MOV     A,B
+        RRC
+        MOV     B,A
+        DCR     C
+        JMP     LIGHT_LP
+LIGHT_OUT:
+        MOV     A,B
+        OUT     LEDPORT
+        RET
+
+; LEDOFF: write 00h to the LED port (all drives off).  Preserves ALL registers,
+;   so the disk status in A survives unchanged to the BDOS caller.
+LEDOFF:
+        PUSH    PSW
+        MVI     A,00H
+        OUT     LEDPORT
+        POP     PSW
+        RET
+
+; ============================================================================
 ;   READ:  read one 128-byte CP/M sector from the RAM disk into the DMA buffer.
 ;   Returns A=0 on success (RAM disk is error-free -> always 0).
 ; ============================================================================
 READ:
+        CALL    LIGHT           ; light the LED for the selected drive (bit = 7-SELBL)
         LDA     SELBL
         ORA     A
-        JZ      READB           ; drive A (SELBL==0) -> SPI flash (boot drive)
+        JZ      READ_A          ; drive A (SELBL==0) -> SPI flash (boot drive)
         CPI     02H
-        JZ      READC           ; drive C (SELBL==2) -> SD card (with retry)
+        JZ      READ_C          ; drive C (SELBL==2) -> SD card (with retry)
         CPI     03H
-        JZ      READC           ; drive D (SELBL==3) -> SD card (with retry)
+        JZ      READ_C          ; drive D (SELBL==3) -> SD card (with retry)
         ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR          ; set the disk data-pointer
@@ -416,20 +453,28 @@ READ1:
         DCR     B
         JNZ     READ1
         MVI     A,00H           ; success
-        RET
+        JMP     LEDOFF          ; extinguish the activity LED, then return to the BDOS
+                                ;  (LEDOFF preserves A, so the BDOS still sees 00H)
+READ_A:
+        CALL    READB           ; drive A flash read; RET here with A = status
+        JMP     LEDOFF
+READ_C:
+        CALL    READC           ; drive C/D SD read (retry); RET here with A = status
+        JMP     LEDOFF
 
 ; ============================================================================
 ;   WRITE: write one 128-byte CP/M sector from the DMA buffer to the RAM disk.
 ;   Returns A=0 on success.
 ; ============================================================================
 WRITE:
+        CALL    LIGHT           ; light the LED for the selected drive (bit = 7-SELBL)
         LDA     SELBL
         ORA     A
-        JZ      WRITEB          ; drive A (SELBL==0) -> SPI flash (boot drive)
+        JZ      WRITE_A         ; drive A (SELBL==0) -> SPI flash (boot drive)
         CPI     02H
-        JZ      WRITEC          ; drive C (SELBL==2) -> SD card (with retry)
+        JZ      WRITE_C         ; drive C (SELBL==2) -> SD card (with retry)
         CPI     03H
-        JZ      WRITEC          ; drive D (SELBL==3) -> SD card (with retry)
+        JZ      WRITE_C         ; drive D (SELBL==3) -> SD card (with retry)
         ; ---- drive B: RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR
@@ -444,7 +489,13 @@ WRITE1:
         DCR     B
         JNZ     WRITE1
         MVI     A,00H           ; success
-        RET
+        JMP     LEDOFF          ; extinguish the activity LED, then return to the BDOS
+WRITE_A:
+        CALL    WRITEB          ; drive A flash write (4KB RMW); RET here with A = status
+        JMP     LEDOFF
+WRITE_C:
+        CALL    WRITEC          ; drive C/D SD write (retry); RET here with A = status
+        JMP     LEDOFF
 
 ; ============================================================================
 ;   SD CARD (drive C:) DRIVER + DEBLOCKING

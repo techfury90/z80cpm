@@ -132,3 +132,9 @@ for drv, selbl, dirfirst, regoff in DRIVES:
         allok = allok and same and hsame
 print("=== commands dropped by the card: %d of %d"%(S.SD.dropped, S.SD.cmds_seen))
 print("=== RESULT:", "PASS" if (allok and not err) else "FAIL")
+
+# ---- drive-activity LED trace (OUT 0x40) ----
+led = getattr(S, "LEDLOG", None)
+if led is not None:
+    print("led writes: %d"%len(led))
+    print("led sequences (value:count):", sorted(set(led)))

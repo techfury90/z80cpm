@@ -22,7 +22,7 @@
    0051                 SPI_CTL  equ	51H		;SPI flash control (bit0 = CS#)
    0052                 SPI_STAT equ	52H		;SPI flash status (bit0 = busy)
    0000                 CPMIMG	 equ	0000H		;flash offset of the stored CP/M image
-   1d00                 CPMIMGLEN equ	1D00H		;bytes of the boot image (padded to 0x1D00; must match diskutil.s)
+   1e00                 CPMIMGLEN equ	1E00H		;bytes of the boot image (padded to 0x1E00; must match diskutil.s)
                         
    0000                 	ORG	0H
                         
@@ -815,7 +815,7 @@
    02a1   af                    XRA     A
    02a2   32 79 02              STA     FBADDR+2
    02a5   11 00 d0              LXI     D,0D000H
-   02a8   01 00 1d              LXI     B,CPMIMGLEN
+   02a8   01 00 1e              LXI     B,CPMIMGLEN
    02ab   cd 41 02              CALL    SPI_READBUF     ; reads CPMIMGLEN bytes, DE advances past
                                 ; cold-boot CP/M (CBIOS BOOT persists CCP/BDOS to the flash and enters CCP)
    02ae   c3 00 e6              JMP     0E600H
@@ -836,7 +836,7 @@
 0087  ASCHEX        01c6  BFLSH         027a  BFOOT         029b  BFOOT1    
 fe00  BOOTCHK       0008  BS            0003  CANCEL        0070  CIN       
 01cb  CINNE         0024  CMDLP         0036  CMDLP1        01b4  CMDTAB    
-01da  COUT          01db  COUT1         0000  CPMIMG        1d00  CPMIMGLEN 
+01da  COUT          01db  COUT1         0000  CPMIMG        1e00  CPMIMGLEN 
 000d  CR            00e3  CRLF          010e  CSERR$        000c  CSTART    
 019f  CSUMER        0003  CTLC          0080  CTLPRT        0081  DATPRT    
 00c9  DMPLOC        fefd  DYNIN         fefa  DYNOUT        012a  EDTCM1    

@@ -207,10 +207,11 @@ FL = Flash()
 ramptr = 0
 rxq = collections.deque()
 rom_banked = 0
+LEDLOG = []              # captures every OUT 0x40 (drive-activity LED) write
 
 # ------------------------------------------------------------------ ports
 def out_port(port,val):
-    global ramptr, rom_banked, SD, FL
+    global ramptr, rom_banked, SD, FL, LEDLOG
     port &= 0xFF
     if port==0x20:
         RAMDISK[ramptr]=val; ramptr=(ramptr+1)&0xFFFF
@@ -223,7 +224,8 @@ def out_port(port,val):
     elif port==0x54: SD.cs_edge(1 if (val&1) else 0)
     elif port==0x81: stdout.append(val)
     elif port==0x30: rom_banked=val&1
-    # 0x40 sw / 0x41-0x45 ignore
+    elif port==0x40: LEDLOG.append(val)   # drive-activity LED (CBIOS LIGHT/LEDOFF)
+    # 0x41-0x45 ignore
 def in_port(port):
     global ramptr
     port &= 0xFF

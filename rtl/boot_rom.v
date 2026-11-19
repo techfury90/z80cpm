@@ -684,7 +684,7 @@ module boot_rom(input [15:0] addr_in, output [7:0] dout);
         16'h02A7: byte_read = 8'hD0;
         16'h02A8: byte_read = 8'h01;
         16'h02A9: byte_read = 8'h00;
-        16'h02AA: byte_read = 8'h1D;
+        16'h02AA: byte_read = 8'h1E;
         16'h02AB: byte_read = 8'hCD;
         16'h02AC: byte_read = 8'h41;
         16'h02AD: byte_read = 8'h02;

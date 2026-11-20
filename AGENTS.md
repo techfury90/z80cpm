@@ -233,11 +233,12 @@ The reliable on-board path:
    reset.
 
 - `cpm/brevia2_cpm.bin` starts at 0xD000. If already at the GWMON prompt,
-  `g e600` re-enters the RAM image. **Do NOT use `b`** — that boots the FLASH
-  copy, which may be an older/truncated image while you debug the wrong build.
+  `g e600` re-enters the RAM image. **Do NOT use `b`/`s` while debugging** — `b`
+  boots the SD copy (the default) and `s` the FLASH copy, each of which may be an
+  older/truncated image while you debug the wrong build.
 - For real file transfer use **Martin's XMODEM.COM from inside CP/M**
   (`cpm/xmodem/XMODEM.COM`) — `XMODEM R FILE` / `XMODEM S FILE` — which pushes
-  files onto the persistent flash drive A: directly. Using diskutil `U`/`D`
+  files onto the persistent SD drive A: directly. Using diskutil `U`/`D`
   (which target the volatile RAM disk) is only for bring-up.
 - **The user drives the serial console directly** (their terminal holds COM4
   exclusively, so pyserial gets "access denied" while it's open). Hand the user
@@ -251,14 +252,17 @@ The reliable on-board path:
 - **Extent capacity = 16 blocks per extent** at BSH=3 (1K blocks) = 16K. Extent
   N's allocation list must start at `base + N*16` **and** match where bytes were
   physically written.
-- **Drive A: (flash) geometry:** 2K blocks / 128 entries (BSH=4, BLM=15, EXM=1,
-  DSM=251, DRM=127, AL0=0xC0, ALVB=32 bytes). **Do not revert to the older 4K
-  BSH=5/DSM=125/AL0=0x80** (which capped at 64 entries). Backups of the 4K build
-  are in `backup-4k-cpm-20261117/`.
-- **Drive B: (RAM disk) keeps OFF=2** so ^C warm start stays functional during a
-  session; the flash (drive A) is the power-on boot store.
-- **Drive C: (SD) uses OFF=0** (data partition; sdtool formats the directory at
-  the partition start).
+- **Geometry (per media — the drive-letter map is build-config dependent, see the
+  drive map in §1):** the SPI **flash** (drive C in the SD build) uses 2K blocks /
+  128 entries (BSH=4, BLM=15, EXM=1, DSM=251, DRM=127, AL0=0xC0, ALVB=32 bytes).
+  **Do not revert to the older 4K BSH=5/DSM=125/AL0=0x80** (which capped at 64
+  entries). Backups of the 4K build are in `backup-4k-cpm-20261117/`.
+- The **RAM disk** (drive D in the SD build) keeps OFF=2 so ^C warm start stays
+  functional during a session; the SD is the power-on boot store.
+- The **SD** drives (A:/B: in the SD build) use OFF=0 (the reserved system-area +
+  region offsets are added at the CBIOS deblock layer, NOT the DPB). The formatter
+  (sdtool) writes the directory/data at `SDPLBA + SD_SYS` (and `+0x4000 + SD_SYS`
+  for region 1); `SD_SYS`/`SDSYS_OFF` = 16 must match between cbios and sdtool.
 - **Drive-A flash geometry was changed 2026-11-17.** Never trust a stale `.prn`
   or a hardcoded address — reassemble and read the fresh listing.
 - **Two-extent (≥16K) file math:** extent 1 must begin at `BLKNO+16` (**hex
@@ -280,7 +284,7 @@ The reliable on-board path:
   256 tracks you must make TRK 16-bit and store full BC. See
   `cpm/SD-8MB-DRIVE.md`.
 
-## 9. SPI flash (drive A:) — WREN and erase rules
+## 9. SPI flash (drive C: in the SD build; drive A: in the SPI build) — WREN + erase rules
 
 The on-board flash is the **ISSI IS25LD040** (JEDEC `0x9F` = `7F 9D 7E`), NOT
 the IS25LP040E/LQ040 that earlier docs assumed. `0x9F` read is **not byte-aligned**

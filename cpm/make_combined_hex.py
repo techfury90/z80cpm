@@ -71,6 +71,10 @@ def write_hex(path, data, recsize=16):
     print("wrote %d bytes across %d records to %s" % (len(data), len(lines)-1, path))
 
 base = os.path.dirname(os.path.abspath(__file__))
+# Optional output basename (default 'brevia2_cpm').  Used to emit a distinctly
+# named image (e.g. 'brevia2_cpm_spi' for a backup/emergency SPI build) without
+# clobbering the default SD image.  The .bin must be exactly CPMIMGLEN bytes.
+outname = sys.argv[1] if len(sys.argv) > 1 else 'brevia2_cpm'
 ccp = bin_to_dict(os.path.join(base, "cpm22", "ccp.bin"), 0xD000)
 bdos = bin_to_dict(os.path.join(base, "cpm22", "bdos.bin"), 0xD800)
 cbios = parse_intel_hex(os.path.join(base, "cbios.hex"))
@@ -100,7 +104,7 @@ image.update(ccp); image.update(bdos); image.update(cbios)
 # contiguous image so they never diverge.
 lo, hi = min(image), max(image)
 full = {a: image.get(a, 0x00) for a in range(lo, hi + 1)}   # fill gaps with 0
-write_hex(os.path.join(base, "brevia2_cpm.hex"), full)
+write_hex(os.path.join(base, outname + ".hex"), full)
 
 # Raw .bin: contiguous bytes from 0xE400 (CCP) to end of CBIOS. This is exactly
 # what diskutil's 'C' command receives over XMODEM: it loads sequentially into
@@ -113,9 +117,9 @@ bin_bytes = bytes(full[a] for a in range(lo, hi + 1))
 # bytes load into the CBIOS variable/RAM area beyond the image (below RMWBUF).
 CPMIMGLEN = 0x2000
 bin_bytes = bin_bytes.ljust(CPMIMGLEN, b'\x00')[:CPMIMGLEN]
-with open(os.path.join(base, "brevia2_cpm.bin"), "wb") as fh:
+with open(os.path.join(base, outname + ".bin"), "wb") as fh:
     fh.write(bin_bytes)
-print("wrote brevia2_cpm.bin: %d bytes from 0x%04X to 0x%04X"
-      % (len(bin_bytes), lo, hi))
+print("wrote %s.bin: %d bytes from 0x%04X to 0x%04X"
+      % (outname, len(bin_bytes), lo, hi))
 
 print("OK: combined image is contiguous 0x%04X-0x%04X" % (lo, hi))

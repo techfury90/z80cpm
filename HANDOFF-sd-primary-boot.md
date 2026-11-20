@@ -40,6 +40,14 @@ and the legacy SPI-primary builds are assembled and verified in the simulator.
    selected by swapping `cpm/cbios_cfg.inc`. The wrapper **`scripts/build_cbios.sh {sd|spi}`** copies
    the chosen config, assembles cbios, and regenerates the combined image + simulator `.mem`.
 
+- **SPI backup/emergency CP/M:** `scripts/build_cbios.sh spi` builds the SPI-flash-primary
+  image into **`cpm/brevia2_cpm_spi.{bin,hex,mem}`** (the SD default `cpm/brevia2_cpm.*` is
+  left untouched, and the active config/CBIOS are restored to SD afterward).  Flash that to
+  the SPI flash (via `diskutil C` XMODEM or the formatter) as a fallback boot image and boot
+  it with GWMON `s`.  `make_combined_hex.py` and `build_cbios.sh` accept an output basename;
+  the mode-specific listing is preserved as `cpm/cbios_{sd,spi}.prn` so a simulator harness
+  can be run against the matching build (`CBPRN=cpm/cbios_spi.prn tb/test_drive_c.py ... cpm/brevia2_cpm_spi.bin`).
+
 ## Critical constants (must stay in lockstep everywhere)
 
 - **`CPMIMGLEN = 0x2000`** — the image grew past the old 0x1E00. It must be a **multiple of 512**

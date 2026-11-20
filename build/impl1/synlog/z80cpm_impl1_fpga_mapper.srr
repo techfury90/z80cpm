@@ -1,4 +1,4 @@
-# Thu Nov 19 20:52:46 2026
+# Thu Nov 19 23:23:42 2026
 
 
 Copyright (C) 1994-2023 Synopsys, Inc.
@@ -35,7 +35,7 @@ Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h
 
 
 
-Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:01s; Memory used current: 257MB peak: 257MB)
+Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 257MB peak: 257MB)
 
 @N: BZ173 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_mcode.v":1956:12:1956:16|ROM Special_LD_2[2:0] (in view: work.tv80_mcode_Z2(verilog)) mapped in logic.
 @W: BN161 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v":16:7:16:25|Net clk_op has multiple drivers .
@@ -239,7 +239,7 @@ Only the first 100 messages of id 'BN132' are reported. To see all messages use 
 Starting factoring (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 275MB peak: 275MB)
 
 
-Finished factoring (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 287MB peak: 287MB)
+Finished factoring (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:03s; Memory used current: 287MB peak: 287MB)
 
 
 Available hyper_sources - for debug and ip models
@@ -290,30 +290,30 @@ Only the first 100 messages of id 'BN161' are reported. To see all messages use 
 Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:05s; CPU Time elapsed 0h:00m:05s; Memory used current: 293MB peak: 317MB)
 
 
-Starting Early Timing Optimization (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:11s; Memory used current: 295MB peak: 317MB)
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 296MB peak: 317MB)
 
 
-Finished Early Timing Optimization (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 298MB peak: 317MB)
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:10s; Memory used current: 299MB peak: 317MB)
 
 
-Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:14s; CPU Time elapsed 0h:00m:13s; Memory used current: 298MB peak: 317MB)
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:10s; Memory used current: 299MB peak: 317MB)
 
 @N: MO106 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_mcode.v":1956:12:1956:16|Found ROM u_cpu.i_tv80_core.i_mcode.MCycles_19_0[6:0] (in view: work.z80cpm_brevia2_bram(verilog)) with 78 words by 7 bits.
 
-Finished preparing to map (Real Time elapsed 0h:00m:15s; CPU Time elapsed 0h:00m:14s; Memory used current: 299MB peak: 317MB)
+Finished preparing to map (Real Time elapsed 0h:00m:11s; CPU Time elapsed 0h:00m:10s; Memory used current: 299MB peak: 317MB)
 
 
-Finished technology mapping (Real Time elapsed 0h:00m:16s; CPU Time elapsed 0h:00m:16s; Memory used current: 338MB peak: 366MB)
+Finished technology mapping (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:12s; Memory used current: 338MB peak: 366MB)
 
 Pass		 CPU time		Worst Slack		Luts / Registers
 ------------------------------------------------------------
-   1		0h:00m:16s		    -9.39ns		2218 /       603
-   2		0h:00m:16s		    -9.39ns		2206 /       603
-   3		0h:00m:16s		    -8.77ns		2206 /       603
-   4		0h:00m:16s		    -8.91ns		2206 /       603
-   5		0h:00m:16s		    -9.11ns		2206 /       603
-   6		0h:00m:16s		    -9.11ns		2206 /       603
-   7		0h:00m:16s		    -8.77ns		2206 /       603
+   1		0h:00m:12s		    -9.39ns		2218 /       603
+   2		0h:00m:12s		    -9.39ns		2206 /       603
+   3		0h:00m:12s		    -8.77ns		2206 /       603
+   4		0h:00m:12s		    -8.91ns		2206 /       603
+   5		0h:00m:13s		    -9.11ns		2206 /       603
+   6		0h:00m:13s		    -9.11ns		2206 /       603
+   7		0h:00m:13s		    -8.77ns		2206 /       603
 @N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[0] (in view: work.z80cpm_brevia2_bram(verilog)) with 92 loads 3 times to improve timing.
 @N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[2] (in view: work.z80cpm_brevia2_bram(verilog)) with 82 loads 3 times to improve timing.
 @N: FX271 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Replicating instance u_cpu.i_tv80_core.IR[3] (in view: work.z80cpm_brevia2_bram(verilog)) with 102 loads 3 times to improve timing.
@@ -328,28 +328,28 @@ Timing driven replication report
 Added 26 Registers via timing driven replication
 Added 25 LUTs via timing driven replication
 
-   8		0h:00m:17s		    -8.81ns		2244 /       629
-   9		0h:00m:17s		    -8.51ns		2246 /       629
-  10		0h:00m:17s		    -8.37ns		2248 /       629
-  11		0h:00m:18s		    -8.24ns		2252 /       629
-  12		0h:00m:18s		    -8.28ns		2252 /       629
-  13		0h:00m:18s		    -8.23ns		2256 /       629
-  14		0h:00m:18s		    -8.19ns		2256 /       629
-  15		0h:00m:18s		    -8.05ns		2257 /       629
-  16		0h:00m:18s		    -8.03ns		2257 /       629
-  17		0h:00m:18s		    -8.03ns		2258 /       629
-  18		0h:00m:18s		    -8.03ns		2257 /       629
-  19		0h:00m:18s		    -8.03ns		2258 /       629
-  20		0h:00m:18s		    -8.03ns		2257 /       629
+   8		0h:00m:14s		    -8.81ns		2244 /       629
+   9		0h:00m:14s		    -8.51ns		2246 /       629
+  10		0h:00m:14s		    -8.37ns		2248 /       629
+  11		0h:00m:14s		    -8.24ns		2252 /       629
+  12		0h:00m:14s		    -8.28ns		2252 /       629
+  13		0h:00m:14s		    -8.23ns		2256 /       629
+  14		0h:00m:14s		    -8.19ns		2256 /       629
+  15		0h:00m:14s		    -8.05ns		2257 /       629
+  16		0h:00m:14s		    -8.03ns		2257 /       629
+  17		0h:00m:14s		    -8.03ns		2258 /       629
+  18		0h:00m:14s		    -8.03ns		2257 /       629
+  19		0h:00m:15s		    -8.03ns		2258 /       629
+  20		0h:00m:15s		    -8.03ns		2257 /       629
 
 
-  21		0h:00m:18s		    -8.03ns		2255 /       629
-  22		0h:00m:18s		    -8.03ns		2256 /       629
-  23		0h:00m:18s		    -8.03ns		2255 /       629
-  24		0h:00m:18s		    -8.03ns		2256 /       629
-  25		0h:00m:18s		    -8.03ns		2255 /       629
+  21		0h:00m:15s		    -8.03ns		2255 /       629
+  22		0h:00m:15s		    -8.03ns		2256 /       629
+  23		0h:00m:15s		    -8.03ns		2255 /       629
+  24		0h:00m:15s		    -8.03ns		2256 /       629
+  25		0h:00m:15s		    -8.03ns		2255 /       629
 
-Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:20s; CPU Time elapsed 0h:00m:19s; Memory used current: 339MB peak: 366MB)
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:15s; CPU Time elapsed 0h:00m:15s; Memory used current: 339MB peak: 366MB)
 
 @N: FX164 |The option to pack registers in the IOB has not been specified. Please set syn_useioff attribute.  
 
@@ -547,33 +547,33 @@ latches that do not specify sets or resets
    u_rx.rx_data[0] (in view: work.z80cpm_brevia2_bram(verilog))
 
 
-Finished restoring hierarchy (Real Time elapsed 0h:00m:21s; CPU Time elapsed 0h:00m:20s; Memory used current: 339MB peak: 366MB)
+Finished restoring hierarchy (Real Time elapsed 0h:00m:16s; CPU Time elapsed 0h:00m:16s; Memory used current: 339MB peak: 366MB)
 
 
-Starting CDBProcessSetClockGroups... (Real Time elapsed 0h:00m:21s; CPU Time elapsed 0h:00m:20s; Memory used current: 340MB peak: 366MB)
+Starting CDBProcessSetClockGroups... (Real Time elapsed 0h:00m:16s; CPU Time elapsed 0h:00m:16s; Memory used current: 339MB peak: 366MB)
 
 
-Finished with CDBProcessSetClockGroups (Real Time elapsed 0h:00m:21s; CPU Time elapsed 0h:00m:20s; Memory used current: 340MB peak: 366MB)
+Finished with CDBProcessSetClockGroups (Real Time elapsed 0h:00m:16s; CPU Time elapsed 0h:00m:16s; Memory used current: 339MB peak: 366MB)
 
 
-Start Writing Netlists (Real Time elapsed 0h:00m:21s; CPU Time elapsed 0h:00m:20s; Memory used current: 278MB peak: 366MB)
+Start Writing Netlists (Real Time elapsed 0h:00m:17s; CPU Time elapsed 0h:00m:16s; Memory used current: 277MB peak: 366MB)
 
 Writing Analyst data base C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\synwork\z80cpm_impl1_m.srm
 
-Finished Writing Netlist Databases (Real Time elapsed 0h:00m:21s; CPU Time elapsed 0h:00m:21s; Memory used current: 338MB peak: 366MB)
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:17s; CPU Time elapsed 0h:00m:17s; Memory used current: 338MB peak: 366MB)
 
 Writing EDIF Netlist and constraint files
 @N: FX1056 |Writing EDF file: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1.edi
 @W: BW268 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v":54:2:54:9|Ignoring parameter pmi_freq_clkok with floating-point value in -edn file
 @N: BW106 |Synplicity Constraint File capacitance units using default value of 1pF 
 
-Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:22s; CPU Time elapsed 0h:00m:22s; Memory used current: 347MB peak: 366MB)
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:18s; Memory used current: 347MB peak: 366MB)
 
 
-Finished Writing Netlists (Real Time elapsed 0h:00m:22s; CPU Time elapsed 0h:00m:22s; Memory used current: 347MB peak: 366MB)
+Finished Writing Netlists (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:18s; Memory used current: 347MB peak: 366MB)
 
 
-Start final timing analysis (Real Time elapsed 0h:00m:23s; CPU Time elapsed 0h:00m:22s; Memory used current: 338MB peak: 366MB)
+Start final timing analysis (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:18s; Memory used current: 338MB peak: 366MB)
 
 @W: MT246 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\z80cpm_brevia2_bram.v":54:2:54:9|Blackbox pmi_pll is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)
 @W: MT246 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\boot_rom_bram.v":46:2:46:6|Blackbox pmi_rom_Z1 is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results)
@@ -581,7 +581,7 @@ Start final timing analysis (Real Time elapsed 0h:00m:23s; CPU Time elapsed 0h:0
 
 
 ##### START OF TIMING REPORT #####[
-# Timing report written on Thu Nov 19 20:53:09 2026
+# Timing report written on Thu Nov 19 23:24:01 2026
 #
 
 
@@ -1154,10 +1154,10 @@ u_cpu.i_tv80_core.TmpAddr[4]                     FD1S3DX        D        In     
 
 Timing exceptions that could not be applied
 
-Finished final timing analysis (Real Time elapsed 0h:00m:23s; CPU Time elapsed 0h:00m:22s; Memory used current: 340MB peak: 366MB)
+Finished final timing analysis (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:18s; Memory used current: 340MB peak: 366MB)
 
 
-Finished timing report (Real Time elapsed 0h:00m:23s; CPU Time elapsed 0h:00m:22s; Memory used current: 340MB peak: 366MB)
+Finished timing report (Real Time elapsed 0h:00m:19s; CPU Time elapsed 0h:00m:18s; Memory used current: 340MB peak: 366MB)
 
 ---------------------------------------
 Resource Usage Report
@@ -1196,9 +1196,9 @@ pmi_pll:        1
 pmi_rom:        1
 Mapper successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:23s; CPU Time elapsed 0h:00m:22s; Memory used current: 147MB peak: 366MB)
+At Mapper Exit (Real Time elapsed 0h:00m:19s; CPU Time elapsed 0h:00m:18s; Memory used current: 147MB peak: 366MB)
 
-Process took 0h:00m:23s realtime, 0h:00m:23s cputime
-# Thu Nov 19 20:53:10 2026
+Process took 0h:00m:19s realtime, 0h:00m:19s cputime
+# Thu Nov 19 23:24:01 2026
 
 ###########################################################]

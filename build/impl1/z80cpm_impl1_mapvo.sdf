@@ -1,7 +1,7 @@
 (DELAYFILE
   (SDFVERSION "3.0")
   (DESIGN "z80cpm_brevia2_bram")
-  (DATE "Thu Nov 19 20:53:21 2026")
+  (DATE "Thu Nov 19 23:24:11 2026")
   (VENDOR "Lattice")
   (PROGRAM "ldbanno")
   (VERSION "Diamond (64-bit) 3.14.0.75.2")

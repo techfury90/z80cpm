@@ -1,4 +1,4 @@
-# Thu Nov 19 20:52:43 2026
+# Thu Nov 19 23:23:39 2026
 
 
 Copyright (C) 1994-2023 Synopsys, Inc.
@@ -19,7 +19,7 @@ Synopsys Lattice Technology Pre-mapping, Version map202309lat, Build 191R, Built
 Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 184MB peak: 184MB)
 
 
-Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 189MB peak: 199MB)
+Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 188MB peak: 199MB)
 
 @A: MF827 |No constraint file specified.
 @L: C:\Users\techf\Desktop\brevia2\z80cpm\build\impl1\z80cpm_impl1_scck.rpt 
@@ -56,16 +56,16 @@ NConnInternalConnection caching is on
 @N: FX493 |Applying initial value "00000000" on instance ck_l2[7:0].
 @N: FX493 |Applying initial value "00000000" on instance ck_l3[7:0].
 
-Starting HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:00s; Memory used current: 259MB peak: 259MB)
+Starting HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:00s; Memory used current: 259MB peak: 260MB)
 
 
-Finished HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
+Finished HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:00s; Memory used current: 259MB peak: 260MB)
 
 
-Started DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
+Started DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 260MB peak: 260MB)
 
 
-Finished DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 259MB peak: 260MB)
+Finished DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 260MB peak: 260MB)
 
 @N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":1159:2:1159:7|Removing sequential instance Oldnmi_n (in view: work.tv80_core_Z3(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
 @N: BN362 :"c:\users\techf\desktop\brevia2\z80cpm\rtl\tv80_core.v":374:2:374:7|Removing sequential instance IStatus[1:0] (in view: work.tv80_core_Z3(verilog)) of type view:PrimLib.dffre(prim) because it does not drive other instances.
@@ -87,7 +87,7 @@ Finished clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time
 
 @N: FX1184 |Applying syn_allowed_resources blockrams=9 on top level netlist z80cpm_brevia2_bram 
 
-Finished netlist restructuring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 264MB peak: 264MB)
+Finished netlist restructuring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 264MB peak: 265MB)
 
 
 
@@ -158,9 +158,9 @@ Finished constraint checker (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:0
 
 Pre-mapping successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 174MB peak: 265MB)
+At Mapper Exit (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 179MB peak: 265MB)
 
 Process took 0h:00m:02s realtime, 0h:00m:02s cputime
-# Thu Nov 19 20:52:46 2026
+# Thu Nov 19 23:23:41 2026
 
 ###########################################################]

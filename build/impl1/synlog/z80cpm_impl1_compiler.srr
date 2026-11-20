@@ -210,7 +210,7 @@ At c_ver Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Thu Nov 19 20:52:41 2026
+# Thu Nov 19 23:23:37 2026
 
 ###########################################################]
 ###########################################################[
@@ -236,7 +236,7 @@ At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Thu Nov 19 20:52:41 2026
+# Thu Nov 19 23:23:37 2026
 
 ###########################################################]
 
@@ -246,11 +246,11 @@ For a summary of runtime and memory usage for all design units, please see file:
 
 @END
 
-At c_hdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 31MB peak: 32MB)
+At c_hdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 32MB peak: 32MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Thu Nov 19 20:52:41 2026
+# Thu Nov 19 23:23:37 2026
 
 ###########################################################]

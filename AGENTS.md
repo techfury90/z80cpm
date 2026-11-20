@@ -21,9 +21,13 @@ A Z80 soft-core SoC on the LatticeXP2 Brevia2 running **CP/M 2.2**:
   Neumann; fetches 1 byte/cycle.
 - **Memory model:** 128Kx8 SRAM. **Bank A** = CP/M memory; **Bank B** = volatile
   RAM disk driven as a peripheral (no MMU).
-- **Disks:** Drive A: = on-board **ISSI IS25LD040 SPI flash** (256K "SSD"),
-  persistent boot drive. Drive B: = volatile RAM disk (bring-up aid). Drive C: =
-  SD card in SPI mode on a dedicated port (pins 31/32/35/36).
+- **Disks (SD-primary build, the DEFAULT):** Drive A: = SD region 0 (boot volume,
+  reserved system area); Drive B: = SD region 1 (second SD volume, also reserved);
+  Drive C: = on-board **ISSI IS25LD040 SPI flash**; Drive D: = 64K I/O-mapped RAM
+  disk (volatile).  The legacy SPI-primary build (A=flash, B=RAM, C/D=SD) is
+  built with `scripts/build_cbios.sh spi`.  The drive-letter map, BOOT/WBOOT
+  persist target and SDMAP region/system offsets are all `CFG_SD_BUILD`-guarded
+  (see `cpm/cbios_cfg.inc` — a85 has no -D, so the mode is a source-level config).
 - **Monitor:** glitchwrks **GWMON-80** (8080 cross-assembled with `a85`,
   GPLv3), baked into the FPGA bitstream in **EBR block RAM**. It is the
   bring-up/debug monitor (`L` load, `G` go, `D` dump, `E` edit, `I`/`O` ports),
@@ -145,12 +149,14 @@ your banner text rather than insisting on seeing `A>`.
 raw `brevia2_cpm.bin` (contiguous CCP+BDOS+CBIOS image, gap-padded with 0),
 starting at 0xD000, up to CPMIMGLEN.
 
-- **CPMIMGLEN is currently 0x1D00**, and it has **THREE owners** that must stay
-  in sync: `cpm/make_combined_hex.py` (the pad length), `programs/diskutil.s`
-  (the `EQU` **and** the DO_FLASH_BURN page count), and `gwmon/smbrevia.asm` +
-  the bitstream ROM. If the CBIOS grows past CPMIMGLEN it is **silently
-  truncated** by the `[:CPMIMGLEN]` slice — check the printed end address
-  against RMWBUF at 0xEF00 before flashing (~0x260 bytes of headroom).
+- **CPMIMGLEN is currently 0x2000** (must be a multiple of 512 — the SD sector
+  size — so BOOT/WBOOT persist the system image in whole SD sectors), and it has
+  **FOUR owners** that must stay in sync: `cpm/cbios.asm`, `cpm/make_combined_hex.py`
+  (the pad length), `programs/diskutil.s` (the `EQU` **and** the DO_FLASH_BURN page
+  count = `MVI B,32`), and `gwmon/smbrevia.asm` + the bitstream ROM. It must cover
+  the FULL CBIOS **including the variables** (SDTRY at 0xEEEB is the highest). If the
+  CBIOS grows past CPMIMGLEN it is **silently truncated** by the `[:CPMIMGLEN]`
+  slice — check the printed end address against RMWBUF at 0xEF00 before flashing.
 - The **burn page count is a separate hardcoded constant** from CPMIMGLEN. When
   the image length changes, bump `MVI B,<cpimglen/256>` in DO_FLASH_BURN too, or
   the flash keeps only the first 0x1A00 bytes and every CBIOS variable above
@@ -437,7 +443,7 @@ catches register-clobbering, register-mapping, and divide bugs:
 | Name | Value / Location |
 |---|---|
 | `CPMIMG` | 0x0000 |
-| `CPMIMGLEN` | 0x1D00 (3 owners — see §5) |
+| `CPMIMGLEN` | 0x2000 (4 owners — see §5) |
 | CCP / BDOS / CBIOS | 0xD000 / 0xD800 / 0xE600 |
 | BIOS jump table | 0xE600 (17× JMP) |
 | RMW buffer | 0xEF00-0xFEFF |

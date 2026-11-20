@@ -22,7 +22,7 @@
    0051                 SPI_CTL  equ	51H		;SPI flash control (bit0 = CS#)
    0052                 SPI_STAT equ	52H		;SPI flash status (bit0 = busy)
    0000                 CPMIMG	 equ	0000H		;flash offset of the stored CP/M image
-   1e00                 CPMIMGLEN equ	1E00H		;bytes of the boot image (padded to 0x1E00; must match diskutil.s)
+   2000                 CPMIMGLEN equ	2000H		;bytes of the boot image (padded to 0x2000; must match diskutil.s)
                         
    0000                 	ORG	0H
                         
@@ -35,7 +35,7 @@
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    0000   c3 0c 00      JMPTAB:	JMP	CSTART		;Cold start, initializes hardware
    0003   c3 21 00      	JMP	WSTART		;Warm start
-   0006   c3 da 01      	JMP	COUT		;Output A register to console
+   0006   c3 dd 01      	JMP	COUT		;Output A register to console
    0009   c3 70 00      	JMP	CIN		;Input A register from console, waits
    000c                 CSTART:	
                         
@@ -65,7 +65,7 @@
    0016   d5            	PUSH	D
    0017   e5            	PUSH	H
                         
-   0018   cd ca 01      	CALL	IOSET		;Do I/O module setup
+   0018   cd cd 01      	CALL	IOSET		;Do I/O module setup
    001b   21 fd 00      	LXI	H, SIGNON$	;SM signon
    001e   cd ed 00      	CALL	PRTCLS
                         
@@ -203,8 +203,8 @@
                         ;post: received char is in A register
                         ;post: received char is echoed
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0070   cd cb 01      CIN:	CALL	CINNE
-   0073   c3 da 01      	JMP	COUT
+   0070   cd ce 01      CIN:	CALL	CINNE
+   0073   c3 dd 01      	JMP	COUT
                         
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         ;HEXBYT -- Convert pair of ASCII characters to byte
@@ -297,7 +297,7 @@
    00c0   7d            	MOV	A, L
    00c1   cd ca 00      	CALL	PRTHEX
    00c4   3e 3a         	MVI	A, ':'
-   00c6   c3 da 01      	JMP	COUT
+   00c6   c3 dd 01      	JMP	COUT
                         
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         ;DMPLOC -- Print a byte at HL to console
@@ -338,7 +338,7 @@
    00d7   27            	DAA
    00d8   ce 40         	ACI	40H
    00da   27            	DAA
-   00db   c3 da 01      	JMP	COUT
+   00db   c3 dd 01      	JMP	COUT
                         
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         ;PRTSPC -- Print a space to the console
@@ -349,7 +349,7 @@
                         ;post: ASCII space printed to console
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    00de   3e 20         PRTSPC:	MVI	A, ' '
-   00e0   c3 da 01      	JMP	COUT
+   00e0   c3 dd 01      	JMP	COUT
                         
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         ;CRLF -- Print a CR, LF
@@ -360,9 +360,9 @@
                         ;post: CR, LF printed to console
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    00e3   3e 0d         CRLF:	MVI	A, CR
-   00e5   cd da 01      	CALL	COUT
+   00e5   cd dd 01      	CALL	COUT
    00e8   3e 0a         	MVI	A, LF
-   00ea   c3 da 01      	JMP	COUT
+   00ea   c3 dd 01      	JMP	COUT
                         
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         ;PRTCLS -- Print CR, LF, and a high bit terminated string
@@ -384,7 +384,7 @@
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    00f0   7e            PRTSTR:	MOV	A, M
    00f1   e6 7f         	ANI	07FH		;Strip high bit
-   00f3   cd da 01      	CALL	COUT
+   00f3   cd dd 01      	CALL	COUT
    00f6   7e            	MOV	A, M
    00f7   b7            	ORA	A		;Set flags
    00f8   f8            	RM			;High bit set, done
@@ -486,10 +486,10 @@
                         ;post: Intel HEX file loaded, or error printed
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    015f   cd e3 00      LODCMD:	CALL	CRLF
-   0162   cd cb 01      LODCM1:	CALL	CINNE
+   0162   cd ce 01      LODCM1:	CALL	CINNE
    0165   fe 3a         	CPI	':'
    0167   c2 62 01      	JNZ	LODCM1		;Wait for start colon
-   016a   cd da 01      	CALL	COUT		;Print start colon
+   016a   cd dd 01      	CALL	COUT		;Print start colon
    016d   cd 5f 00      	CALL	GETHEX		;Get record length
    0170   ca 96 01      	JZ	LODCM4		;Length == 0, done
    0173   47            	MOV	B, A		;Record length in B
@@ -567,7 +567,11 @@
                         ;Command-table entry only; the handler BFOOT lives in spiboot.inc.
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    01c6   62            BFLSH:	db	'b'
-   01c7   7a 02         	dw	BFOOT
+   01c7   7d 02         	dw	BFOOT
+                        ;BFSD -- 's' command: boot CP/M from the SD card (SD-primary boot)
+                        ;Command-table entry only; the handler SDBOOT lives in sdboot.inc.
+   01c9   73            BFSD:	db	's'
+   01ca   c4 02         	dw	SDBOOT
                         	INCLUDE 'scmdnull.inc'	;Command table terminator
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         ;SCMDNULL -- SM NULL Command
@@ -576,7 +580,7 @@
                         ;customization. It provides consistent termination to the
                         ;command list.
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   01c9   00            NULCMD:	db	0
+   01cc   00            NULCMD:	db	0
                         
                         
                         	INCLUDE 'sbruart.inc'	;Brevia2 custom 8N1 UART I/O
@@ -597,8 +601,8 @@
                         ;pre: none
                         ;post: console serial channel is ready (our UART needs no init)
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   01ca                 IOSET:
-   01ca   c9            	RET
+   01cd                 IOSET:
+   01cd   c9            	RET
                         
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         ;CINNE -- Get a char from the console, no echo
@@ -608,14 +612,14 @@
                         ;pre: console device is initialized
                         ;post: received char is in A register
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   01cb                 CINNE:
-   01cb   db 80         	IN	CTLPRT
-   01cd   e6 02         	ANI	02H		;rx_avail (bit1)
-   01cf   ca cb 01      	JZ	CINNE		;wait until a char is ready
-   01d2   db 81         	IN	DATPRT
-   01d4   fe 03         	CPI	CANCEL
-   01d6   ca 21 00      	JZ	WSTART
-   01d9   c9            	RET
+   01ce                 CINNE:
+   01ce   db 80         	IN	CTLPRT
+   01d0   e6 02         	ANI	02H		;rx_avail (bit1)
+   01d2   ca ce 01      	JZ	CINNE		;wait until a char is ready
+   01d5   db 81         	IN	DATPRT
+   01d7   fe 03         	CPI	CANCEL
+   01d9   ca 21 00      	JZ	WSTART
+   01dc   c9            	RET
                         
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         ;COUT -- Output a character to the console
@@ -626,15 +630,15 @@
                         ;pre: A register contains char to be printed
                         ;post: character is printed to the console
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   01da                 COUT:
-   01da   f5            	PUSH	PSW		;Save A on stack
-   01db                 COUT1:
-   01db   db 80         	IN	CTLPRT
-   01dd   e6 01         	ANI	01H		;tx_busy (bit0, 1=busy)
-   01df   c2 db 01      	JNZ	COUT1		;wait until transmitter is idle
-   01e2   f1            	POP	PSW		;Restore A
-   01e3   d3 81         	OUT	DATPRT
-   01e5   c9            	RET
+   01dd                 COUT:
+   01dd   f5            	PUSH	PSW		;Save A on stack
+   01de                 COUT1:
+   01de   db 80         	IN	CTLPRT
+   01e0   e6 01         	ANI	01H		;tx_busy (bit0, 1=busy)
+   01e2   c2 de 01      	JNZ	COUT1		;wait until transmitter is idle
+   01e5   f1            	POP	PSW		;Restore A
+   01e6   d3 81         	OUT	DATPRT
+   01e8   c9            	RET
                         
                         
                         	INCLUDE '../spi.inc'	;shared IS25LD040 SPI primitives + FBADDR
@@ -670,42 +674,42 @@
                         
                         ; ---------------- CS# and byte transfer primitives ----------------
                         ; SPI_SEL: pull CS# low (select the flash).  Clobbers A.
-   01e6   3e 00         SPI_SEL: MVI     A,00H
-   01e8   d3 51                  OUT     SPI_CTL
-   01ea   c9                     RET
+   01e9   3e 00         SPI_SEL: MVI     A,00H
+   01eb   d3 51                  OUT     SPI_CTL
+   01ed   c9                     RET
                         
                         ; SPI_REL: release CS# high (deselect the flash).  Clobbers A.
-   01eb   3e 01         SPI_REL: MVI     A,01H
-   01ed   d3 51                  OUT     SPI_CTL
-   01ef   c9                     RET
+   01ee   3e 01         SPI_REL: MVI     A,01H
+   01f0   d3 51                  OUT     SPI_CTL
+   01f2   c9                     RET
                         
                         ; SPI_XMIT: clock the byte in A out to the flash; the byte returned is
                         ; discarded.  A is unchanged (OUT does not modify A).  No other regs touched.
-   01f0   d3 50         SPI_XMIT: OUT     SPI_DATA
-   01f2   c9                     RET
+   01f3   d3 50         SPI_XMIT: OUT     SPI_DATA
+   01f5   c9                     RET
                         
                         ; SPI_WAIT: poll the RDSR (0x05) status until WIP (bit0) clears.  Re-selects
                         ; the flash and keeps CS# low across the status reads.  Clobbers A.
-   01f3   cd e6 01      SPI_WAIT: CALL    SPI_SEL
-   01f6   3e 05                  MVI     A,05H
-   01f8   cd f0 01               CALL    SPI_XMIT                ; RDSR opcode
-   01fb   db 50         SPW:     IN      SPI_DATA                ; read status byte
-   01fd   e6 01                  ANI     01H                     ; WIP (bit0) still busy?
-   01ff   c2 fb 01               JNZ     SPW                     ; loop until the flash is idle
-   0202   cd eb 01               CALL    SPI_REL
-   0205   c9                     RET
+   01f6   cd e9 01      SPI_WAIT: CALL    SPI_SEL
+   01f9   3e 05                  MVI     A,05H
+   01fb   cd f3 01               CALL    SPI_XMIT                ; RDSR opcode
+   01fe   db 50         SPW:     IN      SPI_DATA                ; read status byte
+   0200   e6 01                  ANI     01H                     ; WIP (bit0) still busy?
+   0202   c2 fe 01               JNZ     SPW                     ; loop until the flash is idle
+   0205   cd ee 01               CALL    SPI_REL
+   0208   c9                     RET
                         
                         ; ---------------- 24-bit address send ----------------
                         ; SPI_ADDR: send the three FBADDR bytes as the command address (A23-A16,
                         ; A15-A8, A7-A0, MSB first).  Must be called with CS# already selected.
                         ; Clobbers A.
-   0206   3a 79 02      SPI_ADDR: LDA     FBADDR+2
-   0209   cd f0 01               CALL    SPI_XMIT                ; A23-A16
-   020c   3a 78 02               LDA     FBADDR+1
-   020f   cd f0 01               CALL    SPI_XMIT                ; A15-A8
-   0212   3a 77 02               LDA     FBADDR
-   0215   cd f0 01               CALL    SPI_XMIT                ; A7-A0
-   0218   c9                     RET
+   0209   3a 7c 02      SPI_ADDR: LDA     FBADDR+2
+   020c   cd f3 01               CALL    SPI_XMIT                ; A23-A16
+   020f   3a 7b 02               LDA     FBADDR+1
+   0212   cd f3 01               CALL    SPI_XMIT                ; A15-A8
+   0215   3a 7a 02               LDA     FBADDR
+   0218   cd f3 01               CALL    SPI_XMIT                ; A7-A0
+   021b   c9                     RET
                         
                         ; ---------------- page program (0x02) ----------------
                         ; SPI_PAGE: program a full 256-byte page from (HL) at the page-aligned FBADDR.
@@ -714,61 +718,61 @@
                         ; -- REQUIRED before every program/erase on the IS25LD040), then the page-
                         ; program command and 256 data bytes in one CS#-low sequence.  Clobbers A, B,
                         ; HL (HL is advanced 256 bytes / left at HL+256).
-   0219   cd e6 01      SPI_PAGE: CALL    SPI_SEL
-   021c   3e 06                  MVI     A,06H                   ; WREN (mandatory before every program)
-   021e   cd f0 01               CALL    SPI_XMIT
-   0221   cd eb 01               CALL    SPI_REL                 ; latch WREN (CS# must toggle)
-   0224   cd e6 01               CALL    SPI_SEL
-   0227   3e 02                  MVI     A,02H                   ; Page Program opcode
-   0229   cd f0 01               CALL    SPI_XMIT
-   022c   cd 06 02               CALL    SPI_ADDR
-   022f   06 00                  MVI     B,00H                   ; 256 bytes (0 wraps to 256 on DCR)
-   0231   7e            SPG1:    MOV     A,M
-   0232   cd f0 01               CALL    SPI_XMIT
-   0235   23                     INX     H
-   0236   05                     DCR     B
-   0237   c2 31 02               JNZ     SPG1
-   023a   cd eb 01               CALL    SPI_REL
-   023d   cd f3 01               CALL    SPI_WAIT                ; wait for the program to settle
-   0240   c9                     RET
+   021c   cd e9 01      SPI_PAGE: CALL    SPI_SEL
+   021f   3e 06                  MVI     A,06H                   ; WREN (mandatory before every program)
+   0221   cd f3 01               CALL    SPI_XMIT
+   0224   cd ee 01               CALL    SPI_REL                 ; latch WREN (CS# must toggle)
+   0227   cd e9 01               CALL    SPI_SEL
+   022a   3e 02                  MVI     A,02H                   ; Page Program opcode
+   022c   cd f3 01               CALL    SPI_XMIT
+   022f   cd 09 02               CALL    SPI_ADDR
+   0232   06 00                  MVI     B,00H                   ; 256 bytes (0 wraps to 256 on DCR)
+   0234   7e            SPG1:    MOV     A,M
+   0235   cd f3 01               CALL    SPI_XMIT
+   0238   23                     INX     H
+   0239   05                     DCR     B
+   023a   c2 34 02               JNZ     SPG1
+   023d   cd ee 01               CALL    SPI_REL
+   0240   cd f6 01               CALL    SPI_WAIT                ; wait for the program to settle
+   0243   c9                     RET
                         
                         ; ---------------- bulk read (0x03) ----------------
                         ; SPI_READBUF: read BC bytes from FBADDR into (DE), keeping CS# low across the
                         ; whole burst (this is the same pattern the proven diskutil DO_READ uses for
                         ; 16 bytes, extended to an arbitrary count).  Clobbers A, B, C, D, E (BC runs
                         ; down to 0, DE advances past the last byte read).
-   0241   cd e6 01      SPI_READBUF: CALL    SPI_SEL
-   0244   3e 03                  MVI     A,03H                   ; Read opcode
-   0246   cd f0 01               CALL    SPI_XMIT
-   0249   cd 06 02               CALL    SPI_ADDR
-   024c   db 50         SRDB:    IN      SPI_DATA                ; next byte the flash clocks out
-   024e   12                     STAX    D
-   024f   13                     INX     D
-   0250   0b                     DCX     B
-   0251   78                     MOV     A,B
-   0252   b1                     ORA     C
-   0253   c2 4c 02               JNZ     SRDB
-   0256   cd eb 01               CALL    SPI_REL
-   0259   c9                     RET
+   0244   cd e9 01      SPI_READBUF: CALL    SPI_SEL
+   0247   3e 03                  MVI     A,03H                   ; Read opcode
+   0249   cd f3 01               CALL    SPI_XMIT
+   024c   cd 09 02               CALL    SPI_ADDR
+   024f   db 50         SRDB:    IN      SPI_DATA                ; next byte the flash clocks out
+   0251   12                     STAX    D
+   0252   13                     INX     D
+   0253   0b                     DCX     B
+   0254   78                     MOV     A,B
+   0255   b1                     ORA     C
+   0256   c2 4f 02               JNZ     SRDB
+   0259   cd ee 01               CALL    SPI_REL
+   025c   c9                     RET
                         
                         ; ---------------- 4KB sector erase (0x20) ----------------
                         ; SPI_ERASE_SECT: erase the 4KB sector containing FBADDR.  FBADDR must be
                         ; pre-set to the sector base (the low 12 bits clear) so only that one sector
                         ; is erased.  Issues WREN, then the sector-erase command.  Clobbers A.
-   025a   cd e6 01      SPI_ERASE_SECT: CALL    SPI_SEL
-   025d   3e 06                  MVI     A,06H                   ; WREN (required before every program)
-   025f   cd f0 01               CALL    SPI_XMIT
-   0262   cd eb 01               CALL    SPI_REL                 ; latch WREN
-   0265   cd e6 01               CALL    SPI_SEL
-   0268   3e 20                  MVI     A,20H                   ; Sector Erase (4KB) opcode
-   026a   cd f0 01               CALL    SPI_XMIT
-   026d   cd 06 02               CALL    SPI_ADDR
-   0270   cd eb 01               CALL    SPI_REL
-   0273   cd f3 01               CALL    SPI_WAIT                ; wait for the erase to finish
-   0276   c9                     RET
+   025d   cd e9 01      SPI_ERASE_SECT: CALL    SPI_SEL
+   0260   3e 06                  MVI     A,06H                   ; WREN (required before every program)
+   0262   cd f3 01               CALL    SPI_XMIT
+   0265   cd ee 01               CALL    SPI_REL                 ; latch WREN
+   0268   cd e9 01               CALL    SPI_SEL
+   026b   3e 20                  MVI     A,20H                   ; Sector Erase (4KB) opcode
+   026d   cd f3 01               CALL    SPI_XMIT
+   0270   cd 09 02               CALL    SPI_ADDR
+   0273   cd ee 01               CALL    SPI_REL
+   0276   cd f6 01               CALL    SPI_WAIT                ; wait for the erase to finish
+   0279   c9                     RET
                         
                         ; ---------------- FBADDR: the 24-bit address block ----------------
-   0277                 FBADDR:  DS      3                       ; A7-A0, A15-A8, A23-A16
+   027a                 FBADDR:  DS      3                       ; A7-A0, A15-A8, A23-A16
                         
                         	INCLUDE 'spiboot.inc'	;BFOOT: flash-boot handler
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -792,33 +796,33 @@
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         
                         ;---- command handler for 'b' ----
-   027a                 BFOOT:
+   027d                 BFOOT:
                                 ; sanity: the image must begin with 0xC3 (JP, the CCP's first
                                 ; instruction).  An erased/absent image (0xFF) must not be run.
-   027a   21 00 00              LXI     H,0
-   027d   22 77 02              SHLD    FBADDR          ; FBADDR(2) = 0x0000
-   0280   af                    XRA     A
-   0281   32 79 02              STA     FBADDR+2        ; FBADDR = 0x000000
-   0284   11 00 fe              LXI     D,BOOTCHK
-   0287   01 01 00              LXI     B,1
-   028a   cd 41 02              CALL    SPI_READBUF     ; read 1 byte into BOOTCHK
-   028d   3a 00 fe              LDA     BOOTCHK
-   0290   fe c3                 CPI     0C3H
-   0292   ca 9b 02              JZ      BFOOT1
-   0295   21 b1 02              LXI     H,MSGNOFLASH
-   0298   c3 47 00              JMP     PRTERR          ; prints CRLF + string, back to monitor
+   027d   21 00 00              LXI     H,0
+   0280   22 7a 02              SHLD    FBADDR          ; FBADDR(2) = 0x0000
+   0283   af                    XRA     A
+   0284   32 7c 02              STA     FBADDR+2        ; FBADDR = 0x000000
+   0287   11 00 fe              LXI     D,BOOTCHK
+   028a   01 01 00              LXI     B,1
+   028d   cd 44 02              CALL    SPI_READBUF     ; read 1 byte into BOOTCHK
+   0290   3a 00 fe              LDA     BOOTCHK
+   0293   fe c3                 CPI     0C3H
+   0295   ca 9e 02              JZ      BFOOT1
+   0298   21 b4 02              LXI     H,MSGNOFLASH
+   029b   c3 47 00              JMP     PRTERR          ; prints CRLF + string, back to monitor
                         
-   029b                 BFOOT1:
+   029e                 BFOOT1:
                                 ; load the full CP/M image into machine RAM at 0xD000
-   029b   21 00 00              LXI     H,0
-   029e   22 77 02              SHLD    FBADDR
-   02a1   af                    XRA     A
-   02a2   32 79 02              STA     FBADDR+2
-   02a5   11 00 d0              LXI     D,0D000H
-   02a8   01 00 1e              LXI     B,CPMIMGLEN
-   02ab   cd 41 02              CALL    SPI_READBUF     ; reads CPMIMGLEN bytes, DE advances past
+   029e   21 00 00              LXI     H,0
+   02a1   22 7a 02              SHLD    FBADDR
+   02a4   af                    XRA     A
+   02a5   32 7c 02              STA     FBADDR+2
+   02a8   11 00 d0              LXI     D,0D000H
+   02ab   01 00 20              LXI     B,CPMIMGLEN
+   02ae   cd 44 02              CALL    SPI_READBUF     ; reads CPMIMGLEN bytes, DE advances past
                                 ; cold-boot CP/M (CBIOS BOOT persists CCP/BDOS to the flash and enters CCP)
-   02ae   c3 00 e6              JMP     0E600H
+   02b1   c3 00 e6              JMP     0E600H
                         
    fe00                 BOOTCHK equ     0FE00H  ; machine-RAM scratch for the 1-byte magic check.  The
                                                 ; monitor's own writable data lives near 0xFF00 (DYNIN/
@@ -826,32 +830,308 @@
                                                 ; so a DS byte there cannot be written and STAX'ing a
                                                 ; read value into it is silently dropped.  Keep all the
                                                 ; 'b' command's writable bytes in machine RAM (>=0x1000).
-   02b1   4e 4f 20 43   MSGNOFLASH: DB 'NO CP/M ON FLAS',0C8H   ; 'H'|0x80 -- high-bit string terminator
-   02b5   50 2f 4d 20   
-   02b9   4f 4e 20 46   
-   02bd   4c 41 53 c8   
+   02b4   4e 4f 20 43   MSGNOFLASH: DB 'NO CP/M ON FLAS',0C8H   ; 'H'|0x80 -- high-bit string terminator
+   02b8   50 2f 4d 20   
+   02bc   4f 4e 20 46   
+   02c0   4c 41 53 c8   
+                        
+                        	INCLUDE 'sdboot.inc'	;SDBOOT: SD-boot handler
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;SDBOOT -- GWMON-80 's' command: boot CP/M from the SD card.
+                        ;
+                        ;Reads the CP/M system image (CCP+BDOS+CBIOS, CPMIMGLEN bytes) from the SD
+                        ;card's reserved system area (SDPLBA + region 0) into machine RAM at 0xD000,
+                        ;then cold-boots via the CBIOS entry (0xE600) which enters the CCP.
+                        ;
+                        ;The SD is the PRIMARY boot store in the SD build, so this mirrors the flash
+                        ;'b' boot (spiboot.inc) but on the dedicated SD SPI port (pins 31/32/35/36):
+                        ;   0x53 = SD SPI data, 0x54 = ctl (bit0 CS#, bit1 slow clock), 0x55 = status.
+                        ;
+                        ;The SD driver lives in the CBIOS (which is being loaded), so this routine
+                        ;carries its OWN minimal SD init/read path and runs entirely in the monitor ROM
+                        ;(0x0000-0x0FFF, read-only).  All writable scratch lives in machine RAM
+                        ;(BOOTCHK / SDBLKN / SDACMD / SDCMDB) -- never a DS byte in the ROM.
+                        ;
+                        ;pre:  none (typed 's' at the monitor prompt)
+                        ;post: CP/M running at the 'A>' prompt, or "NO CP/M ON SD" and a return to the
+                        ;      monitor command loop.
+                        ;
+                        ;The SD system area is at SDPLBA + region 0 (SDPLBA = the partition LBA start
+                        ;from the sdtool-created MBR, currently 1).  BOOT (in the CBIOS) persists the
+                        ;CP/M image there every cold boot, so a booted system always self-provisions
+                        ;the card.  The image occupies the first CPMIMGLEN bytes = CPMIMGLEN/512
+                        ;512-byte SD sectors (16 for CPMIMGLEN=0x2000).
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        
+                        ;---- SD SPI ports (dedicated, second SPI port) ----
+   0053                 SDDAT   equ     53H             ; SD SPI data (r/w byte)
+   0054                 SDCTL   equ     54H             ; SD SPI ctl: bit0 = CS# (0 select, 1 release),
+                                                        ;               bit1 = slow clock (1 = ~390 kHz init)
+   0055                 SDSTAT  equ     55H             ; SD SPI status: bit0 = busy
+                        
+                        ;---- SD system-area geometry (MUST match cbios.asm) ----
+   0001                 SDSYS   equ     1               ; SDPLBA: partition LBA start (region 0 base)
+   fe00                 SDBLKN  equ     0FE00H          ; 32-bit SD block number (MSB first) in machine RAM
+   fe04                 SDACMD  equ     0FE04H          ; ACMD41 retry counter (machine RAM)
+   fe05                 SDCMDB  equ     0FE05H          ; 6-byte SD command buffer (machine RAM)
+   fe0b                 SDFLAG  equ     0FE0BH          ; temp flag (machine RAM)
+                        
+                        ;---- command handler for 's' ----
+   02c4                 SDBOOT:
+   02c4   cd 30 03              CALL    SDINIT          ; init the card; A=0 ok / 0FFh no card
+   02c7   b7                    ORA     A
+   02c8   c2 f4 02              JNZ     SDB_NO
+                                ; sanity: the image must begin with 0xC3 (JP, the CCP's first instr).
+   02cb   cd fa 02              CALL    SD_SETBLK0      ; BLKN = SDPLBA (region 0 system area)
+   02ce   21 00 d0              LXI     H,0D000H        ; destination of the boot image
+   02d1   06 10                 MVI     B,CPMIMGLEN/512 ; number of 512-byte SD sectors in the image
+   02d3                 SDB_LOOP:
+   02d3   c5                    PUSH    B
+   02d4   cd 89 03              CALL    SD_READBLK      ; read one 512-byte SD sector into (HL); HL += 512
+   02d7   b7                    ORA     A
+   02d8   c2 f4 02              JNZ     SDB_NO
+   02db   c1                    POP     B
+   02dc   78                    MOV     A,B
+   02dd   fe 10                 CPI     CPMIMGLEN/512   ; first sector? check the CCP magic only once
+   02df   c2 ea 02              JNZ     SDB_NXT
+   02e2   3a 00 d0              LDA     0D000H          ; byte 0 of the image must be 0xC3
+   02e5   fe c3                 CPI     0C3H
+   02e7   c2 f4 02              JNZ     SDB_NO
+   02ea                 SDB_NXT:
+   02ea   cd 0a 03              CALL    SD_INCBLK       ; BLKN += 1
+   02ed   05                    DCR     B
+   02ee   c2 d3 02              JNZ     SDB_LOOP
+                                ; cold-boot CP/M (CBIOS BOOT persists CCP/BDOS to the SD and enters CCP)
+   02f1   c3 00 e6              JMP     0E600H
+                        
+   02f4                 SDB_NO:
+   02f4   21 22 04              LXI     H,MSGNOSD
+   02f7   c3 47 00              JMP     PRTERR          ; prints CRLF + string, back to the monitor loop
+                        
+                        ;------------------------------------------------------------------------
+                        ; SD_SETBLK0: set the 32-bit BLKN (MSB first) to the SDPLBA region-0 base.
+                        ;------------------------------------------------------------------------
+   02fa                 SD_SETBLK0:
+   02fa   af                    XRA     A
+   02fb   32 00 fe              STA     SDBLKN+0
+   02fe   32 01 fe              STA     SDBLKN+1
+   0301   32 02 fe              STA     SDBLKN+2
+   0304   3e 01                 MVI     A,SDSYS
+   0306   32 03 fe              STA     SDBLKN+3
+   0309   c9                    RET
+                        
+                        ; SD_INCBLK: increment the 32-bit BLKN (MSB first) by one.
+   030a                 SD_INCBLK:
+   030a   3a 03 fe              LDA     SDBLKN+3
+   030d   3c                    INR     A
+   030e   32 03 fe              STA     SDBLKN+3
+   0311   c2 2f 03              JNZ     SDINC_DONE
+   0314   3a 02 fe              LDA     SDBLKN+2
+   0317   3c                    INR     A
+   0318   32 02 fe              STA     SDBLKN+2
+   031b   c2 2f 03              JNZ     SDINC_DONE
+   031e   3a 01 fe              LDA     SDBLKN+1
+   0321   3c                    INR     A
+   0322   32 01 fe              STA     SDBLKN+1
+   0325   c2 2f 03              JNZ     SDINC_DONE
+   0328   3a 00 fe              LDA     SDBLKN+0
+   032b   3c                    INR     A
+   032c   32 00 fe              STA     SDBLKN+0
+   032f                 SDINC_DONE:
+   032f   c9                    RET
+                        
+                        ;------------------------------------------------------------------------
+                        ; SDINIT: full SPI-mode init.  A=0 ok / 0FFh fail (same handshake as the
+                        ; CBIOS and sdtool: CMD0 -> CMD8 -> CMD55/ACMD41 -> OCR).
+                        ;------------------------------------------------------------------------
+   0330                 SDINIT:
+   0330   af                    XRA     A
+   0331   32 04 fe              STA     SDACMD
+   0334   3e 03                 MVI     A,03H           ; CS high + slow clock
+   0336   d3 54                 OUT     SDCTL
+   0338   06 0a                 MVI     B,10            ; 10 x 0xFF = 80 power-up clocks
+   033a                 SDI_CK:
+   033a   3e ff                 MVI     A,0FFH
+   033c   d3 53                 OUT     SDDAT
+   033e   05                    DCR     B
+   033f   c2 3a 03              JNZ     SDI_CK
+   0342   3e 02                 MVI     A,02H           ; select the card (CS low), slow clock
+   0344   d3 54                 OUT     SDCTL
+                                ; CMD0 + read R1
+   0346   21 0a 04              LXI     H,SDB_CMD0
+   0349   cd e1 03              CALL    SD_SEND6
+   034c   fe 01                 CPI     01H
+   034e   c2 79 03              JNZ     SDI_FAIL
+                                ; CMD8 (SEND_IF_COND) - required before ACMD41 on SDHC/SDXC
+   0351   21 10 04              LXI     H,SDB_CMD8
+   0354   cd e1 03              CALL    SD_SEND6
+   0357   db 53                 IN      SDDAT           ; consume the 4-byte R7 payload
+   0359   db 53                 IN      SDDAT
+   035b   db 53                 IN      SDDAT
+   035d   db 53                 IN      SDDAT
+                                ; CMD55 + ACMD41 poll until the card leaves idle
+   035f   16 c8                 MVI     D,200
+   0361                 SDI_RDY:
+   0361   21 16 04              LXI     H,SDB_CMD55
+   0364   cd e1 03              CALL    SD_SEND6
+   0367   21 1c 04              LXI     H,SDB_ACMD41
+   036a   cd e1 03              CALL    SD_SEND6
+   036d   fe 00                 CPI     00H
+   036f   ca 7c 03              JZ      SDI_OK
+   0372   cd 7f 03              CALL    SD_DELAY        ; small delay between attempts
+   0375   15                    DCR     D
+   0376   c2 61 03              JNZ     SDI_RDY
+   0379                 SDI_FAIL:
+   0379   3e ff                 MVI     A,0FFH
+   037b   c9                    RET
+   037c                 SDI_OK:
+   037c   3e 00                 MVI     A,00H
+   037e   c9                    RET
+                        
+                        ; SD_DELAY: approximate ~1 ms busy-wait (HL only).
+   037f                 SD_DELAY:
+   037f   21 e8 03              LXI     H,1000
+   0382                 SDDL:
+   0382   2b                    DCX     H
+   0383   7c                    MOV     A,H
+   0384   b5                    ORA     L
+   0385   c2 82 03              JNZ     SDDL
+   0388   c9                    RET
+                        
+                        ;------------------------------------------------------------------------
+                        ; SD_READBLK: read the 512-byte block SDBLKN[0..3] (MSB first) into (HL).
+                        ;   A = 0 ok / 0FFh err.  Preserves HL (the destination buffer).
+                        ;------------------------------------------------------------------------
+   0389                 SD_READBLK:
+   0389   3e 00                 MVI     A,00H
+   038b   d3 54                 OUT     SDCTL           ; select the card, fast clock
+   038d   e5                    PUSH    H
+                                ; build CMD17
+   038e   3e 51                 MVI     A,51H
+   0390   32 05 fe              STA     SDCMDB
+   0393   3a 00 fe              LDA     SDBLKN+0
+   0396   32 06 fe              STA     SDCMDB+1
+   0399   3a 01 fe              LDA     SDBLKN+1
+   039c   32 07 fe              STA     SDCMDB+2
+   039f   3a 02 fe              LDA     SDBLKN+2
+   03a2   32 08 fe              STA     SDCMDB+3
+   03a5   3a 03 fe              LDA     SDBLKN+3
+   03a8   32 09 fe              STA     SDCMDB+4
+   03ab   3e ff                 MVI     A,0FFH
+   03ad   32 0a fe              STA     SDCMDB+5
+   03b0   21 05 fe              LXI     H,SDCMDB
+   03b3   cd e1 03              CALL    SD_SEND6        ; A = R1 (should be 00)
+   03b6   e1                    POP     H               ; restore the destination buffer
+   03b7   fe 00                 CPI     00H
+   03b9   c2 da 03              JNZ     SDRB_ERR
+   03bc   cd f9 03              CALL    SD_WAITTKN      ; wait for the 0FEh data-start token
+   03bf   da da 03              JC      SDRB_ERR
+   03c2   01 00 02              LXI     B,512
+   03c5                 SDRB1:
+   03c5   db 53                 IN      SDDAT
+   03c7   77                    MOV     M,A
+   03c8   23                    INX     H
+   03c9   0b                    DCX     B
+   03ca   78                    MOV     A,B
+   03cb   b1                    ORA     C
+   03cc   c2 c5 03              JNZ     SDRB1
+   03cf   db 53                 IN      SDDAT           ; 2 CRC bytes
+   03d1   db 53                 IN      SDDAT
+   03d3   3e 01                 MVI     A,01H
+   03d5   d3 54                 OUT     SDCTL           ; release CS
+   03d7   3e 00                 MVI     A,00H
+   03d9   c9                    RET
+   03da                 SDRB_ERR:
+   03da   3e 01                 MVI     A,01H
+   03dc   d3 54                 OUT     SDCTL           ; release CS
+   03de   3e ff                 MVI     A,0FFH
+   03e0   c9                    RET
+                        
+                        ;------------------------------------------------------------------------
+                        ; SD_SEND6: transmit the 6-byte command at (HL), then read the R1 status byte.
+                        ;   Returns A = R1 (clock 0xFF until a non-0xFF response, up to 16 bytes).
+                        ;------------------------------------------------------------------------
+   03e1                 SD_SEND6:
+   03e1   06 06                 MVI     B,6
+   03e3                 SD6_TX:
+   03e3   7e                    MOV     A,M
+   03e4   d3 53                 OUT     SDDAT
+   03e6   23                    INX     H
+   03e7   05                    DCR     B
+   03e8   c2 e3 03              JNZ     SD6_TX
+   03eb   06 10                 MVI     B,16
+   03ed                 SD6_RX:
+   03ed   db 53                 IN      SDDAT
+   03ef   fe ff                 CPI     0FFH
+   03f1   c2 f8 03              JNZ     SD6_DONE
+   03f4   05                    DCR     B
+   03f5   c2 ed 03              JNZ     SD6_RX
+   03f8                 SD6_DONE:
+   03f8   c9                    RET
+                        
+                        ;------------------------------------------------------------------------
+                        ; SD_WAITTKN: clock until the card sends the 0FEh data-start token.
+                        ;   Returns CY=0 + A=0FEh on success, CY=1 if 255 bytes pass with no token.
+                        ;------------------------------------------------------------------------
+   03f9                 SD_WAITTKN:
+   03f9   06 ff                 MVI     B,0FFH
+   03fb                 SD_WT:
+   03fb   db 53                 IN      SDDAT
+   03fd   fe fe                 CPI     0FEH
+   03ff   ca 08 04              JZ      SD_WT_OK
+   0402   05                    DCR     B
+   0403   c2 fb 03              JNZ     SD_WT
+   0406   37                    STC
+   0407   c9                    RET
+   0408                 SD_WT_OK:
+   0408   b7                    ORA     A               ; clear CY
+   0409   c9                    RET
+                        
+   040a   40 00 00 00   SDB_CMD0:   DB      40H,00H,00H,00H,00H,95H
+   040e   00 95         
+   0410   48 00 00 01   SDB_CMD8:   DB      48H,00H,00H,01H,0AAH,87H
+   0414   aa 87         
+   0416   77 00 00 00   SDB_CMD55:  DB      77H,00H,00H,00H,00H,65H
+   041a   00 65         
+   041c   69 40 00 00   SDB_ACMD41: DB      69H,40H,00H,00H,00H,77H   ; HCS bit -> SDHC/SDXC
+   0420   00 77         
+                        
+   0422   4e 4f 20 43   MSGNOSD: DB 'NO CP/M ON SD',0C4H   ; 'D'|0x80 -- high-bit string terminator
+   0426   50 2f 4d 20   
+   042a   4f 4e 20 53   
+   042e   44 c4         
                         
                         
-   02c1                 	END
-0087  ASCHEX        01c6  BFLSH         027a  BFOOT         029b  BFOOT1    
-fe00  BOOTCHK       0008  BS            0003  CANCEL        0070  CIN       
-01cb  CINNE         0024  CMDLP         0036  CMDLP1        01b4  CMDTAB    
-01da  COUT          01db  COUT1         0000  CPMIMG        1e00  CPMIMGLEN 
-000d  CR            00e3  CRLF          010e  CSERR$        000c  CSTART    
-019f  CSUMER        0003  CTLC          0080  CTLPRT        0081  DATPRT    
-00c9  DMPLOC        fefd  DYNIN         fefa  DYNOUT        012a  EDTCM1    
-0148  EDTCM2        0127  EDTCMD        0114  ERR$          0044  ERROR     
-0277  FBADDR        0056  GETADR        0062  GETHE2        005f  GETHEX    
-014c  GOCMD         0119  HDCMD         0076  HEXBYT        0098  HEXDM1    
-009d  HEXDM2        00ae  HEXDM3        0096  HEXDMP        0150  INPCMD    
-01ca  IOSET         0000  JMPTAB        000a  LF            0162  LODCM1    
-0181  LODCM2        018c  LODCM3        0196  LODCM4        015f  LODCMD    
-02b1  MSGNOFLASH    000d  NEXTLOC       01c9  NULCMD        01a5  OUTCMD    
-010c  PROMPT$       00b9  PRTADR        00ed  PRTCLS        0047  PRTERR    
-00ca  PRTHEX        00d3  PRTNIB        00de  PRTSPC        00f0  PRTSTR    
-004d  RUNCMD        00fd  SIGNON$       000c  SMSTRT        0231  SPG1      
-0206  SPI_ADDR      0051  SPI_CTL       0050  SPI_DATA      025a  SPI_ERASE_SECT
-0219  SPI_PAGE      0241  SPI_READBUF    01eb  SPI_REL       01e6  SPI_SEL   
-0052  SPI_STAT      01f3  SPI_WAIT      01f0  SPI_XMIT      01fb  SPW       
-024c  SRDB          ff00  STACK         0021  WSTART        
+   0430                 	END
+0087  ASCHEX        01c6  BFLSH         027d  BFOOT         029e  BFOOT1    
+01c9  BFSD          fe00  BOOTCHK       0008  BS            0003  CANCEL    
+0070  CIN           01ce  CINNE         0024  CMDLP         0036  CMDLP1    
+01b4  CMDTAB        01dd  COUT          01de  COUT1         0000  CPMIMG    
+2000  CPMIMGLEN     000d  CR            00e3  CRLF          010e  CSERR$    
+000c  CSTART        019f  CSUMER        0003  CTLC          0080  CTLPRT    
+0081  DATPRT        00c9  DMPLOC        fefd  DYNIN         fefa  DYNOUT    
+012a  EDTCM1        0148  EDTCM2        0127  EDTCMD        0114  ERR$      
+0044  ERROR         027a  FBADDR        0056  GETADR        0062  GETHE2    
+005f  GETHEX        014c  GOCMD         0119  HDCMD         0076  HEXBYT    
+0098  HEXDM1        009d  HEXDM2        00ae  HEXDM3        0096  HEXDMP    
+0150  INPCMD        01cd  IOSET         0000  JMPTAB        000a  LF        
+0162  LODCM1        0181  LODCM2        018c  LODCM3        0196  LODCM4    
+015f  LODCMD        02b4  MSGNOFLASH    0422  MSGNOSD       000d  NEXTLOC   
+01cc  NULCMD        01a5  OUTCMD        010c  PROMPT$       00b9  PRTADR    
+00ed  PRTCLS        0047  PRTERR        00ca  PRTHEX        00d3  PRTNIB    
+00de  PRTSPC        00f0  PRTSTR        004d  RUNCMD        03f8  SD6_DONE  
+03ed  SD6_RX        03e3  SD6_TX        fe04  SDACMD        fe00  SDBLKN    
+02c4  SDBOOT        041c  SDB_ACMD41    040a  SDB_CMD0      0416  SDB_CMD55 
+0410  SDB_CMD8      02d3  SDB_LOOP      02f4  SDB_NO        02ea  SDB_NXT   
+fe05  SDCMDB        0054  SDCTL         0053  SDDAT         0382  SDDL      
+fe0b  SDFLAG        032f  SDINC_DONE    0330  SDINIT        033a  SDI_CK    
+0379  SDI_FAIL      037c  SDI_OK        0361  SDI_RDY       03c5  SDRB1     
+03da  SDRB_ERR      0055  SDSTAT        0001  SDSYS         037f  SD_DELAY  
+030a  SD_INCBLK     0389  SD_READBLK    03e1  SD_SEND6      02fa  SD_SETBLK0
+03f9  SD_WAITTKN    03fb  SD_WT         0408  SD_WT_OK      00fd  SIGNON$   
+000c  SMSTRT        0234  SPG1          0209  SPI_ADDR      0051  SPI_CTL   
+0050  SPI_DATA      025d  SPI_ERASE_SECT    021c  SPI_PAGE      0244  SPI_READBUF
+01ee  SPI_REL       01e9  SPI_SEL       0052  SPI_STAT      01f6  SPI_WAIT  
+01f3  SPI_XMIT      01fe  SPW           024f  SRDB          ff00  STACK     
+0021  WSTART        
 

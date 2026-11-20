@@ -111,7 +111,7 @@ bin_bytes = bytes(full[a] for a in range(lo, hi + 1))
 # always matches (it loads exactly CPMIMGLEN bytes from 0xD000).  MUST agree
 # with CPMIMGLEN in programs/diskutil.s and gwmon/smbrevia.asm.  The padding
 # bytes load into the CBIOS variable/RAM area beyond the image (below RMWBUF).
-CPMIMGLEN = 0x1E00
+CPMIMGLEN = 0x2000
 bin_bytes = bin_bytes.ljust(CPMIMGLEN, b'\x00')[:CPMIMGLEN]
 with open(os.path.join(base, "brevia2_cpm.bin"), "wb") as fh:
     fh.write(bin_bytes)

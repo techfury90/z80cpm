@@ -70,7 +70,7 @@
    1000                 FBDIRZ  EQU     1000H                   ; directory size written (4K = 128 entries)
    2000                 FBSYS   EQU     2000H                   ; end of the reserved system area (0x0000-0x1FFF); dir base
    0000                 CPMIMG  EQU     0000H                   ; flash offset of the stored CP/M boot image
-   1e00                 CPMIMGLEN EQU  1E00H                    ; bytes of the boot image (padded to 0x1E00; must match gwmon/smbrevia.asm)
+   2000                 CPMIMGLEN EQU  2000H                    ; bytes of the boot image (padded to 0x2000; must match gwmon/smbrevia.asm)
                         
                         ; ============================================================================
    1000   c3 1d 11              JMP     START
@@ -1183,7 +1183,7 @@
    16ab   22 85 16              SHLD    FBADDR
    16ae   af                    XRA     A
    16af   32 87 16              STA     FBADDR+2
-   16b2   06 1e                 MVI     B,30                    ; 30 pages = 0x1E00 B = CPMIMGLEN
+   16b2   06 20                 MVI     B,32                    ; 32 pages = 0x2000 B = CPMIMGLEN
    16b4                 BURN_LOOP:
    16b4   c5                    PUSH    B
    16b5   2a c8 16              LHLD    BURNSRC
@@ -1903,7 +1903,7 @@
 14d2  BF_EXT0       14ca  BF_EXT_PAD    14c6  BF_EXT_SKIP    14a3  BF_GOTEXT 
 1487  BF_N          14a3  BF_NPAD       1477  BF_Z          155e  BLKNO     
 0400  BLKSZ         1472  BUILD_FCB     16c8  BURNSRC       16b4  BURN_LOOP 
-0000  CPMIMG        1e00  CPMIMGLEN     1039  CRLF          2800  DBLOCK0   
+0000  CPMIMG        2000  CPMIMGLEN     1039  CRLF          2800  DBLOCK0   
 2000  DIRBASE       14e8  DO_BOOTCPM    155f  DO_DUMP       1848  DO_ERASE  
 1688  DO_FLASH_BURN    116b  DO_FMT        189c  DO_FMTFLASH    118e  DO_HELP   
 173f  DO_ID         1587  DO_MDUMP      179c  DO_PROGRAM    17ce  DO_READ   

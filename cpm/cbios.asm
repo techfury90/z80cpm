@@ -50,9 +50,24 @@
 
         ORG     0E600H
 
+; ---- build configuration (SPI-primary vs SD-primary) ----------------------
+;   Selects the drive-letter map and the BOOT/WBOOT persist target.  Swap
+;   cpm/cbios_cfg.inc (or use scripts/build_cbios.sh {sd|spi}) to build the
+;   other variant.  a85 has no -D flag, so the mode is a source-level config.
+        INCL    "cpm/cbios_cfg.inc"
+
 ; ---- constants ------------------------------------------------------------
 BIOS    EQU     0E600H          ; BIOS base (jump table origin)
 CCP     EQU     0D000H          ; CCP origin
+CPMIMGLEN EQU   2000H           ; bytes of the boot image (CCP+BDOS+CBIOS, padded).
+                                ;  MUST be a multiple of 512 (the SD sector size) so BOOT/WBOOT
+                                ;  can persist/reload it in whole SD sectors, and MUST agree with
+                                ;  make_combined_hex.py, programs/diskutil.s and gwmon/smbrevia.asm
+                                ;  (the load/burn length).  This is the full system image
+                                ;  INCLUDING the CBIOS -- the SD system area (SDSYS_OFF) must be
+                                ;  large enough to hold all of it.  The image runs 0xD000-0xEFFF;
+                                ;  the last 0x100 bytes overlap the head of RMWBUF (0xEF00) with
+                                ;  0x00 padding, which is overwritten on the first disk RMW.
 ; (WBOOT is the label of the warm-boot routine, which lands at BIOS+3 = 0xE603.
 ;  It is *not* declared with EQU here to avoid a duplicate-symbol error.)
 BDOSL   EQU     0D800H          ; BDOS origin
@@ -82,10 +97,20 @@ SD_CTL  EQU     54H             ; write bit0 = CS# (0=select low, 1=release high
 SD_STAT EQU     55H             ; read bit0 = transfer busy (poll OPTIONAL; the engine
                                 ;        wait-stretches the CPU so no polling is needed)
 SDPLBA  EQU     1               ; SD partition LBA start (from the sdtool-created MBR, LBA=1).
-                                ; Drive C: is a 2K-block single-DM CP/M drive (DPBC below);
-                                ; the deblock buffer ALIASES the RMWBUF region (drive A flash
-                                ; writes and drive C SD accesses NEVER happen at the same time
+                                ; Drive A:/B: are SD CP/M drives (DPBA/DPBB below);
+                                ; the deblock buffer ALIASES the RMWBUF region (drive C flash
+                                ; writes and drive A/B SD accesses NEVER happen at the same time
                                 ; -- the BDOS drives one disk at a time).
+; ---- SD reserved system area (per SD drive/region) -------------------------
+;   Each SD logical volume reserves a system area at its region start to hold a
+;   bootable CP/M system image (CCP+BDOS+CBIOS).  The image is CPMIMGLEN =
+;   0x1E00 = 7680 B = 15 SD 512B sectors, so 16 sectors (OFF=2 tracks worth, 8KB)
+;   leaves 1 sector of headroom.  The system-area offset is added at the CBIOS
+;   SDMAP layer (the BDOS does NOT reliably apply the DPB OFF field here), and
+;   the formatter must write the directory/data area PAST this offset.
+;   NOTE: the system lanes must cover the FULL image INCLUDING the CBIOS, so a
+;   cold boot can reload CCP+BDOS+CBIOS from the SD -- not just CCP+BDOS.
+SDSYS_OFF EQU    16              ; SD 512B sectors reserved for the system area per volume
 
 ;
 ; ============================================================================
@@ -122,7 +147,21 @@ BOOT:
 ; ---- set page-zero vectors ------------------------------------------------
         CALL    SETVEC
 ;
-; ---- write CCP and BDOS from machine RAM onto the RAM disk SYSTEM tracks ----
+; ---- initialize the SD card (drives A:/B:) before anything touches it ------
+        CALL    SD_INIT
+;
+        IF      CFG_SD_BUILD
+; ---- persist the CP/M system image to the SD system area -------------------
+;   The SD is the power-on boot store.  Write the FULL image (CCP+BDOS+CBIOS,
+;   CPMIMGLEN bytes) to drive A:'s reserved SD system area so a cold boot can
+;   reload the entire system from the SD -- the system tracks must cover the
+;   CBIOS, not just the CCP/BDOS (SDSYS_OFF is sized for the whole image).
+        CALL    SD_SETBLK0      ; BLKN = SDPLBA (region 0 system area start)
+        LXI     H,CCP           ; source = the in-RAM system image (0xD000+)
+        LXI     B,CPMIMGLEN     ; full CCP+BDOS+CBIOS image length
+        CALL    SDWRIMG         ; write it to the SD system area
+        ELSE
+; ---- legacy SPI-primary: persist CCP/BDOS to the RAM disk SYSTEM tracks ----
         LXI     H,SYSCPP        ; disk byte 0 (system track 0)
         LXI     D,CCP           ; source = CCP image
         LXI     B,2048          ; 2048 bytes
@@ -131,19 +170,16 @@ BOOT:
         LXI     D,BDOSL         ; source = BDOS image
         LXI     B,3584          ; 3584 bytes
         CALL    RAMWR
+        ENDIF
 ;
 ; ---- the user DATA area is NOT formatted here --------------------------------
-; The diskutil formats the disk explicitly. The cold boot leaves the directory
-; untouched so files written to the RAM disk PERSIST across CP/M cold boots
-; (until power-off clears the volatile SRAM). Confirmed the directory lives at
-; 0x2000: a boot-format'd disk yields a clean NO FILE from DIR.
+; The formatter (sdtool, or diskutil for the RAM disk) formats the disk
+; explicitly.  The cold boot leaves the directory untouched so files written
+; to the volume PERSIST across CP/M cold boots.
 ;
 ; ---- output the sign-on banner ---------------------------------------------
         LXI     H,BANNER
         CALL    PRTSTR
-;
-; ---- initialize the SD card (drive C:) so it is ready if logged in ----------
-        CALL    SD_INIT
 ;
 ; ---- initialize the default DMA address and jump to the CCP -----------------
         LXI     H,DMA0
@@ -161,7 +197,19 @@ WBOOT:
                                 ;  'G E603' from the monitor after a reset must swap
                                 ;  the ROM out too, else page-zero/CCP reads hit ROM)
 ;
-; ---- reload CCP and BDOS from the RAM disk SYSTEM tracks --------------------
+        IF      CFG_SD_BUILD
+; ---- reload CCP+BDOS from the SD A: system area ------------------------------
+        ; The SD is the boot store, so a warm start reads the system back from
+        ; the SD (persistent across power cycles) instead of the volatile RAM
+        ; disk.  The system area holds the full image; only CCP+BDOS need to be
+        ; reloaded (the CBIOS is the code currently running and stays in RAM).
+        CALL    SD_INIT
+        CALL    SD_SETBLK0      ; BLKN = SDPLBA (region 0 system area)
+        LXI     H,CCP           ; destination = CCP (SDREADIMG loads into HL)
+        LXI     B,1600H         ; CCP+BDOS = 0x800 + 0xE00 = 0x1600 bytes (11 sectors)
+        CALL    SDREADIMG
+        ELSE
+; ---- legacy SPI-primary: reload CCP and BDOS from the RAM disk SYSTEM tracks -
         LXI     H,SYSCPP
         LXI     D,CCP
         LXI     B,2048
@@ -170,6 +218,7 @@ WBOOT:
         LXI     D,BDOSL
         LXI     B,3584
         CALL    RAMRD
+        ENDIF
 ;
 ; ---- restore page-zero vectors (a transient program may have clobbered them) -
         CALL    SETVEC
@@ -270,35 +319,52 @@ LISTST:
 ; ============================================================================
 ; SELDSK: select drive given by register C.  Return HL = DPH address for the
 ; selected drive, or HL=0000 with A=0xFF if the drive is not present.
-;   C=0 -> drive A (the SPI flash boot drive), C=1 -> drive B (the RAM disk).
-;   C>1 -> error.
+;   The drive-letter -> media map depends on the build configuration (see
+;   cpm/cbios_cfg.inc):
+;     SD build (CFG_SD_BUILD=1):  A=SD region0, B=SD region1, C=flash, D=RAM.
+;     SPI build (CFG_SD_BUILD=0): A=flash,     B=RAM,      C=SD r0, D=SD r1.
 SELDSK:
         MOV     A,C
         STA     SELBL           ; remember the selected drive number
         ORA     A
-        JZ      SELD0           ; C=0 -> drive A
+        JZ      SELD0
         CPI     01H
-        JZ      SELD1           ; C=1 -> drive B (RAM disk)
+        JZ      SELD1
         CPI     02H
-        JZ      SELD2           ; C=2 -> drive C (SD card)
+        JZ      SELD2
         CPI     03H
-        JZ      SELD3           ; C=3 -> drive D (future; reserved)
+        JZ      SELD3
 SELERR:
         LXI     H,0000H         ; error return: HL=0
         MVI     A,0FFH
         RET
+        IF      CFG_SD_BUILD
 SELD0:
-        LXI     H,DPH           ; drive A disk parameter header (SPI flash)
+        LXI     H,DPHSD0        ; drive A disk parameter header (SD region 0)
         RET
 SELD1:
-        LXI     H,DPHB          ; drive B disk parameter header (RAM disk)
+        LXI     H,DPHSD1        ; drive B disk parameter header (SD region 1)
         RET
 SELD2:
-        LXI     H,DPHC          ; drive C disk parameter header (SD card)
+        LXI     H,DPHFLASH      ; drive C disk parameter header (SPI flash)
         RET
 SELD3:
-        LXI     H,DPHD          ; drive D disk parameter header (SD partition 2, future)
+        LXI     H,DPHRAM        ; drive D disk parameter header (RAM disk)
         RET
+        ELSE
+SELD0:
+        LXI     H,DPHFLASH      ; drive A disk parameter header (SPI flash)
+        RET
+SELD1:
+        LXI     H,DPHRAM        ; drive B disk parameter header (RAM disk)
+        RET
+SELD2:
+        LXI     H,DPHSD0        ; drive C disk parameter header (SD region 0)
+        RET
+SELD3:
+        LXI     H,DPHSD1        ; drive D disk parameter header (SD region 1)
+        RET
+        ENDIF
 
 ; HOME: move to track 0, sector 0.
 HOME:
@@ -433,13 +499,28 @@ LEDOFF:
 READ:
         CALL    LIGHT           ; light the LED for the selected drive (bit = 7-SELBL)
         LDA     SELBL
-        ORA     A
-        JZ      READ_A          ; drive A (SELBL==0) -> SPI flash (boot drive)
+        IF      CFG_SD_BUILD
+        ; SD build: SELBL 0/1 -> SD deblock, SELBL 2 -> SPI flash, SELBL 3 -> RAM disk
         CPI     02H
-        JZ      READ_C          ; drive C (SELBL==2) -> SD card (with retry)
+        JZ      READ_FLASH
         CPI     03H
-        JZ      READ_C          ; drive D (SELBL==3) -> SD card (with retry)
-        ; ---- drive B: RAM disk path ----
+        JZ      READ_RAM
+        CALL    READC           ; drive A/B SD read (retry); RET here with A = status
+        JMP     LEDOFF
+        ELSE
+        ; SPI build: SELBL 0 -> SPI flash, SELBL 1 -> RAM disk, SELBL 2/3 -> SD deblock
+        ORA     A
+        JZ      READ_FLASH
+        CPI     01H
+        JZ      READ_RAM
+        CALL    READC           ; drive C/D SD read (retry); RET here with A = status
+        JMP     LEDOFF
+        ENDIF
+READ_FLASH:
+        CALL    READB           ; SPI flash read; RET here with A = status
+        JMP     LEDOFF
+READ_RAM:
+        ; ---- RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR          ; set the disk data-pointer
         LHLD    DMA
@@ -455,12 +536,6 @@ READ1:
         MVI     A,00H           ; success
         JMP     LEDOFF          ; extinguish the activity LED, then return to the BDOS
                                 ;  (LEDOFF preserves A, so the BDOS still sees 00H)
-READ_A:
-        CALL    READB           ; drive A flash read; RET here with A = status
-        JMP     LEDOFF
-READ_C:
-        CALL    READC           ; drive C/D SD read (retry); RET here with A = status
-        JMP     LEDOFF
 
 ; ============================================================================
 ;   WRITE: write one 128-byte CP/M sector from the DMA buffer to the RAM disk.
@@ -469,13 +544,28 @@ READ_C:
 WRITE:
         CALL    LIGHT           ; light the LED for the selected drive (bit = 7-SELBL)
         LDA     SELBL
-        ORA     A
-        JZ      WRITE_A         ; drive A (SELBL==0) -> SPI flash (boot drive)
+        IF      CFG_SD_BUILD
+        ; SD build: SELBL 0/1 -> SD deblock, SELBL 2 -> SPI flash, SELBL 3 -> RAM disk
         CPI     02H
-        JZ      WRITE_C         ; drive C (SELBL==2) -> SD card (with retry)
+        JZ      WRITE_FLASH
         CPI     03H
-        JZ      WRITE_C         ; drive D (SELBL==3) -> SD card (with retry)
-        ; ---- drive B: RAM disk path ----
+        JZ      WRITE_RAM
+        CALL    WRITEC          ; drive A/B SD write (retry); RET here with A = status
+        JMP     LEDOFF
+        ELSE
+        ; SPI build: SELBL 0 -> SPI flash, SELBL 1 -> RAM disk, SELBL 2/3 -> SD deblock
+        ORA     A
+        JZ      WRITE_FLASH
+        CPI     01H
+        JZ      WRITE_RAM
+        CALL    WRITEC          ; drive C/D SD write (retry); RET here with A = status
+        JMP     LEDOFF
+        ENDIF
+WRITE_FLASH:
+        CALL    WRITEB          ; SPI flash write (4KB RMW); RET here with A = status
+        JMP     LEDOFF
+WRITE_RAM:
+        ; ---- RAM disk path ----
         CALL    CALC            ; HL = RAM-disk byte address
         CALL    RAMPTR
         LHLD    DMA
@@ -490,12 +580,6 @@ WRITE1:
         JNZ     WRITE1
         MVI     A,00H           ; success
         JMP     LEDOFF          ; extinguish the activity LED, then return to the BDOS
-WRITE_A:
-        CALL    WRITEB          ; drive A flash write (4KB RMW); RET here with A = status
-        JMP     LEDOFF
-WRITE_C:
-        CALL    WRITEC          ; drive C/D SD write (retry); RET here with A = status
-        JMP     LEDOFF
 
 ; ============================================================================
 ;   SD CARD (drive C:) DRIVER + DEBLOCKING
@@ -567,18 +651,35 @@ SDMAP_H1:
         RAR
         MOV     L,A             ; HL = record >> 2 = SSEC
         ; ---- per-drive region offset (CP/M has no partitioning) ----
-        ; The BDOS does NOT reliably apply the DPB OFF here, so the region base is
-        ; added at the CBIOS deblock layer.  Drive D (SELBL==3) is region 1 =
-        ; +8 MB = +16384 SD sectors (0x4000); drive C (SELBL==2) is region 0 (+0).
-        ; This shifts the logical drive's record space into its own 8 MB region of
-        ; the 64 MB partition.  SDOFF is unaffected (the region is a multiple of 4
-        ; records, so record&3 is unchanged).
+        ; The BDOS does NOT reliably apply the DPB OFF field here, so the region
+        ; offset (and, in the SD build, the reserved system-area offset) is added
+        ; at the CBIOS deblock layer.
+        IF      CFG_SD_BUILD
+        ; SD build: drive B (SELBL==1) = SD region 1 (+0x4000 sectors = +8 MB);
+        ; drive A (SELBL==0) = region 0 (+0).  Both drives also reserve the
+        ; system area (SDSYS_OFF added below).
+        LDA     SELBL
+        CPI     01H
+        JNZ     SDMAP_REG0
+        LXI     D,4000H
+        DAD     D               ; SSEC += 0x4000 (into SD region 1)
+        ELSE
+        ; SPI build: drive D (SELBL==3) = SD region 1 (+0x4000 sectors = +8 MB);
+        ; drive C (SELBL==2) = region 0 (+0).  The SD drives are pure data here
+        ; (no reserved system area -- OFF-style data partition).
         LDA     SELBL
         CPI     03H
         JNZ     SDMAP_REG0
         LXI     D,4000H
-        DAD     D               ; SSEC += 0x4000 (into region 1)
+        DAD     D               ; SSEC += 0x4000 (into SD region 1)
+        ENDIF
 SDMAP_REG0:
+        IF      CFG_SD_BUILD
+        ; SD build: add the reserved system area (each SD volume reserves
+        ; SDSYS_OFF sectors at its region start, so the data/directory begin PAST it)
+        LXI     D,SDSYS_OFF
+        DAD     D
+        ENDIF
         ; BLKN = SDPLBA + SSEC  (SDPLBA=1)
         INX     H
         MVI     A,00H
@@ -967,6 +1068,105 @@ SDCMD55: DB     77H,00H,00H,00H,00H,65H
 SDACMD: DB      69H,40H,00H,00H,00H,77H   ; HCS bit -> SDHC/SDXC
 
 ; ============================================================================
+;   SD SYSTEM-AREA IMAGE I/O  (used by BOOT/WBOOT to persist/reload the system)
+;   Each reserved SD volume begins with a system area (SDSYS_OFF sectors) that
+;   holds the CP/M boot image (CCP+BDOS+CBIOS, CPMIMGLEN bytes).  These routines
+;   move the image between the SD (region 0 system area, BLKN = SDPLBA) and
+;   machine RAM, whole 512-byte sectors at a time (CPMIMGLEN is a multiple of
+;   512).  They are called by BOOT (persist) and WBOOT (reload).
+; ============================================================================
+; SD_SETBLK0: set BLKN (32-bit, MSB first) to the SDPLBA region-0 system-area base.
+SD_SETBLK0:
+        XRA     A
+        STA     BLKN+0
+        STA     BLKN+1
+        STA     BLKN+2
+        MVI     A,SDPLBA        ; SDPLBA = 1 (fits in the low byte)
+        STA     BLKN+3
+        RET
+
+; SD_INCBLK: increment the 32-bit BLKN (MSB first) by one SD sector.
+SD_INCBLK:
+        LDA     BLKN+3
+        INR     A
+        STA     BLKN+3
+        JNZ     SDINC_DONE
+        LDA     BLKN+2
+        INR     A
+        STA     BLKN+2
+        JNZ     SDINC_DONE
+        LDA     BLKN+1
+        INR     A
+        STA     BLKN+1
+        JNZ     SDINC_DONE
+        LDA     BLKN+0
+        INR     A
+        STA     BLKN+0
+SDINC_DONE:
+        RET
+
+; SDWRIMG: write BC bytes from (HL) to the SD at the current BLKN (advancing).
+;   BC must be a non-zero multiple of 512 (the sector buffer size).  Returns
+;   A=0 if all sectors written, 0FFh if any failed.  Clobbers A,B,C,D,E,H,L.
+SDWRIMG:
+        MOV     A,L
+        STA     SDIMGSRC
+        MOV     A,H
+        STA     SDIMGSRC+1      ; SDIMGSRC = HL (little-endian word)
+        MOV     A,B
+        RRC                     ; sector count = BC/512 (BC is a multiple of 512, C=0)
+        STA     SDIMGC
+SDWR_LP:
+        LHLD    SDIMGSRC
+        CALL    SD_WRITEBLK     ; write 512 bytes from (HL) to BLKN
+        ORA     A
+        JNZ     SDWR_ERR
+        LHLD    SDIMGSRC
+        LXI     D,512
+        DAD     D
+        SHLD    SDIMGSRC
+        CALL    SD_INCBLK
+        LDA     SDIMGC
+        DCR     A
+        STA     SDIMGC
+        JNZ     SDWR_LP
+        XRA     A
+        RET
+SDWR_ERR:
+        MVI     A,0FFH
+        RET
+
+; SDREADIMG: read BC bytes from the SD at the current BLKN (advancing) into (HL).
+;   BC must be a non-zero multiple of 512.  Returns A=0 ok / 0FFh err.
+SDREADIMG:
+        MOV     A,L
+        STA     SDIMGSRC
+        MOV     A,H
+        STA     SDIMGSRC+1      ; SDIMGSRC = HL (little-endian word)
+        MOV     A,B
+        RRC                     ; sector count = BC/512
+        STA     SDIMGC
+SDRD_LP:
+        LHLD    SDIMGSRC
+        CALL    SD_READBLK      ; read 512 bytes from BLKN into (HL)
+        ORA     A
+        JNZ     SDRD_ERR
+        LHLD    SDIMGSRC
+        LXI     D,512
+        DAD     D
+        SHLD    SDIMGSRC
+        CALL    SD_INCBLK
+        LDA     SDIMGC
+        DCR     A
+        STA     SDIMGC
+        JNZ     SDRD_LP
+        XRA     A
+        RET
+SDRD_ERR:
+        MVI     A,0FFH
+        RET
+
+; ============================================================================
 ;   RAM-DISK BLOCK COPY / FILL HELPERS (used by BOOT/WBOOT)
 ; ============================================================================
 ; RAMWR: write BC bytes from (DE) to the RAM disk starting at disk byte addr HL.
@@ -1164,161 +1364,135 @@ TRK:    DS      2               ; current (absolute) track -- 16-bit!  CP/M 2 pa
 SECN:   DS      1               ; current sector
 DMA:    DS      2               ; current DMA address
 FILLV:  DS      1               ; scratch for RAMFILL
-        DS      4               ; (padding/alignment reserved)
+SDIMGSRC: DS    2               ; SD system-area image copy: source/destination pointer
+SDIMGC: DS      1               ; SD system-area image copy: SD sectors remaining
 
 ; ============================================================================
-;   DISK PARAMETER HEADER (DPH) for drive A (the SPI flash boot drive)
-;   Byte layout consumed by the BDOS:
-;     +0  XLT  (sector-translate vector address; 0 = none)
-;     +2  scratch, +4 scratch, +6 scratch
-;     +8  DIRBUF, +10 DPBB, +12 CSVB, +14 ALVB
+;   DISK PARAMETER HEADERS / BLOCKS / VECTORS
+;   The BDOS builds the allocation vector itself on first drive login (never
+;   zero/prime it -- uninitialised DS is fine).  There are FOUR media sets:
+;   flash, RAM disk, SD region 0 and SD region 1.  The drive-letter -> media
+;   mapping is entirely in SELDSK (build-config dependent); the physical READ/
+;   WRITE dispatch uses SELBL to pick the path.  DIRBUF is shared by all drives
+;   (only one is operated at a time).
+;
+;   The SD DRIVE geometry uses OFF=0 and places the reserved system area at the
+;   CBIOS deblock layer (SDMAP adds SDSYS_OFF + region offset) -- the BDOS does
+;   NOT reliably apply the DPB OFF field, so the region/system offset cannot
+;   live in the DPB.
 ; ============================================================================
-DPH:
+
+; ---- SPI flash (on-board ISSI IS25LD040, drive A in the SPI build) ----------
+;   Geometry: SPT=32, 2KB allocation (BSH=4/BLM=15), OFF=2 (tracks 0-1 reserved
+;   for the CP/M boot image), directory = blocks 0-1 via AL0=0xC0 (128 entries),
+;   DSM=251 (single-DM).  MUST agree with the formatter (data at 0x3000).
+DPHFLASH:
         DW      0000H           ; XLT: no sector translation
         DW      0000H           ; scratch (cdrmax)
         DW      0000H           ; scratch (curtrk)
         DW      0000H           ; scratch (currec)
         DW      DIRBUF          ; directory buffer (128 bytes)
-        DW      DPBB            ; disk parameter block (SPI flash 2K geometry)
-        DW      CSVB            ; checksum vector
-        DW      ALVB            ; allocation vector
-
-; ============================================================================
-;   DISK PARAMETER BLOCK (DPB)
-;   CP/M 2.2 geometry for the 64K RAM disk (drive B:, volatile scratch):
-;     128-byte sectors, SPT=32, 14 user tracks + 2 system tracks = 16 tracks,
-;     1K allocation blocks (BSH=3/BLM=7), DSM=55 (56 blocks = 56K user data),
-;     DRM=63 (64 directory entries = 2 directory blocks), CKS=0 (fixed media),
-;     OFF=2 (reserve tracks 0-1 for the system).
-;   IMPORTANT: DSM is stored as a WORD (not a byte).  The BDOS copies this
-;   table byte-for-byte into its internal aligned structure, so DSM must be a
-;   word for the SECTPT/MAXALL/... fields to line up correctly.
-;   AL0/AL1 reserve the directory blocks.  With the MSB-first allocation-map
-;   convention the 2 directory blocks at the start of the data area are blocks
-;   0 and 1, so AL0=0xC0 / AL1=0x00.  (AL0=0x00/AL1=0xC0 would reserve blocks
-;   8-9 and leave the real directory at block 0 unprotected, breaking SAVE.)
-; ============================================================================
-DPB:
+        DW      DPBFLASH        ; disk parameter block (flash 2K geometry)
+        DW      CSVFLASH        ; checksum vector
+        DW      ALVFLASH        ; allocation vector
+DPBFLASH:
         DW      SPT             ; SPT  = 32   (sectors per track)
-        DB      03H             ; BSH  = 3    (block shift  -> 1K blocks)
-        DB      07H             ; BLM  = 7    (block mask)
-        DB      00H             ; EXM  = 0
-        DW      55              ; DSM  = 55   (max block number = 56 blocks)
-        DW      63              ; DRM  = 63   (max directory entry = 64 entries)
+        DB      04H             ; BSH  = 4    (block shift -> 2KB blocks)
+        DB      0FH             ; BLM  = 15   (block mask)
+        DB      01H             ; EXM  = 1    (BLS=2048 & DSM<256 -> single-DM)
+        DW      251             ; DSM  = 251  (252 blocks, single-DM)
+        DW      127             ; DRM  = 127  (128 entries)
         DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1)
         DB      00H             ; AL1  = 0x00
         DW      00H             ; CKS  = 0    (fixed media -> no checksum)
         DW      02H             ; OFF  = 2    (reserve 2 system tracks)
+CSVFLASH: DS    1               ; checksum vector (0 bytes used since CKS=0)
+ALVFLASH: DS    32              ; allocation vector (DSM=251 -> (251/8)+1 = 32 bytes)
+RECOFF: DS      2               ; in-sector byte offset for the flash RMW
 
-; ============================================================================
-;   CBIOS BUFFERS / VECTORS
-; ============================================================================
-CSV:    DS      1               ; checksum vector (0 bytes needed since CKS=0)
-ALV:    DS      8               ; allocation vector (56 blocks / 8 = 7 -> pad 8)
+; ---- RAM disk (bank B, 64K, volatile; drive B in the SPI build) ------------
+;   Geometry: SPT=32, 1K allocation (BSH=3/BLM=7), OFF=2 (tracks 0-1 system),
+;   DSM=55, DRM=63.  The legacy SPI build's BOOT persists CCP/BDOS to these.
+DPHRAM:
+        DW      0000H           ; XLT
+        DW      0000H           ; scratch (cdrmax)
+        DW      0000H           ; scratch (curtrk)
+        DW      0000H           ; scratch (currec)
+        DW      DIRBUF          ; shared directory buffer
+        DW      DPBRAM          ; disk parameter block (RAM disk 1K geometry)
+        DW      CSVRAM          ; checksum vector
+        DW      ALVRAM          ; allocation vector
+DPBRAM:
+        DW      SPT             ; SPT  = 32
+        DB      03H             ; BSH  = 3    (1K blocks)
+        DB      07H             ; BLM  = 7
+        DB      00H             ; EXM  = 0
+        DW      55              ; DSM  = 55  (56 blocks)
+        DW      63              ; DRM  = 63  (64 entries)
+        DB      0C0H            ; AL0  = 0xC0
+        DB      00H             ; AL1  = 0x00
+        DW      00H             ; CKS  = 0
+        DW      02H             ; OFF  = 2    (reserve 2 system tracks)
+CSVRAM: DS      1
+ALVRAM: DS      8               ; allocation vector (DSM=55 -> (55/8)+1 = 8 bytes)
 DIRBUF: DS      128             ; directory buffer (one 128-byte directory record)
 
-; ============================================================================
-;   DRIVE A: (SPI flash) DISK PARAMETER HEADER / BLOCK / VECTORS
-;   Geometry: 128-byte sectors, SPT=32, 2KB allocation (BSH=4/BLM=15), OFF=2
-;   (tracks 0-1 reserved for the CP/M boot image), directory = blocks 0-1
-;   reserved via AL0=0xC0 (128 entries = 4K dir spanning both 2K blocks),
-;   DSM=251 (252 blocks), DRM=127 (128 entries), CKS=0 (fixed media).
-;   DSM=251 < 256 so the BDOS stays in SINGLE-DM (1-byte FCB map entries) --
-;   do NOT raise DSM past 255, which flips the BDOS into double-DM.
-;   This MUST agree with diskutil's formatter (data at 0x3000).  The BDOS builds
-;   the allocation vector itself on first login, so ALVB just needs the space.
-; ============================================================================
-DPHB:
-        DW      0000H           ; XLT: no sector translation
+; ---- SD region 0 (drive A in the SD build; boot/system volume) -------------
+;   Geometry: SPT=32, 8KB allocation (BSH=6/BLM=63), DSM=1023 (double-DM, 8 MB),
+;   DRM=4095 (4096 entries), AL0/AL1=0xFF (16 directory blocks), OFF=0 (the
+;   reserved system area + region base are added in SDMAP).
+DPHSD0:
+        DW      0000H           ; XLT
         DW      0000H           ; scratch (cdrmax)
         DW      0000H           ; scratch (curtrk)
         DW      0000H           ; scratch (currec)
-        DW      DIRBUF          ; shared directory buffer (128 bytes)
-        DW      DPB             ; disk parameter block (RAM disk 1K geometry)
-        DW      CSV             ; checksum vector
-        DW      ALV             ; allocation vector
-DPBB:
+        DW      DIRBUF          ; shared directory buffer
+        DW      DPBSD0          ; disk parameter block (SD 8K geometry, OFF=0)
+        DW      CSVSD0          ; checksum vector (CKS=0 -> 0 bytes)
+        DW      ALVSD0          ; allocation vector
+DPBSD0:
         DW      SPT             ; SPT  = 32   (sectors per track)
-        DB      04H             ; BSH  = 4    (block shift -> 2KB blocks)
-        DB      0FH             ; BLM  = 15   (block mask)
-        DB      01H             ; EXM  = 1    (extent mask, BLS=2048 & DSM<256)
-        DW      251             ; DSM  = 251  (max block number = 252 blocks)
-        DW      127             ; DRM  = 127  (max directory entry = 128 entries)
-        DB      0C0H            ; AL0  = 0xC0 (reserve directory blocks 0-1, MSB-first)
-        DB      00H             ; AL1  = 0x00
-        DW      00H             ; CKS  = 0    (fixed media -> no checksum)
-        DW      02H             ; OFF  = 2    (reserve 2 system tracks)
-CSVB:   DS      1               ; checksum vector (0 bytes used since CKS=0)
-ALVB:   DS      32              ; allocation vector (DSM=251 -> (251/8)+1 = 32 bytes)
-RECOFF: DS      2               ; in-sector byte offset for the drive B: RMW
-
-; ============================================================================
-;   DRIVE C / D: (SD card) DISK PARAMETER HEADER / BLOCK / VECTORS
-;   Geometry: 128-byte sectors, SPT=32, 4KB allocation blocks (BSH=5/BLM=31),
-;   DRM=255 (256 dir entries), AL0=0xC0 (reserve dir blocks 0-1 = 8KB),
-;   CKS=0, DSM=2047 (DOUBLE-DM -- 2048 blocks x 4KB = 8 MB = the CP/M 2.2
-;   16-bit record-counter ceiling), OFF=0 (data partition, no system tracks --
-;   the directory is at the partition start, where sdtool formats it).
-;   Drive C is 8 MB; drive D (DPHD) still maps here (a future SD partition 2).
-;   See cpm/SD-8MB-DRIVE.md.
-DPHC:
-        DW      0000H           ; XLT: no sector translation
-        DW      0000H           ; scratch (cdrmax)
-        DW      0000H           ; scratch (curtrk)
-        DW      0000H           ; scratch (currec)
-        DW      DIRBUF          ; shared directory buffer (128 bytes)
-        DW      DPBC            ; disk parameter block (SD 8K geometry, OFF=0)
-        DW      CSVC            ; checksum vector (CKS=0 -> 0 bytes)
-        DW      ALVC            ; allocation vector (drive C)
-DPHD:
-        DW      0000H           ; XLT: no sector translation
-        DW      0000H           ; scratch (cdrmax)
-        DW      0000H           ; scratch (curtrk)
-        DW      0000H           ; scratch (currec)
-        DW      DIRBUF          ; shared directory buffer (128 bytes)
-        DW      DPBD            ; disk parameter block (SD 8K geometry, OFF=2048)
-        DW      CSVC            ; checksum vector (CKS=0 -> 0 bytes)
-        DW      ALVD            ; allocation vector (drive D)
-DPBC:
-        DW      SPT             ; SPT  = 32   (sectors per track)
-        DB      06H             ; BSH  = 6    (block shift  -> 8KB blocks)
+        DB      06H             ; BSH  = 6    (block shift -> 8KB blocks)
         DB      3FH             ; BLM  = 63   (block mask)
-        DB      03H             ; EXM  = 3    (DSM>255 & BLS=8192 -> double-DM (16-bit
-                                ;              block pointers): entry covers 8x8KB=64KB
-                                ;              -> EXM = 64KB/16KB - 1 = 3)
-        DW      1023            ; DSM  = 1023 (max block = 1024 blocks x 8KB = 8 MB --
-                                ;              the CP/M 2.2 16-bit record-counter ceiling)
-        DW      4095            ; DRM  = 4095 (max directory entry = 4096 entries)
-        DB      0FFH            ; AL0  = 0xFF (reserve directory blocks 0-7, MSB-first)
-        DB      0FFH            ; AL1  = 0xFF (reserve directory blocks 8-15 = the max 16
-                                ;              blocks; 16 x 8KB = 128KB = 4096 entries)
-        DW      00H             ; CKS  = 0    (fixed media -> no checksum)
-        DW      00H             ; OFF  = 0    (drive C: partition region 0, no system tracks)
-DPBD:
-        DW      SPT             ; SPT  = 32   (sectors per track)
-        DB      06H             ; BSH  = 6    (block shift  -> 8KB blocks)
-        DB      3FH             ; BLM  = 63   (block mask)
-        DB      03H             ; EXM  = 3    (double-DM, 8KB blocks)
+        DB      03H             ; EXM  = 3    (DSM>255 & BLS=8192 -> double-DM)
         DW      1023            ; DSM  = 1023 (1024 blocks x 8KB = 8 MB)
         DW      4095            ; DRM  = 4095 (4096 entries)
         DB      0FFH            ; AL0  = 0xFF (reserve directory blocks 0-7)
         DB      0FFH            ; AL1  = 0xFF (reserve directory blocks 8-15)
         DW      00H             ; CKS  = 0
-        DW      00H             ; OFF  = 0    (drive D: partition region 1.  CP/M has
-                                ;              no partitioning, so the region offset is
-                                ;              applied at the CBIOS deblock layer (SDMAP
-                                ;              adds +0x4000 SD sectors for SELBL==3).
-CSVC:   DS      1               ; checksum vector (0 bytes used since CKS=0)
-ALVC:   DS      128             ; allocation vector (drive C: DSM=1023 -> (1023+1)/8 = 128 B)
-ALVD:   DS      128             ; allocation vector (drive D: DSM=1023 -> 128 B)
-                                ;   The BDOS builds these itself on drive login and keeps
-                                ;   them while the drives are logged in -- they must NOT
-                                ;   alias a clobbered buffer.  ALVC+ALVD = 256 total, the
-                                ;   SAME footprint the old single-drive ALV used (it lived
-                                ;   in the free RAM gap 0xED00-0xEF00, below RMWBUF).
+        DW      00H             ; OFF  = 0    (region 0; system area via SDMAP)
+CSVSD0: DS      1
+ALVSD0: DS      128             ; allocation vector (DSM=1023 -> (1023+1)/8 = 128 B)
+
+; ---- SD region 1 (drive B in the SD build; second SD volume) ---------------
+;   Same geometry as region 0; the region base (+0x4000 sectors) AND the
+;   reserved system area (SDSYS_OFF) are added in SDMAP for SELBL==1.
+DPHSD1:
+        DW      0000H           ; XLT
+        DW      0000H           ; scratch (cdrmax)
+        DW      0000H           ; scratch (curtrk)
+        DW      0000H           ; scratch (currec)
+        DW      DIRBUF          ; shared directory buffer
+        DW      DPBSD1          ; disk parameter block (SD 8K geometry, OFF=0)
+        DW      CSVSD1          ; checksum vector
+        DW      ALVSD1          ; allocation vector
+DPBSD1:
+        DW      SPT             ; SPT  = 32
+        DB      06H             ; BSH  = 6    (8KB blocks)
+        DB      3FH             ; BLM  = 63
+        DB      03H             ; EXM  = 3    (double-DM)
+        DW      1023            ; DSM  = 1023
+        DW      4095            ; DRM  = 4095
+        DB      0FFH            ; AL0  = 0xFF
+        DB      0FFH            ; AL1  = 0xFF
+        DW      00H             ; CKS  = 0
+        DW      00H             ; OFF  = 0    (region 1; region+system offset via SDMAP)
+CSVSD1: DS      1
+ALVSD1: DS      128             ; allocation vector (DSM=1023 -> 128 B)
+
 SDOFF:  DS      2               ; in-sector byte offset for the SD deblock
-BLKN:   DS      4               ; SD block number (32-bit, MSB first); SD block = SDPLBA + record/4
+BLKN:   DS      4               ; SD block number (32-bit, MSB first); system area + record/4
 SDCMDB: DS      6               ; SD command buffer (opcode + 4-byte arg + CRC)
-SDTRY:  DS      1               ; drive C: retry counter (READC/WRITEC)
+SDTRY:  DS      1               ; SD retry counter (READC/WRITEC)
 
         END

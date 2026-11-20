@@ -65,6 +65,12 @@ and the legacy SPI-primary builds are assembled and verified in the simulator.
   A:/B:, verifies CBIOS read-back AND raw card content byte-exact, verifies BOOT persists the image
   and WBOOT reloads it; `SD_BUSY` env summarises the card-programming-busy model, default 3000).
 - `scripts/build_cbios.sh` — new build wrapper (sd|spi).
+- `programs/sdtool.s` (+ `.com/.hex/.prn`) — the `F` formatter now skips the
+  reserved system area: the directory/data are written at `REGBASE + SD_SYS`
+  (region 0) and `REGBASE + 0x4000 + SD_SYS` (region 1); the system area is left
+  blank for the boot image.  `SD_SYS` (default 16, must match `SDSYS_OFF`) is
+  set to 0 for a legacy SPI-primary card.  `tb/sdtool_sim.py` updated to verify
+  the post-system-area dir location (17-272 / 16401-16656).
 - `cpm/brevia2_cpm.{hex,mem,bin}` — regenerated SD-primary image.
 
 ## Verification (simulator)

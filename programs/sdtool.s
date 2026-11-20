@@ -17,12 +17,15 @@
 ;   128-byte records, SPT=32, 8KB allocation blocks (BSH=6/BLM=63),
 ;   DSM=1023 (DOUBLE-DM, 1024 blocks x 8KB = 8 MB per drive = CP/M 2.2 ceiling),
 ;   DRM=4095 (4096 directory entries = 128KB = 16 blocks, reserved via
-;   AL0=0xFF/AL1=0xFF), EXM=3, CKS=0, OFF=0 (data partition, no system tracks).
-;   TWO 8 MB logical drives are formatted (C: region 0 at the partition start,
-;   D: region 1 at +8 MB): each directory = 128KB = 256 x 512B SD sectors written
-;   as 0xE5, the only thing a format must write (the BDOS rebuilds the
-;   allocation vector on login).  Partition 1 starts at LBA 1, size 0x00020000
-;   sectors (64 MB -- drives C:/D: currently use the first 16 MB of it).
+;   AL0=0xFF/AL1=0xFF), EXM=3, CKS=0, OFF=0 (the region/system offsets are added
+;   at the CBIOS deblock layer).  TWO 8 MB logical drives are formatted: each
+;   volume reserves a SD_SYS-sector system area at its region start (to hold a
+;   bootable CP/M image) and the directory/data begin PAST it -- region 0 (drive
+;   A) at partition LBA + SD_SYS, region 1 (drive B) at +8 MB + SD_SYS.  Each
+;   directory = 128KB = 256 x 512B SD sectors written as 0xE5; the reserved
+;   system area is left blank (0xFF) for the boot image (the CBIOS BOOT
+;   self-provisions it).  Partition 1 starts at LBA 1, size 0x00020000 sectors
+;   (64 MB -- drives A:/B: currently use the first 16 MB of it).
 ;
 ; NOTE on BDOS register clobbering: every console-call loop preserves B/HL
 ; across CPUTC/func-2 with PUSH/POP (func 2 destroys B and HL on this CBIOS).
@@ -41,6 +44,14 @@ DSM     EQU     1023            ; 8 MB (1024 blocks x 8KB = CP/M 2.2 ceiling)
 DRM     EQU     4095            ; 4096 directory entries
 AL0V    EQU     0FFH            ; reserve directory blocks 0-7 (MSB-first)
 AL1V    EQU     0FFH            ; reserve directory blocks 8-15 (16 blocks = 128KB dir)
+
+; ---- reserved SD system area (must match cbios.asm SDSYS_OFF) ----------------
+; Each SD volume reserves SD_SYS 512-byte sectors at its region start to hold a
+; bootable CP/M image.  The directory/data area begins PAST this offset, so the
+; formatter must skip the reserved system area.  In the SD-primary build SD_SYS=
+; 16 (SDSYS_OFF); in the legacy SPI-primary build the SD drives are pure data and
+; SD_SYS=0 (set it to 0 before formatting for an SPI-primary card).
+SD_SYS  EQU     16
 
 PMTYPE  EQU     53H             ; CP/M partition type (no standard MBR type exists)
 PARTLBA0 EQU    01H             ; partition 1 LBA start = 1 (LE byte 0)
@@ -396,6 +407,8 @@ CF_F:
         STA     REGBASE+2
         LDA     BLKN+3
         STA     REGBASE+3
+        ; skip the reserved system area: the directory/data begin at REGBASE+SD_SYS
+        CALL    BLSYS
         ; ---- region 0 (drive C): 256 sectors = 128KB directory (4096 entries) ----
         MVI     D,256
 CF_LP:
@@ -428,6 +441,7 @@ CF_WOK:
         ADI     01H
         STA     BLKN+1
 CF_R1:
+        CALL    BLSYS           ; skip the reserved system area for region 1 too
         MVI     D,256
 CF_LP2:
         LXI     H,BLKBUF
@@ -783,6 +797,27 @@ INCBLK:
         INR     A
         STA     BLKN+0
 INCD:
+        RET
+
+; BLSYS: add SD_SYS (the reserved system-area sector count) to the 32-bit BLKN
+; (MSB first) so the formatter skips the reserved system area.  Clobbers A.
+BLSYS:
+        LDA     BLKN+3
+        ADI     SD_SYS          ; SD_SYS < 256 (16 in the SD build)
+        STA     BLKN+3
+        JNC     BLSYS_DONE
+        LDA     BLKN+2
+        ADI     01H
+        STA     BLKN+2
+        JNC     BLSYS_DONE
+        LDA     BLKN+1
+        ADI     01H
+        STA     BLKN+1
+        JNC     BLSYS_DONE
+        LDA     BLKN+0
+        ADI     01H
+        STA     BLKN+0
+BLSYS_DONE:
         RET
 
 ; ---------------- console / numeric helpers ----------------

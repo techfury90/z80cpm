@@ -15,7 +15,7 @@ Target Vendor:  LATTICE
 Target Device:  LFXP2-5ETQFP144
 Target Performance:   6
 Mapper:  mg5a00,  version:  Diamond (64-bit) 3.14.0.75.2
-Mapped on:  11/19/26  03:44:59
+Mapped on:  11/19/26  20:53:16
 
 Design Summary
 --------------
@@ -66,7 +66,7 @@ Design Summary
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 Design Summary (cont)
 ---------------------
@@ -132,7 +132,7 @@ Design Summary (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 Design Summary (cont)
 ---------------------
@@ -198,7 +198,7 @@ IO (PIO) Attributes
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 IO (PIO) Attributes (cont)
 --------------------------
@@ -264,7 +264,7 @@ IO (PIO) Attributes (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 IO (PIO) Attributes (cont)
 --------------------------
@@ -330,7 +330,7 @@ Block u_cpu/GND undriven or does not drive anything - clipped.
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 Removed logic (cont)
 --------------------
@@ -396,7 +396,7 @@ Signal u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_0_1/DOB6 undriven or
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 Removed logic (cont)
 --------------------
@@ -462,7 +462,7 @@ Signal u_rom/u_rom/pmi_romXhboot_romssdn8124096p11842eef_0_1_0/DOB10 undriven or
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 Removed logic (cont)
 --------------------
@@ -528,7 +528,7 @@ Signal u_tx/k_s_0_COUT[11] undriven or does not drive anything - clipped.
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 Removed logic (cont)
 --------------------
@@ -594,7 +594,7 @@ Signal u_cpu/i_tv80_core/ID16_cry_0_0_S0 undriven or does not drive anything -
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 Removed logic (cont)
 --------------------
@@ -660,7 +660,7 @@ Block u_rom/u_rom/scuba_vhi_inst was optimized away.
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 Memory Usage
 ------------
@@ -726,7 +726,7 @@ PLL 1:                                     Pin/Node Value
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 PLL/DLL Summary (cont)
 ----------------------
@@ -792,7 +792,7 @@ GSR Component:
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -858,7 +858,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -924,7 +924,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -990,7 +990,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -1056,7 +1056,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -1122,7 +1122,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -1188,7 +1188,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -1254,7 +1254,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -1320,7 +1320,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -1386,7 +1386,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -1452,7 +1452,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -1518,7 +1518,7 @@ GSR Usage (cont)
 
 
 
-Design:  z80cpm_brevia2_bram                           Date:  11/19/26  03:44:59
+Design:  z80cpm_brevia2_bram                           Date:  11/19/26  20:53:16
 
 GSR Usage (cont)
 ----------------
@@ -1547,7 +1547,7 @@ Run Time and Memory Usage
 -------------------------
 
    Total CPU Time: 1 secs  
-   Total REAL Time: 0 secs  
+   Total REAL Time: 2 secs  
    Peak Memory Usage: 79 MB
         
 

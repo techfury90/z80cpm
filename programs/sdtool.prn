@@ -17,12 +17,15 @@
                         ;   128-byte records, SPT=32, 8KB allocation blocks (BSH=6/BLM=63),
                         ;   DSM=1023 (DOUBLE-DM, 1024 blocks x 8KB = 8 MB per drive = CP/M 2.2 ceiling),
                         ;   DRM=4095 (4096 directory entries = 128KB = 16 blocks, reserved via
-                        ;   AL0=0xFF/AL1=0xFF), EXM=3, CKS=0, OFF=0 (data partition, no system tracks).
-                        ;   TWO 8 MB logical drives are formatted (C: region 0 at the partition start,
-                        ;   D: region 1 at +8 MB): each directory = 128KB = 256 x 512B SD sectors written
-                        ;   as 0xE5, the only thing a format must write (the BDOS rebuilds the
-                        ;   allocation vector on login).  Partition 1 starts at LBA 1, size 0x00020000
-                        ;   sectors (64 MB -- drives C:/D: currently use the first 16 MB of it).
+                        ;   AL0=0xFF/AL1=0xFF), EXM=3, CKS=0, OFF=0 (the region/system offsets are added
+                        ;   at the CBIOS deblock layer).  TWO 8 MB logical drives are formatted: each
+                        ;   volume reserves a SD_SYS-sector system area at its region start (to hold a
+                        ;   bootable CP/M image) and the directory/data begin PAST it -- region 0 (drive
+                        ;   A) at partition LBA + SD_SYS, region 1 (drive B) at +8 MB + SD_SYS.  Each
+                        ;   directory = 128KB = 256 x 512B SD sectors written as 0xE5; the reserved
+                        ;   system area is left blank (0xFF) for the boot image (the CBIOS BOOT
+                        ;   self-provisions it).  Partition 1 starts at LBA 1, size 0x00020000 sectors
+                        ;   (64 MB -- drives A:/B: currently use the first 16 MB of it).
                         ;
                         ; NOTE on BDOS register clobbering: every console-call loop preserves B/HL
                         ; across CPUTC/func-2 with PUSH/POP (func 2 destroys B and HL on this CBIOS).
@@ -42,6 +45,14 @@
    00ff                 AL0V    EQU     0FFH            ; reserve directory blocks 0-7 (MSB-first)
    00ff                 AL1V    EQU     0FFH            ; reserve directory blocks 8-15 (16 blocks = 128KB dir)
                         
+                        ; ---- reserved SD system area (must match cbios.asm SDSYS_OFF) ----------------
+                        ; Each SD volume reserves SD_SYS 512-byte sectors at its region start to hold a
+                        ; bootable CP/M image.  The directory/data area begins PAST this offset, so the
+                        ; formatter must skip the reserved system area.  In the SD-primary build SD_SYS=
+                        ; 16 (SDSYS_OFF); in the legacy SPI-primary build the SD drives are pure data and
+                        ; SD_SYS=0 (set it to 0 before formatting for an SPI-primary card).
+   0010                 SD_SYS  EQU     16
+                        
    0053                 PMTYPE  EQU     53H             ; CP/M partition type (no standard MBR type exists)
    0001                 PARTLBA0 EQU    01H             ; partition 1 LBA start = 1 (LE byte 0)
    0000                 PARTSEC0 EQU    00H             ; partition size = 0x00020000 (LE: 00 00 02 00)
@@ -50,13 +61,13 @@
    0000                 PARTSEC3 EQU    00H
                         
    0100                 START:
-   0100   21 a7 06              LXI     H,BANNER
-   0103   cd 27 06              CALL    PSTR
+   0100   21 d7 06              LXI     H,BANNER
+   0103   cd 57 06              CALL    PSTR
                         
    0106                 MAINLOOP:
    0106   1e 3e                 MVI     E,'>'
-   0108   cd 2f 06              CALL    CPUTC
-   010b   cd 35 06              CALL    CIN             ; A = command char (echoed by func1)
+   0108   cd 5f 06              CALL    CPUTC
+   010b   cd 65 06              CALL    CIN             ; A = command char (echoed by func1)
                                 ; fold lower-case a-z -> upper
    010e   fe 61                 CPI     'a'
    0110   da 1a 01              JC      ML1
@@ -88,112 +99,112 @@
    0148   c2 4c 01              JNZ     ML_UNK
    014b   c9                    RET                     ; quit to CP/M (returns to the CCP)
    014c                 ML_UNK:
-   014c   21 00 07              LXI     H,MSG_UNK
-   014f   cd 27 06              CALL    PSTR
+   014c   21 30 07              LXI     H,MSG_UNK
+   014f   cd 57 06              CALL    PSTR
    0152   c3 06 01              JMP     MAINLOOP
                         
                         ; ---------------- I: init + info ----------------
    0155                 CMD_INFO:
-   0155   cd 0d 04              CALL    SDINIT
+   0155   cd 13 04              CALL    SDINIT
    0158   b7                    ORA     A
    0159   ca 66 01              JZ      CI_OK
-   015c   21 04 07              LXI     H,MSG_NOINIT
-   015f   cd 27 06              CALL    PSTR
-   0162   cd 3b 06              CALL    CRLF
+   015c   21 34 07              LXI     H,MSG_NOINIT
+   015f   cd 57 06              CALL    PSTR
+   0162   cd 6b 06              CALL    CRLF
    0165   c9                    RET
    0166                 CI_OK:
-   0166   21 1c 07              LXI     H,MSG_INITOK
-   0169   cd 27 06              CALL    PSTR
-   016c   cd 3b 06              CALL    CRLF
+   0166   21 4c 07              LXI     H,MSG_INITOK
+   0169   cd 57 06              CALL    PSTR
+   016c   cd 6b 06              CALL    CRLF
                                 ; card type
-   016f   cd ba 05              CALL    SDCCS           ; A = 40h if SDHC/SDXC, else 0
+   016f   cd c0 05              CALL    SDCCS           ; A = 40h if SDHC/SDXC, else 0
    0172   b7                    ORA     A
    0173   ca 7f 01              JZ      CI_SC
-   0176   21 24 07              LXI     H,MSG_SDHC
-   0179   cd 27 06              CALL    PSTR
+   0176   21 54 07              LXI     H,MSG_SDHC
+   0179   cd 57 06              CALL    PSTR
    017c   c3 85 01              JMP     CI_AFTTYPE
    017f                 CI_SC:
-   017f   21 49 07              LXI     H,MSG_SDSC
-   0182   cd 27 06              CALL    PSTR
+   017f   21 79 07              LXI     H,MSG_SDSC
+   0182   cd 57 06              CALL    PSTR
    0185                 CI_AFTTYPE:
-   0185   cd 3b 06              CALL    CRLF
+   0185   cd 6b 06              CALL    CRLF
                                 ; CID
-   0188   cd cd 05              CALL    SD_CID
+   0188   cd d3 05              CALL    SD_CID
    018b   b7                    ORA     A
    018c   ca 99 01              JZ      CI_CIDOK
-   018f   21 7d 07              LXI     H,MSG_CIDERR
-   0192   cd 27 06              CALL    PSTR
-   0195   cd 3b 06              CALL    CRLF
+   018f   21 ad 07              LXI     H,MSG_CIDERR
+   0192   cd 57 06              CALL    PSTR
+   0195   cd 6b 06              CALL    CRLF
    0198   c9                    RET
    0199                 CI_CIDOK:
-   0199   21 68 07              LXI     H,MSG_CID
-   019c   cd 27 06              CALL    PSTR
-   019f   3a 5d 08              LDA     CIDBUF
-   01a2   cd 46 06              CALL    PRHEX2
+   0199   21 98 07              LXI     H,MSG_CID
+   019c   cd 57 06              CALL    PSTR
+   019f   3a 8d 08              LDA     CIDBUF
+   01a2   cd 76 06              CALL    PRHEX2
    01a5   1e 20                 MVI     E,' '
-   01a7   cd 2f 06              CALL    CPUTC
-   01aa   21 60 08              LXI     H,CIDBUF+3
+   01a7   cd 5f 06              CALL    CPUTC
+   01aa   21 90 08              LXI     H,CIDBUF+3
    01ad   06 05                 MVI     B,5
    01af                 CI_NM:
    01af   5e                    MOV     E,M
    01b0   e5                    PUSH    H
    01b1   c5                    PUSH    B
-   01b2   cd 2f 06              CALL    CPUTC
+   01b2   cd 5f 06              CALL    CPUTC
    01b5   c1                    POP     B
    01b6   e1                    POP     H
    01b7   23                    INX     H
    01b8   05                    DCR     B
    01b9   c2 af 01              JNZ     CI_NM
-   01bc   cd 3b 06              CALL    CRLF
-   01bf   21 73 07              LXI     H,MSG_SN
-   01c2   cd 27 06              CALL    PSTR
-   01c5   3a 66 08              LDA     CIDBUF+9
-   01c8   cd 46 06              CALL    PRHEX2
-   01cb   3a 67 08              LDA     CIDBUF+10
-   01ce   cd 46 06              CALL    PRHEX2
-   01d1   3a 68 08              LDA     CIDBUF+11
-   01d4   cd 46 06              CALL    PRHEX2
-   01d7   3a 69 08              LDA     CIDBUF+12
-   01da   cd 46 06              CALL    PRHEX2
-   01dd   cd 3b 06              CALL    CRLF
+   01bc   cd 6b 06              CALL    CRLF
+   01bf   21 a3 07              LXI     H,MSG_SN
+   01c2   cd 57 06              CALL    PSTR
+   01c5   3a 96 08              LDA     CIDBUF+9
+   01c8   cd 76 06              CALL    PRHEX2
+   01cb   3a 97 08              LDA     CIDBUF+10
+   01ce   cd 76 06              CALL    PRHEX2
+   01d1   3a 98 08              LDA     CIDBUF+11
+   01d4   cd 76 06              CALL    PRHEX2
+   01d7   3a 99 08              LDA     CIDBUF+12
+   01da   cd 76 06              CALL    PRHEX2
+   01dd   cd 6b 06              CALL    CRLF
                                 ; test read block 0
-   01e0   cd e1 04              CALL    SD_SETBLK0
-   01e3   21 6d 08              LXI     H,BLKBUF
-   01e6   cd ef 04              CALL    SD_READBLKN
+   01e0   cd e7 04              CALL    SD_SETBLK0
+   01e3   21 9d 08              LXI     H,BLKBUF
+   01e6   cd f5 04              CALL    SD_READBLKN
    01e9   b7                    ORA     A
    01ea   c2 f7 01              JNZ     CI_BLKERR
-   01ed   21 8f 07              LXI     H,MSG_RDOK
-   01f0   cd 27 06              CALL    PSTR
-   01f3   cd 3b 06              CALL    CRLF
+   01ed   21 bf 07              LXI     H,MSG_RDOK
+   01f0   cd 57 06              CALL    PSTR
+   01f3   cd 6b 06              CALL    CRLF
    01f6   c9                    RET
    01f7                 CI_BLKERR:
-   01f7   21 a1 07              LXI     H,MSG_RDERR
-   01fa   cd 27 06              CALL    PSTR
-   01fd   cd 3b 06              CALL    CRLF
+   01f7   21 d1 07              LXI     H,MSG_RDERR
+   01fa   cd 57 06              CALL    PSTR
+   01fd   cd 6b 06              CALL    CRLF
    0200   c9                    RET
                         
                         ; ---------------- P: show MBR partitions ----------------
    0201                 CMD_PART:
-   0201   cd 0d 04              CALL    SDINIT
+   0201   cd 13 04              CALL    SDINIT
    0204   b7                    ORA     A
    0205   ca 12 02              JZ      CP_OK
-   0208   21 04 07              LXI     H,MSG_NOINIT
-   020b   cd 27 06              CALL    PSTR
-   020e   cd 3b 06              CALL    CRLF
+   0208   21 34 07              LXI     H,MSG_NOINIT
+   020b   cd 57 06              CALL    PSTR
+   020e   cd 6b 06              CALL    CRLF
    0211   c9                    RET
    0212                 CP_OK:
-   0212   cd e1 04              CALL    SD_SETBLK0
-   0215   21 6d 08              LXI     H,BLKBUF
-   0218   cd ef 04              CALL    SD_READBLKN
+   0212   cd e7 04              CALL    SD_SETBLK0
+   0215   21 9d 08              LXI     H,BLKBUF
+   0218   cd f5 04              CALL    SD_READBLKN
    021b   b7                    ORA     A
    021c   ca 29 02              JZ      CP_MBROK
-   021f   21 a1 07              LXI     H,MSG_RDERR
-   0222   cd 27 06              CALL    PSTR
-   0225   cd 3b 06              CALL    CRLF
+   021f   21 d1 07              LXI     H,MSG_RDERR
+   0222   cd 57 06              CALL    PSTR
+   0225   cd 6b 06              CALL    CRLF
    0228   c9                    RET
    0229                 CP_MBROK:
                                 ; check 55AA
-   0229   21 6b 0a              LXI     H,BLKBUF+510
+   0229   21 9b 0a              LXI     H,BLKBUF+510
    022c   7e                    MOV     A,M
    022d   fe 55                 CPI     55H
    022f   c2 94 02              JNZ     CP_NOMBR
@@ -201,67 +212,67 @@
    0233   7e                    MOV     A,M
    0234   fe aa                 CPI     0AAH
    0236   c2 94 02              JNZ     CP_NOMBR
-   0239   21 b5 07              LXI     H,MSG_MBR
-   023c   cd 27 06              CALL    PSTR
-   023f   cd 3b 06              CALL    CRLF
+   0239   21 e5 07              LXI     H,MSG_MBR
+   023c   cd 57 06              CALL    PSTR
+   023f   cd 6b 06              CALL    CRLF
                                 ; print 4 partitions
-   0242   21 2b 0a              LXI     H,BLKBUF+446
-   0245   22 42 08              SHLD    ENTPTR
+   0242   21 5b 0a              LXI     H,BLKBUF+446
+   0245   22 72 08              SHLD    ENTPTR
    0248   16 04                 MVI     D,4
    024a                 CP_LP:
                                 ; status (+0)
-   024a   2a 42 08              LHLD    ENTPTR
+   024a   2a 72 08              LHLD    ENTPTR
    024d   7e                    MOV     A,M
-   024e   cd 46 06              CALL    PRHEX2
+   024e   cd 76 06              CALL    PRHEX2
    0251   1e 20                 MVI     E,' '
-   0253   cd 2f 06              CALL    CPUTC
+   0253   cd 5f 06              CALL    CPUTC
                                 ; type (+4)
-   0256   2a 42 08              LHLD    ENTPTR
+   0256   2a 72 08              LHLD    ENTPTR
    0259   3e 04                 MVI     A,4
-   025b   cd 7c 06              CALL    ADDH
+   025b   cd ac 06              CALL    ADDH
    025e   7e                    MOV     A,M
-   025f   cd 46 06              CALL    PRHEX2
+   025f   cd 76 06              CALL    PRHEX2
    0262   1e 20                 MVI     E,' '
-   0264   cd 2f 06              CALL    CPUTC
+   0264   cd 5f 06              CALL    CPUTC
                                 ; LBA (+8, 4 bytes LE)
-   0267   2a 42 08              LHLD    ENTPTR
+   0267   2a 72 08              LHLD    ENTPTR
    026a   3e 08                 MVI     A,8
-   026c   cd 7c 06              CALL    ADDH
-   026f   cd 6c 06              CALL    PRHEX32
+   026c   cd ac 06              CALL    ADDH
+   026f   cd 9c 06              CALL    PRHEX32
    0272   1e 20                 MVI     E,' '
-   0274   cd 2f 06              CALL    CPUTC
+   0274   cd 5f 06              CALL    CPUTC
                                 ; size (+12, 4 bytes LE)
-   0277   2a 42 08              LHLD    ENTPTR
+   0277   2a 72 08              LHLD    ENTPTR
    027a   3e 0c                 MVI     A,12
-   027c   cd 7c 06              CALL    ADDH
-   027f   cd 6c 06              CALL    PRHEX32
-   0282   cd 3b 06              CALL    CRLF
+   027c   cd ac 06              CALL    ADDH
+   027f   cd 9c 06              CALL    PRHEX32
+   0282   cd 6b 06              CALL    CRLF
                                 ; next entry
-   0285   2a 42 08              LHLD    ENTPTR
+   0285   2a 72 08              LHLD    ENTPTR
    0288   01 10 00              LXI     B,16
    028b   09                    DAD     B
-   028c   22 42 08              SHLD    ENTPTR
+   028c   22 72 08              SHLD    ENTPTR
    028f   15                    DCR     D
    0290   c2 4a 02              JNZ     CP_LP
    0293   c9                    RET
    0294                 CP_NOMBR:
-   0294   21 d9 07              LXI     H,MSG_NOMBR
-   0297   cd 27 06              CALL    PSTR
-   029a   cd 3b 06              CALL    CRLF
+   0294   21 09 08              LXI     H,MSG_NOMBR
+   0297   cd 57 06              CALL    PSTR
+   029a   cd 6b 06              CALL    CRLF
    029d   c9                    RET
                         
                         ; ---------------- C: create an MBR with one CP/M partition ----------------
    029e                 CMD_CREATE:
-   029e   cd 0d 04              CALL    SDINIT
+   029e   cd 13 04              CALL    SDINIT
    02a1   b7                    ORA     A
    02a2   ca af 02              JZ      CC_OK
-   02a5   21 04 07              LXI     H,MSG_NOINIT
-   02a8   cd 27 06              CALL    PSTR
-   02ab   cd 3b 06              CALL    CRLF
+   02a5   21 34 07              LXI     H,MSG_NOINIT
+   02a8   cd 57 06              CALL    PSTR
+   02ab   cd 6b 06              CALL    CRLF
    02ae   c9                    RET
    02af                 CC_OK:
                                 ; zero BLKBUF
-   02af   21 6d 08              LXI     H,BLKBUF
+   02af   21 9d 08              LXI     H,BLKBUF
    02b2   06 00                 MVI     B,0
    02b4                 CC_Z:
    02b4   36 00                 MVI     M,0
@@ -269,7 +280,7 @@
    02b7   05                    DCR     B
    02b8   c2 b4 02              JNZ     CC_Z
                                 ; partition 1 entry at BLKBUF+446
-   02bb   21 2b 0a              LXI     H,BLKBUF+446
+   02bb   21 5b 0a              LXI     H,BLKBUF+446
    02be   36 80                 MVI     M,80H           ; bootable status
    02c0   23                    INX     H
    02c1   36 01                 MVI     M,01H           ; CHS start head
@@ -302,48 +313,48 @@
    02ea   23                    INX     H
    02eb   36 00                 MVI     M,PARTSEC3
                                 ; signature 55AA
-   02ed   21 6b 0a              LXI     H,BLKBUF+510
+   02ed   21 9b 0a              LXI     H,BLKBUF+510
    02f0   36 55                 MVI     M,55H
    02f2   23                    INX     H
    02f3   36 aa                 MVI     M,0AAH
                                 ; write block 0
-   02f5   cd e1 04              CALL    SD_SETBLK0
-   02f8   21 6d 08              LXI     H,BLKBUF
-   02fb   cd 47 05              CALL    SD_WRITEBLKN
+   02f5   cd e7 04              CALL    SD_SETBLK0
+   02f8   21 9d 08              LXI     H,BLKBUF
+   02fb   cd 4d 05              CALL    SD_WRITEBLKN
    02fe   b7                    ORA     A
    02ff   ca 0c 03              JZ      CC_WOK
-   0302   21 eb 07              LXI     H,MSG_WERR
-   0305   cd 27 06              CALL    PSTR
-   0308   cd 3b 06              CALL    CRLF
+   0302   21 1b 08              LXI     H,MSG_WERR
+   0305   cd 57 06              CALL    PSTR
+   0308   cd 6b 06              CALL    CRLF
    030b   c9                    RET
    030c                 CC_WOK:
-   030c   21 fa 07              LXI     H,MSG_WROTE
-   030f   cd 27 06              CALL    PSTR
-   0312   cd 3b 06              CALL    CRLF
+   030c   21 2a 08              LXI     H,MSG_WROTE
+   030f   cd 57 06              CALL    PSTR
+   0312   cd 6b 06              CALL    CRLF
    0315   c9                    RET
                         
                         ; ---------------- F: format the CP/M partition ----------------
    0316                 CMD_FORMAT:
-   0316   cd 0d 04              CALL    SDINIT
+   0316   cd 13 04              CALL    SDINIT
    0319   b7                    ORA     A
    031a   ca 27 03              JZ      CF_OK
-   031d   21 04 07              LXI     H,MSG_NOINIT
-   0320   cd 27 06              CALL    PSTR
-   0323   cd 3b 06              CALL    CRLF
+   031d   21 34 07              LXI     H,MSG_NOINIT
+   0320   cd 57 06              CALL    PSTR
+   0323   cd 6b 06              CALL    CRLF
    0326   c9                    RET
    0327                 CF_OK:
                                 ; read MBR to find partition 1 start
-   0327   cd e1 04              CALL    SD_SETBLK0
-   032a   21 6d 08              LXI     H,BLKBUF
-   032d   cd ef 04              CALL    SD_READBLKN
+   0327   cd e7 04              CALL    SD_SETBLK0
+   032a   21 9d 08              LXI     H,BLKBUF
+   032d   cd f5 04              CALL    SD_READBLKN
    0330   b7                    ORA     A
    0331   ca 3e 03              JZ      CF_MBROK
-   0334   21 a1 07              LXI     H,MSG_RDERR
-   0337   cd 27 06              CALL    PSTR
-   033a   cd 3b 06              CALL    CRLF
+   0334   21 d1 07              LXI     H,MSG_RDERR
+   0337   cd 57 06              CALL    PSTR
+   033a   cd 6b 06              CALL    CRLF
    033d   c9                    RET
    033e                 CF_MBROK:
-   033e   21 6b 0a              LXI     H,BLKBUF+510
+   033e   21 9b 0a              LXI     H,BLKBUF+510
    0341   7e                    MOV     A,M
    0342   fe 55                 CPI     55H
    0344   c2 67 03              JNZ     CF_RAW
@@ -352,33 +363,33 @@
    0349   fe aa                 CPI     0AAH
    034b   c2 67 03              JNZ     CF_RAW
                                 ; partition 1 LBA start at BLKBUF+446+8 (LE, 4 bytes) -> BLKN (MSB first)
-   034e   21 33 0a              LXI     H,BLKBUF+446+8
+   034e   21 63 0a              LXI     H,BLKBUF+446+8
    0351   7e                    MOV     A,M             ; LBA[0] (LSB)
-   0352   32 58 08              STA     BLKN+3
+   0352   32 88 08              STA     BLKN+3
    0355   23                    INX     H
    0356   7e                    MOV     A,M
-   0357   32 57 08              STA     BLKN+2
+   0357   32 87 08              STA     BLKN+2
    035a   23                    INX     H
    035b   7e                    MOV     A,M
-   035c   32 56 08              STA     BLKN+1
+   035c   32 86 08              STA     BLKN+1
    035f   23                    INX     H
    0360   7e                    MOV     A,M
-   0361   32 55 08              STA     BLKN+0
+   0361   32 85 08              STA     BLKN+0
    0364   c3 77 03              JMP     CF_DO
    0367                 CF_RAW:
                                 ; no MBR: assume partition starts at LBA 1
    0367   3e 00                 MVI     A,0
-   0369   32 55 08              STA     BLKN+0
-   036c   32 56 08              STA     BLKN+1
-   036f   32 57 08              STA     BLKN+2
+   0369   32 85 08              STA     BLKN+0
+   036c   32 86 08              STA     BLKN+1
+   036f   32 87 08              STA     BLKN+2
    0372   3e 01                 MVI     A,1
-   0374   32 58 08              STA     BLKN+3
+   0374   32 88 08              STA     BLKN+3
    0377                 CF_DO:
                                 ; fill BLKBUF (512 bytes) with 0xE5 (directory marker).
                                 ; NOTE: use a 16-bit count -- a `MVI B,0; DCR B; JNZ` loop wraps and
                                 ; fills only 256 bytes, leaving the upper half of each written sector as
                                 ; stale garbage (the old MBR tail), which CP/M reads as phantom dir entries.
-   0377   21 6d 08              LXI     H,BLKBUF
+   0377   21 9d 08              LXI     H,BLKBUF
    037a   01 00 02              LXI     B,512
    037d                 CF_F:
    037d   36 e5                 MVI     M,0E5H
@@ -388,141 +399,144 @@
    0382   b1                    ORA     C
    0383   c2 7d 03              JNZ     CF_F
                                 ; save the region-0 base (partition LBA) so we can compute region 1
-   0386   3a 55 08              LDA     BLKN+0
-   0389   32 59 08              STA     REGBASE+0
-   038c   3a 56 08              LDA     BLKN+1
-   038f   32 5a 08              STA     REGBASE+1
-   0392   3a 57 08              LDA     BLKN+2
-   0395   32 5b 08              STA     REGBASE+2
-   0398   3a 58 08              LDA     BLKN+3
-   039b   32 5c 08              STA     REGBASE+3
+   0386   3a 85 08              LDA     BLKN+0
+   0389   32 89 08              STA     REGBASE+0
+   038c   3a 86 08              LDA     BLKN+1
+   038f   32 8a 08              STA     REGBASE+1
+   0392   3a 87 08              LDA     BLKN+2
+   0395   32 8b 08              STA     REGBASE+2
+   0398   3a 88 08              LDA     BLKN+3
+   039b   32 8c 08              STA     REGBASE+3
+                                ; skip the reserved system area: the directory/data begin at REGBASE+SD_SYS
+   039e   cd 2d 06              CALL    BLSYS
                                 ; ---- region 0 (drive C): 256 sectors = 128KB directory (4096 entries) ----
-V  039e   16 00                 MVI     D,256
-   03a0                 CF_LP:
-   03a0   21 6d 08              LXI     H,BLKBUF
-   03a3   cd 47 05              CALL    SD_WRITEBLKN
-   03a6   b7                    ORA     A
-   03a7   ca b4 03              JZ      CF_WOK
-   03aa   21 eb 07              LXI     H,MSG_WERR
-   03ad   cd 27 06              CALL    PSTR
-   03b0   cd 3b 06              CALL    CRLF
-   03b3   c9                    RET
-   03b4                 CF_WOK:
-   03b4   cd 01 06              CALL    INCBLK          ; advance BLKN by 1 sector
-   03b7   15                    DCR     D
-   03b8   c2 a0 03              JNZ     CF_LP
+V  03a1   16 00                 MVI     D,256
+   03a3                 CF_LP:
+   03a3   21 9d 08              LXI     H,BLKBUF
+   03a6   cd 4d 05              CALL    SD_WRITEBLKN
+   03a9   b7                    ORA     A
+   03aa   ca b7 03              JZ      CF_WOK
+   03ad   21 1b 08              LXI     H,MSG_WERR
+   03b0   cd 57 06              CALL    PSTR
+   03b3   cd 6b 06              CALL    CRLF
+   03b6   c9                    RET
+   03b7                 CF_WOK:
+   03b7   cd 07 06              CALL    INCBLK          ; advance BLKN by 1 sector
+   03ba   15                    DCR     D
+   03bb   c2 a3 03              JNZ     CF_LP
                                 ; ---- region 1 (drive D): BLKN = region-0 base + 0x4000 (8 MB), 256 sectors
-   03bb   3a 59 08              LDA     REGBASE+0
-   03be   32 55 08              STA     BLKN+0
-   03c1   3a 5a 08              LDA     REGBASE+1
-   03c4   32 56 08              STA     BLKN+1
-   03c7   3a 5b 08              LDA     REGBASE+2
-   03ca   32 57 08              STA     BLKN+2
-   03cd   3a 5c 08              LDA     REGBASE+3
-   03d0   32 58 08              STA     BLKN+3
-   03d3   3a 57 08              LDA     BLKN+2
-   03d6   c6 40                 ADI     40H             ; +0x4000 = +16384 SD sectors = +8 MB (region 1)
-   03d8   32 57 08              STA     BLKN+2
-   03db   d2 e6 03              JNC     CF_R1            ; carry into BLKN+1 if it overflowed (partition LBA>0xFF)
-   03de   3a 56 08              LDA     BLKN+1
-   03e1   c6 01                 ADI     01H
-   03e3   32 56 08              STA     BLKN+1
-   03e6                 CF_R1:
-V  03e6   16 00                 MVI     D,256
-   03e8                 CF_LP2:
-   03e8   21 6d 08              LXI     H,BLKBUF
-   03eb   cd 47 05              CALL    SD_WRITEBLKN
-   03ee   b7                    ORA     A
-   03ef   ca fc 03              JZ      CF_WOK2
-   03f2   21 eb 07              LXI     H,MSG_WERR
-   03f5   cd 27 06              CALL    PSTR
-   03f8   cd 3b 06              CALL    CRLF
-   03fb   c9                    RET
-   03fc                 CF_WOK2:
-   03fc   cd 01 06              CALL    INCBLK
-   03ff   15                    DCR     D
-   0400   c2 e8 03              JNZ     CF_LP2
-   0403   21 25 08              LXI     H,MSG_FMT
-   0406   cd 27 06              CALL    PSTR
-   0409   cd 3b 06              CALL    CRLF
-   040c   c9                    RET
+   03be   3a 89 08              LDA     REGBASE+0
+   03c1   32 85 08              STA     BLKN+0
+   03c4   3a 8a 08              LDA     REGBASE+1
+   03c7   32 86 08              STA     BLKN+1
+   03ca   3a 8b 08              LDA     REGBASE+2
+   03cd   32 87 08              STA     BLKN+2
+   03d0   3a 8c 08              LDA     REGBASE+3
+   03d3   32 88 08              STA     BLKN+3
+   03d6   3a 87 08              LDA     BLKN+2
+   03d9   c6 40                 ADI     40H             ; +0x4000 = +16384 SD sectors = +8 MB (region 1)
+   03db   32 87 08              STA     BLKN+2
+   03de   d2 e9 03              JNC     CF_R1            ; carry into BLKN+1 if it overflowed (partition LBA>0xFF)
+   03e1   3a 86 08              LDA     BLKN+1
+   03e4   c6 01                 ADI     01H
+   03e6   32 86 08              STA     BLKN+1
+   03e9                 CF_R1:
+   03e9   cd 2d 06              CALL    BLSYS           ; skip the reserved system area for region 1 too
+V  03ec   16 00                 MVI     D,256
+   03ee                 CF_LP2:
+   03ee   21 9d 08              LXI     H,BLKBUF
+   03f1   cd 4d 05              CALL    SD_WRITEBLKN
+   03f4   b7                    ORA     A
+   03f5   ca 02 04              JZ      CF_WOK2
+   03f8   21 1b 08              LXI     H,MSG_WERR
+   03fb   cd 57 06              CALL    PSTR
+   03fe   cd 6b 06              CALL    CRLF
+   0401   c9                    RET
+   0402                 CF_WOK2:
+   0402   cd 07 06              CALL    INCBLK
+   0405   15                    DCR     D
+   0406   c2 ee 03              JNZ     CF_LP2
+   0409   21 55 08              LXI     H,MSG_FMT
+   040c   cd 57 06              CALL    PSTR
+   040f   cd 6b 06              CALL    CRLF
+   0412   c9                    RET
                         
                         ; ---------------- SD driver ----------------
                         ; SDINIT: full init.  A=0 ok / 0FFh fail (same as sdprobe).
-   040d                 SDINIT:
-   040d   af                    XRA     A
-   040e   32 4d 08              STA     ACMDIT
-   0411   32 4e 08              STA     ACMDR1
-   0414   3e 03                 MVI     A,03H           ; CS high + slow
-   0416   d3 54                 OUT     SDCTL
-   0418   06 0a                 MVI     B,10
-   041a                 SDI_CK:
-   041a   3e ff                 MVI     A,0FFH
-   041c   d3 53                 OUT     SDDAT
-   041e   05                    DCR     B
-   041f   c2 1a 04              JNZ     SDI_CK
-   0422   3e 02                 MVI     A,02H           ; select + slow
-   0424   d3 54                 OUT     SDCTL
+   0413                 SDINIT:
+   0413   af                    XRA     A
+   0414   32 7d 08              STA     ACMDIT
+   0417   32 7e 08              STA     ACMDR1
+   041a   3e 03                 MVI     A,03H           ; CS high + slow
+   041c   d3 54                 OUT     SDCTL
+   041e   06 0a                 MVI     B,10
+   0420                 SDI_CK:
+   0420   3e ff                 MVI     A,0FFH
+   0422   d3 53                 OUT     SDDAT
+   0424   05                    DCR     B
+   0425   c2 20 04              JNZ     SDI_CK
+   0428   3e 02                 MVI     A,02H           ; select + slow
+   042a   d3 54                 OUT     SDCTL
                                 ; CMD0 + capture raw
-   0426   21 83 06              LXI     H,CMD0
-   0429   06 06                 MVI     B,6
-   042b                 SDI_TX:
-   042b   7e                    MOV     A,M
-   042c   d3 53                 OUT     SDDAT
-   042e   23                    INX     H
-   042f   05                    DCR     B
-   0430   c2 2b 04              JNZ     SDI_TX
-   0433   21 45 08              LXI     H,RBUF
-   0436   06 08                 MVI     B,8
-   0438                 SDI_RX:
-   0438   db 53                 IN      SDDAT
-   043a   77                    MOV     M,A
-   043b   23                    INX     H
-   043c   05                    DCR     B
-   043d   c2 38 04              JNZ     SDI_RX
+   042c   21 b3 06              LXI     H,CMD0
+   042f   06 06                 MVI     B,6
+   0431                 SDI_TX:
+   0431   7e                    MOV     A,M
+   0432   d3 53                 OUT     SDDAT
+   0434   23                    INX     H
+   0435   05                    DCR     B
+   0436   c2 31 04              JNZ     SDI_TX
+   0439   21 75 08              LXI     H,RBUF
+   043c   06 08                 MVI     B,8
+   043e                 SDI_RX:
+   043e   db 53                 IN      SDDAT
+   0440   77                    MOV     M,A
+   0441   23                    INX     H
+   0442   05                    DCR     B
+   0443   c2 3e 04              JNZ     SDI_RX
                                 ; find first non-FF = R1
-   0440   21 45 08              LXI     H,RBUF
-   0443   06 08                 MVI     B,8
-   0445                 SDI_FR1:
-   0445   7e                    MOV     A,M
-   0446   fe ff                 CPI     0FFH
-   0448   c2 55 04              JNZ     SDI_HAVE
-   044b   23                    INX     H
-   044c   05                    DCR     B
-   044d   c2 45 04              JNZ     SDI_FR1
-   0450   3e ff                 MVI     A,0FFH
-   0452   c3 56 04              JMP     SDI_ST1
-   0455                 SDI_HAVE:
-   0455   7e                    MOV     A,M
-   0456                 SDI_ST1:
-   0456   32 44 08              STA     CMDR1
-   0459   fe 01                 CPI     01H
-   045b   c2 86 04              JNZ     SDI_FAIL
+   0446   21 75 08              LXI     H,RBUF
+   0449   06 08                 MVI     B,8
+   044b                 SDI_FR1:
+   044b   7e                    MOV     A,M
+   044c   fe ff                 CPI     0FFH
+   044e   c2 5b 04              JNZ     SDI_HAVE
+   0451   23                    INX     H
+   0452   05                    DCR     B
+   0453   c2 4b 04              JNZ     SDI_FR1
+   0456   3e ff                 MVI     A,0FFH
+   0458   c3 5c 04              JMP     SDI_ST1
+   045b                 SDI_HAVE:
+   045b   7e                    MOV     A,M
+   045c                 SDI_ST1:
+   045c   32 74 08              STA     CMDR1
+   045f   fe 01                 CPI     01H
+   0461   c2 8c 04              JNZ     SDI_FAIL
                                 ; CMD8 (SEND_IF_COND) required before ACMD41 on SDHC
-   045e   21 89 06              LXI     H,CMD8
-   0461   cd a9 04              CALL    SD_SEND6
-   0464   db 53                 IN      SDDAT
-   0466   db 53                 IN      SDDAT
-   0468   db 53                 IN      SDDAT
+   0464   21 b9 06              LXI     H,CMD8
+   0467   cd af 04              CALL    SD_SEND6
    046a   db 53                 IN      SDDAT
+   046c   db 53                 IN      SDDAT
+   046e   db 53                 IN      SDDAT
+   0470   db 53                 IN      SDDAT
                                 ; ACMD41 poll
-   046c   16 c8                 MVI     D,200
-   046e                 SDI_RDY:
-   046e   21 8f 06              LXI     H,CMD55
-   0471   cd a9 04              CALL    SD_SEND6
-   0474   21 95 06              LXI     H,ACMD41
-   0477   cd a9 04              CALL    SD_SEND6
-   047a   fe 00                 CPI     00H
-   047c   ca 89 04              JZ      SDI_OK
-   047f   cd d7 04              CALL    DELAYMS
-   0482   15                    DCR     D
-   0483   c2 6e 04              JNZ     SDI_RDY
-   0486                 SDI_FAIL:
-   0486   3e ff                 MVI     A,0FFH
-   0488   c9                    RET
-   0489                 SDI_OK:
-   0489   3e 00                 MVI     A,00H
-   048b   c9                    RET
+   0472   16 c8                 MVI     D,200
+   0474                 SDI_RDY:
+   0474   21 bf 06              LXI     H,CMD55
+   0477   cd af 04              CALL    SD_SEND6
+   047a   21 c5 06              LXI     H,ACMD41
+   047d   cd af 04              CALL    SD_SEND6
+   0480   fe 00                 CPI     00H
+   0482   ca 8f 04              JZ      SDI_OK
+   0485   cd dd 04              CALL    DELAYMS
+   0488   15                    DCR     D
+   0489   c2 74 04              JNZ     SDI_RDY
+   048c                 SDI_FAIL:
+   048c   3e ff                 MVI     A,0FFH
+   048e   c9                    RET
+   048f                 SDI_OK:
+   048f   3e 00                 MVI     A,00H
+   0491   c9                    RET
                         
                         ; SD_READY: clock 0FFh until the card is NOT busy (MISO high).  A card still
                         ;   programming drives MISO LOW (reads 00h); issuing a command then makes
@@ -530,495 +544,517 @@ V  03e6   16 00                 MVI     D,256
                         ;   stream -- the cause of a write that silently no-ops and of 'F' needing a
                         ;   second pass.  Timeout ~260k reads (~0.4 s at 25 MHz).
                         ;   Returns A=0 ready / A=0FFh + CY on timeout.  Clobbers A,B,C.  Preserves D,H,L.
-   048c                 SD_READY:
-   048c   d5                    PUSH    D
-   048d   16 04                 MVI     D,04H
-   048f                 SDRDY0:
-   048f   01 00 00              LXI     B,0000H
-   0492                 SDRDY1:
-   0492   db 53                 IN      SDDAT
-   0494   fe ff                 CPI     0FFH
-   0496   ca a6 04              JZ      SDRDY_OK
-   0499   0b                    DCX     B
-   049a   78                    MOV     A,B
-   049b   b1                    ORA     C
-   049c   c2 92 04              JNZ     SDRDY1
-   049f   15                    DCR     D
-   04a0   c2 8f 04              JNZ     SDRDY0
-   04a3   d1                    POP     D
-   04a4   37                    STC
-   04a5   c9                    RET
-   04a6                 SDRDY_OK:
-   04a6   d1                    POP     D
-   04a7   af                    XRA     A
-   04a8   c9                    RET
+   0492                 SD_READY:
+   0492   d5                    PUSH    D
+   0493   16 04                 MVI     D,04H
+   0495                 SDRDY0:
+   0495   01 00 00              LXI     B,0000H
+   0498                 SDRDY1:
+   0498   db 53                 IN      SDDAT
+   049a   fe ff                 CPI     0FFH
+   049c   ca ac 04              JZ      SDRDY_OK
+   049f   0b                    DCX     B
+   04a0   78                    MOV     A,B
+   04a1   b1                    ORA     C
+   04a2   c2 98 04              JNZ     SDRDY1
+   04a5   15                    DCR     D
+   04a6   c2 95 04              JNZ     SDRDY0
+   04a9   d1                    POP     D
+   04aa   37                    STC
+   04ab   c9                    RET
+   04ac                 SDRDY_OK:
+   04ac   d1                    POP     D
+   04ad   af                    XRA     A
+   04ae   c9                    RET
                         
                         ; SD_SEND6: send 6-byte command at (HL), read R1.  A = R1 (0FFh = none).
-   04a9                 SD_SEND6:
-   04a9   e5                    PUSH    H
-   04aa   cd 8c 04              CALL    SD_READY        ; never issue a command into a busy card
-   04ad   e1                    POP     H
-   04ae   06 06                 MVI     B,6
-   04b0                 SD6_TX:
-   04b0   7e                    MOV     A,M
-   04b1   d3 53                 OUT     SDDAT
-   04b3   23                    INX     H
-   04b4   05                    DCR     B
-   04b5   c2 b0 04              JNZ     SD6_TX
-   04b8   06 10                 MVI     B,16
-   04ba                 SD6_RX:
-   04ba   db 53                 IN      SDDAT
-   04bc   fe ff                 CPI     0FFH
-   04be   c2 c5 04              JNZ     SD6_DONE
-   04c1   05                    DCR     B
-   04c2   c2 ba 04              JNZ     SD6_RX
-   04c5                 SD6_DONE:
-   04c5   c9                    RET
+   04af                 SD_SEND6:
+   04af   e5                    PUSH    H
+   04b0   cd 92 04              CALL    SD_READY        ; never issue a command into a busy card
+   04b3   e1                    POP     H
+   04b4   06 06                 MVI     B,6
+   04b6                 SD6_TX:
+   04b6   7e                    MOV     A,M
+   04b7   d3 53                 OUT     SDDAT
+   04b9   23                    INX     H
+   04ba   05                    DCR     B
+   04bb   c2 b6 04              JNZ     SD6_TX
+   04be   06 10                 MVI     B,16
+   04c0                 SD6_RX:
+   04c0   db 53                 IN      SDDAT
+   04c2   fe ff                 CPI     0FFH
+   04c4   c2 cb 04              JNZ     SD6_DONE
+   04c7   05                    DCR     B
+   04c8   c2 c0 04              JNZ     SD6_RX
+   04cb                 SD6_DONE:
+   04cb   c9                    RET
                         
                         ; SD_WAITTKN: clock until 0FEh token.  CY=0 + A=0FEh ok, else CY=1.
-   04c6                 SD_WAITTKN:
-   04c6   06 ff                 MVI     B,0FFH
-   04c8                 SD_WT:
-   04c8   db 53                 IN      SDDAT
-   04ca   fe fe                 CPI     0FEH
-   04cc   ca d5 04              JZ      SD_WT_OK
-   04cf   05                    DCR     B
-   04d0   c2 c8 04              JNZ     SD_WT
-   04d3   37                    STC
-   04d4   c9                    RET
-   04d5                 SD_WT_OK:
-   04d5   b7                    ORA     A
-   04d6   c9                    RET
+   04cc                 SD_WAITTKN:
+   04cc   06 ff                 MVI     B,0FFH
+   04ce                 SD_WT:
+   04ce   db 53                 IN      SDDAT
+   04d0   fe fe                 CPI     0FEH
+   04d2   ca db 04              JZ      SD_WT_OK
+   04d5   05                    DCR     B
+   04d6   c2 ce 04              JNZ     SD_WT
+   04d9   37                    STC
+   04da   c9                    RET
+   04db                 SD_WT_OK:
+   04db   b7                    ORA     A
+   04dc   c9                    RET
                         
                         ; DELAYMS ~3ms busy wait.
-   04d7                 DELAYMS:
-   04d7   21 d0 07              LXI     H,2000
-   04da                 DLMS:
-   04da   2b                    DCX     H
-   04db   7c                    MOV     A,H
-   04dc   b5                    ORA     L
-   04dd   c2 da 04              JNZ     DLMS
-   04e0   c9                    RET
+   04dd                 DELAYMS:
+   04dd   21 d0 07              LXI     H,2000
+   04e0                 DLMS:
+   04e0   2b                    DCX     H
+   04e1   7c                    MOV     A,H
+   04e2   b5                    ORA     L
+   04e3   c2 e0 04              JNZ     DLMS
+   04e6   c9                    RET
                         
                         ; SD_SETBLK0: set the block number to 0.
-   04e1                 SD_SETBLK0:
-   04e1   af                    XRA     A
-   04e2   32 55 08              STA     BLKN+0
-   04e5   32 56 08              STA     BLKN+1
-   04e8   32 57 08              STA     BLKN+2
-   04eb   32 58 08              STA     BLKN+3
-   04ee   c9                    RET
+   04e7                 SD_SETBLK0:
+   04e7   af                    XRA     A
+   04e8   32 85 08              STA     BLKN+0
+   04eb   32 86 08              STA     BLKN+1
+   04ee   32 87 08              STA     BLKN+2
+   04f1   32 88 08              STA     BLKN+3
+   04f4   c9                    RET
                         
                         ; SD_READBLKN: read the 512-byte block BLKN[0..3] (MSB first) into (HL).
                         ;   A = 0 ok / 0FFh err.  Preserves HL (the dest buffer).
-   04ef                 SD_READBLKN:
-   04ef   3e 00                 MVI     A,00H
-   04f1   d3 54                 OUT     SDCTL           ; select, fast
-   04f3   e5                    PUSH    H
+   04f5                 SD_READBLKN:
+   04f5   3e 00                 MVI     A,00H
+   04f7   d3 54                 OUT     SDCTL           ; select, fast
+   04f9   e5                    PUSH    H
                                 ; build CMD17
-   04f4   3e 51                 MVI     A,51H
-   04f6   32 4f 08              STA     CMDBUF
-   04f9   3a 55 08              LDA     BLKN+0
-   04fc   32 50 08              STA     CMDBUF+1
-   04ff   3a 56 08              LDA     BLKN+1
-   0502   32 51 08              STA     CMDBUF+2
-   0505   3a 57 08              LDA     BLKN+2
-   0508   32 52 08              STA     CMDBUF+3
-   050b   3a 58 08              LDA     BLKN+3
-   050e   32 53 08              STA     CMDBUF+4
-   0511   3e ff                 MVI     A,0FFH
-   0513   32 54 08              STA     CMDBUF+5
-   0516   21 4f 08              LXI     H,CMDBUF
-   0519   cd a9 04              CALL    SD_SEND6        ; A = R1
-   051c   e1                    POP     H               ; restore dest
-   051d   fe 00                 CPI     00H
-   051f   c2 40 05              JNZ     SRB_ERR
-   0522   cd c6 04              CALL    SD_WAITTKN
-   0525   da 40 05              JC      SRB_ERR
-   0528   01 00 02              LXI     B,512
-   052b                 SRB_LP:
-   052b   db 53                 IN      SDDAT
-   052d   77                    MOV     M,A
-   052e   23                    INX     H
-   052f   0b                    DCX     B
-   0530   78                    MOV     A,B
-   0531   b1                    ORA     C
-   0532   c2 2b 05              JNZ     SRB_LP
-   0535   db 53                 IN      SDDAT           ; 2 CRC bytes
-   0537   db 53                 IN      SDDAT
-   0539   3e 01                 MVI     A,01H
-   053b   d3 54                 OUT     SDCTL           ; release CS
-   053d   3e 00                 MVI     A,00H
-   053f   c9                    RET
-   0540                 SRB_ERR:
-   0540   3e 01                 MVI     A,01H
-   0542   d3 54                 OUT     SDCTL
-   0544   3e ff                 MVI     A,0FFH
-   0546   c9                    RET
+   04fa   3e 51                 MVI     A,51H
+   04fc   32 7f 08              STA     CMDBUF
+   04ff   3a 85 08              LDA     BLKN+0
+   0502   32 80 08              STA     CMDBUF+1
+   0505   3a 86 08              LDA     BLKN+1
+   0508   32 81 08              STA     CMDBUF+2
+   050b   3a 87 08              LDA     BLKN+2
+   050e   32 82 08              STA     CMDBUF+3
+   0511   3a 88 08              LDA     BLKN+3
+   0514   32 83 08              STA     CMDBUF+4
+   0517   3e ff                 MVI     A,0FFH
+   0519   32 84 08              STA     CMDBUF+5
+   051c   21 7f 08              LXI     H,CMDBUF
+   051f   cd af 04              CALL    SD_SEND6        ; A = R1
+   0522   e1                    POP     H               ; restore dest
+   0523   fe 00                 CPI     00H
+   0525   c2 46 05              JNZ     SRB_ERR
+   0528   cd cc 04              CALL    SD_WAITTKN
+   052b   da 46 05              JC      SRB_ERR
+   052e   01 00 02              LXI     B,512
+   0531                 SRB_LP:
+   0531   db 53                 IN      SDDAT
+   0533   77                    MOV     M,A
+   0534   23                    INX     H
+   0535   0b                    DCX     B
+   0536   78                    MOV     A,B
+   0537   b1                    ORA     C
+   0538   c2 31 05              JNZ     SRB_LP
+   053b   db 53                 IN      SDDAT           ; 2 CRC bytes
+   053d   db 53                 IN      SDDAT
+   053f   3e 01                 MVI     A,01H
+   0541   d3 54                 OUT     SDCTL           ; release CS
+   0543   3e 00                 MVI     A,00H
+   0545   c9                    RET
+   0546                 SRB_ERR:
+   0546   3e 01                 MVI     A,01H
+   0548   d3 54                 OUT     SDCTL
+   054a   3e ff                 MVI     A,0FFH
+   054c   c9                    RET
                         
                         ; SD_WRITEBLKN: write the 512 bytes at (HL) to block BLKN[0..3].
                         ;   A = 0 ok / 0FFh err.  Preserves HL (source buffer).
-   0547                 SD_WRITEBLKN:
-   0547   3e 00                 MVI     A,00H
-   0549   d3 54                 OUT     SDCTL           ; select, fast
-   054b   e5                    PUSH    H
+   054d                 SD_WRITEBLKN:
+   054d   3e 00                 MVI     A,00H
+   054f   d3 54                 OUT     SDCTL           ; select, fast
+   0551   e5                    PUSH    H
                                 ; build CMD24
-   054c   3e 58                 MVI     A,58H
-   054e   32 4f 08              STA     CMDBUF
-   0551   3a 55 08              LDA     BLKN+0
-   0554   32 50 08              STA     CMDBUF+1
-   0557   3a 56 08              LDA     BLKN+1
-   055a   32 51 08              STA     CMDBUF+2
-   055d   3a 57 08              LDA     BLKN+2
-   0560   32 52 08              STA     CMDBUF+3
-   0563   3a 58 08              LDA     BLKN+3
-   0566   32 53 08              STA     CMDBUF+4
-   0569   3e ff                 MVI     A,0FFH
-   056b   32 54 08              STA     CMDBUF+5
-   056e   21 4f 08              LXI     H,CMDBUF
-   0571   cd a9 04              CALL    SD_SEND6        ; A = R1 (should be 00)
-   0574   e1                    POP     H               ; restore source
-   0575   fe 00                 CPI     00H
-   0577   c2 b3 05              JNZ     SWB_ERR
-   057a   3e fe                 MVI     A,0FEH          ; data start token
-   057c   d3 53                 OUT     SDDAT
-   057e   01 00 02              LXI     B,512
-   0581                 SWB_LP:
-   0581   7e                    MOV     A,M
+   0552   3e 58                 MVI     A,58H
+   0554   32 7f 08              STA     CMDBUF
+   0557   3a 85 08              LDA     BLKN+0
+   055a   32 80 08              STA     CMDBUF+1
+   055d   3a 86 08              LDA     BLKN+1
+   0560   32 81 08              STA     CMDBUF+2
+   0563   3a 87 08              LDA     BLKN+2
+   0566   32 82 08              STA     CMDBUF+3
+   0569   3a 88 08              LDA     BLKN+3
+   056c   32 83 08              STA     CMDBUF+4
+   056f   3e ff                 MVI     A,0FFH
+   0571   32 84 08              STA     CMDBUF+5
+   0574   21 7f 08              LXI     H,CMDBUF
+   0577   cd af 04              CALL    SD_SEND6        ; A = R1 (should be 00)
+   057a   e1                    POP     H               ; restore source
+   057b   fe 00                 CPI     00H
+   057d   c2 b9 05              JNZ     SWB_ERR
+   0580   3e fe                 MVI     A,0FEH          ; data start token
    0582   d3 53                 OUT     SDDAT
-   0584   23                    INX     H
-   0585   0b                    DCX     B
-   0586   78                    MOV     A,B
-   0587   b1                    ORA     C
-   0588   c2 81 05              JNZ     SWB_LP
-   058b   3e ff                 MVI     A,0FFH          ; 2 CRC bytes (CRC off)
-   058d   d3 53                 OUT     SDDAT
-   058f   d3 53                 OUT     SDDAT
+   0584   01 00 02              LXI     B,512
+   0587                 SWB_LP:
+   0587   7e                    MOV     A,M
+   0588   d3 53                 OUT     SDDAT
+   058a   23                    INX     H
+   058b   0b                    DCX     B
+   058c   78                    MOV     A,B
+   058d   b1                    ORA     C
+   058e   c2 87 05              JNZ     SWB_LP
+   0591   3e ff                 MVI     A,0FFH          ; 2 CRC bytes (CRC off)
+   0593   d3 53                 OUT     SDDAT
+   0595   d3 53                 OUT     SDDAT
                                 ; data-response token: 0FFh filler first, then 0bxxx00101 (05h) = OK
-   0591   06 10                 MVI     B,16
-   0593                 SWB_RSP:
-   0593   db 53                 IN      SDDAT
-   0595   fe ff                 CPI     0FFH
-   0597   c2 9e 05              JNZ     SWB_GOT
-   059a   05                    DCR     B
-   059b   c2 93 05              JNZ     SWB_RSP
-   059e                 SWB_GOT:
-   059e   e6 1f                 ANI     1FH             ; response bits 0-4; 05h = accepted
-   05a0   fe 05                 CPI     05H
-   05a2   c2 b3 05              JNZ     SWB_ERR         ; CRC error / write rejected / no response
+   0597   06 10                 MVI     B,16
+   0599                 SWB_RSP:
+   0599   db 53                 IN      SDDAT
+   059b   fe ff                 CPI     0FFH
+   059d   c2 a4 05              JNZ     SWB_GOT
+   05a0   05                    DCR     B
+   05a1   c2 99 05              JNZ     SWB_RSP
+   05a4                 SWB_GOT:
+   05a4   e6 1f                 ANI     1FH             ; response bits 0-4; 05h = accepted
+   05a6   fe 05                 CPI     05H
+   05a8   c2 b9 05              JNZ     SWB_ERR         ; CRC error / write rejected / no response
                                 ; wait for the card to finish programming BEFORE releasing CS, so the
                                 ; next command is not issued into a busy card
-   05a5   cd 8c 04              CALL    SD_READY
-   05a8   b7                    ORA     A
-   05a9   c2 b3 05              JNZ     SWB_ERR
-   05ac                 SWB_DONE:
-   05ac   3e 01                 MVI     A,01H
-   05ae   d3 54                 OUT     SDCTL           ; release CS
-   05b0   3e 00                 MVI     A,00H
-   05b2   c9                    RET
-   05b3                 SWB_ERR:
-   05b3   3e 01                 MVI     A,01H
-   05b5   d3 54                 OUT     SDCTL
-   05b7   3e ff                 MVI     A,0FFH
-   05b9   c9                    RET
+   05ab   cd 92 04              CALL    SD_READY
+   05ae   b7                    ORA     A
+   05af   c2 b9 05              JNZ     SWB_ERR
+   05b2                 SWB_DONE:
+   05b2   3e 01                 MVI     A,01H
+   05b4   d3 54                 OUT     SDCTL           ; release CS
+   05b6   3e 00                 MVI     A,00H
+   05b8   c9                    RET
+   05b9                 SWB_ERR:
+   05b9   3e 01                 MVI     A,01H
+   05bb   d3 54                 OUT     SDCTL
+   05bd   3e ff                 MVI     A,0FFH
+   05bf   c9                    RET
                         
                         ; SDCCS: read OCR (CMD58), return A = 0x40 (SDHC/SDXC) or 0 (SDSC).
-   05ba                 SDCCS:
-   05ba   21 9b 06              LXI     H,CMD58
-   05bd   cd a9 04              CALL    SD_SEND6
-   05c0   db 53                 IN      SDDAT
-   05c2   e6 40                 ANI     40H
-   05c4   4f                    MOV     C,A
-   05c5   db 53                 IN      SDDAT
-   05c7   db 53                 IN      SDDAT
-   05c9   db 53                 IN      SDDAT
-   05cb   79                    MOV     A,C
-   05cc   c9                    RET
+   05c0                 SDCCS:
+   05c0   21 cb 06              LXI     H,CMD58
+   05c3   cd af 04              CALL    SD_SEND6
+   05c6   db 53                 IN      SDDAT
+   05c8   e6 40                 ANI     40H
+   05ca   4f                    MOV     C,A
+   05cb   db 53                 IN      SDDAT
+   05cd   db 53                 IN      SDDAT
+   05cf   db 53                 IN      SDDAT
+   05d1   79                    MOV     A,C
+   05d2   c9                    RET
                         
                         ; SD_CID: read 16-byte CID via CMD9 into CIDBUF.  A = 0 ok / 0FFh err.
-   05cd                 SD_CID:
-   05cd   3e 00                 MVI     A,00H
-   05cf   d3 54                 OUT     SDCTL           ; select, fast
-   05d1   21 a1 06              LXI     H,CMD9
-   05d4   cd a9 04              CALL    SD_SEND6        ; A = R1 (should be 00)
-   05d7   fe 00                 CPI     00H
-   05d9   c2 fa 05              JNZ     SDCID_TE
-   05dc   cd c6 04              CALL    SD_WAITTKN      ; wait for the 0FEh data-start token
-   05df   da fa 05              JC      SDCID_TE
-   05e2   21 5d 08              LXI     H,CIDBUF
-   05e5   06 10                 MVI     B,16
-   05e7                 SDCID_L:
-   05e7   db 53                 IN      SDDAT
-   05e9   77                    MOV     M,A
-   05ea   23                    INX     H
-   05eb   05                    DCR     B
-   05ec   c2 e7 05              JNZ     SDCID_L
-   05ef   db 53                 IN      SDDAT           ; 2 CRC bytes
-   05f1   db 53                 IN      SDDAT
-   05f3   3e 01                 MVI     A,01H
-   05f5   d3 54                 OUT     SDCTL           ; release CS
-   05f7   3e 00                 MVI     A,00H
-   05f9   c9                    RET
-   05fa                 SDCID_TE:
-   05fa   3e 01                 MVI     A,01H
-   05fc   d3 54                 OUT     SDCTL           ; release CS
-   05fe   3e ff                 MVI     A,0FFH
-   0600   c9                    RET
+   05d3                 SD_CID:
+   05d3   3e 00                 MVI     A,00H
+   05d5   d3 54                 OUT     SDCTL           ; select, fast
+   05d7   21 d1 06              LXI     H,CMD9
+   05da   cd af 04              CALL    SD_SEND6        ; A = R1 (should be 00)
+   05dd   fe 00                 CPI     00H
+   05df   c2 00 06              JNZ     SDCID_TE
+   05e2   cd cc 04              CALL    SD_WAITTKN      ; wait for the 0FEh data-start token
+   05e5   da 00 06              JC      SDCID_TE
+   05e8   21 8d 08              LXI     H,CIDBUF
+   05eb   06 10                 MVI     B,16
+   05ed                 SDCID_L:
+   05ed   db 53                 IN      SDDAT
+   05ef   77                    MOV     M,A
+   05f0   23                    INX     H
+   05f1   05                    DCR     B
+   05f2   c2 ed 05              JNZ     SDCID_L
+   05f5   db 53                 IN      SDDAT           ; 2 CRC bytes
+   05f7   db 53                 IN      SDDAT
+   05f9   3e 01                 MVI     A,01H
+   05fb   d3 54                 OUT     SDCTL           ; release CS
+   05fd   3e 00                 MVI     A,00H
+   05ff   c9                    RET
+   0600                 SDCID_TE:
+   0600   3e 01                 MVI     A,01H
+   0602   d3 54                 OUT     SDCTL           ; release CS
+   0604   3e ff                 MVI     A,0FFH
+   0606   c9                    RET
                         
                         ; INCBLK: increment the 32-bit block number BLKN[0..3] by 1.
-   0601                 INCBLK:
-   0601   3a 58 08              LDA     BLKN+3
-   0604   3c                    INR     A
-   0605   32 58 08              STA     BLKN+3
-   0608   c2 26 06              JNZ     INCD
-   060b   3a 57 08              LDA     BLKN+2
-   060e   3c                    INR     A
-   060f   32 57 08              STA     BLKN+2
-   0612   c2 26 06              JNZ     INCD
-   0615   3a 56 08              LDA     BLKN+1
-   0618   3c                    INR     A
-   0619   32 56 08              STA     BLKN+1
-   061c   c2 26 06              JNZ     INCD
-   061f   3a 55 08              LDA     BLKN+0
-   0622   3c                    INR     A
-   0623   32 55 08              STA     BLKN+0
-   0626                 INCD:
-   0626   c9                    RET
+   0607                 INCBLK:
+   0607   3a 88 08              LDA     BLKN+3
+   060a   3c                    INR     A
+   060b   32 88 08              STA     BLKN+3
+   060e   c2 2c 06              JNZ     INCD
+   0611   3a 87 08              LDA     BLKN+2
+   0614   3c                    INR     A
+   0615   32 87 08              STA     BLKN+2
+   0618   c2 2c 06              JNZ     INCD
+   061b   3a 86 08              LDA     BLKN+1
+   061e   3c                    INR     A
+   061f   32 86 08              STA     BLKN+1
+   0622   c2 2c 06              JNZ     INCD
+   0625   3a 85 08              LDA     BLKN+0
+   0628   3c                    INR     A
+   0629   32 85 08              STA     BLKN+0
+   062c                 INCD:
+   062c   c9                    RET
+                        
+                        ; BLSYS: add SD_SYS (the reserved system-area sector count) to the 32-bit BLKN
+                        ; (MSB first) so the formatter skips the reserved system area.  Clobbers A.
+   062d                 BLSYS:
+   062d   3a 88 08              LDA     BLKN+3
+   0630   c6 10                 ADI     SD_SYS          ; SD_SYS < 256 (16 in the SD build)
+   0632   32 88 08              STA     BLKN+3
+   0635   d2 56 06              JNC     BLSYS_DONE
+   0638   3a 87 08              LDA     BLKN+2
+   063b   c6 01                 ADI     01H
+   063d   32 87 08              STA     BLKN+2
+   0640   d2 56 06              JNC     BLSYS_DONE
+   0643   3a 86 08              LDA     BLKN+1
+   0646   c6 01                 ADI     01H
+   0648   32 86 08              STA     BLKN+1
+   064b   d2 56 06              JNC     BLSYS_DONE
+   064e   3a 85 08              LDA     BLKN+0
+   0651   c6 01                 ADI     01H
+   0653   32 85 08              STA     BLKN+0
+   0656                 BLSYS_DONE:
+   0656   c9                    RET
                         
                         ; ---------------- console / numeric helpers ----------------
-   0627                 PSTR:
-   0627   54                    MOV     D,H
-   0628   5d                    MOV     E,L
-   0629   0e 09                 MVI     C,9
-   062b   cd 05 00              CALL    5
-   062e   c9                    RET
-   062f                 CPUTC:
-   062f   0e 02                 MVI     C,2
-   0631   cd 05 00              CALL    5
-   0634   c9                    RET
-   0635                 CIN:
-   0635   0e 01                 MVI     C,1
-   0637   cd 05 00              CALL    5
-   063a   c9                    RET
-   063b                 CRLF:
-   063b   1e 0d                 MVI     E,13
-   063d   cd 2f 06              CALL    CPUTC
-   0640   1e 0a                 MVI     E,10
-   0642   cd 2f 06              CALL    CPUTC
-   0645   c9                    RET
-   0646                 PRHEX2:                         ; print A as 2 hex digits
-   0646   32 41 08              STA     HEXV
-   0649   3a 41 08              LDA     HEXV
-   064c   0f                    RRC
-   064d   0f                    RRC
-   064e   0f                    RRC
-   064f   0f                    RRC
-   0650   e6 0f                 ANI     0FH
-   0652   cd 5e 06              CALL    PRNIB
-   0655   3a 41 08              LDA     HEXV
-   0658   e6 0f                 ANI     0FH
-   065a   cd 5e 06              CALL    PRNIB
-   065d   c9                    RET
-   065e                 PRNIB:
-   065e   fe 0a                 CPI     0AH
-   0660   da 65 06              JC      PRI_NUM
-   0663   c6 07                 ADI     07H
-   0665                 PRI_NUM:
-   0665   c6 30                 ADI     '0'
-   0667   5f                    MOV     E,A
-   0668   cd 2f 06              CALL    CPUTC
-   066b   c9                    RET
+   0657                 PSTR:
+   0657   54                    MOV     D,H
+   0658   5d                    MOV     E,L
+   0659   0e 09                 MVI     C,9
+   065b   cd 05 00              CALL    5
+   065e   c9                    RET
+   065f                 CPUTC:
+   065f   0e 02                 MVI     C,2
+   0661   cd 05 00              CALL    5
+   0664   c9                    RET
+   0665                 CIN:
+   0665   0e 01                 MVI     C,1
+   0667   cd 05 00              CALL    5
+   066a   c9                    RET
+   066b                 CRLF:
+   066b   1e 0d                 MVI     E,13
+   066d   cd 5f 06              CALL    CPUTC
+   0670   1e 0a                 MVI     E,10
+   0672   cd 5f 06              CALL    CPUTC
+   0675   c9                    RET
+   0676                 PRHEX2:                         ; print A as 2 hex digits
+   0676   32 71 08              STA     HEXV
+   0679   3a 71 08              LDA     HEXV
+   067c   0f                    RRC
+   067d   0f                    RRC
+   067e   0f                    RRC
+   067f   0f                    RRC
+   0680   e6 0f                 ANI     0FH
+   0682   cd 8e 06              CALL    PRNIB
+   0685   3a 71 08              LDA     HEXV
+   0688   e6 0f                 ANI     0FH
+   068a   cd 8e 06              CALL    PRNIB
+   068d   c9                    RET
+   068e                 PRNIB:
+   068e   fe 0a                 CPI     0AH
+   0690   da 95 06              JC      PRI_NUM
+   0693   c6 07                 ADI     07H
+   0695                 PRI_NUM:
+   0695   c6 30                 ADI     '0'
+   0697   5f                    MOV     E,A
+   0698   cd 5f 06              CALL    CPUTC
+   069b   c9                    RET
                         ; PRHEX32: print 4 bytes at (HL) as 8 hex digits (little-endian display order).
-   066c                 PRHEX32:
-   066c   06 04                 MVI     B,4
-   066e                 P32_L:
-   066e   7e                    MOV     A,M
-   066f   e5                    PUSH    H
-   0670   c5                    PUSH    B
-   0671   cd 46 06              CALL    PRHEX2
-   0674   c1                    POP     B
-   0675   e1                    POP     H
-   0676   23                    INX     H
-   0677   05                    DCR     B
-   0678   c2 6e 06              JNZ     P32_L
-   067b   c9                    RET
+   069c                 PRHEX32:
+   069c   06 04                 MVI     B,4
+   069e                 P32_L:
+   069e   7e                    MOV     A,M
+   069f   e5                    PUSH    H
+   06a0   c5                    PUSH    B
+   06a1   cd 76 06              CALL    PRHEX2
+   06a4   c1                    POP     B
+   06a5   e1                    POP     H
+   06a6   23                    INX     H
+   06a7   05                    DCR     B
+   06a8   c2 9e 06              JNZ     P32_L
+   06ab   c9                    RET
                         
                         ; ADDH: HL = HL + A (small offset; uses B, no BDOS call).
-   067c                 ADDH:
-   067c   47                    MOV     B,A
-   067d                 ADDH_L:
-   067d   23                    INX     H
-   067e   05                    DCR     B
-   067f   c2 7d 06              JNZ     ADDH_L
-   0682   c9                    RET
+   06ac                 ADDH:
+   06ac   47                    MOV     B,A
+   06ad                 ADDH_L:
+   06ad   23                    INX     H
+   06ae   05                    DCR     B
+   06af   c2 ad 06              JNZ     ADDH_L
+   06b2   c9                    RET
                         
                         ; ---------------- data ----------------
-   0683   40 00 00 00   CMD0:   DB      40H,00H,00H,00H,00H,95H
-   0687   00 95         
-   0689   48 00 00 01   CMD8:   DB      48H,00H,00H,01H,0AAH,87H
-   068d   aa 87         
-   068f   77 00 00 00   CMD55:  DB      77H,00H,00H,00H,00H,65H
-   0693   00 65         
-   0695   69 40 00 00   ACMD41: DB      69H,40H,00H,00H,00H,77H
-   0699   00 77         
-   069b   7a 00 00 00   CMD58:  DB      7AH,00H,00H,00H,00H,0FDH
-   069f   00 fd         
-   06a1   49 00 00 00   CMD9:   DB      49H,00H,00H,00H,00H,0FFH
-   06a5   00 ff         
+   06b3   40 00 00 00   CMD0:   DB      40H,00H,00H,00H,00H,95H
+   06b7   00 95         
+   06b9   48 00 00 01   CMD8:   DB      48H,00H,00H,01H,0AAH,87H
+   06bd   aa 87         
+   06bf   77 00 00 00   CMD55:  DB      77H,00H,00H,00H,00H,65H
+   06c3   00 65         
+   06c5   69 40 00 00   ACMD41: DB      69H,40H,00H,00H,00H,77H
+   06c9   00 77         
+   06cb   7a 00 00 00   CMD58:  DB      7AH,00H,00H,00H,00H,0FDH
+   06cf   00 fd         
+   06d1   49 00 00 00   CMD9:   DB      49H,00H,00H,00H,00H,0FFH
+   06d5   00 ff         
                         
-   06a7   53 44 54 4f   BANNER: DB      'SDTOOL v0.1 - Brevia2 SD partition/format/test',13,10,'I=info P=part C=create F=format Q=quit',13,10,'$'
-   06ab   4f 4c 20 76   
-   06af   30 2e 31 20   
-   06b3   2d 20 42 72   
-   06b7   65 76 69 61   
-   06bb   32 20 53 44   
-   06bf   20 70 61 72   
-   06c3   74 69 74 69   
-   06c7   6f 6e 2f 66   
-   06cb   6f 72 6d 61   
-   06cf   74 2f 74 65   
-   06d3   73 74 0d 0a   
-   06d7   49 3d 69 6e   
-   06db   66 6f 20 50   
-   06df   3d 70 61 72   
-   06e3   74 20 43 3d   
-   06e7   63 72 65 61   
-   06eb   74 65 20 46   
-   06ef   3d 66 6f 72   
-   06f3   6d 61 74 20   
-   06f7   51 3d 71 75   
-   06fb   69 74 0d 0a   
-   06ff   24            
-   0700   0d 0a 3f 24   MSG_UNK: DB     13,10,'?','$'
-   0704   0d 0a 4e 4f   MSG_NOINIT: DB  13,10,'NO CARD / init failed','$'
-   0708   20 43 41 52   
-   070c   44 20 2f 20   
-   0710   69 6e 69 74   
-   0714   20 66 61 69   
-   0718   6c 65 64 24   
-   071c   49 4e 49 54   MSG_INITOK: DB  'INIT ok','$'
-   0720   20 6f 6b 24   
-   0724   0d 0a 54 59   MSG_SDHC: DB    13,10,'TYPE: SDHC/SDXC (block addressing)','$'
-   0728   50 45 3a 20   
-   072c   53 44 48 43   
-   0730   2f 53 44 58   
-   0734   43 20 28 62   
-   0738   6c 6f 63 6b   
-   073c   20 61 64 64   
-   0740   72 65 73 73   
-   0744   69 6e 67 29   
-   0748   24            
-   0749   0d 0a 54 59   MSG_SDSC: DB    13,10,'TYPE: SDSC (byte addressing)','$'
-   074d   50 45 3a 20   
-   0751   53 44 53 43   
-   0755   20 28 62 79   
-   0759   74 65 20 61   
-   075d   64 64 72 65   
-   0761   73 73 69 6e   
-   0765   67 29 24      
-   0768   0d 0a 43 49   MSG_CID: DB     13,10,'CID: ID=','$'
-   076c   44 3a 20 49   
-   0770   44 3d 24      
-   0773   0d 0a 20 20   MSG_SN:  DB     13,10,'    SN=','$'
-   0777   20 20 53 4e   
-   077b   3d 24         
-   077d   0d 0a 43 49   MSG_CIDERR: DB  13,10,'CID read failed','$'
-   0781   44 20 72 65   
-   0785   61 64 20 66   
-   0789   61 69 6c 65   
-   078d   64 24         
-   078f   0d 0a 62 6c   MSG_RDOK: DB    13,10,'block 0 read OK','$'
-   0793   6f 63 6b 20   
-   0797   30 20 72 65   
-   079b   61 64 20 4f   
-   079f   4b 24         
-   07a1   0d 0a 62 6c   MSG_RDERR: DB   13,10,'block read failed','$'
-   07a5   6f 63 6b 20   
-   07a9   72 65 61 64   
-   07ad   20 66 61 69   
-   07b1   6c 65 64 24   
-   07b5   0d 0a 4d 42   MSG_MBR: DB     13,10,'MBR:  parts (stat/type/LBA/size):','$'
-   07b9   52 3a 20 20   
-   07bd   70 61 72 74   
-   07c1   73 20 28 73   
-   07c5   74 61 74 2f   
-   07c9   74 79 70 65   
-   07cd   2f 4c 42 41   
-   07d1   2f 73 69 7a   
-   07d5   65 29 3a 24   
-   07d9   0d 0a 4d 42   MSG_NOMBR: DB   13,10,'MBR: none (raw)','$'
-   07dd   52 3a 20 6e   
-   07e1   6f 6e 65 20   
-   07e5   28 72 61 77   
-   07e9   29 24         
-   07eb   0d 0a 77 72   MSG_WERR: DB    13,10,'write failed','$'
-   07ef   69 74 65 20   
-   07f3   66 61 69 6c   
-   07f7   65 64 24      
-   07fa   0d 0a 4d 42   MSG_WROTE: DB   13,10,'MBR written (1 CP/M partition, type 53h)','$'
-   07fe   52 20 77 72   
-   0802   69 74 74 65   
-   0806   6e 20 28 31   
-   080a   20 43 50 2f   
-   080e   4d 20 70 61   
-   0812   72 74 69 74   
-   0816   69 6f 6e 2c   
-   081a   20 74 79 70   
-   081e   65 20 35 33   
-   0822   68 29 24      
-   0825   0d 0a 66 6f   MSG_FMT:  DB    13,10,'format: directory written','$'
-   0829   72 6d 61 74   
-   082d   3a 20 64 69   
-   0831   72 65 63 74   
-   0835   6f 72 79 20   
-   0839   77 72 69 74   
-   083d   74 65 6e 24   
+   06d7   53 44 54 4f   BANNER: DB      'SDTOOL v0.1 - Brevia2 SD partition/format/test',13,10,'I=info P=part C=create F=format Q=quit',13,10,'$'
+   06db   4f 4c 20 76   
+   06df   30 2e 31 20   
+   06e3   2d 20 42 72   
+   06e7   65 76 69 61   
+   06eb   32 20 53 44   
+   06ef   20 70 61 72   
+   06f3   74 69 74 69   
+   06f7   6f 6e 2f 66   
+   06fb   6f 72 6d 61   
+   06ff   74 2f 74 65   
+   0703   73 74 0d 0a   
+   0707   49 3d 69 6e   
+   070b   66 6f 20 50   
+   070f   3d 70 61 72   
+   0713   74 20 43 3d   
+   0717   63 72 65 61   
+   071b   74 65 20 46   
+   071f   3d 66 6f 72   
+   0723   6d 61 74 20   
+   0727   51 3d 71 75   
+   072b   69 74 0d 0a   
+   072f   24            
+   0730   0d 0a 3f 24   MSG_UNK: DB     13,10,'?','$'
+   0734   0d 0a 4e 4f   MSG_NOINIT: DB  13,10,'NO CARD / init failed','$'
+   0738   20 43 41 52   
+   073c   44 20 2f 20   
+   0740   69 6e 69 74   
+   0744   20 66 61 69   
+   0748   6c 65 64 24   
+   074c   49 4e 49 54   MSG_INITOK: DB  'INIT ok','$'
+   0750   20 6f 6b 24   
+   0754   0d 0a 54 59   MSG_SDHC: DB    13,10,'TYPE: SDHC/SDXC (block addressing)','$'
+   0758   50 45 3a 20   
+   075c   53 44 48 43   
+   0760   2f 53 44 58   
+   0764   43 20 28 62   
+   0768   6c 6f 63 6b   
+   076c   20 61 64 64   
+   0770   72 65 73 73   
+   0774   69 6e 67 29   
+   0778   24            
+   0779   0d 0a 54 59   MSG_SDSC: DB    13,10,'TYPE: SDSC (byte addressing)','$'
+   077d   50 45 3a 20   
+   0781   53 44 53 43   
+   0785   20 28 62 79   
+   0789   74 65 20 61   
+   078d   64 64 72 65   
+   0791   73 73 69 6e   
+   0795   67 29 24      
+   0798   0d 0a 43 49   MSG_CID: DB     13,10,'CID: ID=','$'
+   079c   44 3a 20 49   
+   07a0   44 3d 24      
+   07a3   0d 0a 20 20   MSG_SN:  DB     13,10,'    SN=','$'
+   07a7   20 20 53 4e   
+   07ab   3d 24         
+   07ad   0d 0a 43 49   MSG_CIDERR: DB  13,10,'CID read failed','$'
+   07b1   44 20 72 65   
+   07b5   61 64 20 66   
+   07b9   61 69 6c 65   
+   07bd   64 24         
+   07bf   0d 0a 62 6c   MSG_RDOK: DB    13,10,'block 0 read OK','$'
+   07c3   6f 63 6b 20   
+   07c7   30 20 72 65   
+   07cb   61 64 20 4f   
+   07cf   4b 24         
+   07d1   0d 0a 62 6c   MSG_RDERR: DB   13,10,'block read failed','$'
+   07d5   6f 63 6b 20   
+   07d9   72 65 61 64   
+   07dd   20 66 61 69   
+   07e1   6c 65 64 24   
+   07e5   0d 0a 4d 42   MSG_MBR: DB     13,10,'MBR:  parts (stat/type/LBA/size):','$'
+   07e9   52 3a 20 20   
+   07ed   70 61 72 74   
+   07f1   73 20 28 73   
+   07f5   74 61 74 2f   
+   07f9   74 79 70 65   
+   07fd   2f 4c 42 41   
+   0801   2f 73 69 7a   
+   0805   65 29 3a 24   
+   0809   0d 0a 4d 42   MSG_NOMBR: DB   13,10,'MBR: none (raw)','$'
+   080d   52 3a 20 6e   
+   0811   6f 6e 65 20   
+   0815   28 72 61 77   
+   0819   29 24         
+   081b   0d 0a 77 72   MSG_WERR: DB    13,10,'write failed','$'
+   081f   69 74 65 20   
+   0823   66 61 69 6c   
+   0827   65 64 24      
+   082a   0d 0a 4d 42   MSG_WROTE: DB   13,10,'MBR written (1 CP/M partition, type 53h)','$'
+   082e   52 20 77 72   
+   0832   69 74 74 65   
+   0836   6e 20 28 31   
+   083a   20 43 50 2f   
+   083e   4d 20 70 61   
+   0842   72 74 69 74   
+   0846   69 6f 6e 2c   
+   084a   20 74 79 70   
+   084e   65 20 35 33   
+   0852   68 29 24      
+   0855   0d 0a 66 6f   MSG_FMT:  DB    13,10,'format: directory written','$'
+   0859   72 6d 61 74   
+   085d   3a 20 64 69   
+   0861   72 65 63 74   
+   0865   6f 72 79 20   
+   0869   77 72 69 74   
+   086d   74 65 6e 24   
                         
-   0841                 HEXV:   DS      1
-   0842                 ENTPTR: DS      2
-   0844                 CMDR1:  DS      1
-   0845                 RBUF:   DS      8
-   084d                 ACMDIT: DS      1
-   084e                 ACMDR1: DS      1
-   084f                 CMDBUF: DS      6
-   0855                 BLKN:   DS      4               ; SD block number (MSB first)
-   0859                 REGBASE: DS      4               ; saved region-0 base BLKN (for the drive-D region-1 offset)
-   085d                 CIDBUF: DS      16
-   086d                 BLKBUF: DS      512
+   0871                 HEXV:   DS      1
+   0872                 ENTPTR: DS      2
+   0874                 CMDR1:  DS      1
+   0875                 RBUF:   DS      8
+   087d                 ACMDIT: DS      1
+   087e                 ACMDR1: DS      1
+   087f                 CMDBUF: DS      6
+   0885                 BLKN:   DS      4               ; SD block number (MSB first)
+   0889                 REGBASE: DS      4               ; saved region-0 base BLKN (for the drive-D region-1 offset)
+   088d                 CIDBUF: DS      16
+   089d                 BLKBUF: DS      512
 2 Error(s)
-   0a6d                         END
-0695  ACMD41        084d  ACMDIT        084e  ACMDR1        067c  ADDH      
-067d  ADDH_L        00ff  AL0V          00ff  AL1V          06a7  BANNER    
-086d  BLKBUF        0855  BLKN          003f  BLM           0006  BSH       
-02af  CC_OK         030c  CC_WOK        02b4  CC_Z          0377  CF_DO     
-037d  CF_F          03a0  CF_LP         03e8  CF_LP2        033e  CF_MBROK  
-0327  CF_OK         03e6  CF_R1         0367  CF_RAW        03b4  CF_WOK    
-03fc  CF_WOK2       085d  CIDBUF        0635  CIN           0185  CI_AFTTYPE
-01f7  CI_BLKERR     0199  CI_CIDOK      01af  CI_NM         0166  CI_OK     
-017f  CI_SC         0683  CMD0          068f  CMD55         069b  CMD58     
-0689  CMD8          06a1  CMD9          084f  CMDBUF        0844  CMDR1     
-029e  CMD_CREATE    0316  CMD_FORMAT    0155  CMD_INFO      0201  CMD_PART  
-062f  CPUTC         024a  CP_LP         0229  CP_MBROK      0294  CP_NOMBR  
-0212  CP_OK         063b  CRLF          04d7  DELAYMS       04da  DLMS      
-0fff  DRM           03ff  DSM           0842  ENTPTR        0003  EXM       
-0841  HEXV          0601  INCBLK        0626  INCD          0106  MAINLOOP  
-011a  ML1           0130  ML_C          013b  ML_F          0125  ML_P      
-0146  ML_Q          014c  ML_UNK        0768  MSG_CID       077d  MSG_CIDERR
-0825  MSG_FMT       071c  MSG_INITOK    07b5  MSG_MBR       0704  MSG_NOINIT
-07d9  MSG_NOMBR     07a1  MSG_RDERR     078f  MSG_RDOK      0724  MSG_SDHC  
-0749  MSG_SDSC      0773  MSG_SN        0700  MSG_UNK       07eb  MSG_WERR  
-07fa  MSG_WROTE     066e  P32_L         0001  PARTLBA0      0000  PARTSEC0  
-0000  PARTSEC1      0002  PARTSEC2      0000  PARTSEC3      0053  PMTYPE    
-0646  PRHEX2        066c  PRHEX32       0665  PRI_NUM       065e  PRNIB     
-0627  PSTR          0845  RBUF          0859  REGBASE       04c5  SD6_DONE  
-04ba  SD6_RX        04b0  SD6_TX        05ba  SDCCS         05e7  SDCID_L   
-05fa  SDCID_TE      0054  SDCTL         0053  SDDAT         040d  SDINIT    
-041a  SDI_CK        0486  SDI_FAIL      0445  SDI_FR1       0455  SDI_HAVE  
-0489  SDI_OK        046e  SDI_RDY       0438  SDI_RX        0456  SDI_ST1   
-042b  SDI_TX        048f  SDRDY0        0492  SDRDY1        04a6  SDRDY_OK  
-0055  SDSTAT        05cd  SD_CID        04ef  SD_READBLKN    048c  SD_READY  
-04a9  SD_SEND6      04e1  SD_SETBLK0    04c6  SD_WAITTKN    0547  SD_WRITEBLKN
-04c8  SD_WT         04d5  SD_WT_OK      0020  SPT           0540  SRB_ERR   
-052b  SRB_LP        0100  START         05ac  SWB_DONE      05b3  SWB_ERR   
-059e  SWB_GOT       0581  SWB_LP        0593  SWB_RSP       
+   0a9d                         END
+06c5  ACMD41        087d  ACMDIT        087e  ACMDR1        06ac  ADDH      
+06ad  ADDH_L        00ff  AL0V          00ff  AL1V          06d7  BANNER    
+089d  BLKBUF        0885  BLKN          003f  BLM           062d  BLSYS     
+0656  BLSYS_DONE    0006  BSH           02af  CC_OK         030c  CC_WOK    
+02b4  CC_Z          0377  CF_DO         037d  CF_F          03a3  CF_LP     
+03ee  CF_LP2        033e  CF_MBROK      0327  CF_OK         03e9  CF_R1     
+0367  CF_RAW        03b7  CF_WOK        0402  CF_WOK2       088d  CIDBUF    
+0665  CIN           0185  CI_AFTTYPE    01f7  CI_BLKERR     0199  CI_CIDOK  
+01af  CI_NM         0166  CI_OK         017f  CI_SC         06b3  CMD0      
+06bf  CMD55         06cb  CMD58         06b9  CMD8          06d1  CMD9      
+087f  CMDBUF        0874  CMDR1         029e  CMD_CREATE    0316  CMD_FORMAT
+0155  CMD_INFO      0201  CMD_PART      065f  CPUTC         024a  CP_LP     
+0229  CP_MBROK      0294  CP_NOMBR      0212  CP_OK         066b  CRLF      
+04dd  DELAYMS       04e0  DLMS          0fff  DRM           03ff  DSM       
+0872  ENTPTR        0003  EXM           0871  HEXV          0607  INCBLK    
+062c  INCD          0106  MAINLOOP      011a  ML1           0130  ML_C      
+013b  ML_F          0125  ML_P          0146  ML_Q          014c  ML_UNK    
+0798  MSG_CID       07ad  MSG_CIDERR    0855  MSG_FMT       074c  MSG_INITOK
+07e5  MSG_MBR       0734  MSG_NOINIT    0809  MSG_NOMBR     07d1  MSG_RDERR 
+07bf  MSG_RDOK      0754  MSG_SDHC      0779  MSG_SDSC      07a3  MSG_SN    
+0730  MSG_UNK       081b  MSG_WERR      082a  MSG_WROTE     069e  P32_L     
+0001  PARTLBA0      0000  PARTSEC0      0000  PARTSEC1      0002  PARTSEC2  
+0000  PARTSEC3      0053  PMTYPE        0676  PRHEX2        069c  PRHEX32   
+0695  PRI_NUM       068e  PRNIB         0657  PSTR          0875  RBUF      
+0889  REGBASE       04cb  SD6_DONE      04c0  SD6_RX        04b6  SD6_TX    
+05c0  SDCCS         05ed  SDCID_L       0600  SDCID_TE      0054  SDCTL     
+0053  SDDAT         0413  SDINIT        0420  SDI_CK        048c  SDI_FAIL  
+044b  SDI_FR1       045b  SDI_HAVE      048f  SDI_OK        0474  SDI_RDY   
+043e  SDI_RX        045c  SDI_ST1       0431  SDI_TX        0495  SDRDY0    
+0498  SDRDY1        04ac  SDRDY_OK      0055  SDSTAT        05d3  SD_CID    
+04f5  SD_READBLKN    0492  SD_READY      04af  SD_SEND6      04e7  SD_SETBLK0
+0010  SD_SYS        04cc  SD_WAITTKN    054d  SD_WRITEBLKN    04ce  SD_WT     
+04db  SD_WT_OK      0020  SPT           0546  SRB_ERR       0531  SRB_LP    
+0100  START         05b2  SWB_DONE      05b9  SWB_ERR       05a4  SWB_GOT   
+0587  SWB_LP        0599  SWB_RSP       
 

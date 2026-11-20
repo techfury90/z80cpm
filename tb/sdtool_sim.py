@@ -365,21 +365,24 @@ def main():
             b0[446],b0[450], b0[454],b0[455],b0[456],b0[457], b0[458],b0[459],b0[460],b0[461], b0[510],b0[511]))
     else:
         print("  block 0 not written")
-    # verify the formatted directory (partition start = LBA 1) is 0xE5.
-    # 4KB-block / DRM=255 geometry: the directory = 2 blocks = 8KB = 16 SD
-    # sectors (blocks 1-16).  Check ALL of them -- a formatter that writes only
-    # the first N would leave the upper sectors stale (phantom dir entries).
+    # verify the formatted directory.  8KB-block / DRM=4095 geometry: two logical
+    #   drives (region 0 / region 1).  SD-primary reserves a 16-sector system
+    #   area per volume, so the directory/data area begins at REGBASE+SD_SYS:
+    #     region 0 (drive A) dir = SD blocks 17-272; region 1 (drive B) dir =
+    #     16401-16656 (region-0 base + 0x4000 + SD_SYS).  The reserved system
+    #   area (blocks 1-16 / 16385-16400) is NOT written by 'F' (it holds the
+    #   boot image) and stays 0xFF.
     bad=[]
-    # 8KB-block / DRM=4095 geometry: two logical drives (C: region 0, D: region 1).
-    #   each directory = 128KB = 256 SD sectors.  region 0 = SD blocks 1-256,
-    #   region 1 = SD blocks 16385-16640 (region-0 base + 0x4000).
-    for rng,label in [((1,257),'region0 (C:)'),((16385,16641),'region1 (D:)')]:
+    for rng,label in [((17,273),'region0 (A:)'),((16401,16657),'region1 (B:)')]:
         rbad=[b for b in range(*rng) if (SD.blocks.get(b) is None or not all(x==0xE5 for x in SD.blocks.get(b)))]
         print("  %s dir blocks %d-%d ALL 0xE5? : %s"%(
             label, rng[0], rng[1]-1, "YES" if not rbad else ("NO  (not E5: "+str(rbad[:8])+")")))
         bad.extend(rbad)
     b1=SD.blocks.get(1)
-    print("  partition LBA1 first 8 bytes:", [hex(x) for x in (b1 or bytearray(512))[:8]])
+    if not bad:
+        print("  system-area block 1 (should stay blank 0xFF):", [hex(x) for x in (b1 or bytearray(512))[:8]])
+    else:
+        print("  SOME DIR BLOCKS NOT 0xE5:", bad[:10])
     print("=== BDOS func counts ===", collections.Counter(bdos_calls))
 
 if __name__=='__main__':

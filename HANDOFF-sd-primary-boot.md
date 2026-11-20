@@ -22,12 +22,13 @@ and the legacy SPI-primary builds are assembled and verified in the simulator.
    (`SD_SETBLK0`/`SDWRIMG` + `SD_INCBLK`), and `WBOOT` reloads CCP+BDOS from it (`SDREADIMG`).
    The RAM-disk persist path is preserved behind the `CFG_SD_BUILD` build guard (SPI build keeps it).
 
-3. **SD card booting.** `GWMON` gained an `s` command (`gwmon/sdboot.inc`, wired into `smbrevia.asm`)
+3. **SD card booting.** `GWMON` gained an SD boot handler (`gwmon/sdboot.inc`, wired into `smbrevia.asm`)
    that carries its own self-contained SD init/read (it cannot use the CBIOS driver — that is what is
    being loaded), reads the image from the SD system area into 0xD000, then `JMP 0xE600`. The CBIOS
    BOOT self-provisions the card each cold boot, so a booted system always leaves a bootable image on
-   the SD. **Requires a Diamond bitstream rebuild** to bake the new GWMON (regenerated
-   `rtl/boot_rom.mem` + `rtl/boot_rom.v` are committed).
+   the SD. With SD as the DEFAULT boot device, the command table maps **`b` -> SD boot** (primary)
+   and **`s` -> SPI flash boot** (fallback). **Requires a Diamond bitstream rebuild** to bake the new
+   GWMON (regenerated `rtl/boot_rom.mem` + `rtl/boot_rom.v` are committed).
 
 4. **Drive-letter remap.** SD build: `A:`=SD region 0, `B:`=SD region 1, `C:`=SPI flash, `D:`=RAM
    disk. `SELDSK` returns the matching DPH; READ/WRITE dispatch routes SELBL 0/1 to the SD deblock,
@@ -90,7 +91,7 @@ and the legacy SPI-primary builds are assembled and verified in the simulator.
 
 ## Remaining (hardware)
 
-- Rebuild the bitstream (Diamond) to bake the new GWMON with the `s` SD-boot command
+- Rebuild the bitstream (Diamond) to bake the new GWMON with the SD-boot command
   (`rtl/boot_rom.mem` for the EBR pmi_rom variant / `rtl/boot_rom.v` for the LUT variant).
 - Bring-up: `diskutil C` (XMODEM `cpm/brevia2_cpm.bin`) still boots and now self-provisions the SD
-  system area via the CBIOS BOOT; then `s` at the GWMON prompt boots from the SD.
+  system area via the CBIOS BOOT; then `b` at the GWMON prompt boots from the SD (the DEFAULT boot).

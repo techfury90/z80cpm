@@ -32,15 +32,14 @@ CPMIMGLEN equ	2000H		;bytes of the boot image (padded to 0x2000; must match disk
 	INCLUDE	'scmdstd.inc'	;SM standard commands
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;BFLSH -- 'b' command: boot CP/M from the IS25LD040 SPI flash
-;Command-table entry only; the handler BFOOT lives in spiboot.inc.
+;Boot commands (SD is the DEFAULT boot device in the SD build):
+;   'b' -- boot CP/M from the SD card (handler SDBOOT in sdboot.inc)
+;   's' -- boot CP/M from the IS25LD040 SPI flash (fallback; handler BFOOT in spiboot.inc)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-BFLSH:	db	'b'
-	dw	BFOOT
-;BFSD -- 's' command: boot CP/M from the SD card (SD-primary boot)
-;Command-table entry only; the handler SDBOOT lives in sdboot.inc.
-BFSD:	db	's'
+BFSDBOOT:	db	'b'	;'b' = boot from SD (DEFAULT boot device in the SD build)
 	dw	SDBOOT
+BFLSH:	db	's'	;'s' = boot from the IS25LD040 SPI flash (fallback)
+	dw	BFOOT
 	INCLUDE 'scmdnull.inc'	;Command table terminator
 
 	INCLUDE 'sbruart.inc'	;Brevia2 custom 8N1 UART I/O

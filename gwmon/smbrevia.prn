@@ -563,15 +563,14 @@
                         
                         
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                        ;BFLSH -- 'b' command: boot CP/M from the IS25LD040 SPI flash
-                        ;Command-table entry only; the handler BFOOT lives in spiboot.inc.
+                        ;Boot commands (SD is the DEFAULT boot device in the SD build):
+                        ;   'b' -- boot CP/M from the SD card (handler SDBOOT in sdboot.inc)
+                        ;   's' -- boot CP/M from the IS25LD040 SPI flash (fallback; handler BFOOT in spiboot.inc)
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   01c6   62            BFLSH:	db	'b'
-   01c7   7d 02         	dw	BFOOT
-                        ;BFSD -- 's' command: boot CP/M from the SD card (SD-primary boot)
-                        ;Command-table entry only; the handler SDBOOT lives in sdboot.inc.
-   01c9   73            BFSD:	db	's'
-   01ca   c4 02         	dw	SDBOOT
+   01c6   62            BFSDBOOT:	db	'b'	;'b' = boot from SD (DEFAULT boot device in the SD build)
+   01c7   c4 02         	dw	SDBOOT
+   01c9   73            BFLSH:	db	's'	;'s' = boot from the IS25LD040 SPI flash (fallback)
+   01ca   7d 02         	dw	BFOOT
                         	INCLUDE 'scmdnull.inc'	;Command table terminator
                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                         ;SCMDNULL -- SM NULL Command
@@ -1103,8 +1102,8 @@
                         
                         
    0430                 	END
-0087  ASCHEX        01c6  BFLSH         027d  BFOOT         029e  BFOOT1    
-01c9  BFSD          fe00  BOOTCHK       0008  BS            0003  CANCEL    
+0087  ASCHEX        01c9  BFLSH         027d  BFOOT         029e  BFOOT1    
+01c6  BFSDBOOT      fe00  BOOTCHK       0008  BS            0003  CANCEL    
 0070  CIN           01ce  CINNE         0024  CMDLP         0036  CMDLP1    
 01b4  CMDTAB        01dd  COUT          01de  COUT1         0000  CPMIMG    
 2000  CPMIMGLEN     000d  CR            00e3  CRLF          010e  CSERR$    
